@@ -9,11 +9,21 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
 
+    'commandMap' => array(
+        'migrate' => array(
+            'class'          => 'system.cli.commands.MigrateCommand',
+            'migrationTable' => 'migrations',
+        ),
+    ),
 	// application components
 	'components'=>array(
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
+        'db'=>array(
+            'connectionString' => 'pgsql:host=localhost;dbname=mercher',
+            'emulatePrepare' => true,
+            'username' => 'postgres',
+            'password' => 'postgres',
+            'charset' => 'utf8',
+        ),
 		// uncomment the following to use a MySQL database
 		/*
 		'db'=>array(

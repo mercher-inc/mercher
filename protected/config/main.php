@@ -47,9 +47,11 @@ return array(
 			),
 		),
 		*/
+        /*
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),
+        */
 		// uncomment the following to use a MySQL database
 		/*
 		'db'=>array(
@@ -60,6 +62,13 @@ return array(
 			'charset' => 'utf8',
 		),
 		*/
+        'db'=>array(
+            'connectionString' => 'pgsql:host=localhost;port=5432;dbname=mercher',
+            'emulatePrepare' => true,
+            'username' => 'postgres',
+            'password' => 'postgres',
+            'charset' => 'utf8',
+        ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
