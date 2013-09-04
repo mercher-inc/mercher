@@ -1,59 +1,108 @@
-<?php /* @var $this Controller */ ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php
+/* @var $this Controller */
+/*
+Yii::app()->clientScript->registerScript(
+    'fb_get_profile',
+    'FB.login(function(response) {' .
+        'if (response.authResponse) {' .
+        'console.log(\'Welcome!  Fetching your information.... \');' .
+        'FB.api(\'/me\', function(response) {' .
+        'console.log(\'Good to see you, \' + response.name + \'.\');' .
+        '});' .
+        '} else {' .
+        'console.log(\'User cancelled login or did not fully authorize.\');' .
+        '}' .
+        '});',
+    ClientScript::POS_FB
+);
+*/
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="language" content="en"/>
 
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css"/>
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
+<div id="fb-root"></div>
 
-<div class="container" id="page">
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+<nav id="mainmenu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="<?php echo Yii::app()->createUrl('index/index') ?>"><?php echo CHtml::encode(
+                Yii::app()->name
+            ); ?></a>
+    </div>
+    <?php $this->widget(
+        'zii.widgets.CMenu',
+        array(
+            'items'       => array(
+                array(
+                    'label'   => 'Shops',
+                    'url'     => array('shops/index'),
+                    'visible' => !Yii::app()->user->isGuest
+                ),
+                array(
+                    'label'   => 'Tabs',
+                    'url'     => array('tabs/index'),
+                    'visible' => !Yii::app()->user->isGuest
+                ),
+            ),
+            'htmlOptions' => array(
+                'class' => 'nav navbar-nav'
+            )
+        )
+    ); ?>
+    <?php $this->widget(
+        'zii.widgets.CMenu',
+        array(
+            'items'       => array(
+                array('label' => 'About', 'url' => array('/index/page', 'view' => 'about')),
+                array('label' => 'Contact', 'url' => array('/index/contact'), 'visible' => Yii::app()->user->isGuest),
+                array('label' => 'Support', 'url' => array('/index/support'), 'visible' => !Yii::app()->user->isGuest),
+                array(
+                    'label'   => 'Login',
+                    'url'     => Yii::app()->facebook->getLoginUrl(),
+                    'visible' => Yii::app()->user->isGuest
+                ),
+                array(
+                    'label'   => 'Logout (' . Yii::app()->user->name . ')',
+                    'url'     => array('auth/logout'),
+                    'visible' => !Yii::app()->user->isGuest
+                )
+            ),
+            'htmlOptions' => array(
+                'class' => 'nav navbar-nav navbar-right'
+            )
+        )
+    ); ?>
+</nav>
+<!-- mainmenu -->
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/index/index')),
-				array('label'=>'About', 'url'=>array('/index/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/index/contact')),
-				array('label'=>'Login', 'url'=>array('/index/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/index/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+<div id="page">
+    <?php if (isset($this->breadcrumbs)): ?>
+        <?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+    <?php endif ?>
 
-	<?php echo $content; ?>
+    <?php echo $content; ?>
 
-	<div class="clear"></div>
+</div>
+<!-- page -->
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
+<hr/>
+<footer>
+    Copyright &copy; <?php echo date('Y'); ?> by Mercher.<br/>
+    All Rights Reserved.<br/>
+</footer>
+<!-- footer -->
 
 </body>
 </html>

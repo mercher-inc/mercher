@@ -20,4 +20,33 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+
+    protected function beforeRender($view)
+    {
+        Yii::app()->clientScript->registerScript(
+            'fb_init',
+            'FB.init(' . CJSON::encode(
+                array(
+                    'appId'  => Yii::app()->facebook->sdk->getAppId(),
+                    'cookie' => true,
+                    'xfbml'  => true,
+                    'status' => true
+                )
+            ) . ');',
+            ClientScript::POS_FB
+        );
+
+        Yii::app()->clientScript->registerScript(
+            'fb_load_the_SDK_asynchronously',
+            '(function(d, s, id){' .
+                'var js, fjs = d.getElementsByTagName(s)[0];' .
+                'if (d.getElementById(id)) {return;}' .
+                'js = d.createElement(s); js.id = id;' .
+                'js.src = "//connect.facebook.net/en_US/all.js";' .
+                'fjs.parentNode.insertBefore(js, fjs);' .
+                '}(document, \'script\', \'facebook-jssdk\'));',
+            ClientScript::POS_END
+        );
+        return true;
+    }
 }

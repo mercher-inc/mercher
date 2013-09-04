@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name'       => 'My Web Application',
+    'name'       => 'Mercher',
     // preloading 'log' component
     'preload'    => array('log'),
     // autoloading model and component classes
@@ -15,31 +15,36 @@ return array(
         'application.models.*',
         'application.components.*',
     ),
-    'modules'    => array(// uncomment the following to enable the Gii tool
-        /*
-        'gii'=>array(
-            'class'=>'system.gii.GiiModule',
-            'password'=>'Enter Your Password Here',
+    'modules'    => array( // uncomment the following to enable the Gii tool
+        'gii' => array(
+            'class'     => 'system.gii.GiiModule',
+            'password'  => '123',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters'=>array('127.0.0.1','::1'),
+            'ipFilters' => array('127.0.0.1', '::1'),
         ),
-        */
     ),
     // application components
     'components' => array(
         'user'         => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
+            'loginUrl'       => array('auth/login'),
         ),
         'urlManager'   => array(
             'urlFormat'      => 'path',
             'urlSuffix'      => '.html',
+            'baseUrl'        => 'http://mercher.dev',
             'caseSensitive'  => false,
             'showScriptName' => false,
-            'rules'=>array(
-                '' => 'index/index',
-                '<action:(login|logout|contact)>' => 'index/<action>',
+            'rules'          => array(
+                ''                   => 'index/index',
+                'login'              => 'auth/login',
+                'logout'             => 'auth/logout',
+                '<action:(contact)>' => 'index/<action>',
             ),
+        ),
+        'clientScript' => array(
+            'class'        => 'ClientScript'
         ),
         'db'           => array(
             'connectionString' => 'pgsql:host=localhost;port=5432;dbname=mercher',
@@ -70,7 +75,13 @@ return array(
         'facebook'     => array(
             'class'  => 'FB',
             'appId'  => '631238416902634',
-            'secret' => '4dfa1e0fef9fc2bf785d2a8d36e415a3'
+            'secret' => '4dfa1e0fef9fc2bf785d2a8d36e415a3',
+            'scope'  => array(
+                'email',
+                'publish_actions',
+                'manage_pages',
+                'publish_stream'
+            )
         ),
     ),
     // application-level parameters that can be accessed
