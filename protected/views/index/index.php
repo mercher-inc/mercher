@@ -2,6 +2,8 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
+
+var_dump(Yii::app()->facebook->sdk->getUser());
 ?>
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
