@@ -69,7 +69,12 @@ Yii::app()->clientScript->registerScript(
                 array(
                     'label'   => 'Login',
                     'url'     => Yii::app()->facebook->getLoginUrl(),
-                    'visible' => Yii::app()->user->isGuest
+                    'visible' => Yii::app()->user->isGuest,
+                    /*
+                    'linkOptions' => array(
+                        'target' => '_top'
+                    )
+                    */
                 ),
                 array(
                     'label'   => 'Logout (' . Yii::app()->user->name . ')',

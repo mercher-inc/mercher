@@ -30,7 +30,8 @@ class Controller extends CController
                     'appId'  => Yii::app()->facebook->sdk->getAppId(),
                     'cookie' => true,
                     'xfbml'  => true,
-                    'status' => true
+                    'status' => true,
+                    'channelUrl' => Yii::app()->urlManager->baseUrl . '/channel.html',
                 )
             ) . ');',
             ClientScript::POS_FB

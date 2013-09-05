@@ -8,6 +8,7 @@ class FB extends CComponent
     protected $_scope;
     public $appId;
     public $secret;
+    public $namespace;
 
 
     public function init()
@@ -44,8 +45,14 @@ class FB extends CComponent
             array(
                 'scope'        => $this->scope,
                 'redirect_uri' => Yii::app()->createUrl('auth/login')
+                //'redirect_uri' => $this->appUrl
             )
         );
+    }
+
+    public function getAppUrl()
+    {
+        return 'http://apps.facebook.com/' . $this->namespace . '/';
     }
 
 }

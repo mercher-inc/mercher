@@ -41,10 +41,12 @@ return array(
                 'login'              => 'auth/login',
                 'logout'             => 'auth/logout',
                 '<action:(contact)>' => 'index/<action>',
+                'shops'              => 'shops/index',
+                'tabs'               => 'tabs/index',
             ),
         ),
         'clientScript' => array(
-            'class'        => 'ClientScript'
+            'class' => 'ClientScript'
         ),
         'db'           => array(
             'connectionString' => 'pgsql:host=localhost;port=5432;dbname=mercher',
@@ -73,10 +75,11 @@ return array(
             ),
         ),
         'facebook'     => array(
-            'class'  => 'FB',
-            'appId'  => '631238416902634',
-            'secret' => '4dfa1e0fef9fc2bf785d2a8d36e415a3',
-            'scope'  => array(
+            'class'     => 'FB',
+            'appId'     => '631238416902634',
+            'secret'    => '4dfa1e0fef9fc2bf785d2a8d36e415a3',
+            'namespace' => 'mercherdev',
+            'scope'     => array(
                 'email',
                 'publish_actions',
                 'manage_pages',
