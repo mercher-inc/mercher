@@ -6,16 +6,18 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-    'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name'       => 'Mercher',
+    'basePath'       => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'name'           => 'Mercher',
     // preloading 'log' component
-    'preload'    => array('log'),
+    'preload'        => array('log'),
+    'sourceLanguage' => 'pseudo',
+    'language'       => 'en_US',
     // autoloading model and component classes
-    'import'     => array(
+    'import'         => array(
         'application.models.*',
         'application.components.*',
     ),
-    'modules'    => array( // uncomment the following to enable the Gii tool
+    'modules'        => array( // uncomment the following to enable the Gii tool
         'gii' => array(
             'class'     => 'system.gii.GiiModule',
             'password'  => '123',
@@ -24,29 +26,29 @@ return array(
         ),
     ),
     // application components
-    'components' => array(
+    'components'     => array(
         'user'         => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
-            'loginUrl'       => array('auth/login'),
+            'loginUrl'       => array('index/index'),
         ),
         'urlManager'   => array(
             'urlFormat'      => 'path',
             'urlSuffix'      => '.html',
-            'baseUrl'        => 'http://mercher.dev',
+            'baseUrl'        => 'http://' . $_SERVER['HTTP_HOST'],
             'caseSensitive'  => false,
             'showScriptName' => false,
             'rules'          => array(
-                ''                   => 'index/index',
-                'login'              => 'auth/login',
-                'logout'             => 'auth/logout',
-                '<action:(contact)>' => 'index/<action>',
-                'shops'              => 'shops/index',
-                'tabs'               => 'tabs/index',
+                ''        => 'index/index',
+                'logout'  => 'index/logout',
+                'contact' => 'index/contact',
+                'shops'   => 'shops/index',
+                'tabs'    => 'tabs/index',
             ),
         ),
         'clientScript' => array(
-            'class' => 'ClientScript'
+            'class' => 'ClientScript',
+            'packages'     => require(dirname(__FILE__) . '/clientScript/packages.php'),
         ),
         'db'           => array(
             'connectionString' => 'pgsql:host=localhost;port=5432;dbname=mercher',
@@ -89,8 +91,9 @@ return array(
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
-    'params'     => array(
+    'params'         => array(
         // this is used in contact page
         'adminEmail' => 'support@mercher.dev',
+        'isApp'      => preg_match('/^app./', $_SERVER['HTTP_HOST'])
     ),
 );

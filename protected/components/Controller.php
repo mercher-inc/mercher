@@ -50,4 +50,9 @@ class Controller extends CController
         );
         return true;
     }
+
+    protected function afterRender($view, &$output)
+    {
+        //var_dump($_SERVER);
+    }
 }

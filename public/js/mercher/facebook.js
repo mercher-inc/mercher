@@ -1,0 +1,1 @@
+Mercher.Facebook = {};

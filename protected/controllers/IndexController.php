@@ -45,9 +45,30 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
+        if (!Yii::app()->user->isGuest) {
+            if (Yii::app()->user->id != Yii::app()->facebook->sdk->getUser()) {
+                Yii::app()->user->logout();
+            } else {
+                $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
+            }
+        }
+        if (Yii::app()->request->getParam('code') or Yii::app()->request->getParam('signed_request')) {
+            $identity = new UserIdentity();
+            if ($identity->authenticate()) {
+                Yii::app()->user->login($identity, 3600 * 24 * 7);
+                $this->redirect(Yii::app()->user->returnUrl);
+            }
+        }
         $this->render('index');
+    }
+
+    /**
+     * Logs out the current user and redirect to homepage.
+     */
+    public function actionLogout()
+    {
+        Yii::app()->user->logout();
+        $this->redirect(Yii::app()->homeUrl);
     }
 
     /**

@@ -1,0 +1,1 @@
+Mercher.Facebook.Models.Pages = Mercher.Facebook.Models.Base.extend({});

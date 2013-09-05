@@ -41,11 +41,16 @@ class FB extends CComponent
 
     public function getLoginUrl()
     {
+        if (Yii::app()->params['isApp']) {
+            $redirect_uri = $this->appUrl;
+        } else {
+            $redirect_uri = Yii::app()->urlManager->createUrl('index/index');
+        }
+
         return $this->sdk->getLoginUrl(
             array(
                 'scope'        => $this->scope,
-                'redirect_uri' => Yii::app()->createUrl('auth/login')
-                //'redirect_uri' => $this->appUrl
+                'redirect_uri' => $redirect_uri
             )
         );
     }

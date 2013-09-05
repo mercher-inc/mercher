@@ -35,7 +35,7 @@ Yii::app()->clientScript->registerScript(
 
 <nav id="mainmenu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" href="<?php echo Yii::app()->createUrl('index/index') ?>"><?php echo CHtml::encode(
+        <a class="navbar-brand" href="<?php echo Yii::app()->urlManager->createUrl(Yii::app()->user->isGuest?'index/index':'shops/index') ?>"><?php echo CHtml::encode(
                 Yii::app()->name
             ); ?></a>
     </div>
@@ -63,23 +63,21 @@ Yii::app()->clientScript->registerScript(
         'zii.widgets.CMenu',
         array(
             'items'       => array(
-                array('label' => 'About', 'url' => array('/index/page', 'view' => 'about')),
-                array('label' => 'Contact', 'url' => array('/index/contact'), 'visible' => Yii::app()->user->isGuest),
-                array('label' => 'Support', 'url' => array('/index/support'), 'visible' => !Yii::app()->user->isGuest),
+                array('label' => 'About', 'url' => array('index/page', 'view' => 'about')),
+                array('label' => 'Contact', 'url' => array('index/contact'), 'visible' => Yii::app()->user->isGuest),
+                array('label' => 'Support', 'url' => array('support/index'), 'visible' => !Yii::app()->user->isGuest),
                 array(
                     'label'   => 'Login',
                     'url'     => Yii::app()->facebook->getLoginUrl(),
                     'visible' => Yii::app()->user->isGuest,
-                    /*
                     'linkOptions' => array(
                         'target' => '_top'
                     )
-                    */
                 ),
                 array(
                     'label'   => 'Logout (' . Yii::app()->user->name . ')',
-                    'url'     => array('auth/logout'),
-                    'visible' => !Yii::app()->user->isGuest
+                    'url'     => array('index/logout'),
+                    'visible' => !Yii::app()->user->isGuest // and !Yii::app()->params['isApp']
                 )
             ),
             'htmlOptions' => array(
