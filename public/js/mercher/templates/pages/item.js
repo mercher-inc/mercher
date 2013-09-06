@@ -13,6 +13,7 @@ Mercher.Templates.Pages.Item = _.template(
         '</td>' +
         '<td>' +
             '<div class="btn-group pull-right" style="white-space: nowrap;">' +
+                '<a href="//www.facebook.com/<%- model.get(\'username\') %>" target="_blank" class="btn btn-default">View page</a>' +
                 '<a href="//www.facebook.com/pages/edit_page/?id=<%- model.get(\'id\') %>" target="_blank" class="btn btn-default">Edit page</a>' +
             '</div>' +
         '</td>' +
