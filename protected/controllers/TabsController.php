@@ -14,8 +14,18 @@ class TabsController extends Controller
         $this->render('index');
     }
 
-    public function actionGet()
+    public function actionGet($tab_id)
     {
+        $product = new Products();
+        $product->model = 'New product';
+        $product->shop_id = 2;
+
+        if (!$product->save()) {
+            var_dump($product->getErrors());
+        }
+        var_dump($product);
+
+
         $this->render('get');
     }
 }

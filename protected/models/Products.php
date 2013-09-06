@@ -138,4 +138,40 @@ class Products extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    protected function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $ch   = curl_init();
+            $opts = array(
+                CURLOPT_CONNECTTIMEOUT => 10,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT        => 60,
+                CURLOPT_POSTFIELDS     => http_build_query(
+                    array(
+                        'access_token' => Yii::app()->facebook->sdk->getAppId() . '|' . Yii::app()->facebook->sdk->getAppSecret(),
+                        'object'       => CJSON::encode(
+                            array(
+                                'og:title'               => $this->model,
+                                'product:plural_title'   => 'Test products',
+                                'product:price:amount'   => '100',
+                                'product:price:currency' => 'USD'
+                            )
+                        )
+                    ),
+                    null,
+                    '&'
+                ),
+                CURLOPT_URL            => 'https://graph.facebook.com/app/objects/product',
+                CURLOPT_POST           => 1
+            );
+            curl_setopt_array($ch, $opts);
+            $result = CJSON::decode(curl_exec($ch));
+            $this->id = $result['id'];
+            return true;
+        } else {
+
+        }
+
+    }
 }
