@@ -48,6 +48,12 @@ class Controller extends CController
                 '}(document, \'script\', \'facebook-jssdk\'));',
             ClientScript::POS_END
         );
+
+        Yii::app()->clientScript->registerScript(
+            'fb_app_id',
+            'var fb_app_id = ' . CJSON::encode(Yii::app()->facebook->sdk->getAppId()) . ';',
+            ClientScript::POS_END
+        );
         return true;
     }
 

@@ -1,0 +1,1 @@
+Mercher.Views.Pages = {};

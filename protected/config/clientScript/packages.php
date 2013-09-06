@@ -124,6 +124,38 @@ return array(
             'mercher/templates/shops/item',
         ),
     ),
+    'mercher/views/pages'                => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/pages.js'
+        ),
+        'depends' => array(
+            'mercher/views'
+        ),
+    ),
+    'mercher/views/pages/list'           => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/pages/list.js'
+        ),
+        'depends' => array(
+            'mercher/views/pages',
+            'mercher/facebook/collections/pages',
+            'mercher/templates/pages/list',
+            'mercher/views/pages/item'
+        ),
+    ),
+    'mercher/views/pages/item'           => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/pages/item.js'
+        ),
+        'depends' => array(
+            'mercher/views/pages',
+            'mercher/facebook/models/pages',
+            'mercher/templates/pages/item',
+        ),
+    ),
     'mercher/templates/shops'            => array(
         'baseUrl' => '/',
         'js'      => array(
@@ -149,6 +181,33 @@ return array(
         ),
         'depends' => array(
             'mercher/templates/shops'
+        ),
+    ),
+    'mercher/templates/pages'            => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/pages.js'
+        ),
+        'depends' => array(
+            'mercher/templates'
+        ),
+    ),
+    'mercher/templates/pages/list'       => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/pages/list.js'
+        ),
+        'depends' => array(
+            'mercher/templates/pages'
+        ),
+    ),
+    'mercher/templates/pages/item'       => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/pages/item.js'
+        ),
+        'depends' => array(
+            'mercher/templates/pages'
         ),
     ),
     'mercher/facebook'                   => array(
