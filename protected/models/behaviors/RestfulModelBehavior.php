@@ -63,7 +63,7 @@ class RestfulModelBehavior extends CActiveRecordBehavior
         $form->attributes = $attributes;
         //validating the form
         if (!$form->validate()) {
-            throw new CHttpException(400);
+            throw new ValidationException(400, 'Errors', $form->errors);
         }
 
         //getting page and limit of collection

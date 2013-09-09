@@ -133,7 +133,13 @@ class Products extends CActiveRecord
             'application.models.behaviors.OgProductBehavior',
             'application.models.behaviors.SoftDeleteActiveRecordBehavior',
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
-            'application.models.behaviors.RevisionControlActiveRecordBehavior'
+            'application.models.behaviors.RevisionControlActiveRecordBehavior',
+            'restfulModelBehavior' => array(
+                'class'            => 'application.models.behaviors.RestfulModelBehavior',
+                'formClass'        => 'ProductsRestForm',
+                'notFoundMessage'  => Yii::t('error', 'products_not_found'),
+                'forbiddenMessage' => Yii::t('error', 'products_forbidden'),
+            )
         );
     }
 
@@ -147,4 +153,85 @@ class Products extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+}
+
+
+class ProductsRestForm extends CFormModel implements RestFormInterface
+{
+    public $shop_id;
+    public $product_id;
+    public $page;
+    public $limit;
+    public $with;
+    public $scopes;
+
+    public function rules()
+    {
+        return array(
+            array('shop_id', 'required'),
+            array('product_id', 'required', 'on' => array('read', 'update', 'delete')),
+            array('page', 'default', 'value' => 1),
+            array('limit', 'default', 'value' => 10),
+            array('with, scopes', 'default', 'value' => array()),
+            array('page, limit', 'type', 'type' => 'integer'),
+            array('shop_id, product_id', 'type', 'type' => 'integer'),
+        );
+    }
+
+    public function getModelIdParam()
+    {
+        return 'product_id';
+    }
+
+    public function getModelId()
+    {
+        return $this->product_id;
+    }
+
+    public function getUrl()
+    {
+        $context = array();
+        switch ($this->getScenario()) {
+            case 'list':
+            case 'create':
+                $route = 'api/products/list';
+                break;
+            case 'read':
+            case 'update':
+            case 'delete':
+            case 'patch':
+                $route = 'api/products/read';
+                if ($this->product_id !== null) {
+                    $context['product_id'] = $this->product_id;
+                }
+                break;
+            default:
+                $route = '';
+        }
+        if ($this->shop_id !== null) {
+            $context['shop_id'] = $this->shop_id;
+        }
+        if ($this->with !== null and is_array($this->with) and count($this->with)) {
+            $context['with'] = $this->with;
+        }
+        if ($this->scopes !== null and is_array($this->scopes) and count($this->scopes)) {
+            $context['scopes'] = $this->scopes;
+        }
+        return Yii::app()->urlManager->createUrl($route, $context);
+    }
+
+    public function getContext()
+    {
+        // user context
+        if ($this->shop_id !== null) {
+            $shop = Shops::model()->findByPk($this->shop_id);
+            if ($shop) {
+                return array($shop, 'products', 'products_count');
+            } else {
+                throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
+            }
+        }
+
+        return array(null, null, null);
+    }
 }

@@ -12,21 +12,23 @@
                     array(
                         'items'       => array(
                             array(
-                                'label' => 'Shop settings',
+                                'label' => Yii::t('label', 'shop_settings'),
                                 'url'   => array('shops/get', 'shop_id' => $this->shop->id)
                             ),
                             array(
-                                'label' => 'Categories',
+                                'label' => Yii::t('label', 'categories'),
                                 'url'   => array('categories/index', 'shop_id' => $this->shop->id)
                             ),
                             array(
-                                'label' => 'Products',
+                                'label' => Yii::t('label', 'products'),
                                 'url'   => array('products/index', 'shop_id' => $this->shop->id)
                             ),
+                            /*
                             array(
-                                'label' => 'Orders',
+                                'label' => Yii::t('label', 'orders'),
                                 'url'   => array('orders/index', 'shop_id' => $this->shop->id)
                             )
+                            */
                         ),
                         'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
                     )

@@ -57,9 +57,11 @@ class Shops extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'products'   => array(self::HAS_MANY, 'Products', 'shop_id'),
-            'categories' => array(self::HAS_MANY, 'Categories', 'shop_id'),
-            'owner'      => array(self::BELONGS_TO, 'Users', 'owner_id'),
+            'products'         => array(self::HAS_MANY, 'Products', 'shop_id'),
+            'products_count'   => array(self::HAS_MANY, 'Products', 'shop_id'),
+            'categories'       => array(self::HAS_MANY, 'Categories', 'shop_id'),
+            'categories_count' => array(self::STAT, 'Categories', 'shop_id'),
+            'owner'            => array(self::BELONGS_TO, 'Users', 'owner_id'),
         );
     }
 

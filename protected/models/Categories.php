@@ -112,6 +112,12 @@ class Categories extends CActiveRecord
             'application.models.behaviors.SoftDeleteActiveRecordBehavior',
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
             'application.models.behaviors.RevisionControlActiveRecordBehavior',
+            'restfulModelBehavior' => array(
+                'class'            => 'application.models.behaviors.RestfulModelBehavior',
+                'formClass'        => 'CategoriesRestForm',
+                'notFoundMessage'  => Yii::t('error', 'categories_not_found'),
+                'forbiddenMessage' => Yii::t('error', 'categories_forbidden'),
+            )
         );
     }
 
@@ -125,4 +131,84 @@ class Categories extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+}
+
+class CategoriesRestForm extends CFormModel implements RestFormInterface
+{
+    public $shop_id;
+    public $category_id;
+    public $page;
+    public $limit;
+    public $with;
+    public $scopes;
+
+    public function rules()
+    {
+        return array(
+            array('shop_id', 'required'),
+            array('category_id', 'required', 'on' => array('read', 'update', 'delete')),
+            array('page', 'default', 'value' => 1),
+            array('limit', 'default', 'value' => 10),
+            array('with, scopes', 'default', 'value' => array()),
+            array('page, limit', 'type', 'type' => 'integer'),
+            array('shop_id, category_id', 'type', 'type' => 'integer'),
+        );
+    }
+
+    public function getModelIdParam()
+    {
+        return 'category_id';
+    }
+
+    public function getModelId()
+    {
+        return $this->category_id;
+    }
+
+    public function getUrl()
+    {
+        $context = array();
+        switch ($this->getScenario()) {
+            case 'list':
+            case 'create':
+                $route = 'api/categories/list';
+                break;
+            case 'read':
+            case 'update':
+            case 'delete':
+            case 'patch':
+                $route = 'api/categories/read';
+                if ($this->category_id !== null) {
+                    $context['category_id'] = $this->category_id;
+                }
+                break;
+            default:
+                $route = '';
+        }
+        if ($this->shop_id !== null) {
+            $context['shop_id'] = $this->shop_id;
+        }
+        if ($this->with !== null and is_array($this->with) and count($this->with)) {
+            $context['with'] = $this->with;
+        }
+        if ($this->scopes !== null and is_array($this->scopes) and count($this->scopes)) {
+            $context['scopes'] = $this->scopes;
+        }
+        return Yii::app()->urlManager->createUrl($route, $context);
+    }
+
+    public function getContext()
+    {
+        // user context
+        if ($this->shop_id !== null) {
+            $shop = Shops::model()->findByPk($this->shop_id);
+            if ($shop) {
+                return array($shop, 'categories', 'categories_count');
+            } else {
+                throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
+            }
+        }
+
+        return array(null, null, null);
+    }
 }
