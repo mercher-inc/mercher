@@ -6,8 +6,10 @@
  * The followings are the available columns in table 'products':
  * @property string $id
  * @property string $shop_id
- * @property string $vendor
- * @property string $model
+ * @property string $category_id
+ * @property string $title
+ * @property string $plural_title
+ * @property string $brand
  * @property string $description
  * @property string $image_id
  * @property string $price
@@ -18,8 +20,9 @@
  * @property string $revision
  *
  * The followings are the available model relations:
- * @property ProductsCategories[] $productsCategories
- * @property Images $shop
+ * @property Shops $shop
+ * @property Categories $category
+ * @property Images $image
  */
 class Products extends CActiveRecord
 {
@@ -39,13 +42,13 @@ class Products extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('shop_id, created', 'required'),
-			array('vendor, model, revision', 'length', 'max'=>50),
+			array('id, shop_id, created', 'required'),
+			array('title, plural_title, brand, revision', 'length', 'max'=>50),
 			array('price', 'length', 'max'=>19),
-			array('description, image_id, banned, updated, deleted', 'safe'),
+			array('category_id, description, image_id, banned, updated, deleted', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, shop_id, vendor, model, description, image_id, price, banned, created, updated, deleted, revision', 'safe', 'on'=>'search'),
+			array('id, shop_id, category_id, title, plural_title, brand, description, image_id, price, banned, created, updated, deleted, revision', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,8 +60,9 @@ class Products extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'productsCategories' => array(self::HAS_MANY, 'ProductsCategories', 'product_id'),
-			'shop' => array(self::BELONGS_TO, 'Images', 'shop_id'),
+			'shop' => array(self::BELONGS_TO, 'Shops', 'shop_id'),
+			'category' => array(self::BELONGS_TO, 'Categories', 'category_id'),
+			'image' => array(self::BELONGS_TO, 'Images', 'image_id'),
 		);
 	}
 
@@ -70,8 +74,10 @@ class Products extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'shop_id' => 'Shop',
-			'vendor' => 'Vendor',
-			'model' => 'Model',
+			'category_id' => 'Category',
+			'title' => 'Title',
+			'plural_title' => 'Plural Title',
+			'brand' => 'Brand',
 			'description' => 'Description',
 			'image_id' => 'Image',
 			'price' => 'Price',
@@ -103,8 +109,10 @@ class Products extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('shop_id',$this->shop_id,true);
-		$criteria->compare('vendor',$this->vendor,true);
-		$criteria->compare('model',$this->model,true);
+		$criteria->compare('category_id',$this->category_id,true);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('plural_title',$this->plural_title,true);
+		$criteria->compare('brand',$this->brand,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('image_id',$this->image_id,true);
 		$criteria->compare('price',$this->price,true);
@@ -122,9 +130,10 @@ class Products extends CActiveRecord
     public function behaviors()
     {
         return array(
+            'application.models.behaviors.OgProductBehavior',
             'application.models.behaviors.SoftDeleteActiveRecordBehavior',
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
-            'application.models.behaviors.RevisionControlActiveRecordBehavior',
+            'application.models.behaviors.RevisionControlActiveRecordBehavior'
         );
     }
 
@@ -138,40 +147,4 @@ class Products extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
-    protected function beforeSave()
-    {
-        if ($this->isNewRecord) {
-            $ch   = curl_init();
-            $opts = array(
-                CURLOPT_CONNECTTIMEOUT => 10,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TIMEOUT        => 60,
-                CURLOPT_POSTFIELDS     => http_build_query(
-                    array(
-                        'access_token' => Yii::app()->facebook->sdk->getAppId() . '|' . Yii::app()->facebook->sdk->getAppSecret(),
-                        'object'       => CJSON::encode(
-                            array(
-                                'og:title'               => $this->model,
-                                'product:plural_title'   => 'Test products',
-                                'product:price:amount'   => '100',
-                                'product:price:currency' => 'USD'
-                            )
-                        )
-                    ),
-                    null,
-                    '&'
-                ),
-                CURLOPT_URL            => 'https://graph.facebook.com/app/objects/product',
-                CURLOPT_POST           => 1
-            );
-            curl_setopt_array($ch, $opts);
-            $result = CJSON::decode(curl_exec($ch));
-            $this->id = $result['id'];
-            return true;
-        } else {
-
-        }
-
-    }
 }

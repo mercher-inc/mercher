@@ -15,6 +15,7 @@
  * @property string $revision
  *
  * The followings are the available model relations:
+ * @property Products[] $products
  * @property Categories[] $categories
  * @property Users $owner
  * @property Tabs[] $tabs
@@ -54,6 +55,7 @@ class Shops extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'products' => array(self::HAS_MANY, 'Products', 'shop_id'),
 			'categories' => array(self::HAS_MANY, 'Categories', 'shop_id'),
 			'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
 			'tabs' => array(self::HAS_MANY, 'Tabs', 'shop_id'),

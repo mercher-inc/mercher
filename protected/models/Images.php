@@ -53,7 +53,7 @@ class Images extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'products' => array(self::HAS_MANY, 'Products', 'shop_id'),
+			'products' => array(self::HAS_MANY, 'Products', 'image_id'),
 		);
 	}
 
