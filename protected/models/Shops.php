@@ -18,7 +18,6 @@
  * @property Products[] $products
  * @property Categories[] $categories
  * @property Users $owner
- * @property Tabs[] $tabs
  */
 class Shops extends CActiveRecord
 {
@@ -38,7 +37,7 @@ class Shops extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('owner_id, created', 'required'),
+			array('id, owner_id, created', 'required'),
 			array('title, revision', 'length', 'max'=>50),
 			array('description, banned, updated, deleted', 'safe'),
 			// The following rule is used by search().
@@ -58,7 +57,6 @@ class Shops extends CActiveRecord
 			'products' => array(self::HAS_MANY, 'Products', 'shop_id'),
 			'categories' => array(self::HAS_MANY, 'Categories', 'shop_id'),
 			'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
-			'tabs' => array(self::HAS_MANY, 'Tabs', 'shop_id'),
 		);
 	}
 

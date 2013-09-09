@@ -46,7 +46,7 @@ class m130904_100000_init extends CDbMigration
         $this->createTable(
             'shops',
             array(
-                'id'          => 'bigserial PRIMARY KEY',
+                'id'          => 'bigint PRIMARY KEY',
                 'owner_id'    => 'bigint NOT NULL',
                 'title'       => 'varchar(50) NULL',
                 'description' => 'text',
@@ -76,23 +76,6 @@ class m130904_100000_init extends CDbMigration
             )
         );
         $this->addForeignKey('categories_shop_id_FK', 'categories', 'shop_id', 'shops', 'id', 'RESTRICT', 'CASCADE');
-
-        /*
-         * tabs table
-         */
-        $this->createTable(
-            'tabs',
-            array(
-                'id'       => 'bigint PRIMARY KEY',
-                'shop_id'  => 'bigint NOT NULL',
-                'banned'   => 'timestamp NULL',
-                'created'  => 'timestamp NOT NULL',
-                'updated'  => 'timestamp NULL',
-                'deleted'  => 'timestamp NULL',
-                'revision' => 'varchar(50) NULL',
-            )
-        );
-        $this->addForeignKey('tabs_shop_id_FK', 'tabs', 'shop_id', 'shops', 'id', 'RESTRICT', 'CASCADE');
 
         /*
          * products table
@@ -127,9 +110,6 @@ class m130904_100000_init extends CDbMigration
         $this->dropForeignKey('products_category_id_FK', 'products');
         $this->dropForeignKey('products_shop_id_FK', 'products');
         $this->dropTable('products');
-
-        $this->dropForeignKey('tabs_shop_id_FK', 'tabs');
-        $this->dropTable('tabs');
 
         $this->dropForeignKey('categories_shop_id_FK', 'categories');
         $this->dropTable('categories');
