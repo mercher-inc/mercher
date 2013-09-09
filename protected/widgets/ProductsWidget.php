@@ -19,7 +19,12 @@ class ProductsWidget extends CWidget
 
         $params = array(
             'page'  => 1,
-            'limit' => 10
+            'limit' => 10,
+            /*
+            'with'  =>  array(
+                'category'
+            )
+            */
         );
 
         $context = array(
@@ -41,13 +46,13 @@ class ProductsWidget extends CWidget
 
         echo '<h1>' . Yii::t('label', 'products') . '</h1>';
 
-        Yii::app()->clientScript->registerPackage('mercher/views/shops/list');
+        Yii::app()->clientScript->registerPackage('mercher/views/products/list');
         $obj = 'Mercher.' . $this->getId();
         Yii::app()->clientScript->registerScript(
             $this->getId(),
             "$obj = {};\n" .
-                "$obj.collection = new Mercher.Collections.Shops();\n" .
-                "$obj.view = new Mercher.Views.Shops.List({collection: $obj.collection});\n" .
+                "$obj.collection = new Mercher.Collections.Products();\n" .
+                "$obj.view = new Mercher.Views.Products.List({collection: $obj.collection});\n" .
                 "$obj.view.\$el.appendTo(\"#" . $this->getId() . "\");\n" .
                 "$obj.collection.reset($obj.collection.parse(" . CJSON::encode($collection) . "));\n"
         );

@@ -235,6 +235,38 @@ return array(
             'mercher/templates/categories/item',
         ),
     ),
+    'mercher/views/products'                => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/products.js'
+        ),
+        'depends' => array(
+            'mercher/views'
+        ),
+    ),
+    'mercher/views/products/list'           => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/products/list.js'
+        ),
+        'depends' => array(
+            'mercher/views/products',
+            'mercher/collections/products',
+            'mercher/templates/products/list',
+            'mercher/views/products/item'
+        ),
+    ),
+    'mercher/views/products/item'           => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/products/item.js'
+        ),
+        'depends' => array(
+            'mercher/views/products',
+            'mercher/models/products',
+            'mercher/templates/products/item',
+        ),
+    ),
     'mercher/views/pages'                => array(
         'baseUrl' => '/',
         'js'      => array(
@@ -328,6 +360,33 @@ return array(
         ),
         'depends' => array(
             'mercher/templates/categories'
+        ),
+    ),
+    'mercher/templates/products'            => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/products.js'
+        ),
+        'depends' => array(
+            'mercher/templates'
+        ),
+    ),
+    'mercher/templates/products/list'       => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/products/list.js'
+        ),
+        'depends' => array(
+            'mercher/templates/products'
+        ),
+    ),
+    'mercher/templates/products/item'       => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/products/item.js'
+        ),
+        'depends' => array(
+            'mercher/templates/products'
         ),
     ),
     'mercher/templates/pages'            => array(
