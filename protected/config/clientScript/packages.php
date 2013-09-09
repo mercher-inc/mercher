@@ -23,7 +23,7 @@ return array(
             'underscore'
         ),
     ),
-    'bootstrap'                           => array(
+    'bootstrap'                          => array(
         'baseUrl' => '/',
         'js'      => array(
             'bootstrap/js/modal.js',
@@ -103,7 +103,7 @@ return array(
             'mercher/models/shops'
         ),
     ),
-    'mercher/models/categories'               => array(
+    'mercher/models/categories'          => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/models/categories.js'
@@ -112,7 +112,7 @@ return array(
             'mercher/models'
         ),
     ),
-    'mercher/collections/categories'          => array(
+    'mercher/collections/categories'     => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/collections/categories.js'
@@ -122,7 +122,7 @@ return array(
             'mercher/models/categories'
         ),
     ),
-    'mercher/models/products'               => array(
+    'mercher/models/products'            => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/models/products.js'
@@ -131,7 +131,7 @@ return array(
             'mercher/models'
         ),
     ),
-    'mercher/collections/products'          => array(
+    'mercher/collections/products'       => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/collections/products.js'
@@ -141,7 +141,7 @@ return array(
             'mercher/models/products'
         ),
     ),
-    'mercher/views/dlg'                => array(
+    'mercher/views/dlg'                  => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/dlg.js'
@@ -150,10 +150,19 @@ return array(
             'mercher/views'
         ),
     ),
-    'mercher/views/dlg/new'           => array(
+    'mercher/views/dlg/create'              => array(
         'baseUrl' => '/',
         'js'      => array(
-            'js/mercher/views/dlg/new.js'
+            'js/mercher/views/dlg/create.js'
+        ),
+        'depends' => array(
+            'mercher/views/dlg'
+        ),
+    ),
+    'mercher/views/dlg/update'              => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/dlg/update.js'
         ),
         'depends' => array(
             'mercher/views/dlg'
@@ -191,19 +200,19 @@ return array(
             'mercher/templates/shops/item',
         ),
     ),
-    'mercher/views/shops/new'           => array(
+    'mercher/views/shops/create'            => array(
         'baseUrl' => '/',
         'js'      => array(
-            'js/mercher/views/shops/new.js'
+            'js/mercher/views/shops/create.js'
         ),
         'depends' => array(
             'mercher/views/shops',
-            'mercher/views/dlg/new',
+            'mercher/views/dlg/create',
             'mercher/models/shops',
-            'mercher/templates/shops/new',
+            'mercher/templates/shops/create',
         ),
     ),
-    'mercher/views/categories'                => array(
+    'mercher/views/categories'           => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/categories.js'
@@ -212,7 +221,7 @@ return array(
             'mercher/views'
         ),
     ),
-    'mercher/views/categories/list'           => array(
+    'mercher/views/categories/list'      => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/categories/list.js'
@@ -224,7 +233,7 @@ return array(
             'mercher/views/categories/item'
         ),
     ),
-    'mercher/views/categories/item'           => array(
+    'mercher/views/categories/item'      => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/categories/item.js'
@@ -235,7 +244,7 @@ return array(
             'mercher/templates/categories/item',
         ),
     ),
-    'mercher/views/products'                => array(
+    'mercher/views/products'             => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/products.js'
@@ -244,7 +253,7 @@ return array(
             'mercher/views'
         ),
     ),
-    'mercher/views/products/list'           => array(
+    'mercher/views/products/list'        => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/products/list.js'
@@ -256,7 +265,7 @@ return array(
             'mercher/views/products/item'
         ),
     ),
-    'mercher/views/products/item'           => array(
+    'mercher/views/products/item'        => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/products/item.js'
@@ -265,6 +274,19 @@ return array(
             'mercher/views/products',
             'mercher/models/products',
             'mercher/templates/products/item',
+            'mercher/views/products/update'
+        ),
+    ),
+    'mercher/views/products/update'        => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/products/update.js'
+        ),
+        'depends' => array(
+            'mercher/views/products',
+            'mercher/views/dlg/update',
+            'mercher/models/products',
+            'mercher/templates/products/update',
         ),
     ),
     'mercher/views/pages'                => array(
@@ -326,16 +348,16 @@ return array(
             'mercher/templates/shops'
         ),
     ),
-    'mercher/templates/shops/new'       => array(
+    'mercher/templates/shops/create'        => array(
         'baseUrl' => '/',
         'js'      => array(
-            'js/mercher/templates/shops/new.js'
+            'js/mercher/templates/shops/create.js'
         ),
         'depends' => array(
             'mercher/templates/shops'
         ),
     ),
-    'mercher/templates/categories'            => array(
+    'mercher/templates/categories'       => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/categories.js'
@@ -344,7 +366,7 @@ return array(
             'mercher/templates'
         ),
     ),
-    'mercher/templates/categories/list'       => array(
+    'mercher/templates/categories/list'  => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/categories/list.js'
@@ -353,7 +375,7 @@ return array(
             'mercher/templates/categories'
         ),
     ),
-    'mercher/templates/categories/item'       => array(
+    'mercher/templates/categories/item'  => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/categories/item.js'
@@ -362,7 +384,7 @@ return array(
             'mercher/templates/categories'
         ),
     ),
-    'mercher/templates/products'            => array(
+    'mercher/templates/products'         => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/products.js'
@@ -371,7 +393,7 @@ return array(
             'mercher/templates'
         ),
     ),
-    'mercher/templates/products/list'       => array(
+    'mercher/templates/products/list'    => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/products/list.js'
@@ -380,10 +402,21 @@ return array(
             'mercher/templates/products'
         ),
     ),
-    'mercher/templates/products/item'       => array(
+    'mercher/templates/products/item'    => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/products/item.js'
+        ),
+        'depends' => array(
+            'mercher/templates/products',
+            'mercher/templates/products/update',
+            'mercher/templates/products/delete'
+        ),
+    ),
+    'mercher/templates/products/update'  => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/products/update.js'
         ),
         'depends' => array(
             'mercher/templates/products'

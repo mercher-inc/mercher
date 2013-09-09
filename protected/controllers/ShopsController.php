@@ -18,11 +18,11 @@ class ShopsController extends Controller
 
     public function actionGet()
     {
-        $this->layout = '//layouts/shop';
-
         if (!$this->shop) {
             $this->render('create');
         } else {
+            $this->layout = '//layouts/shop';
+
             $this->render(
                 'get',
                 array(

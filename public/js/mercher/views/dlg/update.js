@@ -1,4 +1,4 @@
-Mercher.Views.Dlg.New = Backbone.View.extend({
+Mercher.Views.Dlg.Update = Backbone.View.extend({
     tagName: "div",
     attributes: {tabindex: -1, role: 'dialog', "aria-hidden": 'true'},
     className: "modal fade",
@@ -18,8 +18,8 @@ Mercher.Views.Dlg.New = Backbone.View.extend({
     events: {
         "click .close": "closeDlg",
         "click .cancel": "closeDlg",
-        "click .create": "createModel",
-        "submit form": "createModel"
+        "click .save": "editModel",
+        "submit form": "editModel"
     },
     closeDlg: function () {
         view = this;
@@ -29,18 +29,16 @@ Mercher.Views.Dlg.New = Backbone.View.extend({
         });
         return false;
     },
-    createModel: function (event) {
+    editModel: function (event) {
         var view = this;
         $dialog = view.$el;
-        $button = $('.create', $dialog);
+        $button = $('.save', $dialog);
         $button.button('loading');
         view.userValues = view.getData(view.$el);
         view.model.save(view.userValues, {
             wait: true,
             success: function (model, response, options) {
-                if (typeof view.collection != 'undefined') {
-                    view.collection.fetch({data: view.collection.data});
-                }
+                view.collection.fetch({data: view.collection.data});
                 $button.button('reset');
                 $dialog.modal('hide');
                 $dialog.on('hidden', function () {

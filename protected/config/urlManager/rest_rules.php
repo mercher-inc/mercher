@@ -8,6 +8,13 @@ $restControllers = array(
             'api/',
         )
     ),
+    'products'          => array(
+        'param' => 'product_id',
+        'paths' => array(
+            'api/shops/<shop_id:\d+>/',
+            'api/',
+        )
+    ),
 );
 
 $result = array();

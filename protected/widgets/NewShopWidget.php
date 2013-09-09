@@ -38,7 +38,7 @@ class NewShopWidget extends CWidget
 
         echo '<button class="btn btn-success" id="'.$this->getId().'_show_modal">Create shop for ' . $page['name'] . '</button>';
 
-        Yii::app()->clientScript->registerPackage('mercher/views/shops/new');
+        Yii::app()->clientScript->registerPackage('mercher/views/shops/create');
         $obj = 'Mercher.' . $this->getId();
         $defaults = array('id'=>$page['id'],'title'=>$page['name']);
         if (isset($page['description'])) $defaults['description'] = $page['description'];
@@ -49,7 +49,7 @@ class NewShopWidget extends CWidget
                 "$obj.model = new Mercher.Models.Shops();\n" .
                 //"$obj.model.set('id', ".$page['id'].");\n" .
                 "$obj.model.set(".CJSON::encode($defaults).");\n" .
-                "$obj.view = new Mercher.Views.Shops.New({model: $obj.model});\n" .
+                "$obj.view = new Mercher.Views.Shops.Create({model: $obj.model});\n" .
                 "$obj.view.\$el.attr(\"id\", \"{$this->getId()}_modal\");\n" .
                 "$obj.view.\$el.appendTo(\"body\");\n" .
                 "$(\"#{$this->getId()}_show_modal\").click(function(){ $obj.view.render(); });\n".

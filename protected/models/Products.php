@@ -45,6 +45,7 @@ class Products extends CActiveRecord
 			array('id, shop_id, created', 'required'),
 			array('title, plural_title, brand, revision', 'length', 'max'=>50),
 			array('price', 'length', 'max'=>19),
+            array('price', 'numerical'),
 			array('category_id, description, image_id, banned, updated, deleted', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

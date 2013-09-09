@@ -16,7 +16,7 @@ Mercher.Templates.Products.Item = _.template(
         '</td>' +
         '<td>' +
             '<div class="btn-group pull-right" style="white-space: nowrap;">' +
-                '<button class="btn btn-default">Edit</button>' +
+                '<button class="btn btn-default update">Edit</button>' +
                 '<button class="btn btn-danger">Delete</button>' +
             '</div>' +
         '</td>'
