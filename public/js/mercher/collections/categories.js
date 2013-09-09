@@ -1,0 +1,1 @@
+Mercher.Collections.Categories = Mercher.Collections.Base.extend({model: Mercher.Models.Categories});

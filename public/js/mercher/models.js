@@ -19,5 +19,8 @@ Mercher.Models.Base = Backbone.Model.extend({
         baseUrlData = baseUrl.split("?");
         if (!this.isNew()) baseUrlData[0] += '/' + this.id;
         return baseUrlData.join('?');
+    },
+    isNew: function() {
+        return (typeof this.attributes.created == 'undefined' || !this.attributes.created);
     }
 });

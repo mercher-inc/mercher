@@ -41,13 +41,13 @@ class CategoriesWidget extends CWidget
 
         echo '<h1>' . Yii::t('label', 'categories') . '</h1>';
 
-        Yii::app()->clientScript->registerPackage('mercher/views/shops/list');
+        Yii::app()->clientScript->registerPackage('mercher/views/categories/list');
         $obj = 'Mercher.' . $this->getId();
         Yii::app()->clientScript->registerScript(
             $this->getId(),
             "$obj = {};\n" .
-                "$obj.collection = new Mercher.Collections.Shops();\n" .
-                "$obj.view = new Mercher.Views.Shops.List({collection: $obj.collection});\n" .
+                "$obj.collection = new Mercher.Collections.Categories();\n" .
+                "$obj.view = new Mercher.Views.Categories.List({collection: $obj.collection});\n" .
                 "$obj.view.\$el.appendTo(\"#" . $this->getId() . "\");\n" .
                 "$obj.collection.reset($obj.collection.parse(" . CJSON::encode($collection) . "));\n"
         );
