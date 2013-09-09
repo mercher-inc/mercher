@@ -9,22 +9,24 @@
 
 class ShopsController extends Controller
 {
+    protected $_shop;
+
     public function actionIndex()
     {
         $this->render('index');
     }
 
-    public function actionGet($shop_id)
+    public function actionGet()
     {
-        $shop = Shops::model()->findByPk($shop_id);
+        $this->layout = '//layouts/shop';
 
-        if (!$shop) {
+        if (!$this->shop) {
             $this->render('create');
         } else {
             $this->render(
                 'get',
                 array(
-                    'shop' => $shop
+                    'shop' => $this->shop
                 )
             );
         }
@@ -42,5 +44,12 @@ class ShopsController extends Controller
         */
 
 
+    }
+
+    public function getShop() {
+        if ($this->_shop === null) {
+            $this->_shop = Shops::model()->findByPk(Yii::app()->request->getParam('shop_id'));
+        }
+        return $this->_shop;
     }
 }
