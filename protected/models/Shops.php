@@ -2,7 +2,6 @@
 
 /**
  * This is the model class for table "shops".
- *
  * The followings are the available columns in table 'shops':
  * @property string $id
  * @property string $owner_id
@@ -13,7 +12,6 @@
  * @property string $updated
  * @property string $deleted
  * @property string $revision
- *
  * The followings are the available model relations:
  * @property Products[] $products
  * @property Categories[] $categories
@@ -21,95 +19,98 @@
  */
 class Shops extends CActiveRecord
 {
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'shops';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'shops';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('id, owner_id, created', 'required'),
-			array('title, revision', 'length', 'max'=>50),
-			array('description, banned, updated, deleted', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, owner_id, title, description, banned, created, updated, deleted, revision', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('owner_id', 'default', 'value' => Yii::app()->user->id),
+            array('id, owner_id, title, created', 'required'),
+            array('title, revision', 'length', 'max' => 50),
+            array('description, banned, updated, deleted', 'safe'),
+            // The following rule is used by search().
+            // @todo Please remove those attributes that should not be searched.
+            array(
+                'id, owner_id, title, description, banned, created, updated, deleted, revision',
+                'safe',
+                'on' => 'search'
+            ),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'products' => array(self::HAS_MANY, 'Products', 'shop_id'),
-			'categories' => array(self::HAS_MANY, 'Categories', 'shop_id'),
-			'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'products'   => array(self::HAS_MANY, 'Products', 'shop_id'),
+            'categories' => array(self::HAS_MANY, 'Categories', 'shop_id'),
+            'owner'      => array(self::BELONGS_TO, 'Users', 'owner_id'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'owner_id' => 'Owner',
-			'title' => 'Title',
-			'description' => 'Description',
-			'banned' => 'Banned',
-			'created' => 'Created',
-			'updated' => 'Updated',
-			'deleted' => 'Deleted',
-			'revision' => 'Revision',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id'          => 'ID',
+            'owner_id'    => 'Owner',
+            'title'       => 'Title',
+            'description' => 'Description',
+            'banned'      => 'Banned',
+            'created'     => 'Created',
+            'updated'     => 'Updated',
+            'deleted'     => 'Deleted',
+            'revision'    => 'Revision',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * Typical usecase:
+     * - Initialize the model fields with values from filter form.
+     * - Execute this method to get CActiveDataProvider instance which will filter
+     * models according to data in model fields.
+     * - Pass data provider to CGridView, CListView or any similar widget.
+     * @return CActiveDataProvider the data provider that can return the models
+     * based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('owner_id',$this->owner_id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('banned',$this->banned,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('deleted',$this->deleted,true);
-		$criteria->compare('revision',$this->revision,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('owner_id', $this->owner_id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('banned', $this->banned, true);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('updated', $this->updated, true);
+        $criteria->compare('deleted', $this->deleted, true);
+        $criteria->compare('revision', $this->revision, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
     public function behaviors()
     {
@@ -126,16 +127,16 @@ class Shops extends CActiveRecord
         );
     }
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return Shops the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return Shops the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 }
 
 class ShopsRestForm extends CFormModel implements RestFormInterface

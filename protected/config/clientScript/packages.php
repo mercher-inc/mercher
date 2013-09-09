@@ -23,13 +23,24 @@ return array(
             'underscore'
         ),
     ),
+    'bootstrap'                           => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'bootstrap/js/modal.js',
+            'bootstrap/js/button.js',
+        ),
+        'depends' => array(
+            'jquery'
+        ),
+    ),
     'mercher'                            => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher.js'
         ),
         'depends' => array(
-            'backbone'
+            'backbone',
+            'bootstrap'
         ),
     ),
     'mercher/models'                     => array(
@@ -92,6 +103,24 @@ return array(
             'mercher/models/shops'
         ),
     ),
+    'mercher/views/dlg'                => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/dlg.js'
+        ),
+        'depends' => array(
+            'mercher/views'
+        ),
+    ),
+    'mercher/views/dlg/new'           => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/dlg/new.js'
+        ),
+        'depends' => array(
+            'mercher/views/dlg'
+        ),
+    ),
     'mercher/views/shops'                => array(
         'baseUrl' => '/',
         'js'      => array(
@@ -122,6 +151,18 @@ return array(
             'mercher/views/shops',
             'mercher/models/shops',
             'mercher/templates/shops/item',
+        ),
+    ),
+    'mercher/views/shops/new'           => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/shops/new.js'
+        ),
+        'depends' => array(
+            'mercher/views/shops',
+            'mercher/views/dlg/new',
+            'mercher/models/shops',
+            'mercher/templates/shops/new',
         ),
     ),
     'mercher/views/pages'                => array(
@@ -178,6 +219,15 @@ return array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/shops/item.js'
+        ),
+        'depends' => array(
+            'mercher/templates/shops'
+        ),
+    ),
+    'mercher/templates/shops/new'       => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/shops/new.js'
         ),
         'depends' => array(
             'mercher/templates/shops'

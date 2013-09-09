@@ -24,6 +24,7 @@ return array(
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '::1'),
         ),
+        'api',
     ),
     // application components
     'components'     => array(
@@ -38,14 +39,7 @@ return array(
             'baseUrl'        => 'http://' . $_SERVER['HTTP_HOST'],
             'caseSensitive'  => false,
             'showScriptName' => false,
-            'rules'          => array(
-                ''                    => 'index/index',
-                'logout'              => 'index/logout',
-                'contact'             => 'index/contact',
-                'shops'               => 'shops/index',
-                'shops/<shop_id:\d+>' => 'shops/get',
-                'pages'               => 'pages/index',
-            ),
+            'rules'          => require(dirname(__FILE__) . '/urlManager/rules.php'),
         ),
         'clientScript' => array(
             'class'    => 'ClientScript',
@@ -76,6 +70,9 @@ return array(
                 ),
                 */
             ),
+        ),
+        'cache'        => array(
+            'class' => 'system.caching.CFileCache'
         ),
         'facebook'     => array(
             'class'     => 'FB',

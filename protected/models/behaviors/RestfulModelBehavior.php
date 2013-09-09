@@ -206,9 +206,6 @@ class RestfulModelBehavior extends CActiveRecordBehavior
         if (!$form->validate()) {
             throw new CHttpException(400);
         }
-        if (!isset($data['company_id'])) {
-            $data['company_id'] = $form->company_id;
-        }
 
         //getting model's class
         $modelClass = get_class($this->getOwner());
@@ -234,8 +231,11 @@ class RestfulModelBehavior extends CActiveRecordBehavior
         $modelAttributes = $model->getAttributes();
         //adding model's url
         $modelAttributes['_url'] = $form->getUrl();
-        //adding relations data
-        $this->addRelations($form->with, $model, $form, $modelAttributes);
+
+        if (is_array($form->with)) {
+            //adding relations data
+            $this->addRelations($form->with, $model, $form, $modelAttributes);
+        }
 
         //returning the built model
         return $modelAttributes;

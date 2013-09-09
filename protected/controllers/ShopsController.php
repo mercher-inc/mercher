@@ -16,6 +16,19 @@ class ShopsController extends Controller
 
     public function actionGet($shop_id)
     {
+        $shop = Shops::model()->findByPk($shop_id);
+
+        if (!$shop) {
+            $this->render('create');
+        } else {
+            var_dump($shop);
+            $this->render(
+                'get',
+                array(
+                    'shop' => $shop
+                )
+            );
+        }
         /*
         $product = new Products();
         $product->title = 'New product';
@@ -30,6 +43,5 @@ class ShopsController extends Controller
         */
 
 
-        $this->render('get');
     }
 }
