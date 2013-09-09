@@ -21,12 +21,12 @@ Mercher.Templates.Pages.Item = _.template(
             '<div class="btn-group pull-right" style="white-space: nowrap;">' +
                 '<% if (model.get(\'has_added_app\')) { %>' +
                     '<% if (model.get(\'username\')) { %>' +
-                        '<a class="btn btn-default" href="//www.facebook.com/<%- model.get(\'username\') %>/app_<%- fb_app_id %>" target="_blank">View tab</a>' +
+                        '<a class="btn btn-default" href="//www.facebook.com/<%- model.get(\'username\') %>/app_<%- fb_app_id %>" target="_blank">View shop</a>' +
                     '<% } %>' +
                 '<% } else { %>' +
                     '<button class="btn btn-success add_shop">Add tab</button>' +
                 '<% } %>' +
-                '<a class="btn btn-default" href="/tabs/<%- model.get(\'id\') %>.html">Edit tab</a>' +
+                '<a class="btn btn-default" href="/shops/<%- model.get(\'id\') %>.html">Edit shop</a>' +
             '</div>' +
         '</td>'
 );

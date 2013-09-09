@@ -44,13 +44,13 @@ Yii::app()->clientScript->registerScript(
         array(
             'items'       => array(
                 array(
-                    'label'   => 'Shops',
-                    'url'     => array('shops/index'),
+                    'label'   => 'Pages',
+                    'url'     => array('pages/index'),
                     'visible' => !Yii::app()->user->isGuest
                 ),
                 array(
-                    'label'   => 'Tabs',
-                    'url'     => array('tabs/index'),
+                    'label'   => 'Shops',
+                    'url'     => array('shops/index'),
                     'visible' => !Yii::app()->user->isGuest
                 ),
             ),

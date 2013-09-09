@@ -39,12 +39,12 @@ return array(
             'caseSensitive'  => false,
             'showScriptName' => false,
             'rules'          => array(
-                ''                  => 'index/index',
-                'logout'            => 'index/logout',
-                'contact'           => 'index/contact',
-                'shops'             => 'shops/index',
-                'tabs'              => 'tabs/index',
-                'tabs/<tab_id:\d+>' => 'tabs/get',
+                ''                    => 'index/index',
+                'logout'              => 'index/logout',
+                'contact'             => 'index/contact',
+                'shops'               => 'shops/index',
+                'shops/<shop_id:\d+>' => 'shops/get',
+                'pages'               => 'pages/index',
             ),
         ),
         'clientScript' => array(
