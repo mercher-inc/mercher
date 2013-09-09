@@ -21,7 +21,6 @@ class ShopsController extends Controller
         if (!$shop) {
             $this->render('create');
         } else {
-            var_dump($shop);
             $this->render(
                 'get',
                 array(

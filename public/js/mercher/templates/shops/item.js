@@ -1,6 +1,6 @@
 Mercher.Templates.Shops.Item = _.template(
         '<td>' +
-            '<%- model.get(\'title\') %>' +
+            '<a href="/shops/<%- model.id %>.html"><%- model.get(\'title\') %></a>' +
         '</td>' +
         '<td>' +
             '<%- model.get(\'description\') %>' +

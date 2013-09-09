@@ -45,13 +45,13 @@ Yii::app()->clientScript->registerMetaTag('en', 'language');
         array(
             'items'       => array(
                 array(
-                    'label'   => 'Pages',
-                    'url'     => array('pages/index'),
+                    'label'   => 'My shops',
+                    'url'     => array('shops/index'),
                     'visible' => !Yii::app()->user->isGuest
                 ),
                 array(
-                    'label'   => 'My shops',
-                    'url'     => array('shops/index'),
+                    'label'   => 'Pages',
+                    'url'     => array('pages/index'),
                     'visible' => !Yii::app()->user->isGuest
                 ),
             ),
