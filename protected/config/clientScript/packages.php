@@ -168,6 +168,15 @@ return array(
             'mercher/views/dlg'
         ),
     ),
+    'mercher/views/dlg/delete'              => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/dlg/delete.js'
+        ),
+        'depends' => array(
+            'mercher/views/dlg'
+        ),
+    ),
     'mercher/views/shops'                => array(
         'baseUrl' => '/',
         'js'      => array(
@@ -274,7 +283,8 @@ return array(
             'mercher/views/products',
             'mercher/models/products',
             'mercher/templates/products/item',
-            'mercher/views/products/update'
+            'mercher/views/products/update',
+            'mercher/views/products/delete'
         ),
     ),
     'mercher/views/products/update'        => array(
@@ -287,6 +297,18 @@ return array(
             'mercher/views/dlg/update',
             'mercher/models/products',
             'mercher/templates/products/update',
+        ),
+    ),
+    'mercher/views/products/delete'        => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/products/delete.js'
+        ),
+        'depends' => array(
+            'mercher/views/products',
+            'mercher/views/dlg/delete',
+            'mercher/models/products',
+            'mercher/templates/products/delete',
         ),
     ),
     'mercher/views/pages'                => array(
@@ -409,14 +431,21 @@ return array(
         ),
         'depends' => array(
             'mercher/templates/products',
-            'mercher/templates/products/update',
-            'mercher/templates/products/delete'
         ),
     ),
     'mercher/templates/products/update'  => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/products/update.js'
+        ),
+        'depends' => array(
+            'mercher/templates/products'
+        ),
+    ),
+    'mercher/templates/products/delete'  => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/products/delete.js'
         ),
         'depends' => array(
             'mercher/templates/products'

@@ -2,7 +2,12 @@ Mercher.Templates.Products.Update = _.template(
         '<div class="modal-dialog">' +
             '<div class="modal-content">' +
                 '<div class="modal-header">' +
-                    '<h4 class="modal-title">Update product</h4>' +
+                    '<h4 class="modal-title">Update product "' +
+                        '<% if (model.get(\'brand\')) { %>' +
+                            '<%- model.get(\'brand\') %> ' +
+                        '<% } %>' +
+                        '<%- model.get(\'title\') %>' +
+                    '"</h4>' +
                 '</div>' +
                 '<div class="modal-body">' +
                     '<form>'+

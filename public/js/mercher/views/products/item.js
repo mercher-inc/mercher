@@ -27,7 +27,7 @@ Mercher.Views.Products.Item = Backbone.View.extend({
         return false;
     },
     deleteModel: function () {
-        var shopsDeletionView = new ManageCommunitiesDlgDeleteView({model: this.model, collection: this.collection});
+        var shopsDeletionView = new Mercher.Views.Products.Delete({model: this.model, collection: this.collection});
         shopsDeletionView.render();
         return false;
     }
