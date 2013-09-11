@@ -15,6 +15,7 @@ Mercher.Templates.Products.Item = _.template(
         '</td>' +
         '<td>' +
             '<div class="btn-group pull-right" style="white-space: nowrap;">' +
+                '<button class="btn btn-default like" data-loading-text="Liking..." data-liked-text="Liked">Like</button>' +
                 '<button class="btn btn-default update">Edit</button>' +
                 '<button class="btn btn-danger delete">Delete</button>' +
             '</div>' +

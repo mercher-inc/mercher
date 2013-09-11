@@ -7,7 +7,7 @@ Mercher.Templates.Products.List = _.template(
                 '<th>Description</th>' +
                 '<th>' +
                     '<div class="btn-group pull-right">' +
-                        '<button class="btn btn-primary">Create</button>' +
+                        '<button class="btn btn-primary create">Create</button>' +
                     '</div>' +
                 '</th>' +
             '</tr>' +

@@ -9,7 +9,7 @@
 
 class OgProductBehavior extends CActiveRecordBehavior
 {
-    public function beforeValidate(CModelEvent $event)
+    public function beforeSave(CModelEvent $event)
     {
         $model = $this->getOwner();
 
@@ -20,6 +20,10 @@ class OgProductBehavior extends CActiveRecordBehavior
         if ($model->plural_title) {
             $object['product:plural_title'] = $model->plural_title;
         }
+        if ($model->brand) {
+            $object['og:title'] = $model->brand . ' ' . $object['og:title'];
+            $object['product:brand'] = $model->brand;
+        }
         if ($model->price) {
             $object['product:price:amount']   = $model->price;
             $object['product:price:currency'] = 'USD';
@@ -27,8 +31,13 @@ class OgProductBehavior extends CActiveRecordBehavior
         if ($model->description) {
             $object['og:description']   = $model->description;
         }
-        $object['product:category']   = 'product category';
-        $object['og:url']   = 'http://www.facebook.com/muzmagaz?sk=app_' . Yii::app()->facebook->sdk->getAppId();
+
+        $category = $model->category;
+        if ($category) {
+            $object['product:category']   = $category->title;
+        }
+
+        $object['og:url']   = 'http://www.facebook.com/'.$model->shop_id.'?sk=app_' . Yii::app()->facebook->sdk->getAppId();
 
         $accessToken = Yii::app()->facebook->sdk->getAppId() . '|' . Yii::app()->facebook->sdk->getAppSecret();
         $opts        = array(

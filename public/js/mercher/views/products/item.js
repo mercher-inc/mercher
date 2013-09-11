@@ -4,7 +4,8 @@ Mercher.Views.Products.Item = Backbone.View.extend({
     template: Mercher.Templates.Products.Item,
     events: {
         "click .update": "updateModel",
-        "click .delete": "deleteModel"
+        "click .delete": "deleteModel",
+        "click .like": "likeModel"
     },
     initialize: function () {
         this.listenTo(this.model, "change", this.render);
@@ -29,6 +30,29 @@ Mercher.Views.Products.Item = Backbone.View.extend({
     deleteModel: function () {
         var shopsDeletionView = new Mercher.Views.Products.Delete({model: this.model, collection: this.collection});
         shopsDeletionView.render();
+        return false;
+    },
+    likeModel: function () {
+        var view = this;
+        $button = $('.like', view.$el);
+        $button.button('loading');
+        FB.api(
+            'me/og.likes',
+            'post',
+            {
+                object: view.model.id,
+                privacy: {
+                    value: 'SELF'
+                }
+            },
+            function (response) {
+                if (!response || response.error) {
+                    $button.button('reset');
+                } else {
+                    $button.button('liked');
+                }
+            }
+        );
         return false;
     }
 });

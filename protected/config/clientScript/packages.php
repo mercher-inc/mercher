@@ -271,7 +271,8 @@ return array(
             'mercher/views/products',
             'mercher/collections/products',
             'mercher/templates/products/list',
-            'mercher/views/products/item'
+            'mercher/views/products/item',
+            'mercher/views/products/create',
         ),
     ),
     'mercher/views/products/item'        => array(
@@ -285,6 +286,18 @@ return array(
             'mercher/templates/products/item',
             'mercher/views/products/update',
             'mercher/views/products/delete'
+        ),
+    ),
+    'mercher/views/products/create'        => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/views/products/create.js'
+        ),
+        'depends' => array(
+            'mercher/views/products',
+            'mercher/views/dlg/create',
+            'mercher/models/products',
+            'mercher/templates/products/create',
         ),
     ),
     'mercher/views/products/update'        => array(
@@ -431,6 +444,15 @@ return array(
         ),
         'depends' => array(
             'mercher/templates/products',
+        ),
+    ),
+    'mercher/templates/products/create'  => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/mercher/templates/products/create.js'
+        ),
+        'depends' => array(
+            'mercher/templates/products'
         ),
     ),
     'mercher/templates/products/update'  => array(

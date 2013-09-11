@@ -53,7 +53,7 @@ return array(
             'charset'          => 'utf8',
         ),
         'errorHandler' => array(
-            // use 'index/error' action to display errors
+            'class'       => 'ErrorHandler',
             'errorAction' => 'index/error',
         ),
         'log'          => array(

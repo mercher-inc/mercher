@@ -141,7 +141,7 @@ class RestfulModelBehavior extends CActiveRecordBehavior
         $form->attributes = $attributes;
         //validating the form
         if (!$form->validate()) {
-            throw new CHttpException(400);
+            throw new ValidationException(400, 'Errors', $form->errors);
         }
 
         //getting context of requested model
@@ -204,7 +204,7 @@ class RestfulModelBehavior extends CActiveRecordBehavior
         $form->attributes = $attributes;
         //validating the form
         if (!$form->validate()) {
-            throw new CHttpException(400);
+            throw new ValidationException(400, 'Errors', $form->errors);
         }
 
         //getting model's class
@@ -252,7 +252,7 @@ class RestfulModelBehavior extends CActiveRecordBehavior
         $form->attributes = $attributes;
         //validating the form
         if (!$form->validate()) {
-            throw new CHttpException(400);
+            throw new ValidationException(400, 'Errors', $form->errors);
         }
 
         //getting context of requested model
@@ -324,7 +324,7 @@ class RestfulModelBehavior extends CActiveRecordBehavior
         $form->attributes = $attributes;
         //validating the form
         if (!$form->validate()) {
-            throw new CHttpException(400);
+            throw new ValidationException(400, 'Errors', $form->errors);
         }
 
         //getting context of requested model

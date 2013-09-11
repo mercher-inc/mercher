@@ -2,6 +2,9 @@ Mercher.Views.Products.List = Backbone.View.extend({
     tagName: "div",
     attributes: {class: 'products-list'},
     template: Mercher.Templates.Products.List,
+    events          : {
+        "click .create": "createModel"
+    },
     initialize: function () {
         this.listenTo(this.collection, "reset", this.render);
         this.listenTo(this.collection, "sync", this.render);
@@ -16,5 +19,19 @@ Mercher.Views.Products.List = Backbone.View.extend({
             view.render();
         });
         return this;
+    },
+    createModel     : function (event) {
+        var model = new this.collection.model;
+        model.urlRoot = this.collection.url;
+        var shopsCreationView = new Mercher.Views.Products.Create({model: model, collection: this.collection});
+        /*
+        shopsCreationView.communitiesGroups = new CommunitiesGroups();
+        shopsCreationView.communitiesGroups.fetch({success: function () {
+            shopsCreationView.render();
+        }});
+        */
+        shopsCreationView.render();
+
+        return false;
     }
 });
