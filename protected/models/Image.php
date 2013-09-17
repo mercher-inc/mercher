@@ -29,12 +29,10 @@ class Image extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created, original_file', 'required'),
+            array('original_file', 'required'),
             array('original_file', 'length', 'max' => 250),
-            array('updated, data', 'safe'),
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, created, updated, original_file, data', 'safe', 'on' => 'search'),
+            array('id, created, updated, original_file', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,15 +74,12 @@ class Image extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
         $criteria->compare('original_file', $this->original_file, true);
-        $criteria->compare('data', $this->data, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

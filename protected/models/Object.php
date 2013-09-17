@@ -25,10 +25,7 @@ class Object extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created', 'required'),
-            array('updated', 'safe'),
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             array('id, created, updated', 'safe', 'on' => 'search'),
         );
     }
@@ -67,8 +64,6 @@ class Object extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);

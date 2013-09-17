@@ -129,7 +129,7 @@ class m130904_100000_init extends CDbMigration
                 'fb_id'       => 'bigint NULL',
                 'shop_id'     => 'bigint NOT NULL',
                 'category_id' => 'bigint NULL',
-                'title'       => 'varchar(50) NULL',
+                'title'       => 'varchar(50) NOT NULL',
                 'description' => 'text',
                 'image_id'    => 'bigint NULL',
                 'price'       => 'money NULL',

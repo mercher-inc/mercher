@@ -33,12 +33,11 @@ class User extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created, fb_id, email', 'required'),
+            array('fb_id, email', 'required'),
             array('email', 'length', 'max' => 250),
             array('first_name, last_name', 'length', 'max' => 50),
-            array('updated, banned, last_login', 'safe'),
+            array('email, first_name, last_name', 'safe'),
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             array(
                 'id, created, updated, fb_id, email, first_name, last_name, banned, last_login',
                 'safe',
@@ -89,8 +88,6 @@ class User extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);

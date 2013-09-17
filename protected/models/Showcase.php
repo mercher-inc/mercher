@@ -33,11 +33,11 @@ class Showcase extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created, fb_id, title', 'required'),
+            array('fb_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('updated, shop_id, description, is_active, banned', 'safe'),
+            array('shop_id, title, description, is_active', 'safe'),
+            array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             array(
                 'id, created, updated, fb_id, shop_id, title, description, is_active, banned',
                 'safe',
@@ -88,8 +88,6 @@ class Showcase extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);

@@ -33,11 +33,10 @@ class Category extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created, shop_id, title', 'required'),
+            array('shop_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('updated, description, is_active, banned', 'safe'),
+            array('title, description, is_active', 'safe'),
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             array('id, created, updated, shop_id, title, description, is_active, banned', 'safe', 'on' => 'search'),
         );
     }
@@ -84,8 +83,6 @@ class Category extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
