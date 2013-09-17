@@ -1,27 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "users".
- * The followings are the available columns in table 'users':
+ * This is the model class for table "shop".
+ * The followings are the available columns in table 'shop':
  * @property string $id
- * @property string $email
- * @property string $first_name
- * @property string $last_name
- * @property string $banned
- * @property string $last_login
  * @property string $created
  * @property string $updated
+ * @property string $owner_id
+ * @property string $title
+ * @property string $description
+ * @property string $banned
  * The followings are the available model relations:
- * @property Shops[] $shops
+ * @property Showcase[] $showcases
+ * @property User $owner
+ * @property Product[] $products
+ * @property Category[] $categories
  */
-class Users extends CActiveRecord
+class Shop extends CActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'users';
+        return 'shop';
     }
 
     /**
@@ -32,13 +34,12 @@ class Users extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('id, email, created', 'required'),
-            array('email', 'length', 'max' => 250),
-            array('first_name, last_name', 'length', 'max' => 50),
-            array('banned, last_login, updated', 'safe'),
+            array('created, owner_id', 'required'),
+            array('title', 'length', 'max' => 50),
+            array('updated, description, banned', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, email, first_name, last_name, banned, last_login, created, updated', 'safe', 'on' => 'search'),
+            array('id, created, updated, owner_id, title, description, banned', 'safe', 'on' => 'search'),
         );
     }
 
@@ -50,8 +51,10 @@ class Users extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'shops'       => array(self::HAS_MANY, 'Shops', 'owner_id'),
-            'shops_count' => array(self::STAT, 'Shops', 'owner_id'),
+            'showcases'  => array(self::HAS_MANY, 'Showcase', 'shop_id'),
+            'owner'      => array(self::BELONGS_TO, 'User', 'owner_id'),
+            'products'   => array(self::HAS_MANY, 'Product', 'shop_id'),
+            'categories' => array(self::HAS_MANY, 'Category', 'shop_id'),
         );
     }
 
@@ -61,14 +64,13 @@ class Users extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'         => 'ID',
-            'email'      => 'Email',
-            'first_name' => 'First Name',
-            'last_name'  => 'Last Name',
-            'banned'     => 'Banned',
-            'last_login' => 'Last Login',
-            'created'    => 'Created',
-            'updated'    => 'Updated',
+            'id'          => 'ID',
+            'created'     => 'Created',
+            'updated'     => 'Updated',
+            'owner_id'    => 'Owner',
+            'title'       => 'Title',
+            'description' => 'Description',
+            'banned'      => 'Banned',
         );
     }
 
@@ -89,13 +91,12 @@ class Users extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('first_name', $this->first_name, true);
-        $criteria->compare('last_name', $this->last_name, true);
-        $criteria->compare('banned', $this->banned, true);
-        $criteria->compare('last_login', $this->last_login, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
+        $criteria->compare('owner_id', $this->owner_id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('banned', $this->banned, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -113,7 +114,7 @@ class Users extends CActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return Users the static model class
+     * @return Shop the static model class
      */
     public static function model($className = __CLASS__)
     {

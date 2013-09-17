@@ -1,25 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "images".
- * The followings are the available columns in table 'images':
+ * This is the model class for table "showcase".
+ * The followings are the available columns in table 'showcase':
  * @property string $id
- * @property string $file_name
- * @property string $ext
- * @property string $dir
  * @property string $created
  * @property string $updated
+ * @property string $fb_id
+ * @property string $shop_id
+ * @property string $title
+ * @property string $description
+ * @property string $banned
  * The followings are the available model relations:
- * @property Products[] $products
+ * @property Shop $shop
  */
-class Images extends CActiveRecord
+class Showcase extends CActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'images';
+        return 'showcase';
     }
 
     /**
@@ -30,13 +32,12 @@ class Images extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('file_name, created', 'required'),
-            array('file_name, dir', 'length', 'max' => 250),
-            array('ext', 'length', 'max' => 5),
-            array('updated', 'safe'),
+            array('created, fb_id, shop_id', 'required'),
+            array('title', 'length', 'max' => 50),
+            array('updated, description, banned', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, file_name, ext, dir, created, updated', 'safe', 'on' => 'search'),
+            array('id, created, updated, fb_id, shop_id, title, description, banned', 'safe', 'on' => 'search'),
         );
     }
 
@@ -48,7 +49,7 @@ class Images extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'products' => array(self::HAS_MANY, 'Products', 'image_id'),
+            'shop' => array(self::BELONGS_TO, 'Shop', 'shop_id'),
         );
     }
 
@@ -58,12 +59,14 @@ class Images extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'        => 'ID',
-            'file_name' => 'File Name',
-            'ext'       => 'Ext',
-            'dir'       => 'Dir',
-            'created'   => 'Created',
-            'updated'   => 'Updated',
+            'id'          => 'ID',
+            'created'     => 'Created',
+            'updated'     => 'Updated',
+            'fb_id'       => 'Fb',
+            'shop_id'     => 'Shop',
+            'title'       => 'Title',
+            'description' => 'Description',
+            'banned'      => 'Banned',
         );
     }
 
@@ -84,11 +87,13 @@ class Images extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('file_name', $this->file_name, true);
-        $criteria->compare('ext', $this->ext, true);
-        $criteria->compare('dir', $this->dir, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
+        $criteria->compare('fb_id', $this->fb_id, true);
+        $criteria->compare('shop_id', $this->shop_id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('banned', $this->banned, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -106,7 +111,7 @@ class Images extends CActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return Images the static model class
+     * @return Showcase the static model class
      */
     public static function model($className = __CLASS__)
     {
