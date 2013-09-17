@@ -15,8 +15,6 @@
  * @property string $banned
  * @property string $created
  * @property string $updated
- * @property string $deleted
- * @property string $revision
  * The followings are the available model relations:
  * @property Shops $shop
  * @property Categories $category
@@ -42,15 +40,15 @@ class Products extends CActiveRecord
         return array(
             array('shop_id', 'default', 'value' => Yii::app()->request->getParam('shop_id')),
             array('shop_id, title, created', 'required'),
-            array('title, plural_title, brand, revision', 'length', 'max' => 50),
+            array('title, plural_title, brand', 'length', 'max' => 50),
             array('price', 'length', 'max' => 19),
             array('price', 'numerical'),
             array('plural_title, brand, description, price', 'default', 'value' => null),
-            array('category_id, description, image_id, banned, updated, deleted', 'safe'),
+            array('category_id, description, image_id, banned, updated', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array(
-                'id, shop_id, category_id, title, plural_title, brand, description, image_id, price, banned, created, updated, deleted, revision',
+                'id, shop_id, category_id, title, plural_title, brand, description, image_id, price, banned, created, updated',
                 'safe',
                 'on' => 'search'
             ),
@@ -89,8 +87,6 @@ class Products extends CActiveRecord
             'banned'       => 'Banned',
             'created'      => 'Created',
             'updated'      => 'Updated',
-            'deleted'      => 'Deleted',
-            'revision'     => 'Revision',
         );
     }
 
@@ -122,8 +118,6 @@ class Products extends CActiveRecord
         $criteria->compare('banned', $this->banned, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
-        $criteria->compare('deleted', $this->deleted, true);
-        $criteria->compare('revision', $this->revision, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -134,9 +128,7 @@ class Products extends CActiveRecord
     {
         return array(
             'application.models.behaviors.OgProductBehavior',
-            'application.models.behaviors.SoftDeleteActiveRecordBehavior',
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
-            'application.models.behaviors.RevisionControlActiveRecordBehavior',
             'restfulModelBehavior' => array(
                 'class'            => 'application.models.behaviors.RestfulModelBehavior',
                 'formClass'        => 'ProductsRestForm',

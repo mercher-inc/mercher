@@ -10,8 +10,6 @@
  * @property string $banned
  * @property string $created
  * @property string $updated
- * @property string $deleted
- * @property string $revision
  * The followings are the available model relations:
  * @property Products[] $products
  * @property Categories[] $categories
@@ -37,15 +35,11 @@ class Shops extends CActiveRecord
         return array(
             array('owner_id', 'default', 'value' => Yii::app()->user->id),
             array('id, owner_id, title, created', 'required'),
-            array('title, revision', 'length', 'max' => 50),
-            array('description, banned, updated, deleted', 'safe'),
+            array('title', 'length', 'max' => 50),
+            array('description, banned, updated', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array(
-                'id, owner_id, title, description, banned, created, updated, deleted, revision',
-                'safe',
-                'on' => 'search'
-            ),
+            array('id, owner_id, title, description, banned, created, updated', 'safe', 'on' => 'search'),
         );
     }
 
@@ -78,8 +72,6 @@ class Shops extends CActiveRecord
             'banned'      => 'Banned',
             'created'     => 'Created',
             'updated'     => 'Updated',
-            'deleted'     => 'Deleted',
-            'revision'    => 'Revision',
         );
     }
 
@@ -106,8 +98,6 @@ class Shops extends CActiveRecord
         $criteria->compare('banned', $this->banned, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
-        $criteria->compare('deleted', $this->deleted, true);
-        $criteria->compare('revision', $this->revision, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -117,9 +107,7 @@ class Shops extends CActiveRecord
     public function behaviors()
     {
         return array(
-            'application.models.behaviors.SoftDeleteActiveRecordBehavior',
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
-            'application.models.behaviors.RevisionControlActiveRecordBehavior',
             'restfulModelBehavior' => array(
                 'class'            => 'application.models.behaviors.RestfulModelBehavior',
                 'formClass'        => 'ShopsRestForm',

@@ -16,8 +16,6 @@ class m130904_100000_init extends CDbMigration
                 'dir'       => 'varchar(250) NULL',
                 'created'   => 'timestamp NOT NULL',
                 'updated'   => 'timestamp DEFAULT NULL',
-                'deleted'   => 'timestamp DEFAULT NULL',
-                'revision'  => 'varchar(50) NOT NULL',
             )
         );
 
@@ -35,8 +33,6 @@ class m130904_100000_init extends CDbMigration
                 'last_login' => 'timestamp NULL',
                 'created'    => 'timestamp NOT NULL',
                 'updated'    => 'timestamp NULL',
-                'deleted'    => 'timestamp NULL',
-                'revision'   => 'varchar(50) NULL',
             )
         );
 
@@ -53,8 +49,6 @@ class m130904_100000_init extends CDbMigration
                 'banned'      => 'timestamp NULL',
                 'created'     => 'timestamp NOT NULL',
                 'updated'     => 'timestamp NULL',
-                'deleted'     => 'timestamp NULL',
-                'revision'    => 'varchar(50) NULL',
             )
         );
         $this->addForeignKey('shops_owner_id_FK', 'shops', 'owner_id', 'users', 'id', 'RESTRICT', 'CASCADE');
@@ -71,8 +65,6 @@ class m130904_100000_init extends CDbMigration
                 'description' => 'text',
                 'created'     => 'timestamp NOT NULL',
                 'updated'     => 'timestamp NULL',
-                'deleted'     => 'timestamp NULL',
-                'revision'    => 'varchar(50) NULL',
             )
         );
         $this->addForeignKey('categories_shop_id_FK', 'categories', 'shop_id', 'shops', 'id', 'RESTRICT', 'CASCADE');
@@ -95,8 +87,6 @@ class m130904_100000_init extends CDbMigration
                 'banned'       => 'timestamp NULL',
                 'created'      => 'timestamp NOT NULL',
                 'updated'      => 'timestamp NULL',
-                'deleted'      => 'timestamp NULL',
-                'revision'     => 'varchar(50) NULL',
             )
         );
         $this->addForeignKey('products_shop_id_FK', 'products', 'shop_id', 'shops', 'id', 'RESTRICT', 'CASCADE');
