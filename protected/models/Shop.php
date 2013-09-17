@@ -9,6 +9,7 @@
  * @property string $owner_id
  * @property string $title
  * @property string $description
+ * @property boolean $is_active
  * @property string $banned
  * The followings are the available model relations:
  * @property Showcase[] $showcases
@@ -34,12 +35,12 @@ class Shop extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created, owner_id', 'required'),
+            array('created, owner_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('updated, description, banned', 'safe'),
+            array('updated, description, is_active, banned', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, created, updated, owner_id, title, description, banned', 'safe', 'on' => 'search'),
+            array('id, created, updated, owner_id, title, description, is_active, banned', 'safe', 'on' => 'search'),
         );
     }
 
@@ -70,6 +71,7 @@ class Shop extends CActiveRecord
             'owner_id'    => 'Owner',
             'title'       => 'Title',
             'description' => 'Description',
+            'is_active'   => 'Is Active',
             'banned'      => 'Banned',
         );
     }
@@ -96,6 +98,7 @@ class Shop extends CActiveRecord
         $criteria->compare('owner_id', $this->owner_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('is_active', $this->is_active);
         $criteria->compare('banned', $this->banned, true);
 
         return new CActiveDataProvider($this, array(

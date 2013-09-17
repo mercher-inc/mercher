@@ -10,11 +10,10 @@
  * @property string $shop_id
  * @property string $category_id
  * @property string $title
- * @property string $plural_title
- * @property string $brand
  * @property string $description
  * @property string $image_id
  * @property string $price
+ * @property boolean $is_active
  * @property string $banned
  * The followings are the available model relations:
  * @property Shop $shop
@@ -39,14 +38,14 @@ class Product extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created, fb_id, shop_id', 'required'),
-            array('title, plural_title, brand', 'length', 'max' => 50),
+            array('created, shop_id', 'required'),
+            array('title', 'length', 'max' => 50),
             array('price', 'length', 'max' => 19),
-            array('updated, category_id, description, image_id, banned', 'safe'),
+            array('updated, fb_id, category_id, description, image_id, is_active, banned', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array(
-                'id, created, updated, fb_id, shop_id, category_id, title, plural_title, brand, description, image_id, price, banned',
+                'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, price, is_active, banned',
                 'safe',
                 'on' => 'search'
             ),
@@ -73,19 +72,18 @@ class Product extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'           => 'ID',
-            'created'      => 'Created',
-            'updated'      => 'Updated',
-            'fb_id'        => 'Fb',
-            'shop_id'      => 'Shop',
-            'category_id'  => 'Category',
-            'title'        => 'Title',
-            'plural_title' => 'Plural Title',
-            'brand'        => 'Brand',
-            'description'  => 'Description',
-            'image_id'     => 'Image',
-            'price'        => 'Price',
-            'banned'       => 'Banned',
+            'id'          => 'ID',
+            'created'     => 'Created',
+            'updated'     => 'Updated',
+            'fb_id'       => 'Fb',
+            'shop_id'     => 'Shop',
+            'category_id' => 'Category',
+            'title'       => 'Title',
+            'description' => 'Description',
+            'image_id'    => 'Image',
+            'price'       => 'Price',
+            'is_active'   => 'Is Active',
+            'banned'      => 'Banned',
         );
     }
 
@@ -112,11 +110,10 @@ class Product extends CActiveRecord
         $criteria->compare('shop_id', $this->shop_id, true);
         $criteria->compare('category_id', $this->category_id, true);
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('plural_title', $this->plural_title, true);
-        $criteria->compare('brand', $this->brand, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('image_id', $this->image_id, true);
         $criteria->compare('price', $this->price, true);
+        $criteria->compare('is_active', $this->is_active);
         $criteria->compare('banned', $this->banned, true);
 
         return new CActiveDataProvider($this, array(

@@ -9,6 +9,8 @@
  * @property string $shop_id
  * @property string $title
  * @property string $description
+ * @property boolean $is_active
+ * @property string $banned
  * The followings are the available model relations:
  * @property Product[] $products
  * @property Shop $shop
@@ -33,10 +35,10 @@ class Category extends CActiveRecord
         return array(
             array('created, shop_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('updated, description', 'safe'),
+            array('updated, description, is_active, banned', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, created, updated, shop_id, title, description', 'safe', 'on' => 'search'),
+            array('id, created, updated, shop_id, title, description, is_active, banned', 'safe', 'on' => 'search'),
         );
     }
 
@@ -65,6 +67,8 @@ class Category extends CActiveRecord
             'shop_id'     => 'Shop',
             'title'       => 'Title',
             'description' => 'Description',
+            'is_active'   => 'Is Active',
+            'banned'      => 'Banned',
         );
     }
 
@@ -90,6 +94,8 @@ class Category extends CActiveRecord
         $criteria->compare('shop_id', $this->shop_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('is_active', $this->is_active);
+        $criteria->compare('banned', $this->banned, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

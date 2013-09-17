@@ -14,7 +14,7 @@ class m130904_100000_init extends CDbMigration
             array(
                 'id'      => 'bigint PRIMARY KEY DEFAULT nextval(\'s_object_id\')',
                 'created' => 'timestamp NOT NULL DEFAULT NOW()',
-                'updated' => 'timestamp DEFAULT NULL',
+                'updated' => 'timestamp NULL',
             )
         );
 
@@ -29,11 +29,10 @@ class m130904_100000_init extends CDbMigration
             ),
             'INHERITS (object)'
         );
-        $this->createIndex(
+        $this->addPrimaryKey(
             'pk_image',
             'image',
-            'id',
-            true
+            'id'
         );
 
         /*
@@ -42,7 +41,7 @@ class m130904_100000_init extends CDbMigration
         $this->createTable(
             'user',
             array(
-                'fb_id'      => 'bigint PRIMARY KEY',
+                'fb_id'      => 'bigint NOT NULL',
                 'email'      => 'varchar(250) NOT NULL',
                 'first_name' => 'varchar(50) NULL',
                 'last_name'  => 'varchar(50) NULL',
@@ -51,11 +50,10 @@ class m130904_100000_init extends CDbMigration
             ),
             'INHERITS (object)'
         );
-        $this->createIndex(
+        $this->addPrimaryKey(
             'pk_user',
             'user',
-            'id',
-            true
+            'id'
         );
         $this->createIndex(
             'fb_user',
@@ -71,17 +69,17 @@ class m130904_100000_init extends CDbMigration
             'shop',
             array(
                 'owner_id'    => 'bigint NOT NULL',
-                'title'       => 'varchar(50) NULL',
+                'title'       => 'varchar(50) NOT NULL',
                 'description' => 'text',
+                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
                 'banned'      => 'timestamp NULL',
             ),
             'INHERITS (object)'
         );
-        $this->createIndex(
+        $this->addPrimaryKey(
             'pk_shop',
             'shop',
-            'id',
-            true
+            'id'
         );
         $this->addForeignKey(
             'fk_shop_owner_id',
@@ -89,7 +87,7 @@ class m130904_100000_init extends CDbMigration
             'owner_id',
             'user',
             'id',
-            'RESTRICT',
+            'CASCADE',
             'CASCADE'
         );
 
@@ -102,14 +100,15 @@ class m130904_100000_init extends CDbMigration
                 'shop_id'     => 'bigint NOT NULL',
                 'title'       => 'varchar(50) NOT NULL',
                 'description' => 'text',
+                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
+                'banned'      => 'timestamp NULL',
             ),
             'INHERITS (object)'
         );
-        $this->createIndex(
+        $this->addPrimaryKey(
             'pk_category',
             'category',
-            'id',
-            true
+            'id'
         );
         $this->addForeignKey(
             'fk_category_shop_id',
@@ -117,7 +116,7 @@ class m130904_100000_init extends CDbMigration
             'shop_id',
             'shop',
             'id',
-            'RESTRICT',
+            'CASCADE',
             'CASCADE'
         );
 
@@ -127,24 +126,22 @@ class m130904_100000_init extends CDbMigration
         $this->createTable(
             'product',
             array(
-                'fb_id'        => 'bigint NOT NULL',
-                'shop_id'      => 'bigint NOT NULL',
-                'category_id'  => 'bigint NULL',
-                'title'        => 'varchar(50) NULL',
-                'plural_title' => 'varchar(50) NULL',
-                'brand'        => 'varchar(50) NULL',
-                'description'  => 'text',
-                'image_id'     => 'bigint NULL',
-                'price'        => 'money NULL',
-                'banned'       => 'timestamp NULL',
+                'fb_id'       => 'bigint NULL',
+                'shop_id'     => 'bigint NOT NULL',
+                'category_id' => 'bigint NULL',
+                'title'       => 'varchar(50) NULL',
+                'description' => 'text',
+                'image_id'    => 'bigint NULL',
+                'price'       => 'money NULL',
+                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
+                'banned'      => 'timestamp NULL',
             ),
             'INHERITS (object)'
         );
-        $this->createIndex(
+        $this->addPrimaryKey(
             'pk_product',
             'product',
-            'id',
-            true
+            'id'
         );
         $this->createIndex(
             'fb_product',
@@ -158,7 +155,7 @@ class m130904_100000_init extends CDbMigration
             'shop_id',
             'shop',
             'id',
-            'RESTRICT',
+            'CASCADE',
             'CASCADE'
         );
         $this->addForeignKey(
@@ -186,19 +183,19 @@ class m130904_100000_init extends CDbMigration
         $this->createTable(
             'showcase',
             array(
-                'fb_id'       => 'bigint PRIMARY KEY',
-                'shop_id'     => 'bigint NOT NULL',
-                'title'       => 'varchar(50) NULL',
+                'fb_id'       => 'bigint NOT NULL',
+                'shop_id'     => 'bigint NULL',
+                'title'       => 'varchar(50) NOT NULL',
                 'description' => 'text',
+                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
                 'banned'      => 'timestamp NULL',
             ),
             'INHERITS (object)'
         );
-        $this->createIndex(
+        $this->addPrimaryKey(
             'pk_showcase',
             'showcase',
-            'id',
-            true
+            'id'
         );
         $this->createIndex(
             'fb_showcase',
