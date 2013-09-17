@@ -10,7 +10,7 @@
  * @property string $email
  * @property string $first_name
  * @property string $last_name
- * @property string $banned
+ * @property boolean $is_banned
  * @property string $last_login
  * The followings are the available model relations:
  * @property Shop[] $shops
@@ -39,7 +39,7 @@ class User extends CActiveRecord
             array('email, first_name, last_name', 'safe'),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, email, first_name, last_name, banned, last_login',
+                'id, created, updated, fb_id, email, first_name, last_name, is_banned, last_login',
                 'safe',
                 'on' => 'search'
             ),
@@ -71,7 +71,7 @@ class User extends CActiveRecord
             'email'      => 'Email',
             'first_name' => 'First Name',
             'last_name'  => 'Last Name',
-            'banned'     => 'Banned',
+            'is_banned'  => 'Is Banned',
             'last_login' => 'Last Login',
         );
     }
@@ -97,7 +97,7 @@ class User extends CActiveRecord
         $criteria->compare('email', $this->email, true);
         $criteria->compare('first_name', $this->first_name, true);
         $criteria->compare('last_name', $this->last_name, true);
-        $criteria->compare('banned', $this->banned, true);
+        $criteria->compare('is_banned', $this->is_banned);
         $criteria->compare('last_login', $this->last_login, true);
 
         return new CActiveDataProvider($this, array(

@@ -10,7 +10,7 @@
  * @property string $title
  * @property string $description
  * @property boolean $is_active
- * @property string $banned
+ * @property boolean $is_banned
  * The followings are the available model relations:
  * @property Showcase[] $showcases
  * @property User $owner
@@ -39,7 +39,7 @@ class Shop extends CActiveRecord
             array('title', 'length', 'max' => 50),
             array('title, description, is_active', 'safe'),
             // The following rule is used by search().
-            array('id, created, updated, owner_id, title, description, is_active, banned', 'safe', 'on' => 'search'),
+            array('id, created, updated, owner_id, title, description, is_active, is_banned', 'safe', 'on' => 'search'),
         );
     }
 
@@ -71,7 +71,7 @@ class Shop extends CActiveRecord
             'title'       => 'Title',
             'description' => 'Description',
             'is_active'   => 'Is Active',
-            'banned'      => 'Banned',
+            'is_banned'   => 'Is Banned',
         );
     }
 
@@ -96,7 +96,7 @@ class Shop extends CActiveRecord
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('is_active', $this->is_active);
-        $criteria->compare('banned', $this->banned, true);
+        $criteria->compare('is_banned', $this->is_banned);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

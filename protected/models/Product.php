@@ -14,7 +14,7 @@
  * @property string $image_id
  * @property string $price
  * @property boolean $is_active
- * @property string $banned
+ * @property boolean $is_banned
  * The followings are the available model relations:
  * @property Shop $shop
  * @property Category $category
@@ -44,7 +44,7 @@ class Product extends CActiveRecord
             array('category_id, title, description, is_active', 'safe'),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, price, is_active, banned',
+                'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, price, is_active, is_banned',
                 'safe',
                 'on' => 'search'
             ),
@@ -82,7 +82,7 @@ class Product extends CActiveRecord
             'image_id'    => 'Image',
             'price'       => 'Price',
             'is_active'   => 'Is Active',
-            'banned'      => 'Banned',
+            'is_banned'   => 'Is Banned',
         );
     }
 
@@ -111,7 +111,7 @@ class Product extends CActiveRecord
         $criteria->compare('image_id', $this->image_id, true);
         $criteria->compare('price', $this->price, true);
         $criteria->compare('is_active', $this->is_active);
-        $criteria->compare('banned', $this->banned, true);
+        $criteria->compare('is_banned', $this->is_banned);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

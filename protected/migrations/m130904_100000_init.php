@@ -45,7 +45,7 @@ class m130904_100000_init extends CDbMigration
                 'email'      => 'varchar(250) NOT NULL',
                 'first_name' => 'varchar(50) NULL',
                 'last_name'  => 'varchar(50) NULL',
-                'banned'     => 'timestamp NULL',
+                'is_banned'  => 'boolean NOT NULL DEFAULT FALSE',
                 'last_login' => 'timestamp NULL',
             ),
             'INHERITS (object)'
@@ -72,7 +72,7 @@ class m130904_100000_init extends CDbMigration
                 'title'       => 'varchar(50) NOT NULL',
                 'description' => 'text',
                 'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
-                'banned'      => 'timestamp NULL',
+                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
             ),
             'INHERITS (object)'
         );
@@ -101,7 +101,7 @@ class m130904_100000_init extends CDbMigration
                 'title'       => 'varchar(50) NOT NULL',
                 'description' => 'text',
                 'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
-                'banned'      => 'timestamp NULL',
+                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
             ),
             'INHERITS (object)'
         );
@@ -134,7 +134,7 @@ class m130904_100000_init extends CDbMigration
                 'image_id'    => 'bigint NULL',
                 'price'       => 'money NULL',
                 'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
-                'banned'      => 'timestamp NULL',
+                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
             ),
             'INHERITS (object)'
         );
@@ -188,7 +188,7 @@ class m130904_100000_init extends CDbMigration
                 'title'       => 'varchar(50) NOT NULL',
                 'description' => 'text',
                 'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
-                'banned'      => 'timestamp NULL',
+                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
             ),
             'INHERITS (object)'
         );
