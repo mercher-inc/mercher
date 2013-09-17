@@ -9,6 +9,7 @@
  * @property string $owner_id
  * @property string $title
  * @property string $description
+ * @property double $resellers_discount
  * @property boolean $is_active
  * @property boolean $is_banned
  * The followings are the available model relations:
@@ -36,10 +37,15 @@ class Shop extends CActiveRecord
         // will receive user inputs.
         return array(
             array('owner_id, title', 'required'),
+            array('resellers_discount', 'numerical'),
             array('title', 'length', 'max' => 50),
-            array('title, description, is_active', 'safe'),
+            array('title, description, resellers_discount, is_active', 'safe'),
             // The following rule is used by search().
-            array('id, created, updated, owner_id, title, description, is_active, is_banned', 'safe', 'on' => 'search'),
+            array(
+                'id, created, updated, owner_id, title, description, resellers_discount, is_active, is_banned',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -64,14 +70,15 @@ class Shop extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'          => 'ID',
-            'created'     => 'Created',
-            'updated'     => 'Updated',
-            'owner_id'    => 'Owner',
-            'title'       => 'Title',
-            'description' => 'Description',
-            'is_active'   => 'Is Active',
-            'is_banned'   => 'Is Banned',
+            'id'                 => 'ID',
+            'created'            => 'Created',
+            'updated'            => 'Updated',
+            'owner_id'           => 'Owner',
+            'title'              => 'Title',
+            'description'        => 'Description',
+            'resellers_discount' => 'Resellers Discount',
+            'is_active'          => 'Is Active',
+            'is_banned'          => 'Is Banned',
         );
     }
 
@@ -95,6 +102,7 @@ class Shop extends CActiveRecord
         $criteria->compare('owner_id', $this->owner_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('resellers_discount', $this->resellers_discount);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
 
