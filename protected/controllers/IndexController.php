@@ -46,7 +46,8 @@ class IndexController extends Controller
     public function actionIndex()
     {
         if (!Yii::app()->user->isGuest) {
-            if (Yii::app()->user->id != Yii::app()->facebook->sdk->getUser()) {
+            $user = User::model()->findByPk(Yii::app()->user->id);
+            if ($user->fb_id != Yii::app()->facebook->sdk->getUser()) {
                 Yii::app()->user->logout();
             } else {
                 $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));

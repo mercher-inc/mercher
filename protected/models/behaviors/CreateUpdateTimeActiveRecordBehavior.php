@@ -12,10 +12,10 @@ class CreateUpdateTimeActiveRecordBehavior extends CActiveRecordBehavior
     public function beforeValidate(CModelEvent $event)
     {
         $model = $this->getOwner();
-        if ($model->getIsNewRecord()) {
-            $model->setAttribute('created', date('Y-m-d h:i:s'));
+        if ($model->isNewRecord) {
+            $model->created = new CDbExpression('NOW()');
         } else {
-            $model->setAttribute('updated', date('Y-m-d h:i:s'));
+            $model->updated = new CDbExpression('NOW()');
         }
     }
 }

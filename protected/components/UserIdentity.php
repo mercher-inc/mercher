@@ -2,6 +2,7 @@
 
 class UserIdentity extends CBaseUserIdentity
 {
+    private $_fbUser;
     private $_user;
 
     public function authenticate()
@@ -15,7 +16,7 @@ class UserIdentity extends CBaseUserIdentity
         }
 
         try {
-            $this->_user = Yii::app()->facebook->sdk->api('/me');
+            $this->_fbUser = Yii::app()->facebook->sdk->api('/me');
         } catch (FacebookApiException $e) {
             $result = $e->getResult();
             $this->errorCode = self::ERROR_NONE;
@@ -23,24 +24,27 @@ class UserIdentity extends CBaseUserIdentity
             return false;
         }
 
-        $user = Users::model()->findByPk($this->_user['id']);
+        $user = User::model()->find('fb_id = :fbId', array('fbId'=>$this->_fbUser['id']));
 
         if ($user === null) {
-            $user = new Users();
-            $user->id = $this->_user['id'];
-            //$user->created = date('Y-m-d H:i:s');
+            $user = new User();
+            $user->fb_id = $this->_fbUser['id'];
         }
 
-        $user->first_name = $this->_user['first_name'];
-        $user->last_name = $this->_user['last_name'];
-        $user->email = $this->_user['email'];
-        $user->last_login = date('Y-m-d H:i:s');
+        $user->first_name = $this->_fbUser['first_name'];
+        $user->last_name = $this->_fbUser['last_name'];
+        $user->email = $this->_fbUser['email'];
+        $user->last_login = new CDbExpression('NOW()');
 
         if (!$user->save()) {
             $this->errorCode = self::ERROR_NONE;
             $this->errorMessage = 'Validation error: ' . array_shift( array_shift($user->getErrors()));
             return false;
         }
+
+        $user->refresh();
+
+        $this->_user = $user->getAttributes();
 
         return true;
     }
@@ -52,26 +56,16 @@ class UserIdentity extends CBaseUserIdentity
 
     public function getName()
     {
+        if (!isset($this->_user['name'])) {
+            $this->_user['name'] = array();
+            if ($this->_user['first_name']) $this->_user['name'][] = $this->_user['first_name'];
+            if ($this->_user['last_name']) $this->_user['name'][] = $this->_user['last_name'];
+            if (count($this->_user['name'])) {
+                $this->_user['name'] = implode(' ', $this->_user['name']);
+            } else {
+                $this->_user['name'] = Yii::t('label', 'anonymous');
+            }
+        }
         return $this->_user['name'];
-    }
-
-    public function getFirstName()
-    {
-        return $this->_user['first_name'];
-    }
-
-    public function getLastName()
-    {
-        return $this->_user['last_name'];
-    }
-
-    public function getUsername()
-    {
-        return $this->_user['username'];
-    }
-
-    public function getEmail()
-    {
-        return $this->_user['email'];
     }
 }
