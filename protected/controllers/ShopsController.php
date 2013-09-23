@@ -23,26 +23,55 @@ class ShopsController extends Controller
         );
     }
 
-    public function actionGet()
+    public function actionCreate()
     {
-        if (!$this->shop) {
-            throw new CHttpException(404);
-        }
-        if (Yii::app()->user->id != $this->shop->owner_id) {
-            throw new CHttpException(401);
-        }
+        $this->layout = '//layouts/shop';
+        $this->render('create');
+    }
+
+    public function actionRead()
+    {
         $this->layout = '//layouts/shop';
         $this->render(
-            'get',
+            'read',
             array(
                 'shop' => $this->shop
             )
         );
     }
 
-    public function getShop() {
+    public function actionUpdate()
+    {
+        $this->layout = '//layouts/shop';
+        $this->render(
+            'update',
+            array(
+                'shop' => $this->shop
+            )
+        );
+    }
+
+    public function actionDelete()
+    {
+        $this->layout = '//layouts/shop';
+        $this->render(
+            'delete',
+            array(
+                'shop' => $this->shop
+            )
+        );
+    }
+
+    public function getShop()
+    {
         if (!$this->_shop) {
             $this->_shop = Shop::model()->findByPk(Yii::app()->request->getParam('shop_id'));
+            if (!$this->_shop) {
+                throw new CHttpException(404);
+            }
+            if (Yii::app()->user->id != $this->_shop->owner_id) {
+                throw new CHttpException(401);
+            }
         }
         return $this->_shop;
     }

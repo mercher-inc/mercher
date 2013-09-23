@@ -7,8 +7,9 @@ return array_merge(
         'contact'                              => 'index/contact',
         //==Shops==
         'shops'                                => 'shops/index',
-        'shops/<shop_id:\d+>'                  => 'shops/get',
-        'shops/<shop_id:\d+>/settings'         => 'shops/edit',
+        'shops/new'                            => 'shops/create',
+        'shops/<shop_id:\d+>'                  => 'shops/read',
+        'shops/<shop_id:\d+>/settings'         => 'shops/update',
         'shops/<shop_id:\d+>/delete'           => 'shops/delete',
         //==Showcases==
         'showcases'                            => 'showcases/index',

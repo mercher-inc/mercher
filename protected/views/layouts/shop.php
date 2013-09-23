@@ -13,11 +13,11 @@
                         'items'       => array(
                             array(
                                 'label' => Yii::t('label', 'shop'),
-                                'url'   => array('shops/get', 'shop_id' => $this->shop->id)
+                                'url'   => array('shops/read', 'shop_id' => $this->shop->id)
                             ),
                             array(
                                 'label' => Yii::t('label', 'settings'),
-                                'url'   => array('shops/edit', 'shop_id' => $this->shop->id)
+                                'url'   => array('shops/update', 'shop_id' => $this->shop->id)
                             ),
                             array(
                                 'label' => Yii::t('label', 'categories'),

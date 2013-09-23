@@ -15,7 +15,7 @@
     </td>
     <td>
         <a href="<?php echo Yii::app()->urlManager->createUrl(
-            'shops/get',
+            'shops/read',
             array('shop_id' => $shop->id)
         ) ?>"><?php echo $shop->title ?></a>
     </td>
@@ -28,7 +28,7 @@
     <td>
         <div class="pull-right">
             <a class="btn btn-default" href="<?php echo Yii::app()->urlManager->createUrl(
-                'shops/edit',
+                'shops/update',
                 array('shop_id' => $shop->id)
             ) ?>"><?php echo Yii::t('label', 'edit') ?></a>
             <a class="btn btn-danger" href="<?php echo Yii::app()->urlManager->createUrl(
