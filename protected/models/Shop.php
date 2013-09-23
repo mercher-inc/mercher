@@ -6,6 +6,7 @@
  * @property string $id
  * @property string $created
  * @property string $updated
+ * @property string $fb_id
  * @property string $owner_id
  * @property string $title
  * @property string $description
@@ -13,10 +14,9 @@
  * @property boolean $is_active
  * @property boolean $is_banned
  * The followings are the available model relations:
- * @property Showcase[] $showcases
- * @property User $owner
  * @property Product[] $products
  * @property Category[] $categories
+ * @property User $owner
  */
 class Shop extends CActiveRecord
 {
@@ -40,9 +40,10 @@ class Shop extends CActiveRecord
             array('resellers_discount', 'numerical'),
             array('title', 'length', 'max' => 50),
             array('title, description, resellers_discount, is_active', 'safe'),
+            array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(
-                'id, created, updated, owner_id, title, description, resellers_discount, is_active, is_banned',
+                'id, created, updated, fb_id, owner_id, title, description, resellers_discount, is_active, is_banned',
                 'safe',
                 'on' => 'search'
             ),
@@ -57,10 +58,9 @@ class Shop extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'showcases'  => array(self::HAS_MANY, 'Showcase', 'shop_id'),
-            'owner'      => array(self::BELONGS_TO, 'User', 'owner_id'),
             'products'   => array(self::HAS_MANY, 'Product', 'shop_id'),
             'categories' => array(self::HAS_MANY, 'Category', 'shop_id'),
+            'owner'      => array(self::BELONGS_TO, 'User', 'owner_id'),
         );
     }
 
@@ -73,6 +73,7 @@ class Shop extends CActiveRecord
             'id'                 => 'ID',
             'created'            => 'Created',
             'updated'            => 'Updated',
+            'fb_id'              => 'Fb',
             'owner_id'           => 'Owner',
             'title'              => 'Title',
             'description'        => 'Description',
@@ -99,6 +100,7 @@ class Shop extends CActiveRecord
         $criteria->compare('id', $this->id, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
+        $criteria->compare('fb_id', $this->fb_id, true);
         $criteria->compare('owner_id', $this->owner_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);

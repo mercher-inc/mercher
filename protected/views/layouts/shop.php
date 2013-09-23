@@ -27,6 +27,10 @@
                                 'label' => Yii::t('label', 'products'),
                                 'url'   => array('products/index', 'shop_id' => $this->shop->id)
                             ),
+                            array(
+                                'label' => Yii::t('label', 'design'),
+                                'url'   => array('design/index', 'shop_id' => $this->shop->id)
+                            ),
                             /*
                             array(
                                 'label' => Yii::t('label', 'orders'),

@@ -2,7 +2,7 @@
 
 <?php if (!count($this->shops)) { ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('shop', 'not_found') ?>
+        <?php echo Yii::t('shop', 'no_items_found') ?>
         <a class="btn btn-primary" href="<?php echo Yii::app()->urlManager->createUrl('shops/create') ?>"><?php echo Yii::t('label', 'create') ?></a>
     </div>
 <?php } else { ?>

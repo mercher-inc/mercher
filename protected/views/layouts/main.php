@@ -49,11 +49,6 @@ Yii::app()->clientScript->registerMetaTag('en', 'language');
                     'url'     => array('shops/index'),
                     'visible' => !Yii::app()->user->isGuest
                 ),
-                array(
-                    'label'   => Yii::t('label', 'showcases'),
-                    'url'     => array('showcases/index'),
-                    'visible' => !Yii::app()->user->isGuest
-                ),
             ),
             'htmlOptions' => array(
                 'class' => 'nav navbar-nav'

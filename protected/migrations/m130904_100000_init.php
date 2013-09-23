@@ -68,6 +68,7 @@ class m130904_100000_init extends CDbMigration
         $this->createTable(
             'shop',
             array(
+                'fb_id'              => 'bigint NULL',
                 'owner_id'           => 'bigint NOT NULL',
                 'title'              => 'varchar(50) NOT NULL',
                 'description'        => 'text',
@@ -81,6 +82,12 @@ class m130904_100000_init extends CDbMigration
             'pk_shop',
             'shop',
             'id'
+        );
+        $this->createIndex(
+            'fb_shop',
+            'shop',
+            'fb_id',
+            true
         );
         $this->addForeignKey(
             'fk_shop_owner_id',
@@ -177,49 +184,10 @@ class m130904_100000_init extends CDbMigration
             'SET NULL',
             'CASCADE'
         );
-
-        /*
-         * showcase table
-         */
-        $this->createTable(
-            'showcase',
-            array(
-                'fb_id'       => 'bigint NOT NULL',
-                'shop_id'     => 'bigint NULL',
-                'title'       => 'varchar(50) NOT NULL',
-                'description' => 'text',
-                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
-                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
-            ),
-            'INHERITS (object)'
-        );
-        $this->addPrimaryKey(
-            'pk_showcase',
-            'showcase',
-            'id'
-        );
-        $this->createIndex(
-            'fb_showcase',
-            'showcase',
-            'fb_id',
-            true
-        );
-        $this->addForeignKey(
-            'fk_showcase_shop_id',
-            'showcase',
-            'shop_id',
-            'shop',
-            'id',
-            'SET NULL',
-            'CASCADE'
-        );
     }
 
     public function safeDown()
     {
-        $this->dropForeignKey('fk_showcase_shop_id', 'showcase');
-        $this->dropTable('showcase');
-
         $this->dropForeignKey('fk_product_image_id', 'product');
         $this->dropForeignKey('fk_product_category_id', 'product');
         $this->dropForeignKey('fk_product_shop_id', 'product');
