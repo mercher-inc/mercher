@@ -11,51 +11,13 @@ class ProductsWidget extends CWidget
 {
     private static $_counter = 0;
     private $_id;
-    public $shop_id;
+    public $shop;
+    public $products;
 
     public function init()
     {
         echo '<div id="' . $this->getId() . '">';
-
-        $params = array(
-            'page'  => 1,
-            'limit' => 10,
-            /*
-            'with'  =>  array(
-                'category'
-            )
-            */
-        );
-
-        $context = array(
-            'shop_id' => $this->shop_id
-        );
-
-        $query = array_replace_recursive(
-            $params,
-            $context
-        );
-
-        try {
-            $collection = Products::model()->readRestCollection($query);
-        } catch (CHttpException $e) {
-            var_dump($e);
-            echo '<div class="alert alert-error">' . $e->getMessage() . '</div>';
-            return;
-        }
-
-        echo '<h1>' . Yii::t('label', 'products') . '</h1>';
-
-        Yii::app()->clientScript->registerPackage('mercher/views/products/list');
-        $obj = 'Mercher.' . $this->getId();
-        Yii::app()->clientScript->registerScript(
-            $this->getId(),
-            "$obj = {};\n" .
-                "$obj.collection = new Mercher.Collections.Products();\n" .
-                "$obj.view = new Mercher.Views.Products.List({collection: $obj.collection});\n" .
-                "$obj.view.\$el.appendTo(\"#" . $this->getId() . "\");\n" .
-                "$obj.collection.reset($obj.collection.parse(" . CJSON::encode($collection) . "));\n"
-        );
+        $this->render('products_widget/list');
     }
 
     public function run()

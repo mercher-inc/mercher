@@ -17,14 +17,17 @@ return array_merge(
         'shops/<shop_id:\d+>/categories/<category_id:\d+>'          => 'categories/read',
         'shops/<shop_id:\d+>/categories/<category_id:\d+>/settings' => 'categories/update',
         'shops/<shop_id:\d+>/categories/<category_id:\d+>/delete'   => 'categories/delete',
+        //==Products==
+        'shops/<shop_id:\d+>/products'                              => 'products/index',
+        'shops/<shop_id:\d+>/products/new'                          => 'products/create',
+        'shops/<shop_id:\d+>/products/<product_id:\d+>'             => 'products/read',
+        'shops/<shop_id:\d+>/products/<product_id:\d+>/settings'    => 'products/update',
+        'shops/<shop_id:\d+>/products/<product_id:\d+>/delete'      => 'products/delete',
         //==Showcases==
         'showcases'                                                 => 'showcases/index',
         'showcases/<showcase_id:\d+>'                               => 'showcases/get',
         'showcases/<showcase_id:\d+>/settings'                      => 'showcases/edit',
         'showcases/add/<page_id:\d+>'                               => 'showcases/add',
-        //==Products==
-        'shops/<shop_id:\d+>/products'                              => 'products/index',
-        'products/<product_id:\d+>'                                 => 'products/get',
         //==Orders==
         'shops/<shop_id:\d+>/orders'                                => 'orders/index',
         'orders/<order_id:\d+>'                                     => 'orders/get',
