@@ -1,6 +1,6 @@
 <?php
 /* @var $this ShopsController */
-/* @var $shop Shops */
+/* @var $shop Shop */
 
 
 var_dump($shop);

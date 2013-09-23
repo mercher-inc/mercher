@@ -12,8 +12,12 @@
                     array(
                         'items'       => array(
                             array(
-                                'label' => Yii::t('label', 'shop_settings'),
+                                'label' => Yii::t('label', 'shop'),
                                 'url'   => array('shops/get', 'shop_id' => $this->shop->id)
+                            ),
+                            array(
+                                'label' => Yii::t('label', 'settings'),
+                                'url'   => array('shops/edit', 'shop_id' => $this->shop->id)
                             ),
                             array(
                                 'label' => Yii::t('label', 'categories'),
