@@ -1,12 +1,12 @@
 <?php
 //==form==
 echo CHtml::beginForm(
-    $this->createUrl('shops/update', array('shop_id' => $this->shop->id))
+    $this->createUrl('shops/create')
 );
 echo CHtml::tag(
     'legend',
     array(),
-    Yii::t('shop', 'edit')
+    Yii::t('shop', 'create')
 );
 
 //==title==
@@ -63,6 +63,36 @@ echo CHtml::textArea(
 echo CHtml::error(
     $this->shop,
     'description',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==fb_id==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->shop->hasErrors('fb_id') ? ' has-error' : '')
+    )
+);
+echo CHtml::label(
+    Yii::t('shop', $this->shop->getAttributeLabel('fb_id')),
+    'fbIdInput'
+);
+echo CHtml::dropDownList(
+    'fb_id',
+    $this->shop->fb_id,
+    array(),
+    array(
+        'class'    => 'form-control',
+        'id'       => 'fbIdInput',
+        'disabled' => 'disabled'
+    )
+);
+echo CHtml::error(
+    $this->shop,
+    'fb_id',
     array(
         'class' => 'help-block'
     )

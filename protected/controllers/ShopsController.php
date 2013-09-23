@@ -25,8 +25,25 @@ class ShopsController extends Controller
 
     public function actionCreate()
     {
-        $this->layout = '//layouts/shop';
-        $this->render('create');
+        $this->shop = new Shop;
+        $this->shop->owner_id = Yii::app()->user->id;
+
+
+        if (Yii::app()->request->isPostRequest) {
+            $this->shop->attributes = $_POST;
+
+            if ($this->shop->save()) {
+                $this->shop->refresh();
+                $this->redirect(Yii::app()->urlManager->createUrl('shops/read', array('shop_id'=>$this->shop->id)));
+            }
+        }
+
+        $this->render(
+            'create',
+            array(
+                'shop' => $this->shop
+            )
+        );
     }
 
     public function actionRead()
@@ -47,7 +64,7 @@ class ShopsController extends Controller
         if (Yii::app()->request->isPostRequest) {
             $this->shop->attributes = $_POST;
 
-            if($this->shop->save()) {
+            if ($this->shop->save()) {
                 $this->shop->refresh();
             }
         }
@@ -83,5 +100,10 @@ class ShopsController extends Controller
             }
         }
         return $this->_shop;
+    }
+
+    public function setShop(Shop $shop)
+    {
+        $this->_shop = $shop;
     }
 }
