@@ -204,6 +204,7 @@ class Shop extends CActiveRecord
     {
         return array(
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
+            'application.models.behaviors.ShopActiveSyncBehavior',
         );
     }
 

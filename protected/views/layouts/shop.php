@@ -12,7 +12,7 @@
                     array(
                         'items'       => array(
                             array(
-                                'label' => Yii::t('label', 'shop'),
+                                'label' => Yii::t('shop', 'summary'),
                                 'url'   => array('shops/read', 'shop_id' => $this->shop->id)
                             ),
                             array(
