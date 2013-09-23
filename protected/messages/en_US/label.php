@@ -10,10 +10,12 @@ return array(
     'shop'                => 'Shop',
     'my_shops'            => 'My shops',
     'showcases'           => 'Showcases',
+    'showcase'            => 'Showcase',
     'categories'          => 'Categories',
     'products'            => 'Products',
     'orders'              => 'Orders',
     'pages'               => 'Pages',
+    'design'              => 'Design',
     'settings'            => 'Settings',
     //====================================
     'create'              => 'Create',
