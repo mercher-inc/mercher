@@ -23,18 +23,18 @@
         <?php echo $shop->description ?>
     </td>
     <td>
-        <?php echo $shop->resellers_discount ?>
+        <?php echo $shop->fb_id ?>
     </td>
     <td>
         <div class="pull-right">
             <a class="btn btn-default" href="<?php echo Yii::app()->urlManager->createUrl(
                 'shops/update',
                 array('shop_id' => $shop->id)
-            ) ?>"><?php echo Yii::t('label', 'edit') ?></a>
+            ) ?>"><?php echo Yii::t('shop', 'edit') ?></a>
             <a class="btn btn-danger" href="<?php echo Yii::app()->urlManager->createUrl(
                 'shops/delete',
                 array('shop_id' => $shop->id)
-            ) ?>"><?php echo Yii::t('label', 'delete') ?></a>
+            ) ?>"><?php echo Yii::t('shop', 'delete') ?></a>
         </div>
     </td>
 </tr>

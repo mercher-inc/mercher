@@ -3,7 +3,7 @@
 <?php if (!count($this->shops)) { ?>
     <div class="alert alert-info">
         <?php echo Yii::t('shop', 'no_items_found') ?>
-        <a class="btn btn-primary" href="<?php echo Yii::app()->urlManager->createUrl('shops/create') ?>"><?php echo Yii::t('label', 'create') ?></a>
+        <a class="btn btn-primary" href="<?php echo Yii::app()->urlManager->createUrl('shops/create') ?>"><?php echo Yii::t('shop', 'create') ?></a>
     </div>
 <?php } else { ?>
     <table class="table table-hover">
@@ -14,10 +14,10 @@
                 <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('is_banned')) ?></th>
                 <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('title')) ?></th>
                 <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('description')) ?></th>
-                <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('resellers_discount')) ?></th>
+                <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('page')) ?></th>
                 <th>
                     <div class="pull-right">
-                        <a class="btn btn-success" href="<?php echo Yii::app()->urlManager->createUrl('shops/create') ?>"><?php echo Yii::t('label', 'create') ?></a>
+                        <a class="btn btn-success" href="<?php echo Yii::app()->urlManager->createUrl('shops/create') ?>"><?php echo Yii::t('shop', 'create') ?></a>
                     </div>
                 </th>
             </tr>

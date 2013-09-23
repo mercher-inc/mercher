@@ -72,7 +72,6 @@ class m130904_100000_init extends CDbMigration
                 'owner_id'           => 'bigint NOT NULL',
                 'title'              => 'varchar(50) NOT NULL',
                 'description'        => 'text',
-                'resellers_discount' => 'real NOT NULL DEFAULT 0',
                 'is_active'          => 'boolean NOT NULL DEFAULT TRUE',
                 'is_banned'          => 'boolean NOT NULL DEFAULT FALSE',
             ),
