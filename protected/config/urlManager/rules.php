@@ -13,7 +13,7 @@ return array_merge(
         'products/<product_id:\d+>'      => 'products/get',
         'shops/<shop_id:\d+>/orders'     => 'orders/index',
         'orders/<order_id:\d+>'          => 'orders/get',
-        'pages'                          => 'pages/index',
+        'showcases'                      => 'showcases/index',
     ),
     require(dirname(__FILE__) . '/rest_rules.php'),
     require(dirname(__FILE__) . '/rpc_rules.php')

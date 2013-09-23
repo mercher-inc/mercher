@@ -50,8 +50,8 @@ Yii::app()->clientScript->registerMetaTag('en', 'language');
                     'visible' => !Yii::app()->user->isGuest
                 ),
                 array(
-                    'label'   => Yii::t('label', 'pages'),
-                    'url'     => array('pages/index'),
+                    'label'   => Yii::t('label', 'showcases'),
+                    'url'     => array('showcases/index'),
                     'visible' => !Yii::app()->user->isGuest
                 ),
             ),
