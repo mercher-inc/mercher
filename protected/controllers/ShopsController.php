@@ -26,8 +26,6 @@ class ShopsController extends Controller
     public function actionCreate()
     {
         $this->shop = new Shop;
-        $this->shop->owner_id = Yii::app()->user->id;
-
 
         if (Yii::app()->request->isPostRequest) {
             $this->shop->attributes = $_POST;
@@ -37,6 +35,8 @@ class ShopsController extends Controller
                 $this->redirect(Yii::app()->urlManager->createUrl('shops/read', array('shop_id'=>$this->shop->id)));
             }
         }
+
+        //var_dump($this->shop);
 
         $this->render(
             'create',

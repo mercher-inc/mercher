@@ -35,8 +35,15 @@ class Shop extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('owner_id, title', 'required'),
+            array('owner_id', 'setOwnerId', 'on' => 'insert'),
+            array('description, fb_id', 'default', 'value' => null),
+            array('is_active, is_banned', 'boolFilter'),
+            array('fb_id, owner_id, title', 'required'),
+            array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
+            array('fb_id', 'unique', 'className'=>'Shop', 'attributeName'=>'fb_id', 'message'=>'This page already has a shop', 'on' => 'insert'),
+            array('fb_id', 'checkFbId', 'on' => 'insert'),
             array('title', 'length', 'max' => 50),
+            array('is_active', 'checkActiveCount'),
             array('title, description, is_active', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
@@ -46,6 +53,90 @@ class Shop extends CActiveRecord
                 'on' => 'search'
             ),
         );
+    }
+
+    public function setOwnerId()
+    {
+        $this->owner_id = Yii::app()->user->id;
+    }
+
+    public function checkOwnerId()
+    {
+        if ($this->owner_id != Yii::app()->user->id) {
+            return false;
+        }
+        return true;
+    }
+
+    public function checkFbId()
+    {
+        if ($this->fb_id) {
+            try {
+                Yii::app()->facebook->sdk->api(
+                    '/' . $this->fb_id . '?' . http_build_query(array('fields' => 'id'))
+                );
+            } catch (FacebookApiException $e) {
+                $this->addError('fb_id', Yii::t('shop', 'fb_id_error'));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function boolFilter($field)
+    {
+        switch ($this->$field) {
+            case TRUE:
+            case 't':
+            case 'true':
+            case 'y':
+            case 'yes':
+            case 'on':
+            case '1':
+                $this->$field = true;
+                break;
+            case FALSE:
+            case 'f':
+            case 'false':
+            case 'n':
+            case 'no':
+            case 'off':
+            case '0':
+                $this->$field = false;
+                break;
+            default:
+                $this->addError($field, $this->getAttributeLabel($field) . ' could be true of false only');
+                return false;
+        }
+        return false;
+    }
+
+    public function checkActiveCount()
+    {
+        if ($this->is_active) {
+            if ($this->isNewRecord) {
+                $count = (int)Shop::model()->count(
+                    'owner_id = :ownerId AND is_active = TRUE',
+                    array(
+                        'ownerId' => Yii::app()->user->id
+                    )
+                );
+            } else {
+                $count = (int)Shop::model()->count(
+                    'owner_id = :ownerId AND is_active = TRUE AND id != :shopId',
+                    array(
+                        'ownerId' => Yii::app()->user->id,
+                        'shopId'  => $this->id
+                    )
+                );
+            }
+            $count++;
+            if ($count > 1) {
+                $this->addError('is_active', Yii::t('shop', 'too_many_active'));
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

@@ -90,6 +90,27 @@ echo CHtml::dropDownList(
         'disabled' => 'disabled'
     )
 );
+Yii::app()->clientScript->registerPackage('jquery');
+Yii::app()->clientScript->registerScript('getPagesForFbIdInput', "
+FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') {
+        FB.api('/me/accounts?fields=id,name', function(response) {
+            if (response && response.data && response.data.length) {
+                for (i in response.data) {
+                    var option =  $('<option value=\"'+response.data[i].id+'\">'+response.data[i].name+'</option>');
+                    if (response.data[i].id == '".$this->shop->fb_id."') {
+                        option.attr('selected', true);
+                    }
+                    $('#fbIdInput').append(option);
+                    $('#fbIdInput').attr('disabled', false);
+                    console.log(response.data[i]);
+                }
+                console.log(response.data);
+            }
+        });
+    }
+});
+", ClientScript::POS_FB);
 echo CHtml::error(
     $this->shop,
     'fb_id',
