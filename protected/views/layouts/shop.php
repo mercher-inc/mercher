@@ -16,7 +16,7 @@
                                 'url'   => array('shops/read', 'shop_id' => $this->shop->id)
                             ),
                             array(
-                                'label' => Yii::t('label', 'settings'),
+                                'label' => Yii::t('shop', 'edit'),
                                 'url'   => array('shops/update', 'shop_id' => $this->shop->id)
                             ),
                             array(

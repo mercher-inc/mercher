@@ -43,6 +43,15 @@ class ShopsController extends Controller
     public function actionUpdate()
     {
         $this->layout = '//layouts/shop';
+
+        if (Yii::app()->request->isPostRequest) {
+            $this->shop->attributes = $_POST;
+
+            if($this->shop->save()) {
+                $this->shop->refresh();
+            }
+        }
+
         $this->render(
             'update',
             array(
