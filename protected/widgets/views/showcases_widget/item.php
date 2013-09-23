@@ -14,15 +14,29 @@
         <?php echo $showcase->is_banned ? Yii::t('label', 'yes') : Yii::t('label', 'no') ?>
     </td>
     <td>
-        <img src="//graph.facebook.com/<?php echo $showcase->fb_id ?>/picture" class="img-circle" style="margin: 0 10px 10px 0; float: left; height: 50px; width: 50px;">
-        <?php echo $showcase->title ?>
+        <img src="//graph.facebook.com/<?php echo $showcase->fb_id ?>/picture" class="img-circle"
+             style="margin: 0 10px 10px 0; float: left; height: 50px; width: 50px;">
+
+        <?php if (!$showcase->isNewRecord) { ?>
+            <a href="<?php echo Yii::app()->urlManager->createUrl(
+                'showcases/get',
+                array('showcase_id' => $showcase->id)
+            ) ?>"><?php echo $showcase->title ?></a>
+        <?php } else { ?>
+            <?php echo $showcase->title ?>
+        <?php } ?>
     </td>
     <td>
         <?php echo $showcase->description ?>
     </td>
     <td>
-        <?php if (!$showcase->isNewRecord) { ?>
-            <?php echo $showcase->shop->title ?>
+        <?php if (!$showcase->isNewRecord and $showcase->shop) { ?>
+            <a href="<?php echo Yii::app()->urlManager->createUrl(
+                'shops/get',
+                array('shop_id' => $showcase->shop->id)
+            ) ?>"><?php echo $showcase->shop->title ?></a>
+        <?php } else { ?>
+            <?php echo Yii::t('label', 'not_set') ?>
         <?php } ?>
     </td>
     <td>

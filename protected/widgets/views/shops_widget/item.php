@@ -14,7 +14,10 @@
         <?php echo $shop->is_banned ? Yii::t('label', 'yes') : Yii::t('label', 'no') ?>
     </td>
     <td>
-        <?php echo $shop->title ?>
+        <a href="<?php echo Yii::app()->urlManager->createUrl(
+            'shops/get',
+            array('shop_id' => $shop->id)
+        ) ?>"><?php echo $shop->title ?></a>
     </td>
     <td>
         <?php echo $shop->description ?>
