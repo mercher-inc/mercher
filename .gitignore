@@ -1,3 +1,4 @@
 .idea
 /protected/runtime/*
 /public/assets/*
+/public/images/*
