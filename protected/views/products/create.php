@@ -85,9 +85,9 @@ echo CHtml::label(
     Yii::t('product', $this->product->getAttributeLabel('new_image')),
     'newImageInput'
 );
-echo CHtml::activeFileField(
-    $this->product,
+echo CHtml::fileField(
     'new_image',
+    '',
     array(
         'class' => 'form-control',
         'id'    => 'newImageInput'
