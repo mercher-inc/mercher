@@ -234,6 +234,7 @@ class Product extends CActiveRecord
     {
         return array(
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
+            'application.models.behaviors.OgProductBehavior',
         );
     }
 

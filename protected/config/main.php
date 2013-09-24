@@ -9,6 +9,7 @@ Yii::setPathOfAlias('forms', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DI
 // CWebApplication properties can be configured here.
 return array(
     'basePath'       => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    //'baseUrl'       => 'http://mercher.dev/',
     'name'           => 'Mercher',
     // preloading 'log' component
     'preload'        => array('log'),

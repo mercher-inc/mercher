@@ -17,27 +17,28 @@ class OgProductBehavior extends CActiveRecordBehavior
         $object = array(
             'og:title' => $model->title
         );
-        if ($model->plural_title) {
-            $object['product:plural_title'] = $model->plural_title;
-        }
-        if ($model->brand) {
-            $object['og:title'] = $model->brand . ' ' . $object['og:title'];
-            $object['product:brand'] = $model->brand;
-        }
         if ($model->price) {
             $object['product:price:amount']   = $model->price;
             $object['product:price:currency'] = 'USD';
         }
         if ($model->description) {
-            $object['og:description']   = $model->description;
+            $object['og:description'] = $model->description;
         }
 
-        $category = $model->category;
-        if ($category) {
-            $object['product:category']   = $category->title;
+        if ($model->category) {
+            $object['product:category'] = $model->category->title;
         }
 
-        $object['og:url']   = 'http://www.facebook.com/'.$model->shop_id.'?sk=app_' . Yii::app()->facebook->sdk->getAppId();
+        if ($model->image) {
+            $data               = CJSON::decode($model->image->data);
+            $object['og:image'] = $_SERVER['HTTP_ORIGIN'] . $data['origin'];
+        }
+
+        $object['og:url'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
+            array(
+                'sk' => 'app_' . Yii::app()->facebook->sdk->getAppId()
+            )
+        );
 
         $accessToken = Yii::app()->facebook->sdk->getAppId() . '|' . Yii::app()->facebook->sdk->getAppSecret();
         $opts        = array(
@@ -53,14 +54,14 @@ class OgProductBehavior extends CActiveRecordBehavior
             CURLOPT_POST           => 1
         );
 
-        if ($model->isNewRecord) {
+        if (!$model->fb_id) {
             $opts[CURLOPT_URL] = 'https://graph.facebook.com/app/objects/product';
             curl_setopt_array($ch, $opts);
-            $result    = CJSON::decode(curl_exec($ch));
-            $model->id = $result['id'];
+            $result       = CJSON::decode(curl_exec($ch));
+            $model->fb_id = $result['id'];
             return true;
         } else {
-            $opts[CURLOPT_URL] = 'https://graph.facebook.com/' . $model->id;
+            $opts[CURLOPT_URL] = 'https://graph.facebook.com/' . $model->fb_id;
             curl_setopt_array($ch, $opts);
             curl_exec($ch);
             return true;
