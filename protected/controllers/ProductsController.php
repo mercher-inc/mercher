@@ -9,7 +9,7 @@
 
 class ProductsController extends Controller
 {
-    public $layout='//layouts/shop';
+    public $layout = '//layouts/shop';
 
     protected $_shop;
     protected $_product;
@@ -30,11 +30,17 @@ class ProductsController extends Controller
 
         if (Yii::app()->request->isPostRequest) {
             $this->product->attributes = $_POST;
-            $this->product->shop_id = $this->shop->id;
+            $this->product->new_image  = CUploadedFile::getInstance($this->product, 'new_image');
+            $this->product->shop_id    = $this->shop->id;
 
             if ($this->product->save()) {
                 $this->product->refresh();
-                $this->redirect(Yii::app()->urlManager->createUrl('products/read', array('shop_id'=>$this->shop->id, 'product_id'=>$this->product->id)));
+                $this->redirect(
+                    Yii::app()->urlManager->createUrl(
+                        'products/read',
+                        array('shop_id' => $this->shop->id, 'product_id' => $this->product->id)
+                    )
+                );
             }
         }
 

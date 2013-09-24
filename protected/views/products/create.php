@@ -1,7 +1,11 @@
 <?php
 //==form==
 echo CHtml::beginForm(
-    $this->createUrl('products/create', array('shop_id'=>$this->shop->id))
+    $this->createUrl('products/create', array('shop_id' => $this->shop->id)),
+    'post',
+    array(
+        'enctype' => 'multipart/form-data'
+    )
 );
 echo CHtml::tag(
     'legend',
@@ -69,6 +73,49 @@ echo CHtml::error(
 );
 echo CHtml::closeTag('div');
 
+//==new_image==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('new_image') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('new_image')),
+    'newImageInput'
+);
+echo CHtml::activeFileField(
+    $this->product,
+    'new_image',
+    array(
+        'class' => 'form-control',
+        'id'    => 'newImageInput'
+    )
+);
+if ($this->product->image) {
+    echo CHtml::hiddenField(
+        'image_id',
+        $this->product->image->id
+    );
+    $data = CJSON::decode($this->product->image->data);
+    echo CHtml::image(
+        $data['origin'],
+        '',
+        array(
+            'class' => 'img-thumbnail'
+        )
+    );
+}
+echo CHtml::error(
+    $this->product,
+    'new_image',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
 //==category_id==
 echo CHtml::openTag(
     'div',
@@ -81,7 +128,7 @@ echo CHtml::label(
     'categoryIdInput'
 );
 $categoriesOptions = array(
-    ''  =>  Yii::t('category', 'not_set')
+    '' => Yii::t('category', 'not_set')
 );
 foreach ($this->shop->categories as $category) {
     $categoriesOptions[$category->id] = $category->title;
@@ -91,8 +138,8 @@ echo CHtml::dropDownList(
     $this->product->category_id,
     $categoriesOptions,
     array(
-        'class'    => 'form-control',
-        'id'       => 'categoryIdInput'
+        'class' => 'form-control',
+        'id'    => 'categoryIdInput'
     )
 );
 echo CHtml::error(
@@ -116,7 +163,7 @@ echo CHtml::label(
     Yii::t('product', $this->product->getAttributeLabel('price')),
     'priceInput'
 );
-echo CHtml::textField(
+echo CHtml::numberField(
     'price',
     $this->product->price,
     array(

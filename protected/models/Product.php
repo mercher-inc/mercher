@@ -22,6 +22,8 @@
  */
 class Product extends CActiveRecord
 {
+    public $new_image;
+
     /**
      * @return string the associated database table name
      */
@@ -43,9 +45,17 @@ class Product extends CActiveRecord
             array('is_active, is_banned', 'boolFilter'),
             array('shop_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('price', 'numerical', 'max'=>999999999999999, 'min'=>0),
+            array('price', 'numerical', 'max' => 999999999999999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
-            array('category_id, title, description, is_active', 'safe'),
+            array(
+                'new_image',
+                'file',
+                'allowEmpty' => true,
+                'maxSize'    => 1024 * 1024,
+                'mimeTypes'  => array('image/png', 'image/jpeg')
+            ),
+            array('new_image', 'uploadImage'),
+            array('category_id, title, description, image_id, is_active', 'safe'),
             // The following rule is used by search().
             array(
                 'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, price, is_active, is_banned',
@@ -53,6 +63,30 @@ class Product extends CActiveRecord
                 'on' => 'search'
             ),
         );
+    }
+
+    public function uploadImage()
+    {
+        if ($this->new_image instanceof CUploadedFile) {
+            $path = Yii::getPathOfAlias('webroot.images.shop_'.$this->shop_id.'.products');
+            if (!file_exists($path) or !is_dir($path)) {
+                mkdir($path, 0777, true);
+            }
+            $filename = md5($this->new_image->name) . ($this->new_image->extensionName?('.'.$this->new_image->extensionName):'');
+            while (Image::model()->exists('original_file = :originalFile', array('originalFile'=>$path . DIRECTORY_SEPARATOR . $filename))) {
+                $filename = md5($filename.time()) . ($this->new_image->extensionName?('.'.$this->new_image->extensionName):'');
+            }
+            $this->new_image->saveAs($path . DIRECTORY_SEPARATOR . $filename);
+
+            $image = new Image();
+            $image->original_file = $path . DIRECTORY_SEPARATOR . $filename;
+            $image->data = CJSON::encode(array(
+                    'origin'=>'/images/shop_'.$this->shop_id.'/products/'.$filename
+                ));
+            $image->save();
+            $image->refresh();
+            $this->image_id = $image->id;
+        }
     }
 
     public function checkCategoryId()
