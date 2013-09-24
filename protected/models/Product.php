@@ -43,7 +43,7 @@ class Product extends CActiveRecord
             array('is_active, is_banned', 'boolFilter'),
             array('shop_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('price', 'numerical'),
+            array('price', 'numerical', 'max'=>999999999999999, 'min'=>0),
             array('is_active', 'checkActiveCount'),
             array('category_id, title, description, is_active', 'safe'),
             // The following rule is used by search().

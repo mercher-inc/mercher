@@ -48,9 +48,22 @@ class ProductsController extends Controller
         );
     }
 
-    public function actionGet()
+    public function actionRead()
     {
-        $this->render('get');
+        $this->render('read');
+    }
+
+    public function actionUpdate()
+    {
+        if (Yii::app()->request->isPostRequest) {
+            $this->product->attributes = $_POST;
+
+            if ($this->product->save()) {
+                $this->product->refresh();
+            }
+        }
+
+        $this->render('update');
     }
 
     public function getShop()

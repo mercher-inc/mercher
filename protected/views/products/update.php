@@ -1,0 +1,174 @@
+<?php
+//==form==
+echo CHtml::beginForm(
+    $this->createUrl('products/update', array('shop_id'=>$this->shop->id, 'product_id'=>$this->product->id))
+);
+echo CHtml::tag(
+    'legend',
+    array(),
+    Yii::t('product', 'edit')
+);
+
+//==title==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('title') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('title')),
+    'titleInput'
+);
+echo CHtml::textField(
+    'title',
+    $this->product->title,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'titleInput',
+        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('title'))
+    )
+);
+echo CHtml::error(
+    $this->product,
+    'title',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==description==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('description') ? ' has-error' : '')
+    )
+);
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('description')),
+    'descriptionInput'
+);
+echo CHtml::textArea(
+    'description',
+    $this->product->description,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'descriptionInput',
+        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('description')),
+        'rows'        => 3
+    )
+);
+echo CHtml::error(
+    $this->product,
+    'description',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==category_id==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('category_id') ? ' has-error' : '')
+    )
+);
+echo CHtml::label(
+    Yii::t('category', $this->product->getAttributeLabel('category_id')),
+    'categoryIdInput'
+);
+$categoriesOptions = array(
+    ''  =>  Yii::t('category', 'not_set')
+);
+foreach ($this->shop->categories as $category) {
+    $categoriesOptions[$category->id] = $category->title;
+}
+echo CHtml::dropDownList(
+    'category_id',
+    $this->product->category_id,
+    $categoriesOptions,
+    array(
+        'class'    => 'form-control',
+        'id'       => 'categoryIdInput'
+    )
+);
+echo CHtml::error(
+    $this->product,
+    'category_id',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==price==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('price') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('price')),
+    'priceInput'
+);
+echo CHtml::textField(
+    'price',
+    $this->product->price,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'priceInput',
+        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('price'))
+    )
+);
+echo CHtml::error(
+    $this->product,
+    'price',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==is_active==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'checkbox' . ($this->product->hasErrors('is_active') ? ' has-error' : '')
+    )
+);
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('is_active')),
+    'isActiveInput'
+);
+echo CHtml::checkBox(
+    'is_active',
+    $this->product->is_active,
+    array(
+        'id'           => 'isActiveInput',
+        'uncheckValue' => 0
+    )
+);
+echo CHtml::error(
+    $this->product,
+    'is_active',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==submit==
+echo CHtml::submitButton(
+    Yii::t('product', 'save'),
+    array(
+        'class' => 'btn btn-default'
+    )
+);
+
+echo CHtml::endForm();
+?>
