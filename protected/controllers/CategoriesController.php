@@ -48,9 +48,22 @@ class CategoriesController extends Controller
         );
     }
 
-    public function actionGet()
+    public function actionRead()
     {
-        $this->render('get');
+        $this->render('read');
+    }
+
+    public function actionUpdate()
+    {
+        if (Yii::app()->request->isPostRequest) {
+            $this->category->attributes = $_POST;
+
+            if ($this->category->save()) {
+                $this->category->refresh();
+            }
+        }
+
+        $this->render('update');
     }
 
     public function getShop()
@@ -74,7 +87,7 @@ class CategoriesController extends Controller
             if (!$this->_category) {
                 throw new CHttpException(404);
             }
-            if ($this->_category->shop_id != $this->_shop->id) {
+            if ($this->_category->shop_id != $this->shop->id) {
                 throw new CHttpException(401);
             }
         }
