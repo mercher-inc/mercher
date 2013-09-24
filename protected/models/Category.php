@@ -33,12 +33,71 @@ class Category extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('description', 'default', 'value' => null),
+            array('is_active, is_banned', 'boolFilter'),
             array('shop_id, title', 'required'),
             array('title', 'length', 'max' => 50),
+            array('is_active', 'checkActiveCount'),
             array('title, description, is_active', 'safe'),
             // The following rule is used by search().
             array('id, created, updated, shop_id, title, description, is_active, is_banned', 'safe', 'on' => 'search'),
         );
+    }
+
+    public function boolFilter($field)
+    {
+        switch ($this->$field) {
+            case true:
+            case 't':
+            case 'true':
+            case 'y':
+            case 'yes':
+            case 'on':
+            case '1':
+                $this->$field = true;
+                break;
+            case false:
+            case 'f':
+            case 'false':
+            case 'n':
+            case 'no':
+            case 'off':
+            case '0':
+                $this->$field = false;
+                break;
+            default:
+                $this->addError($field, $this->getAttributeLabel($field) . ' could be true of false only');
+                return false;
+        }
+        return false;
+    }
+
+    public function checkActiveCount()
+    {
+        if ($this->is_active) {
+            if ($this->isNewRecord) {
+                $count = (int)Category::model()->count(
+                    'shop_id = :shopId AND is_active = TRUE',
+                    array(
+                        'shopId' => $this->shop_id
+                    )
+                );
+            } else {
+                $count = (int)Category::model()->count(
+                    'shop_id = :shopId AND is_active = TRUE AND id != :categoryId',
+                    array(
+                        'shopId'     => $this->shop_id,
+                        'categoryId' => $this->id
+                    )
+                );
+            }
+            $count++;
+            if ($count > 10) {
+                $this->addError('is_active', Yii::t('category', 'too_many_active'));
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
