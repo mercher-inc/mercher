@@ -63,6 +63,7 @@ class ProductsController extends Controller
     {
         if (Yii::app()->request->isPostRequest) {
             $this->product->attributes = $_POST;
+            $this->product->new_image  = CUploadedFile::getInstanceByName('new_image');
 
             if ($this->product->save()) {
                 $this->product->refresh();

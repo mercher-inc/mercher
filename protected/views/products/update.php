@@ -1,7 +1,11 @@
 <?php
 //==form==
 echo CHtml::beginForm(
-    $this->createUrl('products/update', array('shop_id'=>$this->shop->id, 'product_id'=>$this->product->id))
+    $this->createUrl('products/update', array('shop_id'=>$this->shop->id, 'product_id'=>$this->product->id)),
+    'post',
+    array(
+        'enctype' => 'multipart/form-data'
+    )
 );
 echo CHtml::tag(
     'legend',
@@ -63,6 +67,49 @@ echo CHtml::textArea(
 echo CHtml::error(
     $this->product,
     'description',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==new_image==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('new_image') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('new_image')),
+    'newImageInput'
+);
+echo CHtml::fileField(
+    'new_image',
+    '',
+    array(
+        'class' => 'form-control',
+        'id'    => 'newImageInput'
+    )
+);
+if ($this->product->image) {
+    echo CHtml::hiddenField(
+        'image_id',
+        $this->product->image->id
+    );
+    $data = CJSON::decode($this->product->image->data);
+    echo CHtml::image(
+        $data['origin'],
+        '',
+        array(
+            'class' => 'img-thumbnail'
+        )
+    );
+}
+echo CHtml::error(
+    $this->product,
+    'new_image',
     array(
         'class' => 'help-block'
     )
