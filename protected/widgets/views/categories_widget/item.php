@@ -33,14 +33,14 @@
                     'shop_id'     => $this->shop->id,
                     'category_id' => $category->id
                 )
-            ) ?>"><?php echo Yii::t('label', 'edit') ?></a>
+            ) ?>"><?php echo Yii::t('category', 'edit') ?></a>
             <a class="btn btn-danger" href="<?php echo Yii::app()->urlManager->createUrl(
                 'categories/delete',
                 array(
                     'shop_id'     => $this->shop->id,
                     'category_id' => $category->id
                 )
-            ) ?>"><?php echo Yii::t('label', 'delete') ?></a>
+            ) ?>"><?php echo Yii::t('category', 'delete') ?></a>
         </div>
     </td>
 </tr>

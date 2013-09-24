@@ -3,7 +3,7 @@
 <?php if (!count($this->categories)) { ?>
     <div class="alert alert-info">
         <?php echo Yii::t('category', 'no_items_found') ?>
-        <a class="btn btn-primary" href="<?php echo Yii::app()->urlManager->createUrl('categories/create', array('shop_id'=>$this->shop->id)) ?>"><?php echo Yii::t('label', 'create') ?></a>
+        <a class="btn btn-primary" href="<?php echo Yii::app()->urlManager->createUrl('categories/create', array('shop_id'=>$this->shop->id)) ?>"><?php echo Yii::t('category', 'create') ?></a>
     </div>
 <?php } else { ?>
     <table class="table table-hover">
@@ -16,7 +16,7 @@
             <th><?php echo Yii::t('category', Category::model()->getAttributeLabel('description')) ?></th>
             <th>
                 <div class="pull-right">
-                    <a class="btn btn-success" href="<?php echo Yii::app()->urlManager->createUrl('categories/create', array('shop_id'=>$this->shop->id)) ?>"><?php echo Yii::t('label', 'create') ?></a>
+                    <a class="btn btn-success" href="<?php echo Yii::app()->urlManager->createUrl('categories/create', array('shop_id'=>$this->shop->id)) ?>"><?php echo Yii::t('category', 'create') ?></a>
                 </div>
             </th>
         </tr>

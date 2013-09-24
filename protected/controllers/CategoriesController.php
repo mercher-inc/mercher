@@ -12,6 +12,7 @@ class CategoriesController extends Controller
     public $layout = '//layouts/shop';
 
     protected $_shop;
+    protected $_category;
 
     public function actionIndex()
     {
@@ -19,6 +20,30 @@ class CategoriesController extends Controller
             'index',
             array(
                 'categories' => $this->shop->categories
+            )
+        );
+    }
+
+    public function actionCreate()
+    {
+        $this->category = new Category;
+
+        if (Yii::app()->request->isPostRequest) {
+            $this->category->attributes = $_POST;
+            $this->category->shop_id = $this->shop->id;
+
+            if ($this->category->save()) {
+                $this->category->refresh();
+                $this->redirect(Yii::app()->urlManager->createUrl('categories/read', array('shop_id'=>$this->shop->id, 'category_id'=>$this->category->id)));
+            }
+        }
+
+        //var_dump($this->shop);
+
+        $this->render(
+            'create',
+            array(
+                'category' => $this->category
             )
         );
     }
@@ -40,5 +65,24 @@ class CategoriesController extends Controller
             }
         }
         return $this->_shop;
+    }
+
+    public function getCategory()
+    {
+        if (!$this->_category) {
+            $this->_category = Category::model()->findByPk(Yii::app()->request->getParam('category_id'));
+            if (!$this->_category) {
+                throw new CHttpException(404);
+            }
+            if ($this->_category->shop_id != $this->_shop->id) {
+                throw new CHttpException(401);
+            }
+        }
+        return $this->_category;
+    }
+
+    public function setCategory(Category $category)
+    {
+        $this->_category = $category;
     }
 }
