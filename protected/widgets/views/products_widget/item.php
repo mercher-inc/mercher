@@ -47,14 +47,14 @@
                     'shop_id'    => $this->shop->id,
                     'product_id' => $product->id
                 )
-            ) ?>"><?php echo Yii::t('label', 'edit') ?></a>
+            ) ?>"><?php echo Yii::t('product', 'edit') ?></a>
             <a class="btn btn-danger" href="<?php echo Yii::app()->urlManager->createUrl(
                 'products/delete',
                 array(
                     'shop_id'    => $this->shop->id,
                     'product_id' => $product->id
                 )
-            ) ?>"><?php echo Yii::t('label', 'delete') ?></a>
+            ) ?>"><?php echo Yii::t('product', 'delete') ?></a>
         </div>
     </td>
 </tr>

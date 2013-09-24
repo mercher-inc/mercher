@@ -12,6 +12,7 @@ class ProductsController extends Controller
     public $layout='//layouts/shop';
 
     protected $_shop;
+    protected $_product;
 
     public function actionIndex()
     {
@@ -19,6 +20,30 @@ class ProductsController extends Controller
             'index',
             array(
                 'products' => $this->shop->with('category')->products
+            )
+        );
+    }
+
+    public function actionCreate()
+    {
+        $this->product = new Product;
+
+        if (Yii::app()->request->isPostRequest) {
+            $this->product->attributes = $_POST;
+            $this->product->shop_id = $this->shop->id;
+
+            if ($this->product->save()) {
+                $this->product->refresh();
+                $this->redirect(Yii::app()->urlManager->createUrl('products/read', array('shop_id'=>$this->shop->id, 'product_id'=>$this->product->id)));
+            }
+        }
+
+        //var_dump($this->shop);
+
+        $this->render(
+            'create',
+            array(
+                'shop' => $this->shop
             )
         );
     }
@@ -40,5 +65,24 @@ class ProductsController extends Controller
             }
         }
         return $this->_shop;
+    }
+
+    public function getProduct()
+    {
+        if (!$this->_product) {
+            $this->_product = Product::model()->findByPk(Yii::app()->request->getParam('product_id'));
+            if (!$this->_product) {
+                throw new CHttpException(404);
+            }
+            if ($this->_product->shop_id != $this->shop->id) {
+                throw new CHttpException(401);
+            }
+        }
+        return $this->_product;
+    }
+
+    public function setProduct(Product $product)
+    {
+        $this->_product = $product;
     }
 }

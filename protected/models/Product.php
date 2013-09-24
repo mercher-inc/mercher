@@ -38,9 +38,13 @@ class Product extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('description, price, category_id', 'default', 'value' => null),
+            array('category_id', 'checkCategoryId', 'on' => 'insert, update'),
+            array('is_active, is_banned', 'boolFilter'),
             array('shop_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('price', 'length', 'max' => 19),
+            array('price', 'numerical'),
+            array('is_active', 'checkActiveCount'),
             array('category_id, title, description, is_active', 'safe'),
             // The following rule is used by search().
             array(
@@ -49,6 +53,80 @@ class Product extends CActiveRecord
                 'on' => 'search'
             ),
         );
+    }
+
+    public function checkCategoryId()
+    {
+        if (
+            $this->category_id and
+            !Category::model()->exists(
+                'shop_id = :shopId AND id = :categoryId',
+                array(
+                    'shopId'     => $this->shop_id,
+                    'categoryId' => $this->category_id
+                )
+            )
+        ) {
+            $this->addError('category_id', $this->getAttributeLabel('category_id') . ' could not be found');
+            return false;
+        }
+        return true;
+    }
+
+    public function boolFilter($field)
+    {
+        switch ($this->$field) {
+            case true:
+            case 't':
+            case 'true':
+            case 'y':
+            case 'yes':
+            case 'on':
+            case '1':
+                $this->$field = true;
+                break;
+            case false:
+            case 'f':
+            case 'false':
+            case 'n':
+            case 'no':
+            case 'off':
+            case '0':
+                $this->$field = false;
+                break;
+            default:
+                $this->addError($field, $this->getAttributeLabel($field) . ' could be true of false only');
+                return false;
+        }
+        return false;
+    }
+
+    public function checkActiveCount()
+    {
+        if ($this->is_active) {
+            if ($this->isNewRecord) {
+                $count = (int)Product::model()->count(
+                    'shop_id = :shopId AND is_active = TRUE',
+                    array(
+                        'shopId' => $this->shop_id
+                    )
+                );
+            } else {
+                $count = (int)Product::model()->count(
+                    'shop_id = :shopId AND is_active = TRUE AND id != :productId',
+                    array(
+                        'shopId'    => $this->shop_id,
+                        'productId' => $this->id
+                    )
+                );
+            }
+            $count++;
+            if ($count > 25) {
+                $this->addError('is_active', Yii::t('product', 'too_many_active'));
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

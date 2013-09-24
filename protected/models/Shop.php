@@ -131,7 +131,7 @@ class Shop extends CActiveRecord
                 );
             }
             $count++;
-            if ($count > 1) {
+            if ($count > 10) {
                 $this->addError('is_active', Yii::t('shop', 'too_many_active'));
                 return false;
             }
