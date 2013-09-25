@@ -96,6 +96,7 @@
                     'product_id' => $product->id
                 )
             ) ?>"><?php echo Yii::t('product', 'edit') ?></a>
+            <!--
             <a class="btn btn-danger" href="<?php echo Yii::app()->urlManager->createUrl(
                 'products/delete',
                 array(
@@ -103,6 +104,7 @@
                     'product_id' => $product->id
                 )
             ) ?>"><?php echo Yii::t('product', 'delete') ?></a>
+            -->
         </div>
     </td>
 </tr>

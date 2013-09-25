@@ -31,10 +31,12 @@
                 'shops/update',
                 array('shop_id' => $shop->id)
             ) ?>"><?php echo Yii::t('shop', 'edit') ?></a>
+            <!--
             <a class="btn btn-danger" href="<?php echo Yii::app()->urlManager->createUrl(
                 'shops/delete',
                 array('shop_id' => $shop->id)
             ) ?>"><?php echo Yii::t('shop', 'delete') ?></a>
+            -->
         </div>
     </td>
 </tr>

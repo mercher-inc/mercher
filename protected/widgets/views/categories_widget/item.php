@@ -34,6 +34,7 @@
                     'category_id' => $category->id
                 )
             ) ?>"><?php echo Yii::t('category', 'edit') ?></a>
+            <!--
             <a class="btn btn-danger" href="<?php echo Yii::app()->urlManager->createUrl(
                 'categories/delete',
                 array(
@@ -41,6 +42,7 @@
                     'category_id' => $category->id
                 )
             ) ?>"><?php echo Yii::t('category', 'delete') ?></a>
+            -->
         </div>
     </td>
 </tr>
