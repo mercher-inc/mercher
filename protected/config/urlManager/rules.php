@@ -2,6 +2,7 @@
 
 return array_merge(
     array(
+        'http://tab.mercher.dev/'                                   => 'tab/index/index',
         ''                                                          => 'index/index',
         'logout'                                                    => 'index/logout',
         'contact'                                                   => 'index/contact',
