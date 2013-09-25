@@ -16,6 +16,7 @@
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('category')) ?></th>
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('price')) ?></th>
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('description')) ?></th>
+            <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('page')) ?></th>
             <th>
                 <div class="pull-right">
                     <a class="btn btn-success" href="<?php echo Yii::app()->urlManager->createUrl('products/create', array('shop_id'=>$this->shop->id)) ?>"><?php echo Yii::t('product', 'create') ?></a>
