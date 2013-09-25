@@ -47,10 +47,14 @@ class IndexController extends Controller
     {
         if (!Yii::app()->user->isGuest) {
             $user = User::model()->findByPk(Yii::app()->user->id);
-            if ($user->fb_id != Yii::app()->facebook->sdk->getUser()) {
+            if (!$user) {
                 Yii::app()->user->logout();
             } else {
-                $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
+                if ($user->fb_id != Yii::app()->facebook->sdk->getUser()) {
+                    Yii::app()->user->logout();
+                } else {
+                    $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
+                }
             }
         }
         if (Yii::app()->request->getParam('code') or Yii::app()->request->getParam('signed_request')) {
