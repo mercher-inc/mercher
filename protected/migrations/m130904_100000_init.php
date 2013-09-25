@@ -5,6 +5,7 @@ class m130904_100000_init extends CDbMigration
     // tables
     const TABLE_OBJECT   = 'object';
     const TABLE_IMAGE    = 'image';
+    const TABLE_TEMPLATE = 'template';
     const TABLE_USER     = 'user';
     const TABLE_SHOP     = 'shop';
     const TABLE_CATEGORY = 'category';
@@ -55,6 +56,23 @@ class m130904_100000_init extends CDbMigration
         );
 
         /*
+         * TABLE_TEMPLATE
+         */
+        $this->createTable(
+            self::TABLE_TEMPLATE,
+            array(
+                'alias'       => 'varchar(50) NOT NULL',
+                'title'       => 'varchar(50) NOT NULL',
+                'description' => 'text',
+            )
+        );
+        $this->addPrimaryKey(
+            self::PREFIX_PRIMARY_KEY . self::TABLE_TEMPLATE,
+            self::TABLE_TEMPLATE,
+            'alias'
+        );
+
+        /*
          * TABLE_USER
          */
         $this->createTable(
@@ -87,12 +105,14 @@ class m130904_100000_init extends CDbMigration
         $this->createTable(
             self::TABLE_SHOP,
             array(
-                'fb_id'       => 'bigint NULL',
-                'owner_id'    => 'bigint NOT NULL',
-                'title'       => 'varchar(50) NOT NULL',
-                'description' => 'text',
-                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
-                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
+                'fb_id'           => 'bigint NULL',
+                'owner_id'        => 'bigint NOT NULL',
+                'title'           => 'varchar(50) NOT NULL',
+                'description'     => 'text',
+                'template_alias'  => 'varchar(50) NULL',
+                'template_config' => 'text',
+                'is_active'       => 'boolean NOT NULL DEFAULT TRUE',
+                'is_banned'       => 'boolean NOT NULL DEFAULT FALSE',
             ),
             'INHERITS (' . self::TABLE_OBJECT . ')'
         );
@@ -114,6 +134,15 @@ class m130904_100000_init extends CDbMigration
             self::TABLE_USER,
             'id',
             'CASCADE',
+            'CASCADE'
+        );
+        $this->addForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_SHOP . '_template_alias',
+            self::TABLE_SHOP,
+            'template_alias',
+            self::TABLE_TEMPLATE,
+            'alias',
+            'SET NULL',
             'CASCADE'
         );
 
@@ -236,6 +265,10 @@ class m130904_100000_init extends CDbMigration
          * TABLE_SHOP
          */
         $this->dropForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_SHOP . '_template_alias',
+            self::TABLE_SHOP
+        );
+        $this->dropForeignKey(
             self::PREFIX_FOREIGN_KEY . self::TABLE_SHOP . '_owner_id',
             self::TABLE_SHOP
         );
@@ -245,6 +278,11 @@ class m130904_100000_init extends CDbMigration
          * TABLE_USER
          */
         $this->dropTable(self::TABLE_USER);
+
+        /*
+         * TABLE_TEMPLATE
+         */
+        $this->dropTable(self::TABLE_TEMPLATE);
 
         /*
          * TABLE_IMAGE

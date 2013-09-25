@@ -10,12 +10,15 @@
  * @property string $owner_id
  * @property string $title
  * @property string $description
+ * @property string $template_alias
+ * @property string $template_config
  * @property boolean $is_active
  * @property boolean $is_banned
  * The followings are the available model relations:
+ * @property User $owner
+ * @property Template $template
  * @property Product[] $products
  * @property Category[] $categories
- * @property User $owner
  */
 class Shop extends CActiveRecord
 {
@@ -40,15 +43,22 @@ class Shop extends CActiveRecord
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id, title', 'required'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
-            array('fb_id', 'unique', 'className'=>'Shop', 'attributeName'=>'fb_id', 'message'=>'This page already has a shop', 'on' => 'insert'),
+            array(
+                'fb_id',
+                'unique',
+                'className'     => 'Shop',
+                'attributeName' => 'fb_id',
+                'message'       => 'This page already has a shop',
+                'on'            => 'insert'
+            ),
             array('fb_id', 'checkFbId', 'on' => 'insert'),
-            array('title', 'length', 'max' => 50),
+            array('title, template_alias', 'length', 'max' => 50),
             array('is_active', 'checkActiveCount'),
             array('title, description, is_active', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, owner_id, title, description, is_active, is_banned',
+                'id, created, updated, fb_id, owner_id, title, description, template_alias, is_active, is_banned',
                 'safe',
                 'on' => 'search'
             ),
@@ -86,7 +96,7 @@ class Shop extends CActiveRecord
     public function boolFilter($field)
     {
         switch ($this->$field) {
-            case TRUE:
+            case true:
             case 't':
             case 'true':
             case 'y':
@@ -95,7 +105,7 @@ class Shop extends CActiveRecord
             case '1':
                 $this->$field = true;
                 break;
-            case FALSE:
+            case false:
             case 'f':
             case 'false':
             case 'n':
@@ -147,9 +157,10 @@ class Shop extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'owner'      => array(self::BELONGS_TO, 'User', 'owner_id'),
+            'template'   => array(self::BELONGS_TO, 'Template', 'template_alias'),
             'products'   => array(self::HAS_MANY, 'Product', 'shop_id'),
             'categories' => array(self::HAS_MANY, 'Category', 'shop_id'),
-            'owner'      => array(self::BELONGS_TO, 'User', 'owner_id'),
         );
     }
 
@@ -159,15 +170,17 @@ class Shop extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'          => 'ID',
-            'created'     => 'Created',
-            'updated'     => 'Updated',
-            'fb_id'       => 'Facebook page',
-            'owner_id'    => 'Owner',
-            'title'       => 'Title',
-            'description' => 'Description',
-            'is_active'   => 'Active',
-            'is_banned'   => 'Banned',
+            'id'              => 'ID',
+            'created'         => 'Created',
+            'updated'         => 'Updated',
+            'fb_id'           => 'Facebook page',
+            'owner_id'        => 'Owner',
+            'title'           => 'Title',
+            'description'     => 'Description',
+            'template_alias'  => 'Template Alias',
+            'template_config' => 'Template Config',
+            'is_active'       => 'Active',
+            'is_banned'       => 'Banned',
         );
     }
 
@@ -192,6 +205,8 @@ class Shop extends CActiveRecord
         $criteria->compare('owner_id', $this->owner_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('template_alias', $this->template_alias, true);
+        $criteria->compare('template_config', $this->template_config, true);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
 
