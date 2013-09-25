@@ -2,44 +2,63 @@
 
 class m130904_100000_init extends CDbMigration
 {
+    // tables
+    const TABLE_OBJECT   = 'object';
+    const TABLE_IMAGE    = 'image';
+    const TABLE_USER     = 'user';
+    const TABLE_SHOP     = 'shop';
+    const TABLE_CATEGORY = 'category';
+    const TABLE_PRODUCT  = 'product';
+    // prefixes
+    const PREFIX_PRIMARY_KEY  = 'pk_';
+    const PREFIX_FOREIGN_KEY  = 'fk_';
+    const PREFIX_INDEX        = 'i_';
+    const PREFIX_UNIQUE_INDEX = 'ui_';
+    const PREFIX_SEQUENCE     = 's_';
+    const PREFIX_TYPE         = 't_';
+    const PREFIX_TRIGGER      = 'tr_';
+    const PREFIX_FUNCTION     = 'f_';
+    // sequences
+    const SEQUENCE_GLOBAL_ID = 's_global_id';
+
     public function safeUp()
     {
-        $this->execute('CREATE SEQUENCE s_object_id');
+        $this->execute('CREATE SEQUENCE ' . self::SEQUENCE_GLOBAL_ID);
 
         /*
-         * objects table
+         * TABLE_OBJECT
          */
         $this->createTable(
-            'object',
+            self::TABLE_OBJECT,
             array(
-                'id'      => 'bigint PRIMARY KEY DEFAULT nextval(\'s_object_id\')',
+                'id'      => 'bigint PRIMARY KEY DEFAULT nextval(\'' . self::SEQUENCE_GLOBAL_ID . '\')',
                 'created' => 'timestamp NOT NULL DEFAULT NOW()',
                 'updated' => 'timestamp NULL',
             )
         );
 
         /*
-         * images table
+         * TABLE_IMAGE
          */
         $this->createTable(
-            'image',
+            self::TABLE_IMAGE,
             array(
                 'original_file' => 'varchar(250) NOT NULL',
                 'data'          => 'text',
             ),
-            'INHERITS (object)'
+            'INHERITS (' . self::TABLE_OBJECT . ')'
         );
         $this->addPrimaryKey(
-            'pk_image',
-            'image',
+            self::PREFIX_PRIMARY_KEY . self::TABLE_IMAGE,
+            self::TABLE_IMAGE,
             'id'
         );
 
         /*
-         * users table
+         * TABLE_USER
          */
         $this->createTable(
-            'user',
+            self::TABLE_USER,
             array(
                 'fb_id'      => 'bigint NOT NULL',
                 'email'      => 'varchar(250) NOT NULL',
@@ -48,61 +67,61 @@ class m130904_100000_init extends CDbMigration
                 'is_banned'  => 'boolean NOT NULL DEFAULT FALSE',
                 'last_login' => 'timestamp NULL',
             ),
-            'INHERITS (object)'
+            'INHERITS (' . self::TABLE_OBJECT . ')'
         );
         $this->addPrimaryKey(
-            'pk_user',
-            'user',
+            self::PREFIX_PRIMARY_KEY . self::TABLE_USER,
+            self::TABLE_USER,
             'id'
         );
         $this->createIndex(
-            'fb_user',
-            'user',
+            self::PREFIX_UNIQUE_INDEX . 'fb_id_' . self::TABLE_USER,
+            self::TABLE_USER,
             'fb_id',
             true
         );
 
         /*
-         * shops table
+         * TABLE_SHOP
          */
         $this->createTable(
-            'shop',
+            self::TABLE_SHOP,
             array(
-                'fb_id'              => 'bigint NULL',
-                'owner_id'           => 'bigint NOT NULL',
-                'title'              => 'varchar(50) NOT NULL',
-                'description'        => 'text',
-                'is_active'          => 'boolean NOT NULL DEFAULT TRUE',
-                'is_banned'          => 'boolean NOT NULL DEFAULT FALSE',
+                'fb_id'       => 'bigint NULL',
+                'owner_id'    => 'bigint NOT NULL',
+                'title'       => 'varchar(50) NOT NULL',
+                'description' => 'text',
+                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
+                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
             ),
-            'INHERITS (object)'
+            'INHERITS (' . self::TABLE_OBJECT . ')'
         );
         $this->addPrimaryKey(
-            'pk_shop',
-            'shop',
+            self::PREFIX_PRIMARY_KEY . self::TABLE_SHOP,
+            self::TABLE_SHOP,
             'id'
         );
         $this->createIndex(
-            'fb_shop',
-            'shop',
+            self::PREFIX_UNIQUE_INDEX . 'fb_id_' . self::TABLE_SHOP,
+            self::TABLE_SHOP,
             'fb_id',
             true
         );
         $this->addForeignKey(
-            'fk_shop_owner_id',
-            'shop',
+            self::PREFIX_FOREIGN_KEY . self::TABLE_SHOP . '_owner_id',
+            self::TABLE_SHOP,
             'owner_id',
-            'user',
+            self::TABLE_USER,
             'id',
             'CASCADE',
             'CASCADE'
         );
 
         /*
-         * categories table
+         * TABLE_CATEGORY
          */
         $this->createTable(
-            'category',
+            self::TABLE_CATEGORY,
             array(
                 'shop_id'     => 'bigint NOT NULL',
                 'title'       => 'varchar(50) NOT NULL',
@@ -110,28 +129,28 @@ class m130904_100000_init extends CDbMigration
                 'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
                 'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
             ),
-            'INHERITS (object)'
+            'INHERITS (' . self::TABLE_OBJECT . ')'
         );
         $this->addPrimaryKey(
-            'pk_category',
-            'category',
+            self::PREFIX_PRIMARY_KEY . self::TABLE_CATEGORY,
+            self::TABLE_CATEGORY,
             'id'
         );
         $this->addForeignKey(
-            'fk_category_shop_id',
-            'category',
+            self::PREFIX_FOREIGN_KEY . self::TABLE_CATEGORY . '_shop_id',
+            self::TABLE_CATEGORY,
             'shop_id',
-            'shop',
+            self::TABLE_SHOP,
             'id',
             'CASCADE',
             'CASCADE'
         );
 
         /*
-         * products table
+         * TABLE_PRODUCT
          */
         $this->createTable(
-            'product',
+            self::TABLE_PRODUCT,
             array(
                 'fb_id'       => 'bigint NULL',
                 'shop_id'     => 'bigint NOT NULL',
@@ -143,42 +162,42 @@ class m130904_100000_init extends CDbMigration
                 'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
                 'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
             ),
-            'INHERITS (object)'
+            'INHERITS (' . self::TABLE_OBJECT . ')'
         );
         $this->addPrimaryKey(
-            'pk_product',
-            'product',
+            self::PREFIX_PRIMARY_KEY . self::TABLE_PRODUCT,
+            self::TABLE_PRODUCT,
             'id'
         );
         $this->createIndex(
-            'fb_product',
-            'product',
+            self::PREFIX_UNIQUE_INDEX . 'fb_id_' . self::TABLE_PRODUCT,
+            self::TABLE_PRODUCT,
             'fb_id',
             true
         );
         $this->addForeignKey(
-            'fk_product_shop_id',
-            'product',
+            self::PREFIX_FOREIGN_KEY . self::TABLE_PRODUCT . '_shop_id',
+            self::TABLE_PRODUCT,
             'shop_id',
-            'shop',
+            self::TABLE_SHOP,
             'id',
             'CASCADE',
             'CASCADE'
         );
         $this->addForeignKey(
-            'fk_product_category_id',
-            'product',
+            self::PREFIX_FOREIGN_KEY . self::TABLE_PRODUCT . '_category_id',
+            self::TABLE_PRODUCT,
             'category_id',
-            'category',
+            self::TABLE_CATEGORY,
             'id',
             'SET NULL',
             'CASCADE'
         );
         $this->addForeignKey(
-            'fk_product_image_id',
-            'product',
+            self::PREFIX_FOREIGN_KEY . self::TABLE_PRODUCT . '_image_id',
+            self::TABLE_PRODUCT,
             'image_id',
-            'image',
+            self::TABLE_IMAGE,
             'id',
             'SET NULL',
             'CASCADE'
@@ -187,23 +206,56 @@ class m130904_100000_init extends CDbMigration
 
     public function safeDown()
     {
-        $this->dropForeignKey('fk_product_image_id', 'product');
-        $this->dropForeignKey('fk_product_category_id', 'product');
-        $this->dropForeignKey('fk_product_shop_id', 'product');
-        $this->dropTable('product');
+        /*
+         * TABLE_PRODUCT
+         */
+        $this->dropForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_PRODUCT . '_image_id',
+            self::TABLE_PRODUCT
+        );
+        $this->dropForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_PRODUCT . '_category_id',
+            self::TABLE_PRODUCT
+        );
+        $this->dropForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_PRODUCT . '_shop_id',
+            self::TABLE_PRODUCT
+        );
+        $this->dropTable(self::TABLE_PRODUCT);
 
-        $this->dropForeignKey('fk_category_shop_id', 'category');
-        $this->dropTable('category');
+        /*
+         * TABLE_CATEGORY
+         */
+        $this->dropForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_CATEGORY . '_shop_id',
+            self::TABLE_CATEGORY
+        );
+        $this->dropTable(self::TABLE_CATEGORY);
 
-        $this->dropForeignKey('fk_shop_owner_id', 'shop');
-        $this->dropTable('shop');
+        /*
+         * TABLE_SHOP
+         */
+        $this->dropForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_SHOP . '_owner_id',
+            self::TABLE_SHOP
+        );
+        $this->dropTable(self::TABLE_SHOP);
 
-        $this->dropTable('user');
+        /*
+         * TABLE_USER
+         */
+        $this->dropTable(self::TABLE_USER);
 
-        $this->dropTable('image');
+        /*
+         * TABLE_IMAGE
+         */
+        $this->dropTable(self::TABLE_IMAGE);
 
-        $this->dropTable('object');
+        /*
+         * TABLE_OBJECT
+         */
+        $this->dropTable(self::TABLE_OBJECT);
 
-        $this->execute('DROP SEQUENCE s_object_id');
+        $this->execute('DROP SEQUENCE ' . self::SEQUENCE_GLOBAL_ID);
     }
 }
