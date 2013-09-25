@@ -36,7 +36,10 @@ class OgProductBehavior extends CActiveRecordBehavior
 
         $object['og:url'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
             array(
-                'sk' => 'app_' . Yii::app()->facebook->sdk->getAppId()
+                'sk' => 'app_' . Yii::app()->facebook->sdk->getAppId(),
+                'app_data'=>    CJSON::encode(array(
+                        'product_id'  => $model->id
+                    ))
             )
         );
 

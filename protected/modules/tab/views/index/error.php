@@ -1,5 +1,5 @@
 <?php
 /* @var $this IndexController */
 
-var_dump($this->shop->attributes);
+var_dump($this->shop);
 ?>
