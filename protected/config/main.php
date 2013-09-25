@@ -5,6 +5,11 @@
 //var_dump(realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'forms')); die;
 Yii::setPathOfAlias('forms', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'forms');
 
+$templatesPath = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'templates');
+if ($templatesPath) {
+    Yii::setPathOfAlias('templates', $templatesPath);
+}
+
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(

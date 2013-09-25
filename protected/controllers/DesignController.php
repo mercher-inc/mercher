@@ -15,6 +15,9 @@ class DesignController extends Controller
 
     public function actionIndex()
     {
+        if (Yii::app()->request->isPostRequest) {
+            $this->shop->templateInstance->processForm();
+        }
         $this->render('index');
     }
 

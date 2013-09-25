@@ -22,6 +22,8 @@
  */
 class Shop extends CActiveRecord
 {
+    protected $_templateInstance;
+
     /**
      * @return string the associated database table name
      */
@@ -232,5 +234,27 @@ class Shop extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function getTemplateInstance()
+    {
+        if (!$this->_templateInstance) {
+            try {
+                $config = CJSON::decode($this->template_config);
+                if (!is_array($config)) {
+                    $config = array();
+                }
+            } catch (Exception $e) {
+                $config = array();
+            }
+            $this->_templateInstance = \Yii::createComponent(
+                array(
+                    'class'  => 'templates\\' . ($this->template_alias ? $this->template_alias : 'none') . '\\Template',
+                    'shop'   => $this,
+                    'config' => $config
+                )
+            );
+        }
+        return $this->_templateInstance;
     }
 }
