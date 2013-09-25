@@ -25,6 +25,7 @@ class Template extends \CComponent
     {
         $this->form->attributes = $_POST;
         if ($this->form->validate()) {
+            \Yii::app()->user->setFlash('success', "Template config saved");
             $this->shop->template_config = \CJSON::encode($this->form->attributes);
             $this->shop->save();
         }

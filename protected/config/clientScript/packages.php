@@ -28,6 +28,7 @@ return array(
         'js'      => array(
             'bootstrap/js/modal.js',
             'bootstrap/js/button.js',
+            'bootstrap/js/alert.js',
         ),
         'depends' => array(
             'jquery'

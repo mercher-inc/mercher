@@ -47,6 +47,15 @@
         </div>
         <div class="col-lg-10 col-md-9 col-sm-8">
             <div id="content">
+                <?php
+                    $messages = Yii::app()->user->getFlashes();
+                    if (count($messages)) {
+                        Yii::app()->clientScript->registerPackage('bootstrap');
+                    }
+                    foreach($messages as $key => $message) {
+                        echo '<div class="alert alert-' . $key . ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' . $message . "</div>\n";
+                    }
+                ?>
                 <?php echo $content; ?>
             </div>
             <!-- content -->
