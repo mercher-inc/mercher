@@ -29,7 +29,7 @@ class Template extends \CComponent
             $configsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . $this->shop->id;
             $assetsPath  = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
             $srcPath     = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'src';
-            \Yii::app()->assetManager->publish($srcPath);
+            \Yii::app()->assetManager->publish($srcPath, false, -1, true);
 
             if (!file_exists($configsPath) or !is_dir($configsPath)) {
                 mkdir($configsPath, 0777, true);
