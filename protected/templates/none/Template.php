@@ -26,24 +26,37 @@ class Template extends \CComponent
         $this->form->attributes = $_POST;
         if ($this->form->validate()) {
 
-            $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . $this->shop->id;
-            if (!file_exists($path) or !is_dir($path)) {
-                mkdir($path, 0777, true);
+            $configsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . $this->shop->id;
+            $assetsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
+            $srcPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'src';
+
+
+            if (!file_exists($configsPath) or !is_dir($configsPath)) {
+                mkdir($configsPath, 0777, true);
             }
-            file_put_contents($path . DIRECTORY_SEPARATOR . 'config.js', $this->widget->render('js', null, true));
-            file_put_contents($path . DIRECTORY_SEPARATOR . 'config.less', $this->widget->render('less', null, true));
+            file_put_contents($configsPath . DIRECTORY_SEPARATOR . 'config.js', $this->widget->render('js', null, true));
+            file_put_contents($configsPath . DIRECTORY_SEPARATOR . 'config.less', $this->widget->render('less', null, true));
 
-            exec('/usr/bin/lessc --yui-compress ' . $path . DIRECTORY_SEPARATOR . 'config.less', $output, $error);
+            exec('/usr/bin/lessc --yui-compress ' . $configsPath . DIRECTORY_SEPARATOR . 'config.less', $outputCss, $errorCss);
 
-            if (!$error) {
-                $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
-                if (!file_exists($path) or !is_dir($path)) {
-                    mkdir($path, 0777, true);
+            $compilerPath = \Yii::getPathOfAlias('application.extensions.closure-compiler') . DIRECTORY_SEPARATOR . 'compiler.jar';
+            $command =
+                'java -jar ' . $compilerPath .
+                    ' --js ' .
+                    $configsPath . DIRECTORY_SEPARATOR . 'config.js ' .
+                    $srcPath . DIRECTORY_SEPARATOR . 'main.js';
+
+            exec($command, $outputJs, $errorJs);
+            //var_dump($command, $outputJs, $errorJs);
+
+            if (!$errorCss and !$errorJs) {
+                if (!file_exists($assetsPath) or !is_dir($assetsPath)) {
+                    mkdir($assetsPath, 0777, true);
                 }
-                file_put_contents($path . DIRECTORY_SEPARATOR . 'main.css', implode("\n", $output));
-                file_put_contents($path . DIRECTORY_SEPARATOR . 'main.js', '');
+                file_put_contents($assetsPath . DIRECTORY_SEPARATOR . 'main.css', implode("\n", $outputCss));
+                file_put_contents($assetsPath . DIRECTORY_SEPARATOR . 'main.js', implode("\n", $outputJs));
 
-                \Yii::app()->assetManager->publish($path, false, -1, true);
+                \Yii::app()->assetManager->publish($assetsPath, false, -1, true);
             }
 
             \Yii::app()->user->setFlash(
@@ -83,9 +96,22 @@ class Template extends \CComponent
         \Yii::app()->clientScript->registerCssFile(
             \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.css'
         );
+
+        //<script data-main="scripts/main.js" src="scripts/require.js"></script>
+
+        \Yii::app()->clientScript->registerScriptFile(
+            '/js/require.js',
+            null,
+            array(
+                'data-main' =>  \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.js'
+            )
+        );
+
+        /*
         \Yii::app()->clientScript->registerScriptFile(
             \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.js'
         );
+        */
     }
 
     public function getWidget()
