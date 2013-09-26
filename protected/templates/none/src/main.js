@@ -1,7 +1,7 @@
 requirejs.config({
     baseUrl: '/js',
     paths: {
-        app: './'
+        app: appConfig.appPath
     },
     shim: {
         'backbone': {
@@ -15,7 +15,9 @@ requirejs.config({
     waitSeconds: 0
 });
 
-requirejs(['backbone'],
-    function (Backbone) {
+/*
+requirejs(['app/layouts/default'],
+    function (Layout) {
 
     });
+*/
