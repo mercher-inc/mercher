@@ -42,6 +42,8 @@ class Template extends \CComponent
                 }
                 file_put_contents($path . DIRECTORY_SEPARATOR . 'main.css', implode("\n", $output));
                 file_put_contents($path . DIRECTORY_SEPARATOR . 'main.js', '');
+
+                \Yii::app()->assetManager->publish($path, false, -1, true);
             }
 
             \Yii::app()->user->setFlash(

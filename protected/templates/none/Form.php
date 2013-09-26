@@ -14,11 +14,20 @@ class Form extends \CFormModel
 {
     protected $_template;
     public $title;
+    public $bg_color;
 
     public function rules()
     {
         return array(
-            array('title', 'required'),
+            array('title, bg_color', 'safe'),
+        );
+    }
+
+    public function attributeLabels()
+    {
+        return array(
+            'title'    => 'Custom title',
+            'bg_color' => 'Background color',
         );
     }
 
