@@ -1,27 +1,20 @@
 <div id="fb-root"></div>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand" href="#"><%- appConfig.title %></a>
     </div>
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">All <b class="caret"></b></a>
-            <ul class="dropdown-menu" id="categories_menu">
-                <li><a href="#category/1">All</a></li>
-            </ul>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="categories_menu"></ul>
         </li>
     </ul>
 </nav>
 
-
 <div class="container">
-
     <div id="content"></div>
-
-    <hr>
-
-    <footer>
-        <p>Powered by <a href="//apps.facebook.com/mercher/" target="_blank">Mercher</a></p>
-    </footer>
-
 </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <p class="navbar-text pull-right">Powered by <a href="//apps.facebook.com/mercher/" target="_blank">Mercher</a></p>
+</nav>

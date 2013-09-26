@@ -6,7 +6,7 @@ define(function (require) {
         _ = require('underscore'),
         Backbone = require('backbone'),
         Bootstrap = require('bootstrap'),
-        tpl = require('text!app/tpl/views/products/list.html'),
+        tpl = require('text!app/tpl/products/list.html'),
         template = _.template(tpl);
 
     return Backbone.View.extend({
@@ -17,6 +17,8 @@ define(function (require) {
 
         render: function () {
             this.$el.html(template());
+            var list = $(".list:first", this.el);
+            console.log(list);
             return this;
         }
 

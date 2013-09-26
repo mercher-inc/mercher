@@ -4,10 +4,12 @@ define(function (require) {
 
     var $ = require('jquery'),
         Backbone = require('backbone'),
-        DefaultLayout = require('app/layouts/default'),
+        DefaultLayout = require('app/views/layouts/default'),
+        CategoriesCollection = require('app/collections/categories'),
+        categoriesCollection = new CategoriesCollection(),
 
         $body = $('body'),
-        defaultLayout = new DefaultLayout({el: $body}).render(),
+        defaultLayout = new DefaultLayout({el: $body, categories: categoriesCollection}).render(),
         $content = $("#content", defaultLayout.el);
 
     return Backbone.Router.extend({
@@ -19,19 +21,23 @@ define(function (require) {
         },
 
         products: function (category_id) {
-            require(["app/views/products"], function (View) {
-                var view = new View({el: $content});
-                view.render();
+            $content.fadeOut('fast', function () {
+                require(["app/views/products/list"], function (View) {
+                    var view = new View({el: $content});
+                    view.render();
+                    $content.fadeIn('fast');
+                });
             });
-            //console.log({'controller': 'products', 'category_id': category_id});
         },
 
         product: function (product_id) {
-            require(["app/views/product"], function (ProductsView) {
-                var view = new ProductsView({el: $content});
-                view.render();
+            $content.fadeOut('fast', function () {
+                require(["app/views/product/item"], function (View) {
+                    var view = new View({el: $content});
+                    view.render();
+                    $content.fadeIn('fast');
+                });
             });
-            console.log({'controller': 'product', 'product_id': product_id});
         }
 
     });

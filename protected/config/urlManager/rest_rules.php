@@ -1,76 +1,28 @@
 <?php
 
-$restControllers = array(
-    'shops'          => array(
-        'param' => 'shop_id',
-        'paths' => array(
-            'api/users/<user_id:\d+>/',
-            'api/',
-        )
+return array(
+    array(
+        'api/categories/list',
+        'pattern'   => 'api/shops/<shop_id:\d+>/categories',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
     ),
-    'products'          => array(
-        'param' => 'product_id',
-        'paths' => array(
-            'api/shops/<shop_id:\d+>/',
-            'api/',
-        )
+    array(
+        'api/categories/read',
+        'pattern'   => 'api/shops/<shop_id:\d+>/categories/<category_id:\d+>',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
+    ),
+    array(
+        'api/products/list',
+        'pattern'   => 'api/shops/<shop_id:\d+>/products',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
+    ),
+    array(
+        'api/products/read',
+        'pattern'   => 'api/shops/<shop_id:\d+>/products/<product_id:\d+>',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
     ),
 );
-
-$result = array();
-
-foreach ($restControllers as $controller => $options) {
-    if (isset($options['param'])) {
-        $param = $options['param'];
-    } else {
-        $param = $controller . '_id';
-    }
-
-    if (!isset($options['paths'])) {
-        $options['paths'] = array('api/');
-    }
-
-    foreach ($options['paths'] as $path) {
-        $result[] = array(
-            'api/' . $controller . '/list',
-            'pattern'   => $path . $controller,
-            'verb'      => 'GET',
-            'urlSuffix' => false,
-        );
-        $result[] = array(
-            'api/' . $controller . '/create',
-            'pattern'   => $path . $controller,
-            'verb'      => 'POST',
-            'urlSuffix' => false,
-        );
-        $result[] = array(
-            'api/' . $controller . '/read',
-            'pattern'   => $path . $controller . '/<' . $param . ':\d+>',
-            'verb'      => 'GET',
-            'urlSuffix' => false,
-        );
-        $result[] = array(
-            'api/' . $controller . '/update',
-            'pattern'   => $path . $controller . '/<' . $param . ':\d+>',
-            'verb'      => 'PUT',
-            'urlSuffix' => false,
-        );
-
-        $result[] = array(
-            'api/' . $controller . '/patch',
-            'pattern'   => $path . $controller . '/<' . $param . ':\d+>',
-            'verb'      => 'PATCH',
-            'urlSuffix' => false,
-        );
-
-        $result[] = array(
-            'api/' . $controller . '/delete',
-            'pattern'   => $path . $controller . '/<' . $param . ':\d+>',
-            'verb'      => 'DELETE',
-            'urlSuffix' => false,
-        );
-    }
-
-}
-
-return $result;
