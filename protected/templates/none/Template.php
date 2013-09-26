@@ -25,7 +25,33 @@ class Template extends \CComponent
     {
         $this->form->attributes = $_POST;
         if ($this->form->validate()) {
-            \Yii::app()->user->setFlash('success', "Template config saved");
+
+            $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . $this->shop->id;
+            if (!file_exists($path) or !is_dir($path)) {
+                mkdir($path, 0777, true);
+            }
+            file_put_contents($path . DIRECTORY_SEPARATOR . 'config.js', $this->widget->render('js', null, true));
+            file_put_contents($path . DIRECTORY_SEPARATOR . 'config.less', $this->widget->render('less', null, true));
+
+            exec('/usr/bin/lessc --yui-compress ' . $path . DIRECTORY_SEPARATOR . 'config.less', $output, $error);
+
+            if (!$error) {
+                $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
+                if (!file_exists($path) or !is_dir($path)) {
+                    mkdir($path, 0777, true);
+                }
+                file_put_contents($path . DIRECTORY_SEPARATOR . 'main.css', implode("\n", $output));
+                file_put_contents($path . DIRECTORY_SEPARATOR . 'main.js', '');
+            }
+
+            \Yii::app()->user->setFlash(
+                'success',
+                'Template config saved. <a href="//www.facebook.com/' .
+                    $this->shop->fb_id .
+                    '?sk=app_' .
+                    \Yii::app()->facebook->sdk->getAppId() .
+                    '" class="alert-link" target="_blank">View result</a>'
+            );
             $this->shop->template_config = \CJSON::encode($this->form->attributes);
             $this->shop->save();
         }
@@ -45,6 +71,19 @@ class Template extends \CComponent
             );
         }
         return $this->_form;
+    }
+
+    public function registerScripts()
+    {
+        //\Yii::app()->clientScript->registerPackage('less');
+
+        $assetsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
+        \Yii::app()->clientScript->registerCssFile(
+            \Yii::app()->assetManager->publish($assetsPath . DIRECTORY_SEPARATOR . 'main.css')
+        );
+        \Yii::app()->clientScript->registerScriptFile(
+            \Yii::app()->assetManager->publish($assetsPath . DIRECTORY_SEPARATOR . 'main.js')
+        );
     }
 
     public function getWidget()

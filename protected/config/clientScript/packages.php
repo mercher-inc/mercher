@@ -23,6 +23,12 @@ return array(
             'underscore'
         ),
     ),
+    'less'                               => array(
+        'baseUrl' => '/',
+        'js'      => array(
+            'js/less.js'
+        )
+    ),
     'bootstrap'                          => array(
         'baseUrl' => '/',
         'js'      => array(
@@ -151,7 +157,7 @@ return array(
             'mercher/views'
         ),
     ),
-    'mercher/views/dlg/create'              => array(
+    'mercher/views/dlg/create'           => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/dlg/create.js'
@@ -160,7 +166,7 @@ return array(
             'mercher/views/dlg'
         ),
     ),
-    'mercher/views/dlg/update'              => array(
+    'mercher/views/dlg/update'           => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/dlg/update.js'
@@ -169,7 +175,7 @@ return array(
             'mercher/views/dlg'
         ),
     ),
-    'mercher/views/dlg/delete'              => array(
+    'mercher/views/dlg/delete'           => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/dlg/delete.js'
@@ -210,7 +216,7 @@ return array(
             'mercher/templates/shops/item',
         ),
     ),
-    'mercher/views/shops/create'            => array(
+    'mercher/views/shops/create'         => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/shops/create.js'
@@ -289,7 +295,7 @@ return array(
             'mercher/views/products/delete'
         ),
     ),
-    'mercher/views/products/create'        => array(
+    'mercher/views/products/create'      => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/products/create.js'
@@ -301,7 +307,7 @@ return array(
             'mercher/templates/products/create',
         ),
     ),
-    'mercher/views/products/update'        => array(
+    'mercher/views/products/update'      => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/products/update.js'
@@ -313,7 +319,7 @@ return array(
             'mercher/templates/products/update',
         ),
     ),
-    'mercher/views/products/delete'        => array(
+    'mercher/views/products/delete'      => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/views/products/delete.js'
@@ -384,7 +390,7 @@ return array(
             'mercher/templates/shops'
         ),
     ),
-    'mercher/templates/shops/create'        => array(
+    'mercher/templates/shops/create'     => array(
         'baseUrl' => '/',
         'js'      => array(
             'js/mercher/templates/shops/create.js'
