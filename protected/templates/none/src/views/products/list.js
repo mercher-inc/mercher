@@ -12,13 +12,14 @@ define(function (require) {
     return Backbone.View.extend({
 
         initialize: function () {
-
+            this.listenTo(this.collection, "sync", this.render);
+            this.collection.fetch({data: this.collection.data});
         },
 
         render: function () {
             this.$el.html(template());
             var list = $(".list:first", this.el);
-            console.log(list);
+            console.log(this.collection);
             return this;
         }
 

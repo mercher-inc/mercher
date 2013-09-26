@@ -22,9 +22,16 @@ define(function (require) {
 
         products: function (category_id) {
             $content.fadeOut('fast', function () {
-                require(["app/views/products/list"], function (View) {
-                    var view = new View({el: $content});
-                    view.render();
+                require(["app/views/products/list", "app/collections/products"], function (View, Collection) {
+                    var collection = new Collection();
+                    if (category_id) {
+                        collection.data.category_id = category_id;
+                    }
+                    var view = new View({
+                        el: $content,
+                        collection: collection
+                    });
+                    //view.render();
                     $content.fadeIn('fast');
                 });
             });

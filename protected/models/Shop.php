@@ -162,6 +162,7 @@ class Shop extends CActiveRecord
             'owner'           => array(self::BELONGS_TO, 'User', 'owner_id'),
             'template'        => array(self::BELONGS_TO, 'Template', 'template_alias'),
             'products'        => array(self::HAS_MANY, 'Product', 'shop_id'),
+            'productsCount'   => array(self::STAT, 'Product', 'shop_id'),
             'categories'      => array(self::HAS_MANY, 'Category', 'shop_id'),
             'categoriesCount' => array(self::STAT, 'Category', 'shop_id'),
         );

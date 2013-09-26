@@ -12,40 +12,39 @@ namespace api\controllers;
 
 class ProductsController extends \Controller
 {
-    public function init()
+    public function actionList($shop_id, $category_id = null, $offset = 0, $limit = 10)
     {
-        if (\Yii::app()->user->isGuest) {
-            throw new \CHttpException(401, \Yii::t('error', 'unauthorized'));
+        $offset = (int)$offset;
+        $limit  = (int)$limit;
+
+        $result = array(
+            'models' => array(),
+            'count'  => 0,
+            'offset' => $offset,
+            'limit'  => $limit,
+        );
+        $shop   = \Shop::model()->findByPk($shop_id);
+        if (!$shop) {
+            throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
         }
-    }
-
-    public function actionList()
-    {
-        echo \CJSON::encode(\Products::model()->readRestCollection($_GET));
-    }
-
-    public function actionRead()
-    {
-        echo \CJSON::encode(\Products::model()->readRestModel($_GET));
-    }
-
-    public function actionCreate()
-    {
-        echo \CJSON::encode(
-            \Products::model()->createRestModel(\CJSON::decode(\Yii::app()->request->getRawBody()), $_GET)
-        );
-    }
-
-    public function actionUpdate()
-    {
-        echo \CJSON::encode(
-            \Products::model()->updateRestModel(\CJSON::decode(\Yii::app()->request->getRawBody()), $_GET)
-        );
-    }
-
-    public function actionDelete()
-    {
-        \CJSON::encode(\Products::model()->deleteRestModel($_GET));
-        http_response_code(204);
+        if (!$category_id) {
+            $result['count'] = (int)$shop->productsCount;
+            $products        = $shop->products;
+        } else {
+            $result['count'] = (int)$shop->productsCount(
+                'category_id = :categoryId',
+                array('categoryId' => (int)$category_id)
+            );
+            $products        = $shop->products(
+                'category_id = :categoryId',
+                array('categoryId' => (int)$category_id)
+            );
+        }
+        if (count($products)) {
+            foreach ($products as $product) {
+                $result['models'][] = $product->attributes;
+            }
+        }
+        echo \CJSON::encode($result);
     }
 }
