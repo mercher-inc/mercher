@@ -75,14 +75,14 @@ class Template extends \CComponent
 
     public function registerScripts()
     {
-        //\Yii::app()->clientScript->registerPackage('less');
-
         $assetsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
+        \Yii::app()->assetManager->publish($assetsPath);
+
         \Yii::app()->clientScript->registerCssFile(
-            \Yii::app()->assetManager->publish($assetsPath . DIRECTORY_SEPARATOR . 'main.css')
+            \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.css'
         );
         \Yii::app()->clientScript->registerScriptFile(
-            \Yii::app()->assetManager->publish($assetsPath . DIRECTORY_SEPARATOR . 'main.js')
+            \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.js'
         );
     }
 
