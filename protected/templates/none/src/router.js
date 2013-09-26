@@ -2,9 +2,9 @@ define(function (require) {
 
     "use strict";
 
-    var $           = require('jquery'),
-        Backbone    = require('backbone'),
-        DefaultLayout   = require('app/layouts/default'),
+    var $ = require('jquery'),
+        Backbone = require('backbone'),
+        DefaultLayout = require('app/layouts/default'),
 
         $body = $('body'),
         defaultLayout = new DefaultLayout({el: $body}).render(),
@@ -13,13 +13,25 @@ define(function (require) {
     return Backbone.Router.extend({
 
         routes: {
-            "": "home",
-            "contact": "contact",
-            "employees/:id": "employeeDetails"
+            "": "products",
+            "category/:category_id": "products",
+            "product/:product_id": "product"
         },
 
-        home: function () {
-            console.log('home');
+        products: function (category_id) {
+            require(["app/views/products"], function (View) {
+                var view = new View({el: $content});
+                view.render();
+            });
+            //console.log({'controller': 'products', 'category_id': category_id});
+        },
+
+        product: function (product_id) {
+            require(["app/views/product"], function (ProductsView) {
+                var view = new ProductsView({el: $content});
+                view.render();
+            });
+            console.log({'controller': 'product', 'product_id': product_id});
         }
 
     });

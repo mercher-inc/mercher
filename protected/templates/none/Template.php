@@ -99,7 +99,7 @@ class Template extends \CComponent
         $assetsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
         $srcPath    = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'src';
 
-        \Yii::app()->assetManager->publish($assetsPath);
+        //\Yii::app()->assetManager->publish($assetsPath);
 
         \Yii::app()->clientScript->registerCssFile(
             \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.css'
