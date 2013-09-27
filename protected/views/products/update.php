@@ -100,7 +100,7 @@ if ($this->product->image) {
     );
     $data = CJSON::decode($this->product->image->data);
     echo CHtml::image(
-        $data['origin'],
+        $data['m'],
         '',
         array(
             'class' => 'img-thumbnail'
