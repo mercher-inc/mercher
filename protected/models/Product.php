@@ -68,21 +68,59 @@ class Product extends CActiveRecord
     public function uploadImage()
     {
         if ($this->new_image instanceof CUploadedFile) {
-            $path = Yii::getPathOfAlias('webroot.images.shop_'.$this->shop_id.'.products');
+            $path = Yii::getPathOfAlias('webroot.images.shop_' . $this->shop_id . '.products');
             if (!file_exists($path) or !is_dir($path)) {
                 mkdir($path, 0777, true);
             }
-            $filename = md5($this->new_image->name) . ($this->new_image->extensionName?('.'.$this->new_image->extensionName):'');
-            while (Image::model()->exists('original_file = :originalFile', array('originalFile'=>$path . DIRECTORY_SEPARATOR . $filename))) {
-                $filename = md5($filename.time()) . ($this->new_image->extensionName?('.'.$this->new_image->extensionName):'');
+            $filename = md5(
+                $this->new_image->name
+            ) . ($this->new_image->extensionName ? ('.' . $this->new_image->extensionName) : '');
+            while (Image::model()->exists(
+                'original_file = :originalFile',
+                array('originalFile' => $path . DIRECTORY_SEPARATOR . $filename)
+            )) {
+                $filename = md5(
+                    $filename . time()
+                ) . ($this->new_image->extensionName ? ('.' . $this->new_image->extensionName) : '');
             }
             $this->new_image->saveAs($path . DIRECTORY_SEPARATOR . $filename);
 
-            $image = new Image();
+            $image                = new Image();
             $image->original_file = $path . DIRECTORY_SEPARATOR . $filename;
-            $image->data = CJSON::encode(array(
-                    'origin'=>'/images/shop_'.$this->shop_id.'/products/'.$filename
-                ));
+
+            $i = new Imagick($image->original_file);
+
+            $xs = clone $i;
+            $xs->cropThumbnailImage(50, 50);
+            $xs->writeImage($path . DIRECTORY_SEPARATOR . 'xs_' . $filename);
+
+            $s = clone $i;
+            $s->cropThumbnailImage(100, 100);
+            $s->writeImage($path . DIRECTORY_SEPARATOR . 's_' . $filename);
+
+            $m = clone $i;
+            $m->cropThumbnailImage(200, 200);
+            $m->writeImage($path . DIRECTORY_SEPARATOR . 'm_' . $filename);
+
+            $l = clone $i;
+            $l->cropThumbnailImage(400, 400);
+            $l->writeImage($path . DIRECTORY_SEPARATOR . 'l_' . $filename);
+
+            $xl = clone $i;
+            $xl->cropThumbnailImage(800, 800);
+            $xl->writeImage($path . DIRECTORY_SEPARATOR . 'xl_' . $filename);
+
+            $image->data = CJSON::encode(
+                array(
+                    'origin' => '/images/shop_' . $this->shop_id . '/products/' . $filename,
+                    'xs'     => '/images/shop_' . $this->shop_id . '/products/' . 'xs_' . $filename,
+                    's'      => '/images/shop_' . $this->shop_id . '/products/' . 's_' . $filename,
+                    'm'      => '/images/shop_' . $this->shop_id . '/products/' . 'm_' . $filename,
+                    'l'      => '/images/shop_' . $this->shop_id . '/products/' . 'l_' . $filename,
+                    'xl'     => '/images/shop_' . $this->shop_id . '/products/' . 'xl_' . $filename,
+
+                )
+            );
             $image->save();
             $image->refresh();
             $this->image_id = $image->id;

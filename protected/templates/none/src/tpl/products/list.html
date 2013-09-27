@@ -2,7 +2,6 @@
 
 <% if (collection.data.count - collection.length > 0) { %>
 <div class="text-center">
-    <button class="btn btn-default showMore">Show more (+<%- collection.data.count - collection.length %>)</button>
-
+    <button class="btn btn-default showMore">Show more (+<%- Math.min(collection.data.limit, collection.data.count - collection.length) %>/<%- collection.data.count - collection.length %>)</button>
 </div>
 <% } %>
