@@ -15,11 +15,13 @@ class Form extends \CFormModel
     protected $_template;
     public $title;
     public $bg_color;
+    public $per_page_count = 9;
 
     public function rules()
     {
         return array(
-            array('title, bg_color', 'safe'),
+            array('title, bg_color, per_page_count', 'safe'),
+            array('per_page_count', 'in', 'range'=>array('4','9','16')),
         );
     }
 

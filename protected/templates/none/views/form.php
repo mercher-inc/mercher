@@ -39,6 +39,40 @@ echo CHtml::error(
 );
 echo CHtml::closeTag('div');
 
+//==per_page_count==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->template->form->hasErrors('per_page_count') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    $this->template->form->getAttributeLabel('per_page_count'),
+    'perPageCountInput'
+);
+echo CHtml::dropDownList(
+    'per_page_count',
+    $this->template->form->per_page_count,
+    array(
+        '4'  => '2 in row, 2 rows',
+        '9'  => '3 in row, 3 rows',
+        '16' => '4 in row, 4 rows'
+    ),
+    array(
+        'class' => 'form-control',
+        'id'    => 'perPageCountInput'
+    )
+);
+echo CHtml::error(
+    $this->template->form,
+    'per_page_count',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
 //==bg_color==
 echo CHtml::openTag(
     'div',

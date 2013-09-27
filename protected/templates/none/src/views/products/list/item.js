@@ -11,7 +11,7 @@ define(function (require) {
 
     return Backbone.View.extend({
 
-        className: 'col-sm-3',
+        className: 'col-sm-' + Math.round(12 / Math.sqrt(appConfig.perPageCount)),
 
         initialize: function () {
             this.listenTo(this.model, "sync", this.render);

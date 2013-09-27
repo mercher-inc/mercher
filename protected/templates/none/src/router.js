@@ -30,7 +30,7 @@ define(function (require) {
 
                     var collection = new Collection();
 
-                    collection.data.limit = 12;
+                    collection.data.limit = appConfig.perPageCount;
                     categoriesView = new View({
                         el: $content,
                         collection: collection
