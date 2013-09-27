@@ -38,8 +38,6 @@ define(function (require) {
 
                 }
 
-                console.log(categoriesView);
-
                 if (category_id) {
                     categoriesView.collection.data.category_id = category_id;
                 } else {
