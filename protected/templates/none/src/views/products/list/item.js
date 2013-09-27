@@ -29,6 +29,7 @@ define(function (require) {
         },
 
         checkLike: function() {
+            var view = this;
             var $button = $('.likeProduct', this.$el);
             $button.button('loading');
             FB.api(
@@ -42,12 +43,14 @@ define(function (require) {
                         $button.attr('data-like-id', response.data[0].id);
                         $button.html('Dislike');
                         $button.toggleClass('likeProduct').toggleClass('dislikeProduct');
+                        view.getLikes();
                     }
                 }
             );
         },
 
         likeProduct: function (event) {
+            var view = this;
             var $button = $('.likeProduct', this.$el);
             $button.button('loading');
             FB.api(
@@ -61,12 +64,14 @@ define(function (require) {
                     $button.attr('data-like-id', response.id);
                     $button.html('Dislike');
                     $button.toggleClass('likeProduct').toggleClass('dislikeProduct');
+                    view.getLikes();
                 }
             );
             return this;
         },
 
         dislikeProduct: function (event) {
+            var view = this;
             var $button = $('.dislikeProduct', this.$el);
             $button.button('loading');
             FB.api(
@@ -77,10 +82,26 @@ define(function (require) {
                     $button.removeAttr('data-like-id');
                     $button.html('Like');
                     $button.toggleClass('dislikeProduct').toggleClass('likeProduct');
+                    view.getLikes();
                 }
             );
 
             return this;
+        },
+
+        getLikes: function() {
+            var $button = $('.likeProduct, .dislikeProduct', this.$el);
+            FB.api(
+                this.model.get('fb_id') + '/likes?summary=1',
+                {
+                    object: this.model.get('fb_id')
+                },
+                function(response) {
+                    if (response && response.summary && response.summary.total_count) {
+                        $button.append(' (' + response.summary.total_count + ')');
+                    }
+                }
+            );
         }
 
     });
