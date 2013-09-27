@@ -7,20 +7,43 @@ define(function (require) {
         Backbone = require('backbone'),
         Bootstrap = require('bootstrap'),
         tpl = require('text!app/tpl/products/list.html'),
+        ProductsListItemView = require('app/views/products/list/item'),
         template = _.template(tpl);
 
     return Backbone.View.extend({
 
         initialize: function () {
             this.listenTo(this.collection, "sync", this.render);
-            this.collection.fetch({data: this.collection.data});
+        },
+
+        events: {
+            "click .showMore": "showMore"
         },
 
         render: function () {
-            this.$el.html(template());
-            var list = $(".list:first", this.el);
-            console.log(this.collection);
+            this.$el.html(template({collection: this.collection}));
+
+            var $list = $('.list:first', this.$el);
+            $list.empty();
+            var $row = $('<div class="row"></div>');
+
+            _.each(this.collection.models, function (product, i) {
+                if (i % 3 == 0) {
+                    $row = $('<div class="row"></div>');
+                    $row.appendTo($list);
+                }
+                $row.append(new ProductsListItemView({model: product}).render().el);
+            }, this);
+
             return this;
+        },
+
+        showMore: function () {
+            this.collection.data.offset = this.collection.length;
+            this.collection.fetch({
+                data: this.collection.data,
+                remove: false
+            });
         }
 
     });

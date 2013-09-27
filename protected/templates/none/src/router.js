@@ -7,6 +7,7 @@ define(function (require) {
         DefaultLayout = require('app/views/layouts/default'),
         CategoriesCollection = require('app/collections/categories'),
         categoriesCollection = new CategoriesCollection(),
+        categoriesView = false,
 
         $body = $('body'),
         defaultLayout = new DefaultLayout({el: $body, categories: categoriesCollection}).render(),
@@ -21,29 +22,38 @@ define(function (require) {
         },
 
         products: function (category_id) {
-            $content.fadeOut('fast', function () {
-                require(["app/views/products/list", "app/collections/products"], function (View, Collection) {
+            require(["app/views/products/list", "app/collections/products"], function (View, Collection) {
+
+                if (!categoriesView) {
+
                     var collection = new Collection();
-                    if (category_id) {
-                        collection.data.category_id = category_id;
-                    }
-                    var view = new View({
+
+                    collection.data.limit = 9;
+                    categoriesView = new View({
                         el: $content,
                         collection: collection
                     });
-                    //view.render();
-                    $content.fadeIn('fast');
-                });
+
+                }
+
+                console.log(categoriesView);
+
+                if (category_id) {
+                    categoriesView.collection.data.category_id = category_id;
+                } else {
+                    categoriesView.collection.data.category_id = null;
+                    delete categoriesView.collection.data.category_id;
+                }
+                categoriesView.collection.data.offset = 0;
+
+                categoriesView.collection.fetch({data: categoriesView.collection.data});
             });
         },
 
         product: function (product_id) {
-            $content.fadeOut('fast', function () {
-                require(["app/views/product/item"], function (View) {
-                    var view = new View({el: $content});
-                    view.render();
-                    $content.fadeIn('fast');
-                });
+            require(["app/views/product/item"], function (View) {
+                var view = new View({el: $content});
+                view.render();
             });
         }
 

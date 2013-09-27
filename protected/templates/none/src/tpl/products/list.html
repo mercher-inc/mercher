@@ -1,4 +1,10 @@
 <h1>Products</h1>
-<div class="row list">
+
+<div class="list"></div>
+
+<% if (collection.data.count - collection.length > 0) { %>
+<div class="text-center">
+    <button class="btn btn-default showMore">Show more (+<%- collection.data.count - collection.length %>)</button>
 
 </div>
+<% } %>
