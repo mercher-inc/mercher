@@ -1,1 +1,24 @@
-p
+<div class="item">
+    <div class="row">
+        <img src="<%- model.get('image').origin %>" class="col-sm-12">
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-primary text-left">
+            <%- model.get('title') %>
+        </div>
+        <div class="col-sm-6 text-success text-right">
+            <% if (model.get('price')) { %>
+                <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
+                <%- fbUser.currency.user_currency %>
+            <% } %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-left">
+            <button class="btn btn-default btn-block">Like</button>
+        </div>
+        <div class="col-sm-6 text-right">
+            <button class="btn btn-success btn-block">Buy</button>
+        </div>
+    </div>
+</div>

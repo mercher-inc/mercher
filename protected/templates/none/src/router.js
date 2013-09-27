@@ -13,6 +13,8 @@ define(function (require) {
         defaultLayout = new DefaultLayout({el: $body, categories: categoriesCollection}).render(),
         $content = $("#content", defaultLayout.el);
 
+    //console.log(FB);
+
     return Backbone.Router.extend({
 
         routes: {

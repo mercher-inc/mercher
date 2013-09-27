@@ -7,7 +7,8 @@ requirejs.config({
     baseUrl: '/js',
     paths: {
         app: appConfig.appPath,
-        bootstrap: '/bootstrap/dist/js/bootstrap'
+        bootstrap: '/bootstrap/dist/js/bootstrap',
+        facebook: '//connect.facebook.net/en_US/all'
     },
     shim: {
         'backbone': {
@@ -19,12 +20,27 @@ requirejs.config({
         },
         'bootstrap': {
             deps: ['jquery']
+        },
+        'facebook': {
+            exports: 'FB'
         }
+
     },
     waitSeconds: 0
 });
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
-    var router = new Router();
-    Backbone.history.start();
+fbUser = {};
+
+require(['jquery', 'backbone', 'facebook', 'app/router'], function ($, Backbone, FB, Router) {
+    FB.Event.subscribe('auth.statusChange', function (response) {
+        if (response.status === 'connected') {
+            FB.api('/me?fields=name,currency', function (response) {
+                fbUser = response;
+                var router = new Router();
+                Backbone.history.start();
+            });
+        } else {
+            FB.login();
+        }
+    });
 });
