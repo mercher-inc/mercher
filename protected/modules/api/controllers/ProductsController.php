@@ -23,26 +23,55 @@ class ProductsController extends \Controller
             'offset' => $offset,
             'limit'  => $limit,
         );
+
         $shop   = \Shop::model()->findByPk($shop_id);
         if (!$shop) {
             throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
         }
-        if (!$category_id) {
-            $result['count'] = (int)$shop->productsCount;
-            $products        = $shop->products;
-        } else {
-            $result['count'] = (int)$shop->productsCount(
-                'category_id = :categoryId',
-                array('categoryId' => (int)$category_id)
-            );
-            $products        = $shop->products(
-                'category_id = :categoryId',
-                array('categoryId' => (int)$category_id)
-            );
+
+        $criteria = new \CDbCriteria;
+
+        $criteria->condition = 't.is_active = TRUE AND t.is_banned = FALSE';
+        if ($category_id) {
+            $criteria->condition .= ' AND t.category_id = :categoryId';
+            $criteria->params    = array('categoryId' => (int)$category_id);
         }
+
+        $result['count'] = (int)$shop->productsCount(
+            $criteria
+        );
+
+        $criteria->offset = $offset;
+        $criteria->limit = $limit;
+        $criteria->condition = 'products.is_active = TRUE AND products.is_banned = FALSE';
+
+        if ($category_id) {
+            $criteria->condition .= ' AND products.category_id = :categoryId';
+            $criteria->params    = array('categoryId' => (int)$category_id);
+        }
+
+        $criteria->with  = array('category', 'image');
+        $criteria->order = 'products.created DESC';
+
+        $products = $shop->products(
+            $criteria
+        );
+
         if (count($products)) {
             foreach ($products as $product) {
-                $result['models'][] = $product->attributes;
+                $model             = $product->attributes;
+                $model['category'] = $product->category ? $product->category->attributes : null;
+
+                unset($model['image_id']);
+                $model['image'] = array();
+                if ($product->image) {
+                    $image = $product->image->attributes;
+                    try {
+                        $model['image'] = \CJSON::decode($image['data']);
+                    } catch (\Exception $e) {
+                    }
+                }
+                $result['models'][] = $model;
             }
         }
         echo \CJSON::encode($result);

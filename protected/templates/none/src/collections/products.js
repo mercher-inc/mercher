@@ -11,6 +11,17 @@ define(function (require) {
         initialize: function () {
             this.data = {};
         },
+        comparator : function(firstProduct, secondProduct) {
+            var firstDate = Date.parse(firstProduct.get('created')),
+                secondDate = Date.parse(secondProduct.get('created'));
+            if (firstDate > secondDate) {
+                return -1;
+            } else if (firstDate < secondDate) {
+                return 1;
+            } else {
+                return 0;
+            }
+        },
         url: '/api/shops/' + appConfig.shop.id + '/products',
         model: ProductModel,
         parse     : function (response) {
