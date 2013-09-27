@@ -11,7 +11,7 @@ define(function (require) {
 
     return Backbone.View.extend({
 
-        className: 'col-sm-4',
+        className: 'col-sm-3',
 
         initialize: function () {
             this.listenTo(this.model, "sync", this.render);

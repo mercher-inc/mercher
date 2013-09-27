@@ -28,7 +28,7 @@ define(function (require) {
             var $row = $('<div class="row"></div>');
 
             _.each(this.collection.models, function (product, i) {
-                if (i % 3 == 0) {
+                if (i % 4 == 0) {
                     $row = $('<div class="row"></div>');
                     $row.appendTo($list);
                 }
