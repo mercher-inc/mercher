@@ -40,7 +40,7 @@ require(['jquery', 'backbone', 'facebook', 'app/router'], function ($, Backbone,
                 Backbone.history.start();
             });
         } else {
-            FB.login();
+            FB.login(function(){}, {scope: 'publish_actions'});
         }
     });
 });
