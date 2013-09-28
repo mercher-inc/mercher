@@ -8,7 +8,6 @@ define(function (require) {
         CategoriesCollection = require('app/collections/categories'),
         categoriesCollection = new CategoriesCollection(),
         categoriesView = false,
-        loginView = false,
 
         $body = $('body'),
         defaultLayout = new DefaultLayout({el: $body, categories: categoriesCollection}).render(),
@@ -19,21 +18,10 @@ define(function (require) {
     return Backbone.Router.extend({
 
         routes: {
-            "login": "login",
+            "": "products",
             "products": "products",
             "category/:category_id/products": "products",
             "products/:product_id": "product"
-        },
-
-        login: function () {
-            require(["app/views/login"], function (View) {
-                if (!loginView) {
-                    loginView = new View({
-                        el: $content
-                    });
-                }
-                loginView.render();
-            });
         },
 
         products: function (category_id) {

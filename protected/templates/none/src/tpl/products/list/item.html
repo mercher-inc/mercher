@@ -8,11 +8,13 @@
             <%- model.get('title') %>
         </h4>
     </div>
-    <div class="description closed">
-        <p class="text-muted">
-            <small><%- model.get('description') %></small>
-        </p>
-    </div>
+    <% if (model.get('description')) { %>
+        <div class="description closed">
+            <p class="text-muted">
+                <small><%- model.get('description') %></small>
+            </p>
+        </div>
+    <% } %>
     <div class="actions">
         <% if (model.get('price')) { %>
             <button class="btn btn-primary btn-block">Buy for

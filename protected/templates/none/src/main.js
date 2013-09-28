@@ -65,7 +65,7 @@ require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
                     router.navigate('products', {trigger: true});
                 });
             } else {
-                router.navigate('login', {trigger: true});
+                router.navigate('products', {trigger: true});
             }
         });
     };
