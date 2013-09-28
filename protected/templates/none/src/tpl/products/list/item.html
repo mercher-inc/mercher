@@ -4,11 +4,18 @@
         <img src="<%- (appConfig.perPageCount > 9)?model.get('image').m:model.get('image').l %>">
     </div>
     <div class="title">
-        <%- model.get('title') %>
+        <h4 class="text-center">
+            <%- model.get('title') %>
+        </h4>
+    </div>
+    <div class="description closed">
+        <p class="text-muted">
+            <small><%- model.get('description') %></small>
+        </p>
     </div>
     <div class="actions">
         <% if (model.get('price')) { %>
-            <button class="btn btn-primary">Buy
+            <button class="btn btn-primary btn-block">Buy for
                 <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
                 <%- fbUser.currency.user_currency %>
             </button>

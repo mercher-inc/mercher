@@ -18,7 +18,8 @@ define(function (require) {
         },
 
         events: {
-            "click .likeProduct": "likeProduct"
+            "click .likeProduct": "likeProduct",
+            "click .description": "toggleDescription"
         },
 
         render: function () {
@@ -94,6 +95,10 @@ define(function (require) {
                     }
                 }
             );
+        },
+
+        toggleDescription: function() {
+            $('.description', this.$el).toggleClass('closed');
         }
 
     });
