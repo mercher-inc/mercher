@@ -26,43 +26,60 @@ class Template extends \CComponent
         $this->form->attributes = $_POST;
         if ($this->form->validate()) {
 
+            //getting paths
             $configsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . $this->shop->id;
             $assetsPath  = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
             $srcPath     = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'src';
-            \Yii::app()->assetManager->publish($srcPath, false, -1, true);
 
+            $oldAssetsPath = \Yii::app()->assetManager->getPublishedPath($assetsPath);
+
+            //creating configs dir
             if (!file_exists($configsPath) or !is_dir($configsPath)) {
                 mkdir($configsPath, 0777, true);
             }
+
+            //generating less file from config
             file_put_contents(
                 $configsPath . DIRECTORY_SEPARATOR . 'config.less',
-                $this->widget->render(
-                    'less',
-                    array('srcPath' => \Yii::app()->assetManager->getPublishedUrl($srcPath)),
-                    true
-                )
+                $this->widget->render('less', null, true)
             );
 
+            //rendering css file from less file
             exec(
                 '/usr/bin/lessc --yui-compress ' . $configsPath . DIRECTORY_SEPARATOR . 'config.less',
                 $outputCss,
                 $errorCss
             );
 
+            //if no errors in less file
             if (!$errorCss) {
+
+                //creating assets dir
                 if (!file_exists($assetsPath) or !is_dir($assetsPath)) {
                     mkdir($assetsPath, 0777, true);
                 }
+
+                //saving generated css file
                 file_put_contents($assetsPath . DIRECTORY_SEPARATOR . 'main.css', implode("\n", $outputCss));
+
+                //generating and saving js file
                 file_put_contents(
                     $assetsPath . DIRECTORY_SEPARATOR . 'main.js',
-                    $this->widget->render(
-                        'js',
-                        array('srcPath' => \Yii::app()->assetManager->getPublishedUrl($srcPath)),
-                        true
-                    )
+                    $this->widget->render('js', null, true)
                 );
+
+                //linking assets src to template src
+                if (!file_exists($assetsPath . DIRECTORY_SEPARATOR . 'app')) {
+                    symlink($srcPath, $assetsPath . DIRECTORY_SEPARATOR . 'app');
+                }
+
+                //publishing new assets
                 \Yii::app()->assetManager->publish($assetsPath, false, -1, true);
+                //deleting old assets
+                if (file_exists($oldAssetsPath) and is_dir($oldAssetsPath)) {
+                    //rmdir($oldAssetsPath);
+                    var_dump($oldAssetsPath);
+                }
             }
 
             \Yii::app()->user->setFlash(
@@ -97,23 +114,37 @@ class Template extends \CComponent
     public function registerScripts()
     {
         $assetsPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $this->shop->id;
-        $srcPath    = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'src';
-
-        //\Yii::app()->assetManager->publish($assetsPath);
 
         \Yii::app()->clientScript->registerCssFile(
-            \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.css'
+            \Yii::app()->assetManager->getPublishedUrl($assetsPath) . '/main.css'
         );
 
         \Yii::app()->clientScript->registerScriptFile(
-            \Yii::app()->assetManager->getPublishedUrl($assetsPath) . DIRECTORY_SEPARATOR . 'main.js'
+            \Yii::app()->assetManager->getPublishedUrl($assetsPath) . '/main.js'
+        );
+
+        \Yii::app()->clientScript->registerScript(
+            'appConfig',
+            'appConfig.shop = ' . \CJSON::encode(
+                array(
+                    'id'    => $this->shop->id,
+                    'page'  => $this->shop->fb_id,
+                    'title' => $this->shop->title,
+                )
+            ) . ";\n" .
+                'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(
+                $assetsPath
+            ) . '/app";',
+            \CClientScript::POS_HEAD
         );
 
         \Yii::app()->clientScript->registerScriptFile(
             '/js/require.js',
             null,
             array(
-                'data-main' => \Yii::app()->assetManager->getPublishedUrl($srcPath) . DIRECTORY_SEPARATOR . 'main.js'
+                'data-main' => \Yii::app()->assetManager->getPublishedUrl(
+                    $assetsPath
+                ) . '/app/main.js'
             )
         );
     }

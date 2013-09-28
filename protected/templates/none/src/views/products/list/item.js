@@ -18,8 +18,7 @@ define(function (require) {
         },
 
         events: {
-            "click .likeProduct": "likeProduct",
-            "click .dislikeProduct": "dislikeProduct"
+            "click .likeProduct": "likeProduct"
         },
 
         render: function () {
@@ -34,17 +33,15 @@ define(function (require) {
             $button.button('loading');
             FB.api(
                 'me/og.likes?object=' + this.model.get('fb_id'),
-                {
-                    object: this.model.get('fb_id')
-                },
                 function(response) {
-                    $button.button('reset');
                     if (response && response.data && response.data.length) {
                         $button.attr('data-like-id', response.data[0].id);
-                        $button.html('Dislike');
-                        $button.toggleClass('likeProduct').toggleClass('dislikeProduct');
-                        view.getLikes();
+                        $button.addClass('active');
+                    } else {
+                        $button.removeClass('active');
                     }
+                    $button.button('reset');
+                    view.getLikes();
                 }
             );
         },
@@ -53,52 +50,47 @@ define(function (require) {
             var view = this;
             var $button = $('.likeProduct', this.$el);
             $button.button('loading');
-            FB.api(
-                'me/og.likes',
-                'post',
-                {
-                    object: this.model.get('fb_id')
-                },
-                function(response) {
-                    $button.button('reset');
-                    $button.attr('data-like-id', response.id);
-                    $button.html('Dislike');
-                    $button.toggleClass('likeProduct').toggleClass('dislikeProduct');
-                    view.getLikes();
-                }
-            );
-            return this;
-        },
-
-        dislikeProduct: function (event) {
-            var view = this;
-            var $button = $('.dislikeProduct', this.$el);
-            $button.button('loading');
-            FB.api(
-                $button.attr('data-like-id'),
-                'delete',
-                function() {
-                    $button.button('reset');
-                    $button.removeAttr('data-like-id');
-                    $button.html('Like');
-                    $button.toggleClass('dislikeProduct').toggleClass('likeProduct');
-                    view.getLikes();
-                }
-            );
+            if ($button.hasClass('active')) {
+                FB.api(
+                    $button.attr('data-like-id'),
+                    'delete',
+                    function() {
+                        $button.button('reset');
+                        $button.removeAttr('data-like-id');
+                        $button.removeClass('active');
+                        view.getLikes();
+                    }
+                );
+            } else {
+                FB.api(
+                    'me/og.likes',
+                    'post',
+                    {
+                        object: view.model.get('fb_id')
+                    },
+                    function(response) {
+                        $button.button('reset');
+                        $button.attr('data-like-id', response.id);
+                        $button.addClass('active');
+                        view.getLikes();
+                    }
+                );
+            }
 
             return this;
         },
 
         getLikes: function() {
             var $button = $('.likeProduct, .dislikeProduct', this.$el);
+            $button.button('loading');
             FB.api(
                 this.model.get('fb_id') + '/likes?summary=1',
-                {
-                    object: this.model.get('fb_id')
-                },
                 function(response) {
+                    $button.button('reset');
                     if (response && response.summary && response.summary.total_count) {
-                        $button.append(' (' + response.summary.total_count + ')');
+                        $button.html(response.summary.total_count);
+                    } else {
+                        $button.html(0);
                     }
                 }
             );
