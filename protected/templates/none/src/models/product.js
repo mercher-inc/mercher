@@ -7,7 +7,9 @@ define(function (require) {
         Backbone = require('backbone');
 
     return Backbone.Model.extend({
-
+        urlRoot: function () {
+            return '/api/shops/' + appConfig.shop.id + '/products/';
+        }
     });
 
 });

@@ -52,9 +52,11 @@ define(function (require) {
         },
 
         product: function (product_id) {
-            require(["app/views/product/item"], function (View) {
-                var view = new View({el: $content});
-                view.render();
+            require(["app/views/products/item", "app/models/product"], function (View, Model) {
+                var model = new Model({id: product_id});
+                var view = new View({el: $content, model: model});
+                view.model.fetch();
+                console.log(model);
             });
         }
 

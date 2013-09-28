@@ -76,4 +76,37 @@ class ProductsController extends \Controller
         }
         echo \CJSON::encode($result);
     }
+
+    public function actionRead($shop_id, $product_id)
+    {
+        $shop   = \Shop::model()->findByPk($shop_id);
+        if (!$shop) {
+            throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
+        }
+        $criteria = new \CDbCriteria;
+        $criteria->condition = 'products.is_active = TRUE AND products.is_banned = FALSE AND products.id = :productId';
+        $criteria->params    = array('productId' => (int)$product_id);
+        $criteria->with  = array('category', 'image');
+        $products = $shop->products(
+            $criteria
+        );
+        if (!count($products)) {
+            throw new \CHttpException(404, \Yii::t('error', 'product_not_found'));
+        }
+        $product = $products[0];
+
+        $model             = $product->attributes;
+        $model['category'] = $product->category ? $product->category->attributes : null;
+
+        unset($model['image_id']);
+        $model['image'] = array();
+        if ($product->image) {
+            $image = $product->image->attributes;
+            try {
+                $model['image'] = \CJSON::decode($image['data']);
+            } catch (\Exception $e) {
+            }
+        }
+        echo \CJSON::encode($model);
+    }
 }

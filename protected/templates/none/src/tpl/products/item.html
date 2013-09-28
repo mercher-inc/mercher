@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="image">
+            <img src="<%- model.get('image').l %>">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="title">
+            <h4 class="text-center">
+                <%- model.get('title') %>
+            </h4>
+        </div>
+        <% if (model.get('description')) { %>
+            <div class="description">
+                <p class="text-muted">
+                    <small><%- model.get('description') %></small>
+                </p>
+            </div>
+        <% } %>
+        <% if (model.get('price')) { %>
+            <div class="actions">
+                <% if (model.get('price')) { %>
+                    <button class="btn btn-primary btn-block">Buy for
+                        <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
+                        <%- fbUser.currency.user_currency %>
+                    </button>
+                <% } %>
+            </div>
+        <% } %>
+    </div>
+</div>
