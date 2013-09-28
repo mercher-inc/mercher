@@ -1,21 +1,17 @@
 <div class="item">
-    <div class="row">
-        <img src="<%- (appConfig.perPageCount > 9)?model.get('image').m:model.get('image').l %>" class="col-sm-12">
+    <div class="image">
+        <img src="<%- (appConfig.perPageCount > 9)?model.get('image').m:model.get('image').l %>">
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <p class="text-primary"><%- model.get('title') %></p>
-        </div>
+    <div class="title">
+        <%- model.get('title') %>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <button class="btn btn-default likeProduct" data-loading-text="...">Like</button>
-            <% if (model.get('price')) { %>
-                <button class="btn btn-success">Buy
-                    <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
-                    <%- fbUser.currency.user_currency %>
-                </button>
-            <% } %>
-        </div>
+    <div class="actions">
+        <button class="btn btn-default likeProduct" data-loading-text="...">Like</button>
+        <% if (model.get('price')) { %>
+            <button class="btn btn-success">Buy
+                <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
+                <%- fbUser.currency.user_currency %>
+            </button>
+        <% } %>
     </div>
 </div>
