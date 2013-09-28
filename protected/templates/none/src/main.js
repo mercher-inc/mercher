@@ -28,7 +28,19 @@ requirejs.config({
     waitSeconds: 0
 });
 
-fbUser = {};
+router = null;
+fbUser = {
+    id: null,
+    name: "Guest",
+    currency: {
+        currency_exchange: 10,
+        currency_exchange_inverse: 0.1,
+        currency_offset: 100,
+        usd_exchange: 1,
+        usd_exchange_inverse: 1,
+        user_currency: "USD"
+    }
+};
 
 require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
 
@@ -43,15 +55,18 @@ require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
         });
 
         FB.getLoginStatus(function (response) {
+
+            router = new Router();
+            Backbone.history.start();
+
             if (response.status === 'connected') {
                 FB.api('/me?fields=name,currency', function (response) {
                     fbUser = response;
-                    var router = new Router();
-                    Backbone.history.start();
+                    console.log(fbUser);
+                    router.navigate('products', {trigger: true});
                 });
             } else {
-                FB.login(function () {
-                }, {scope: 'publish_actions'});
+                router.navigate('login', {trigger: true});
             }
         });
     };

@@ -21,9 +21,9 @@ define(function (require) {
         },
 
         printCategories: function () {
-            $('#categories_menu', this.$el).append('<li><a href="#">All</a></li>');
+            $('#categories_menu', this.$el).append('<li><a href="#products">All</a></li>');
             this.options.categories.each(function(category) {
-                $('#categories_menu', this.$el).append('<li><a href="#category/'+category.get('id')+'">'+category.get('title')+'</a></li>');
+                $('#categories_menu', this.$el).append('<li><a href="#category/'+category.get('id')+'/products">'+category.get('title')+'</a></li>');
             }, this);
             return this;
         }
