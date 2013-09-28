@@ -28,13 +28,13 @@ define(function (require) {
             return this;
         },
 
-        checkLike: function() {
+        checkLike: function () {
             var view = this;
             var $button = $('.likeProduct', this.$el);
             $button.button('loading');
             FB.api(
                 'me/og.likes?object=' + this.model.get('fb_id'),
-                function(response) {
+                function (response) {
                     if (response && response.data && response.data.length) {
                         $button.attr('data-like-id', response.data[0].id);
                         $button.addClass('active');
@@ -51,42 +51,84 @@ define(function (require) {
             var view = this;
             var $button = $('.likeProduct', this.$el);
             $button.button('loading');
-            if ($button.hasClass('active')) {
-                FB.api(
-                    $button.attr('data-like-id'),
-                    'delete',
-                    function() {
+
+            checkStatus();
+
+            function checkStatus() {
+                FB.api('/me/permissions', function (response) {
+                    if (response && response.data && response.data.length && _.has(response.data[0], 'publish_actions')) {
+                        likeProduct();
+                    } else {
+                        logIn();
+                    }
+                });
+            }
+
+            function logIn() {
+                FB.login(function (response) {
+                    if (response.authResponse) {
+                        FB.api('/me?fields=name,currency', function (response) {
+                            if (response && response.id) {
+                                window.fbUser = response;
+                            }
+                        });
+                        FB.api('/me/permissions', function (response) {
+                            if (response && response.data && response.data.length && _.has(response.data[0], 'publish_actions')) {
+                                likeProduct();
+                            } else {
+                                $button.button('reset');
+                                view.getLikes();
+                            }
+                        });
+                    } else {
                         $button.button('reset');
-                        $button.removeAttr('data-like-id');
-                        $button.removeClass('active');
                         view.getLikes();
                     }
-                );
-            } else {
-                FB.api(
-                    'me/og.likes',
-                    'post',
-                    {
-                        object: view.model.get('fb_id')
-                    },
-                    function(response) {
-                        $button.button('reset');
-                        $button.attr('data-like-id', response.id);
-                        $button.addClass('active');
-                        view.getLikes();
-                    }
-                );
+                }, {scope: 'publish_actions'});
+            }
+
+            function likeProduct() {
+                if ($button.hasClass('active')) {
+                    FB.api(
+                        $button.attr('data-like-id'),
+                        'delete',
+                        function () {
+                            $button.button('reset');
+                            $button.removeAttr('data-like-id');
+                            $button.removeClass('active');
+                            view.getLikes();
+                        }
+                    );
+                } else {
+                    FB.api(
+                        'me/og.likes',
+                        'post',
+                        {
+                            object: view.model.get('fb_id')
+                        },
+                        function (response) {
+                            if (response && response.id) {
+                                $button.button('reset');
+                                $button.attr('data-like-id', response.id);
+                                $button.addClass('active');
+                                view.getLikes();
+                            } else if (response.error && response.error.code == 3501) {
+                                view.checkLike();
+                            }
+                        }
+                    );
+                }
             }
 
             return this;
         },
 
-        getLikes: function() {
+        getLikes: function () {
             var $button = $('.likeProduct, .dislikeProduct', this.$el);
             $button.button('loading');
             FB.api(
                 this.model.get('fb_id') + '/likes?summary=1',
-                function(response) {
+                function (response) {
                     $button.button('reset');
                     if (response && response.summary && response.summary.total_count) {
                         $button.html(response.summary.total_count);
@@ -97,7 +139,7 @@ define(function (require) {
             );
         },
 
-        toggleDescription: function() {
+        toggleDescription: function () {
             $('.description', this.$el).toggleClass('closed');
         }
 
