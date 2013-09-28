@@ -1,6 +1,6 @@
 <div class="item">
+    <button class="likeProduct" data-loading-text="..."></button>
     <div class="image">
-        <button class="likeProduct" data-loading-text="..."></button>
         <img src="<%- (appConfig.perPageCount > 9)?model.get('image').m:model.get('image').l %>">
     </div>
     <div class="title">
@@ -15,12 +15,14 @@
             </p>
         </div>
     <% } %>
-    <div class="actions">
-        <% if (model.get('price')) { %>
-            <button class="btn btn-primary btn-block">Buy for
-                <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
-                <%- fbUser.currency.user_currency %>
-            </button>
-        <% } %>
-    </div>
+    <% if (model.get('price')) { %>
+        <div class="actions">
+            <% if (model.get('price')) { %>
+                <button class="btn btn-primary btn-block">Buy for
+                    <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
+                    <%- fbUser.currency.user_currency %>
+                </button>
+            <% } %>
+        </div>
+    <% } %>
 </div>

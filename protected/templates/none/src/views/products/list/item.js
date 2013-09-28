@@ -19,7 +19,9 @@ define(function (require) {
 
         events: {
             "click .likeProduct": "likeProduct",
-            "click .description": "toggleDescription"
+            "click .description": "toggleDescription",
+            "click .image": "openProduct",
+            "click .title": "openProduct"
         },
 
         render: function () {
@@ -141,6 +143,10 @@ define(function (require) {
 
         toggleDescription: function () {
             $('.description', this.$el).toggleClass('closed');
+        },
+
+        openProduct: function () {
+            window.router.navigate('products/' + this.model.id, {trigger: true});
         }
 
     });
