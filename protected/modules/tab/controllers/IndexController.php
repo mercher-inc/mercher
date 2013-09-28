@@ -20,7 +20,11 @@ class IndexController extends CController
             return;
         }
 
-        //var_dump($this->shop, $this);
+        \Yii::app()->clientScript->registerScript(
+            'appConfig.requestData',
+            'appConfig.requestData = ' . \CJSON::encode($this->data) . ";\n",
+            \CClientScript::POS_HEAD
+        );
 
 		$this->render('index');
 	}

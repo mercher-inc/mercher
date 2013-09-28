@@ -18,7 +18,7 @@ define(function (require) {
     return Backbone.Router.extend({
 
         routes: {
-            "": "products",
+            //"": "products",
             "products": "products",
             "category/:category_id/products": "products",
             "products/:product_id": "product"
