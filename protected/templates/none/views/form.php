@@ -73,29 +73,29 @@ echo CHtml::error(
 );
 echo CHtml::closeTag('div');
 
-//==bg_color==
+//==primary_color==
 echo CHtml::openTag(
     'div',
     array(
-        'class' => 'form-group' . ($this->template->form->hasErrors('bg_color') ? ' has-error' : '')
+        'class' => 'form-group' . ($this->template->form->hasErrors('primary_color') ? ' has-error' : '')
     )
 );
 
 echo CHtml::label(
-    $this->template->form->getAttributeLabel('bg_color'),
-    'bgColorInput'
+    $this->template->form->getAttributeLabel('primary_color'),
+    'primaryColorInput'
 );
 echo CHtml::textField(
-    'bg_color',
-    $this->template->form->bg_color,
+    'primary_color',
+    $this->template->form->primary_color,
     array(
         'class' => 'form-control',
-        'id'    => 'bgColorInput'
+        'id'    => 'primaryColorInput'
     )
 );
 echo CHtml::error(
     $this->template->form,
-    'bg_color',
+    'primary_color',
     array(
         'class' => 'help-block'
     )

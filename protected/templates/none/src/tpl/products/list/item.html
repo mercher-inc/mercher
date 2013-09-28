@@ -8,7 +8,7 @@
     <div class="actions">
         <button class="btn btn-default likeProduct" data-loading-text="...">Like</button>
         <% if (model.get('price')) { %>
-            <button class="btn btn-success">Buy
+            <button class="btn btn-primary">Buy
                 <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
                 <%- fbUser.currency.user_currency %>
             </button>

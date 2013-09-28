@@ -14,22 +14,23 @@ class Form extends \CFormModel
 {
     protected $_template;
     public $title;
-    public $bg_color;
+    public $primary_color;
     public $per_page_count = 9;
 
     public function rules()
     {
         return array(
-            array('title, bg_color, per_page_count', 'safe'),
-            array('per_page_count', 'in', 'range'=>array('4','9','16')),
+            array('title, primary_color, per_page_count', 'safe'),
+            array('per_page_count', 'in', 'range' => array('4', '9', '16')),
         );
     }
 
     public function attributeLabels()
     {
         return array(
-            'title'    => 'Custom title',
-            'bg_color' => 'Background color',
+            'title'          => 'Custom title',
+            'primary_color'  => 'Primary color',
+            'per_page_count' => 'Products on page',
         );
     }
 

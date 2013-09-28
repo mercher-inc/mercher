@@ -2,8 +2,8 @@
 
 <?php
 
-if ($this->template->form->bg_color) {
-    echo '@body-bg: ' . $this->template->form->bg_color . ';';
+if ($this->template->form->primary_color) {
+    echo '@brand-primary: ' . $this->template->form->primary_color . ';';
 }
 
 ?>
