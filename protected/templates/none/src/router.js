@@ -26,8 +26,6 @@ define(function (require) {
         },
 
         login: function () {
-            console.log('login');
-
             require(["app/views/login"], function (View) {
                 if (!loginView) {
                     loginView = new View({
@@ -39,7 +37,6 @@ define(function (require) {
         },
 
         products: function (category_id) {
-            console.log('products');
             require(["app/views/products/list", "app/collections/products"], function (View, Collection) {
 
                 if (!categoriesView) {
@@ -67,7 +64,6 @@ define(function (require) {
         },
 
         product: function (product_id) {
-            console.log('product');
             require(["app/views/product/item"], function (View) {
                 var view = new View({el: $content});
                 view.render();

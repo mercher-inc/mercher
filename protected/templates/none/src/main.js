@@ -62,7 +62,6 @@ require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
             if (response.status === 'connected') {
                 FB.api('/me?fields=name,currency', function (response) {
                     fbUser = response;
-                    console.log(fbUser);
                     router.navigate('products', {trigger: true});
                 });
             } else {
