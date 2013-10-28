@@ -12,7 +12,10 @@
  * @property string $title
  * @property string $description
  * @property string $image_id
- * @property string $price
+ * @property string $amount
+ * @property string $shipping
+ * @property string $tax
+ * @property integer $quantity_in_stock
  * @property boolean $is_active
  * @property boolean $is_banned
  * The followings are the available model relations:
@@ -40,12 +43,13 @@ class Product extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('description, price, category_id', 'default', 'value' => null),
+            array('description, amount, shipping, tax, quantity_in_stock, category_id', 'default', 'value' => null),
             array('category_id', 'checkCategoryId', 'on' => 'insert, update'),
             array('is_active, is_banned', 'boolFilter'),
             array('shop_id, title', 'required'),
+            array('quantity_in_stock', 'numerical', 'integerOnly' => true, 'min' => 0),
             array('title', 'length', 'max' => 50),
-            array('price', 'numerical', 'max' => 999999999999999, 'min' => 0),
+            array('amount, shipping, tax', 'numerical', 'max' => 999999999999999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
             array(
                 'new_image',
@@ -55,10 +59,10 @@ class Product extends CActiveRecord
                 'mimeTypes'  => array('image/png', 'image/jpeg')
             ),
             array('new_image', 'uploadImage'),
-            array('category_id, title, description, image_id, is_active', 'safe'),
+            array('category_id, amount, shipping, tax, quantity_in_stock, description, image_id, is_active', 'safe'),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, price, is_active, is_banned',
+                'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, amount, is_active, is_banned, shipping, tax, quantity_in_stock',
                 'safe',
                 'on' => 'search'
             ),
@@ -221,18 +225,21 @@ class Product extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'          => 'ID',
-            'created'     => 'Created',
-            'updated'     => 'Updated',
-            'fb_id'       => 'Fb',
-            'shop_id'     => 'Shop',
-            'category_id' => 'Category',
-            'title'       => 'Title',
-            'description' => 'Description',
-            'image_id'    => 'Image',
-            'price'       => 'Price',
-            'is_active'   => 'Is Active',
-            'is_banned'   => 'Is Banned',
+            'id'                => 'ID',
+            'created'           => 'Created',
+            'updated'           => 'Updated',
+            'fb_id'             => 'Fb',
+            'shop_id'           => 'Shop',
+            'category_id'       => 'Category',
+            'title'             => 'Title',
+            'description'       => 'Description',
+            'image_id'          => 'Image',
+            'amount'            => 'Amount',
+            'is_active'         => 'Is Active',
+            'is_banned'         => 'Is Banned',
+            'shipping'          => 'Shipping',
+            'tax'               => 'Tax',
+            'quantity_in_stock' => 'Quantity In Stock',
         );
     }
 
@@ -259,9 +266,12 @@ class Product extends CActiveRecord
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('image_id', $this->image_id, true);
-        $criteria->compare('price', $this->price, true);
+        $criteria->compare('amount', $this->amount, true);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
+        $criteria->compare('shipping', $this->shipping, true);
+        $criteria->compare('tax', $this->tax, true);
+        $criteria->compare('quantity_in_stock', $this->quantity_in_stock);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
