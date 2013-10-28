@@ -17,9 +17,13 @@ class OgProductBehavior extends CActiveRecordBehavior
         $object = array(
             'og:title' => $model->title
         );
-        if ($model->price) {
-            $object['product:price:amount']   = $model->price;
+        if ($model->amount) {
+            $object['product:price:amount']   = $model->amount;
             $object['product:price:currency'] = 'USD';
+        }
+        if ($model->shipping) {
+            $object['product:shipping_cost:amount']   = $model->shipping;
+            $object['product:shipping_cost:currency'] = 'USD';
         }
         if ($model->description) {
             $object['og:description'] = $model->description;
@@ -36,10 +40,12 @@ class OgProductBehavior extends CActiveRecordBehavior
 
         $object['og:url'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
             array(
-                'sk' => 'app_' . Yii::app()->facebook->sdk->getAppId(),
-                'app_data'=>    CJSON::encode(array(
-                        'product_id'  => $model->id
-                    ))
+                'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
+                'app_data' => CJSON::encode(
+                    array(
+                        'product_id' => $model->id
+                    )
+                )
             )
         );
 

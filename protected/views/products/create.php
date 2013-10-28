@@ -151,30 +151,90 @@ echo CHtml::error(
 );
 echo CHtml::closeTag('div');
 
-//==price==
+//==amount==
 echo CHtml::openTag(
     'div',
     array(
-        'class' => 'form-group' . ($this->product->hasErrors('price') ? ' has-error' : '')
+        'class' => 'form-group' . ($this->product->hasErrors('amount') ? ' has-error' : '')
     )
 );
 
 echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('price')),
-    'priceInput'
+    Yii::t('product', $this->product->getAttributeLabel('amount')),
+    'amountInput'
 );
-echo CHtml::numberField(
-    'price',
-    $this->product->price,
+echo CHtml::textField(
+    'amount',
+    $this->product->amount,
     array(
         'class'       => 'form-control',
-        'id'          => 'priceInput',
-        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('price'))
+        'id'          => 'amountInput',
+        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('amount'))
     )
 );
 echo CHtml::error(
     $this->product,
-    'price',
+    'amount',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==shipping==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('shipping') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('shipping')),
+    'shippingInput'
+);
+echo CHtml::textField(
+    'shipping',
+    $this->product->shipping,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'shippingInput',
+        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('shipping'))
+    )
+);
+echo CHtml::error(
+    $this->product,
+    'shipping',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==tax==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->product->hasErrors('tax') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('product', $this->product->getAttributeLabel('tax')),
+    'taxInput'
+);
+echo CHtml::textField(
+    'tax',
+    $this->product->tax,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'taxInput',
+        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('tax'))
+    )
+);
+echo CHtml::error(
+    $this->product,
+    'tax',
     array(
         'class' => 'help-block'
     )

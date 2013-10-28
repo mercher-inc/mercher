@@ -91,14 +91,16 @@ echo CHtml::dropDownList(
     )
 );
 Yii::app()->clientScript->registerPackage('jquery');
-Yii::app()->clientScript->registerScript('getPagesForFbIdInput', "
-FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') {
-        FB.api('/me/accounts?fields=id,name', function(response) {
-            if (response && response.data && response.data.length) {
-                for (i in response.data) {
-                    var option =  $('<option value=\"'+response.data[i].id+'\">'+response.data[i].name+'</option>');
-                    if (response.data[i].id == '".$this->shop->fb_id."') {
+Yii::app()->clientScript->registerScript(
+    'getPagesForFbIdInput',
+    "
+   FB.getLoginStatus(function(response) {
+       if (response.status === 'connected') {
+           FB.api('/me/accounts?fields=id,name', function(response) {
+               if (response && response.data && response.data.length) {
+                   for (i in response.data) {
+                       var option =  $('<option value=\"'+response.data[i].id+'\">'+response.data[i].name+'</option>');
+                       if (response.data[i].id == '" . $this->shop->fb_id . "') {
                         option.attr('selected', true);
                     }
                     $('#fbIdInput').append(option);
@@ -110,10 +112,42 @@ FB.getLoginStatus(function(response) {
         });
     }
 });
-", ClientScript::POS_FB);
+",
+    ClientScript::POS_FB
+);
 echo CHtml::error(
     $this->shop,
     'fb_id',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
+//==pp_merchant_id==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->shop->hasErrors('pp_merchant_id') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('shop', $this->shop->getAttributeLabel('pp_merchant_id')),
+    'ppMerchantIdInput'
+);
+echo CHtml::textField(
+    'pp_merchant_id',
+    $this->shop->pp_merchant_id,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'ppMerchantIdInput',
+        'placeholder' => Yii::t('shop', $this->shop->getAttributeLabel('pp_merchant_id'))
+    )
+);
+echo CHtml::error(
+    $this->shop,
+    'pp_merchant_id',
     array(
         'class' => 'help-block'
     )

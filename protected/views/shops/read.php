@@ -10,4 +10,6 @@
     <dd><?php echo $this->shop->description ?></dd>
     <dt><?php echo Yii::t('shop', $this->shop->getAttributeLabel('fb_id')) ?></dt>
     <dd><?php echo $this->shop->fb_id ?></dd>
+    <dt><?php echo Yii::t('shop', $this->shop->getAttributeLabel('pp_merchant_id')) ?></dt>
+    <dd><?php echo $this->shop->pp_merchant_id ?></dd>
 </dl>

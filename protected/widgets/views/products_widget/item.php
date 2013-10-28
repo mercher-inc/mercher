@@ -34,7 +34,13 @@
         <?php } ?>
     </td>
     <td>
-        <?php echo $product->price ?>
+        <?php echo $product->amount ?>
+    </td>
+    <td>
+        <?php echo $product->shipping ?>
+    </td>
+    <td>
+        <?php echo $product->tax ?>
     </td>
     <td>
         <?php echo $product->description ?>
@@ -51,7 +57,7 @@
                     array(
                         'class'             => 'btn btn-default',
                         'data-loading-text' => "...",
-                        'id'                =>  'likeProduct' . $product->fb_id . 'Btn'
+                        'id'                => 'likeProduct' . $product->fb_id . 'Btn'
                     ),
                     Yii::t('product', 'like')
                 );

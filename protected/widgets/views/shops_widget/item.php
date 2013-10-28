@@ -23,7 +23,11 @@
         <?php echo $shop->description ?>
     </td>
     <td>
-        <a href="//www.facebook.com/<?php echo $shop->fb_id ?>?sk=app_<?php echo Yii::app()->facebook->sdk->getAppId() ?>" target="_blank"><?php echo $shop->fb_id ?></a>
+        <?php echo $shop->pp_merchant_id ?>
+    </td>
+    <td>
+        <a href="//www.facebook.com/<?php echo $shop->fb_id ?>?sk=app_<?php echo Yii::app()->facebook->sdk->getAppId(
+        ) ?>" target="_blank"><?php echo $shop->fb_id ?></a>
     </td>
     <td>
         <div class="pull-right">

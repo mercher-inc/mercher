@@ -69,6 +69,36 @@ echo CHtml::error(
 );
 echo CHtml::closeTag('div');
 
+//==pp_merchant_id==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->shop->hasErrors('pp_merchant_id') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('shop', $this->shop->getAttributeLabel('pp_merchant_id')),
+    'ppMerchantIdInput'
+);
+echo CHtml::textField(
+    'pp_merchant_id',
+    $this->shop->pp_merchant_id,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'ppMerchantIdInput',
+        'placeholder' => Yii::t('shop', $this->shop->getAttributeLabel('pp_merchant_id'))
+    )
+);
+echo CHtml::error(
+    $this->shop,
+    'pp_merchant_id',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
 //==is_active==
 echo CHtml::openTag(
     'div',
