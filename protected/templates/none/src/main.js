@@ -42,7 +42,25 @@ fbUser = {
     }
 };
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
+require(['jquery', 'backbone', 'app/router', 'minicart.min'], function ($, Backbone, Router, Minicart) {
+
+    PAYPAL.apps.MiniCart.render({
+        paypalURL: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+        parent: 'PayPalCart',
+        formTarget: '_blank',
+        edgeDistance: '15px',
+        strings: {
+            subtotal: 'Subtotal: ',
+            shipping: 'Does not include shipping',
+            button: 'Checkout',
+            processing: 'Checkout'
+        },
+        events: {
+            onCheckout: function (e) {
+                console.log(this);
+            }
+        }
+    });
 
     window.fbAsyncInit = function () {
 
@@ -53,6 +71,8 @@ require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
             "status": true,
             "channelUrl": "http:\/\/tab.mercher.dev\/channel.html"
         });
+
+        FB.Canvas.setAutoGrow(true);
 
         FB.getLoginStatus(function (response) {
 

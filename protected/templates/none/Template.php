@@ -127,9 +127,10 @@ class Template extends \CComponent
             'appConfig',
             'appConfig.shop = ' . \CJSON::encode(
                 array(
-                    'id'    => $this->shop->id,
-                    'page'  => $this->shop->fb_id,
-                    'title' => $this->shop->title,
+                    'id'             => $this->shop->id,
+                    'page'           => $this->shop->fb_id,
+                    'title'          => $this->shop->title,
+                    'pp_merchant_id' => $this->shop->pp_merchant_id,
                 )
             ) . ";\n" .
                 'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(

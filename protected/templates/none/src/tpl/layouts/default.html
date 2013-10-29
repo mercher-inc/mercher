@@ -1,5 +1,5 @@
 <div id="fb-root"></div>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default" role="navigation" id="main-navbar">
     <div class="navbar-header">
         <a class="navbar-brand" href="#products"><%- appConfig.title?appConfig.title:appConfig.shop.title %></a>
     </div>
@@ -11,10 +11,11 @@
     </ul>
 </nav>
 
+<div id="PayPalCart"></div>
+
 <div class="container">
     <div id="content"></div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-    <p class="navbar-text pull-right">Powered by <a href="//apps.facebook.com/mercher/" target="_blank">Mercher</a></p>
-</nav>
+<hr />
+<p class="text-muted pull-right">Powered by <a href="//apps.facebook.com/mercher/" target="_blank">Mercher</a></p>

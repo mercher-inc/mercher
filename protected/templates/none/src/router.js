@@ -7,13 +7,11 @@ define(function (require) {
         DefaultLayout = require('app/views/layouts/default'),
         CategoriesCollection = require('app/collections/categories'),
         categoriesCollection = new CategoriesCollection(),
-        categoriesView = false,
+        activeView = false,
 
         $body = $('body'),
         defaultLayout = new DefaultLayout({el: $body, categories: categoriesCollection}).render(),
         $content = $("#content", defaultLayout.el);
-
-    //console.log(FB);
 
     return Backbone.Router.extend({
 
@@ -27,36 +25,56 @@ define(function (require) {
         products: function (category_id) {
             require(["app/views/products/list", "app/collections/products"], function (View, Collection) {
 
-                if (!categoriesView) {
+                FB.Canvas.scrollTo(0,0);
 
-                    var collection = new Collection();
-
-                    collection.data.limit = appConfig.perPageCount;
-                    categoriesView = new View({
-                        el: $content,
-                        collection: collection
-                    });
-
+                if (activeView) {
+                    activeView.setElement(null);
+                    activeView.remove();
                 }
+                console.log(activeView);
+
+                var collection = new Collection();
+
+                collection.data.limit = appConfig.perPageCount;
+                activeView = new View({
+                    el: $content,
+                    collection: collection
+                });
 
                 if (category_id) {
-                    categoriesView.collection.data.category_id = category_id;
+                    activeView.collection.data.category_id = category_id;
                 } else {
-                    categoriesView.collection.data.category_id = null;
-                    delete categoriesView.collection.data.category_id;
+                    activeView.collection.data.category_id = null;
+                    delete activeView.collection.data.category_id;
                 }
-                categoriesView.collection.data.offset = 0;
+                activeView.collection.data.offset = 0;
 
-                categoriesView.collection.fetch({data: categoriesView.collection.data});
+                console.log(activeView);
+
+                activeView.collection.fetch({data: activeView.collection.data});
             });
         },
 
         product: function (product_id) {
             require(["app/views/products/item", "app/models/product"], function (View, Model) {
+
+                FB.Canvas.scrollTo(0,0);
+
+                if (activeView) {
+                    activeView.setElement(null);
+                    activeView.remove();
+                }
+                console.log(activeView);
+
                 var model = new Model({id: product_id});
-                var view = new View({el: $content, model: model});
-                view.model.fetch();
-                console.log(model);
+                activeView = new View({
+                    el: $content,
+                    model: model
+                });
+
+                console.log(activeView);
+
+                model.fetch();
             });
         }
 

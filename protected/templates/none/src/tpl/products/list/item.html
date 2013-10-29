@@ -15,14 +15,9 @@
             </p>
         </div>
     <% } %>
-    <% if (model.get('price')) { %>
-        <div class="actions">
-            <% if (model.get('price')) { %>
-                <button class="btn btn-primary btn-block">Buy for
-                    <%- Math.round( model.get('price') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %>
-                    <%- fbUser.currency.user_currency %>
-                </button>
-            <% } %>
-        </div>
-    <% } %>
+    <div class="actions">
+        <% if (model.get('amount') && appConfig.shop.pp_merchant_id) { %>
+            <button class="btn btn-primary btn-block addToCart">Buy for <%- Math.round( model.get('amount') * fbUser.currency.usd_exchange_inverse * fbUser.currency.currency_offset ) / fbUser.currency.currency_offset %> <%- fbUser.currency.user_currency %></button>
+        <% } %>
+    </div>
 </div>
