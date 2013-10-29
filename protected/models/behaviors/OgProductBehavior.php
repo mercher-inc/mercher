@@ -21,10 +21,6 @@ class OgProductBehavior extends CActiveRecordBehavior
             $object['product:price:amount']   = $model->amount;
             $object['product:price:currency'] = 'USD';
         }
-        if ($model->shipping) {
-            $object['product:shipping_cost:amount']   = $model->shipping;
-            $object['product:shipping_cost:currency'] = 'USD';
-        }
         if ($model->description) {
             $object['og:description'] = $model->description;
         }

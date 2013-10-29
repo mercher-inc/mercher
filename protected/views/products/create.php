@@ -181,66 +181,6 @@ echo CHtml::error(
 );
 echo CHtml::closeTag('div');
 
-//==shipping==
-echo CHtml::openTag(
-    'div',
-    array(
-        'class' => 'form-group' . ($this->product->hasErrors('shipping') ? ' has-error' : '')
-    )
-);
-
-echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('shipping')),
-    'shippingInput'
-);
-echo CHtml::textField(
-    'shipping',
-    $this->product->shipping,
-    array(
-        'class'       => 'form-control',
-        'id'          => 'shippingInput',
-        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('shipping'))
-    )
-);
-echo CHtml::error(
-    $this->product,
-    'shipping',
-    array(
-        'class' => 'help-block'
-    )
-);
-echo CHtml::closeTag('div');
-
-//==tax==
-echo CHtml::openTag(
-    'div',
-    array(
-        'class' => 'form-group' . ($this->product->hasErrors('tax') ? ' has-error' : '')
-    )
-);
-
-echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('tax')),
-    'taxInput'
-);
-echo CHtml::textField(
-    'tax',
-    $this->product->tax,
-    array(
-        'class'       => 'form-control',
-        'id'          => 'taxInput',
-        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('tax'))
-    )
-);
-echo CHtml::error(
-    $this->product,
-    'tax',
-    array(
-        'class' => 'help-block'
-    )
-);
-echo CHtml::closeTag('div');
-
 //==is_active==
 echo CHtml::openTag(
     'div',

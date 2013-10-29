@@ -11,6 +11,7 @@
  * @property string $pp_merchant_id
  * @property string $title
  * @property string $description
+ * @property string $tax
  * @property string $template_alias
  * @property string $template_config
  * @property boolean $is_active
@@ -43,8 +44,9 @@ class Shop extends CActiveRecord
         return array(
             array('owner_id', 'setOwnerId', 'on' => 'insert'),
             array('description, fb_id', 'default', 'value' => null),
+            array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
-            array('fb_id, owner_id, title', 'required'),
+            array('fb_id, owner_id, title, tax', 'required'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
             array(
                 'fb_id',
@@ -56,6 +58,7 @@ class Shop extends CActiveRecord
             ),
             array('fb_id', 'checkFbId', 'on' => 'insert'),
             array('title, template_alias', 'length', 'max' => 50),
+            array('tax', 'numerical', 'max' => 99.9999, 'min'=>0),
             array('is_active', 'checkActiveCount'),
             array('title, description, pp_merchant_id, is_active', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),

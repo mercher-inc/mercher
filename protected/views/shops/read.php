@@ -8,6 +8,8 @@
     <dd><?php echo $this->shop->title ?></dd>
     <dt><?php echo Yii::t('shop', $this->shop->getAttributeLabel('description')) ?></dt>
     <dd><?php echo $this->shop->description ?></dd>
+    <dt><?php echo Yii::t('shop', $this->shop->getAttributeLabel('tax')) ?></dt>
+    <dd><?php echo (float) $this->shop->tax ?>&#37;</dd>
     <dt><?php echo Yii::t('shop', $this->shop->getAttributeLabel('fb_id')) ?></dt>
     <dd><?php echo $this->shop->fb_id ?></dd>
     <dt><?php echo Yii::t('shop', $this->shop->getAttributeLabel('pp_merchant_id')) ?></dt>

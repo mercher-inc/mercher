@@ -54,11 +54,6 @@ require(['jquery', 'backbone', 'app/router', 'minicart.min'], function ($, Backb
             shipping: 'Does not include shipping',
             button: 'Checkout',
             processing: 'Checkout'
-        },
-        events: {
-            onCheckout: function (e) {
-                console.log(this);
-            }
         }
     });
 

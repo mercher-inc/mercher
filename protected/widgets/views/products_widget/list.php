@@ -18,8 +18,6 @@
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('title')) ?></th>
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('category')) ?></th>
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('amount')) ?></th>
-            <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('shipping')) ?></th>
-            <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('tax')) ?></th>
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('description')) ?></th>
             <th><?php echo Yii::t('product', Product::model()->getAttributeLabel('page')) ?></th>
             <th>

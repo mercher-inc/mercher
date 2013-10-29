@@ -33,19 +33,14 @@ define(function (require) {
             };
 
             if (this.model.get('amount')) {
-                obj.amount = Math.round(this.model.get('amount') * 100) / 100;
-            }
+                obj.amount = Math.ceil(this.model.get('amount') * 100) / 100;
 
-            if (this.model.get('shipping')) {
-                obj.shipping = Math.round(this.model.get('shipping') * 100) / 100;
+                if (appConfig.shop.tax) {
+                    obj.tax = Math.ceil(
+                        this.model.get('amount') * (appConfig.shop.tax/100) * 100
+                    ) / 100;
+                }
             }
-
-            if (this.model.get('tax')) {
-                obj.tax = Math.round(this.model.get('tax') * 100) / 100;
-            }
-
-            console.log(event.target);
-            console.log(this);
 
             PAYPAL.apps.MiniCart.addToCart(obj);
         }

@@ -131,6 +131,7 @@ class Template extends \CComponent
                     'page'           => $this->shop->fb_id,
                     'title'          => $this->shop->title,
                     'pp_merchant_id' => $this->shop->pp_merchant_id,
+                    'tax'            => (float)$this->shop->tax
                 )
             ) . ";\n" .
                 'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(

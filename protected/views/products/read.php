@@ -11,8 +11,4 @@
     <dd><?php echo $this->product->category ? $this->product->category->title : '' ?></dd>
     <dt><?php echo Yii::t('product', $this->product->getAttributeLabel('amount')) ?></dt>
     <dd><?php echo $this->product->amount ?></dd>
-    <dt><?php echo Yii::t('product', $this->product->getAttributeLabel('shipping')) ?></dt>
-    <dd><?php echo $this->product->shipping ?></dd>
-    <dt><?php echo Yii::t('product', $this->product->getAttributeLabel('tax')) ?></dt>
-    <dd><?php echo $this->product->tax ?></dd>
 </dl>

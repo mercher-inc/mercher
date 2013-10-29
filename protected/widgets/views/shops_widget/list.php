@@ -18,6 +18,7 @@
             <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('is_banned')) ?></th>
             <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('title')) ?></th>
             <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('description')) ?></th>
+            <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('tax')) ?></th>
             <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('pp_merchant_id')) ?></th>
             <th><?php echo Yii::t('shop', Shop::model()->getAttributeLabel('page')) ?></th>
             <th>

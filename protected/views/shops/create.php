@@ -69,6 +69,36 @@ echo CHtml::error(
 );
 echo CHtml::closeTag('div');
 
+//==tax==
+echo CHtml::openTag(
+    'div',
+    array(
+        'class' => 'form-group' . ($this->shop->hasErrors('tax') ? ' has-error' : '')
+    )
+);
+
+echo CHtml::label(
+    Yii::t('shop', $this->shop->getAttributeLabel('tax')) . ', &#37;',
+    'taxInput'
+);
+echo CHtml::textField(
+    'tax',
+    $this->shop->tax,
+    array(
+        'class'       => 'form-control',
+        'id'          => 'taxInput',
+        'placeholder' => Yii::t('shop', $this->shop->getAttributeLabel('tax'))
+    )
+);
+echo CHtml::error(
+    $this->shop,
+    'tax',
+    array(
+        'class' => 'help-block'
+    )
+);
+echo CHtml::closeTag('div');
+
 //==fb_id==
 echo CHtml::openTag(
     'div',

@@ -31,7 +31,6 @@ define(function (require) {
                     activeView.setElement(null);
                     activeView.remove();
                 }
-                console.log(activeView);
 
                 var collection = new Collection();
 
@@ -49,8 +48,6 @@ define(function (require) {
                 }
                 activeView.collection.data.offset = 0;
 
-                console.log(activeView);
-
                 activeView.collection.fetch({data: activeView.collection.data});
             });
         },
@@ -64,15 +61,12 @@ define(function (require) {
                     activeView.setElement(null);
                     activeView.remove();
                 }
-                console.log(activeView);
 
                 var model = new Model({id: product_id});
                 activeView = new View({
                     el: $content,
                     model: model
                 });
-
-                console.log(activeView);
 
                 model.fetch();
             });

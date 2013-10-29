@@ -23,6 +23,9 @@
         <?php echo $shop->description ?>
     </td>
     <td>
+        <?php echo (float) $shop->tax ?>&#37;
+    </td>
+    <td>
         <?php echo $shop->pp_merchant_id ?>
     </td>
     <td>
