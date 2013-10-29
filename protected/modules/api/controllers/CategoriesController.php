@@ -39,6 +39,6 @@ class CategoriesController extends \CController
 
     public function actionRead($shop_id, $category_id)
     {
-        var_dump(__METHOD__);
+        //var_dump(__METHOD__);
     }
 }

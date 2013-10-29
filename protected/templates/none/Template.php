@@ -78,7 +78,7 @@ class Template extends \CComponent
                 //deleting old assets
                 if (file_exists($oldAssetsPath) and is_dir($oldAssetsPath)) {
                     //rmdir($oldAssetsPath);
-                    var_dump($oldAssetsPath);
+                    //var_dump($oldAssetsPath);
                 }
             }
 

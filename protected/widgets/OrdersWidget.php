@@ -35,7 +35,7 @@ class OrdersWidget extends CWidget
         try {
             $collection = Shops::model()->readRestCollection($query);
         } catch (CHttpException $e) {
-            var_dump($e);
+            //var_dump($e);
             echo '<div class="alert alert-error">' . $e->getMessage() . '</div>';
             return;
         }
