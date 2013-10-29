@@ -1,7 +1,11 @@
 <div class="item">
     <button class="likeProduct" data-loading-text="..."></button>
     <div class="image">
-        <img src="<%- (appConfig.perPageCount > 9)?model.get('image').m:model.get('image').l %>">
+        <% if (!_.isEmpty(model.get('image'))) { %>
+            <img src="<%- (appConfig.perPageCount > 9)?model.get('image').m:model.get('image').l %>">
+        <% } else { %>
+            <img src="https://graph.facebook.com/<%- appConfig.shop.page %>/picture?width=400&height=400">
+        <% } %>
     </div>
     <div class="title">
         <h4 class="text-center">

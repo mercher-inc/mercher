@@ -1,7 +1,11 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="image">
-            <img src="<%- model.get('image').l %>">
+            <% if (!_.isEmpty(model.get('image'))) { %>
+                <img src="<%- model.get('image').l %>" style="width: 100%;">
+            <% } else { %>
+                <img src="https://graph.facebook.com/<%- appConfig.shop.page %>/picture?width=400&height=400" style="width: 100%;">
+            <% } %>
         </div>
     </div>
     <div class="col-sm-6">
