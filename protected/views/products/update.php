@@ -160,7 +160,7 @@ echo CHtml::openTag(
 );
 
 echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('amount')),
+    Yii::t('product', $this->product->getAttributeLabel('amount')) . ', &#36;',
     'amountInput'
 );
 echo CHtml::textField(

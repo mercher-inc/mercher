@@ -34,7 +34,7 @@
         <?php } ?>
     </td>
     <td>
-        <?php echo $product->amount ?>
+        <?php echo $product->amount?('&#36;'.$product->amount):'Not set' ?>
     </td>
     <td>
         <?php echo $product->description ?>

@@ -27,6 +27,12 @@ class m131028_114649_pp extends CDbMigration
             'amount'
         );
 
+        $this->alterColumn(
+            self::TABLE_PRODUCT,
+            'amount',
+            'NUMERIC (9, 2)'
+        );
+
         $this->addColumn(
             self::TABLE_PRODUCT,
             'quantity_in_stock',
@@ -39,6 +45,12 @@ class m131028_114649_pp extends CDbMigration
         $this->dropColumn(
             self::TABLE_PRODUCT,
             'quantity_in_stock'
+        );
+
+        $this->alterColumn(
+            self::TABLE_PRODUCT,
+            'amount',
+            'money'
         );
 
         $this->renameColumn(
