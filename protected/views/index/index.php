@@ -18,13 +18,13 @@ Yii::app()->clientScript->registerScript(
                 $('.hero-circle-arrow').show();
 
                 $('.hero-circle-arrow2').css('left', $(this).position().left + 45);
-                $('.hero-circle-arrow2').css('top', 370);
+                $('.hero-circle-arrow2').css('top', $(this).position().top + 174);
                 $('.hero-circle-arrow2').show();
             } else {
                 $('.hero-circle-holder a').removeClass('active');
                 $('<a href=\"#hero-desc-index\"></a>').tab('show');
                 $('.hero-circle-arrow').css('opacity', 0);
-                $('.hero-circle-arrow2').css('top', 355);
+                $('.hero-circle-arrow2').css('top', $(this).position().top + 163);
             }
         })
     "
@@ -59,7 +59,7 @@ $this->pageTitle = Yii::app()->name;
                 <div class="hero-circle-arrow2"></div>
                 <div class="hero-circle-arrow"></div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-6 col-md-6 hidden-sm hidden-xs">
                 <img class="hero-img" src="/img/hero-img-cheap.png">
             </div>
         </div>

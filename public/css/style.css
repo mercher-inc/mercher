@@ -6141,6 +6141,7 @@ fieldset[disabled] .btn-fb.active {
   color: white;
   border: none;
   margin-bottom: 20px;
+  height: 370px;
 }
 .hero .hero-circle-fast,
 .hero .hero-circle-easy,
