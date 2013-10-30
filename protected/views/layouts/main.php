@@ -45,21 +45,6 @@ Yii::app()->clientScript->registerMetaTag('en', 'language');
         array(
             'items'       => array(
                 array(
-                    'label'   => Yii::t('label', 'my_shops'),
-                    'url'     => array('shops/index'),
-                    'visible' => !Yii::app()->user->isGuest
-                ),
-            ),
-            'htmlOptions' => array(
-                'class' => 'nav navbar-nav'
-            )
-        )
-    ); ?>
-    <?php $this->widget(
-        'zii.widgets.CMenu',
-        array(
-            'items'       => array(
-                array(
                     'label'   => 'Login',
                     'url'     => Yii::app()->facebook->getLoginUrl(),
                     'visible' => Yii::app()->user->isGuest,
@@ -68,7 +53,7 @@ Yii::app()->clientScript->registerMetaTag('en', 'language');
                     )
                 ),
                 array(
-                    'label'   => 'Logout (' . Yii::app()->user->name . ')',
+                    'label'   => 'Logout',
                     'url'     => array('index/logout'),
                     'visible' => !Yii::app()->user->isGuest // and !Yii::app()->params['isApp']
                 )

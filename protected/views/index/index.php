@@ -105,7 +105,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="hero-get-started">
         <a class="btn btn-primary btn-lg" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
            target="_top"><?php echo Yii::t('label', 'get_started'); ?></a>
     </div>

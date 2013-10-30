@@ -9,13 +9,18 @@
 @import "buttons.less";
 @import "navbar.less";
 @import "hero.less";
+@import "forms.less";
 
 body {
   padding-top: @navbar-height;
 }
 
+#content {
+  margin: @navbar-margin-bottom 0;
+}
+
 footer {
-  margin-top: 40px;
+  margin-top: @navbar-margin-bottom;
   border-top: 4px solid @navbar-default-border;
   text-align: center;
   padding: 10px 0 40px 0;
