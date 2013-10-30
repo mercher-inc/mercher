@@ -69,23 +69,14 @@ require(['jquery', 'backbone', 'app/router', 'minicart.min'], function ($, Backb
 
         FB.Canvas.setAutoGrow(true);
 
-        FB.getLoginStatus(function (response) {
+        router = new Router();
+        Backbone.history.start();
 
-            router = new Router();
-            Backbone.history.start();
-
-            if (appConfig.requestData && appConfig.requestData.product_id) {
-                router.navigate('products/' + appConfig.requestData.product_id, {trigger: true});
-            } else {
-                router.navigate('products', {trigger: true});
-            }
-
-            if (response.status === 'connected') {
-                FB.api('/me?fields=name,currency', function (response) {
-                    fbUser = response;
-                });
-            }
-        });
+        if (appConfig.requestData && appConfig.requestData.product_id) {
+            router.navigate('products/' + appConfig.requestData.product_id, {trigger: true});
+        } else {
+            router.navigate('products', {trigger: true});
+        }
     };
 
     (function (d, s, id) {
