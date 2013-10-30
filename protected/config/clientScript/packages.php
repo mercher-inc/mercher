@@ -32,9 +32,7 @@ return array(
     'bootstrap'                          => array(
         'baseUrl' => '/',
         'js'      => array(
-            'bootstrap/js/modal.js',
-            'bootstrap/js/button.js',
-            'bootstrap/js/alert.js',
+            'bootstrap/dist/js/bootstrap.min.js',
         ),
         'depends' => array(
             'jquery'

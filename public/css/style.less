@@ -1,5 +1,33 @@
 @import "../bootstrap/less/bootstrap.less";
 
+  /*!
+   * Mercher v1.0.0
+   *
+   */
+@import "variables.less";
+@import "fonts.less";
+@import "buttons.less";
+@import "navbar.less";
+@import "hero.less";
+
 body {
-  padding: 70px 15px 0 15px;
+  padding-top: @navbar-height;
+}
+
+footer {
+  margin-top: 40px;
+  border-top: 4px solid @navbar-default-border;
+  text-align: center;
+  padding: 10px 0 40px 0;
+  text-transform: uppercase;
+  color: @text-muted;
+
+  .nav {
+    width: 300px;
+    margin: 10px auto;
+
+    a {
+      color: @text-muted;
+    }
+  }
 }

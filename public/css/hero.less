@@ -1,0 +1,125 @@
+@hero-circle-size-default: 120px;
+@hero-circle-size-active: 150px;
+@hero-circle-border-size-default: ceil(@hero-circle-size-default / 15);
+@hero-circle-border-size-active: ceil(@hero-circle-size-active / 15);
+
+.hero {
+  background-color: @brand-primary;
+  color: white;
+  border: none;
+  margin-bottom: 20px;
+
+  .hero-circle {
+    &-fast,
+    &-easy,
+    &-cheap {
+      display: inline-block;
+      color: white;
+      text-transform: uppercase;
+
+      .square(@hero-circle-size-default);
+      border-radius: @hero-circle-size-default;
+      margin: 0;
+      line-height: ceil(@hero-circle-size-default - (@hero-circle-border-size-default * 2));
+      font-size: ceil(@hero-circle-size-default / 4);
+      border: @hero-circle-border-size-default solid transparent;
+
+      transition-duration: 0.25s;
+      transition-timing-function: ease;
+
+      &:hover, &:active {
+        text-decoration: none;
+      }
+
+      &.active {
+        .square(@hero-circle-size-active);
+        border-radius: @hero-circle-size-active;
+        margin: ceil((@hero-circle-size-default - @hero-circle-size-active) / 2);
+        line-height: ceil(@hero-circle-size-active - (@hero-circle-border-size-active * 2));
+        font-size: ceil(@hero-circle-size-active / 4);
+        border-width: @hero-circle-border-size-active;
+      }
+    }
+
+    &-fast {
+      background: @brand-danger;
+      border-color: lighten(@brand-danger, 10%);
+    }
+
+    &-easy {
+      background: @brand-success;
+      border-color: lighten(@brand-success, 10%);
+    }
+
+    &-cheap {
+      background: @brand-warning;
+      border-color: lighten(@brand-warning, 10%);
+    }
+
+    &-holder {
+      width: 100% / 3;
+      float: left;
+      height: @hero-circle-size-active;
+      padding: (@hero-circle-size-active - @hero-circle-size-default) / 2;
+    }
+
+    &-block {
+      margin: 25px 0 0 0;
+    }
+
+    &-arrow {
+      background: url('/img/arrow.png');
+      .square(30px);
+      position: absolute;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: none;
+
+      transition-duration: 0.25s;
+      transition-timing-function: ease;
+    }
+
+    &-arrow2 {
+      background: url('/img/arrow2.png');
+      height: 15px;
+      width: 30px;
+      position: absolute;
+      background-repeat: no-repeat;
+      background-position: top center;
+      display: none;
+
+      transition-duration: 0.25s;
+      transition-timing-function: ease;
+    }
+  }
+
+  &-img {
+    width: 100%;
+  }
+
+  &-heading {
+    &-first {
+      margin: 40px 0 0 0;
+    }
+    &-second {
+      margin: 25px 0 0 0;
+      font-weight: 500;
+      font-size: 48px;
+    }
+  }
+}
+
+#hero-desc {
+  &-index,
+  &-fast,
+  &-easy,
+  &-cheap {
+    .text-muted();
+  }
+
+  &-block {
+    margin: 40px 0;
+    font-size: 16px;
+    min-height: 150px;
+  }
+}
