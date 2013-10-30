@@ -1,4 +1,11 @@
 <?php
+
+echo CHtml::tag(
+    'h2',
+    array(),
+    Yii::t('product', 'edit')
+);
+
 //==form==
 echo CHtml::beginForm(
     $this->createUrl('products/update', array('shop_id' => $this->shop->id, 'product_id' => $this->product->id)),
@@ -6,11 +13,6 @@ echo CHtml::beginForm(
     array(
         'enctype' => 'multipart/form-data'
     )
-);
-echo CHtml::tag(
-    'legend',
-    array(),
-    Yii::t('product', 'edit')
 );
 
 //==title==

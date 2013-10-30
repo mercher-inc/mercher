@@ -1,4 +1,4 @@
-<h1><?php echo Yii::t('label', 'categories') ?></h1>
+<h2><?php echo Yii::t('label', 'categories') ?></h2>
 
 <?php if (!count($this->categories)) { ?>
     <div class="alert alert-info">

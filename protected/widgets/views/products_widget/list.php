@@ -1,4 +1,4 @@
-<h1><?php echo Yii::t('label', 'products') ?></h1>
+<h2><?php echo Yii::t('label', 'products') ?></h2>
 
 <?php if (!count($this->products)) { ?>
     <div class="alert alert-info">

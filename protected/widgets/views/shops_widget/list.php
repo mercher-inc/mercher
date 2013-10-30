@@ -1,4 +1,6 @@
-<h1><?php echo Yii::t('label', 'shops') ?></h1>
+<div class="page-header">
+    <h1><?php echo Yii::t('label', 'shops') ?></h1>
+</div>
 
 <?php if (!count($this->shops)) { ?>
     <div class="alert alert-info">

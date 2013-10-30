@@ -1,12 +1,14 @@
 <?php
+
+echo CHtml::tag(
+    'h2',
+    array(),
+    Yii::t('shop', 'edit')
+);
+
 //==form==
 echo CHtml::beginForm(
     $this->createUrl('shops/update', array('shop_id' => $this->shop->id))
-);
-echo CHtml::tag(
-    'legend',
-    array(),
-    Yii::t('shop', 'edit')
 );
 
 //==title==
