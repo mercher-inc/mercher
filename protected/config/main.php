@@ -85,9 +85,9 @@ return array(
         ),
         'facebook'     => array(
             'class'     => 'FB',
-            'appId'     => '631238416902634',
-            'secret'    => '4dfa1e0fef9fc2bf785d2a8d36e415a3',
-            'namespace' => 'mercherdev',
+            'appId'     => '491297224259374',
+            'secret'    => 'fd3b192b19272bc27b3d7725a58b48aa',
+            'namespace' => 'mercher',
             'scope'     => array(
                 'email',
                 'publish_actions',
