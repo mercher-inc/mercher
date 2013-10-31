@@ -37,8 +37,8 @@ class ProductsController extends Controller
                 $this->product->refresh();
                 $this->redirect(
                     Yii::app()->urlManager->createUrl(
-                        'products/read',
-                        array('shop_id' => $this->shop->id, 'product_id' => $this->product->id)
+                        'products/index',
+                        array('shop_id' => $this->shop->id)
                     )
                 );
             }

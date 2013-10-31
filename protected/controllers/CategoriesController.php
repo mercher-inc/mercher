@@ -34,7 +34,7 @@ class CategoriesController extends Controller
 
             if ($this->category->save()) {
                 $this->category->refresh();
-                $this->redirect(Yii::app()->urlManager->createUrl('categories/read', array('shop_id'=>$this->shop->id, 'category_id'=>$this->category->id)));
+                $this->redirect(Yii::app()->urlManager->createUrl('categories/index', array('shop_id'=>$this->shop->id)));
             }
         }
 

@@ -35,6 +35,10 @@ footer {
   .row {
     margin: 0;
     padding: 10px 0;
+
+    &:hover {
+      background: @gray-lighter;
+    }
   }
 
   .header {
@@ -46,7 +50,7 @@ footer {
     .row {
       position: relative;
       top: -40px;
-      background: #c5c5c5;
+      background: fadeout(@gray-light, 50%);
       font-size: 18px;
       line-height: 20px;
       font-weight: 300;

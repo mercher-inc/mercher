@@ -6374,6 +6374,9 @@ footer .nav a {
   margin: 0;
   padding: 10px 0;
 }
+.gridView .row:hover {
+  background: #eeeeee;
+}
 .gridView .header {
   position: fixed;
   width: 100%;
@@ -6383,7 +6386,7 @@ footer .nav a {
 .gridView .header .row {
   position: relative;
   top: -40px;
-  background: #c5c5c5;
+  background: rgba(153, 153, 153, 0.5);
   font-size: 18px;
   line-height: 20px;
   font-weight: 300;

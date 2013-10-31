@@ -32,7 +32,7 @@ class ShopsController extends Controller
 
             if ($this->shop->save()) {
                 $this->shop->refresh();
-                $this->redirect(Yii::app()->urlManager->createUrl('shops/read', array('shop_id'=>$this->shop->id)));
+                $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
             }
         }
 
