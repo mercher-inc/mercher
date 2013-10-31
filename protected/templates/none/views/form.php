@@ -6,6 +6,7 @@ echo CHtml::beginForm(
 
 Yii::app()->controller->headerTitle = Yii::t('label', 'design');
 
+/*
 //==title==
 echo CHtml::openTag(
     'div',
@@ -34,6 +35,7 @@ echo CHtml::error(
     )
 );
 echo CHtml::closeTag('div');
+*/
 
 //==per_page_count==
 echo CHtml::openTag(
