@@ -1,5 +1,4 @@
 @import "../bootstrap/less/bootstrap.less";
-
   /*!
    * Mercher v1.0.0
    *
@@ -25,6 +24,33 @@ footer {
 
     a {
       color: @text-muted;
+    }
+  }
+}
+
+.gridView {
+  padding-top: 40px;
+
+
+  .row {
+    margin: 0;
+    padding: 10px 0;
+  }
+
+  .header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    height: 0;
+
+    .row {
+      position: relative;
+      top: -40px;
+      background: #c5c5c5;
+      font-size: 18px;
+      line-height: 20px;
+      font-weight: 300;
+      color: white;
     }
   }
 }

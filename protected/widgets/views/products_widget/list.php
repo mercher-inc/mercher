@@ -1,57 +1,6 @@
 <?php Yii::app()->controller->headerTitle = Yii::t('label', 'products') ?>
 
 <?php
-Yii::app()->controller->headerTable = [
-    [
-        'title'       => Yii::t('label', '#'),
-        'htmlOptions' => [
-            'style' => 'width: 5%;'
-        ]
-    ],
-    [
-        'title'       => Yii::t('product', Product::model()->getAttributeLabel('title')),
-        'htmlOptions' => [
-            'style' => 'width: 10%;'
-        ]
-    ],
-    [
-        'title'       => Yii::t('product', Product::model()->getAttributeLabel('category')),
-        'htmlOptions' => [
-            'style' => 'width: 10%;'
-        ]
-    ],
-    [
-        'title'       => Yii::t('product', Product::model()->getAttributeLabel('amount')),
-        'htmlOptions' => [
-            'style' => 'width: 10%;'
-        ]
-    ],
-    [
-        'title'       => Yii::t('product', Product::model()->getAttributeLabel('description')),
-        'htmlOptions' => [
-            'style' => 'width: 20%;'
-        ]
-    ],
-    [
-        'title'       => Yii::t('product', Product::model()->getAttributeLabel('is_active')),
-        'htmlOptions' => [
-            'style' => 'width: 5%;'
-        ]
-    ],
-    [
-        'title'       => Yii::t('product', Product::model()->getAttributeLabel('is_banned')),
-        'htmlOptions' => [
-            'style' => 'width: 5%;'
-        ]
-    ],
-    [
-        'title'       => '',
-        'htmlOptions' => [
-            'style' => 'width: 5%;'
-        ]
-    ]
-];
-
 Yii::app()->controller->headerButtons = [
     [
         'title'       => Yii::t('product', 'create'),
@@ -69,11 +18,21 @@ Yii::app()->controller->headerButtons = [
         ) ?>"><?php echo Yii::t('product', 'create') ?></a>
     </div>
 <?php } else { ?>
-    <table class="table table-hover">
-        <tbody>
+    <div class="gridView">
+        <div class="header hidden-sm hidden-xs">
+            <div class="row">
+                <div class="col-lg-1 col-md-1"><?php echo Yii::t('label', '#') ?></div>
+                <div class="col-lg-2 col-md-2"><?php echo Yii::t('product', Product::model()->getAttributeLabel('title')) ?></div>
+                <div class="col-lg-2 col-md-2"><?php echo Yii::t('product', Product::model()->getAttributeLabel('category')) ?></div>
+                <div class="col-lg-1 col-md-1"><?php echo Yii::t('product', Product::model()->getAttributeLabel('amount')) ?></div>
+                <div class="col-lg-3 col-md-3"><?php echo Yii::t('product', Product::model()->getAttributeLabel('description')) ?></div>
+                <div class="col-lg-1 col-md-1"><?php echo Yii::t('product', Product::model()->getAttributeLabel('is_active')) ?></div>
+                <div class="col-lg-1 col-md-1"><?php echo Yii::t('product', Product::model()->getAttributeLabel('is_banned')) ?></div>
+                <div class="col-lg-1 col-md-1"></div>
+            </div>
+        </div>
         <?php foreach ($this->products as $product) {
             $this->render('products_widget/item', array('product' => $product));
         } ?>
-        </tbody>
-    </table>
+    </div>
 <?php } ?>

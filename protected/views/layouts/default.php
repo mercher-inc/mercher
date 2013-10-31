@@ -56,30 +56,29 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
             )
         )
     ); ?>
-    <?php
-    if ($this->headerTitle or count($this->headerButtons)) {
-        echo CHtml::openTag('div', ['class' => 'navbar-main-title']);
-        if (count($this->headerButtons)) {
-            echo CHtml::openTag('div', ['class' => 'btn-group pull-right']);
-            foreach ($this->headerButtons as $headerButton) {
-                echo CHtml::link(
-                    $headerButton['title'] ? $headerButton['title'] : '',
-                    $headerButton['url'] ? $headerButton['url'] : '#',
-                    [
-                        'class' =>  'btn btn-primary'
-                    ]
-                );
+</nav>
+<!-- mainmenu -->
 
-            }
-            echo CHtml::closeTag('div');
+<?php
+if ($this->headerTitle or count($this->headerButtons) or count($this->headerTable)) {
+    echo CHtml::openTag('nav', ['class' => 'navbar navbar-contextual navbar-fixed-top', 'role'=>'navigation']);
+    if (count($this->headerButtons)) {
+        foreach ($this->headerButtons as $headerButton) {
+            echo CHtml::link(
+                $headerButton['title'] ? $headerButton['title'] : '',
+                $headerButton['url'] ? $headerButton['url'] : '#',
+                [
+                    'class' =>  'btn btn-primary navbar-btn navbar-right'
+                ]
+            );
+
         }
-        if ($this->headerTitle) {
-            echo CHtml::tag('h1', [], $this->headerTitle);
-        }
+    }
+    if ($this->headerTitle) {
+        echo CHtml::openTag('div', ['class' => 'navbar-header']);
+        echo CHtml::link($this->headerTitle, '#', ['class'=>'navbar-brand']);
         echo CHtml::closeTag('div');
     }
-    ?>
-    <?php
     if (count($this->headerTable)) {
         echo CHtml::openTag('div', ['class' => 'navbar-main-table']);
         echo CHtml::openTag('table', ['style' => "width: 100%;"]);
@@ -91,9 +90,9 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
         echo CHtml::closeTag('table');
         echo CHtml::closeTag('div');
     }
-    ?>
-</nav>
-<!-- mainmenu -->
+    echo CHtml::closeTag('nav');
+}
+?>
 
 <div id="page">
 

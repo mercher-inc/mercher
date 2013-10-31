@@ -3,6 +3,10 @@
   text-transform: uppercase;
 }
 
+.btn-primary {
+  .button-variant(@btn-primary-color; darken(@btn-primary-bg, 10%); darken(@btn-primary-border, 10%));
+}
+
 .btn-fb {
   .button-variant(@btn-fb-color, @btn-fb-bg, @btn-fb-border);
 }

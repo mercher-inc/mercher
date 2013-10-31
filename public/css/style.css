@@ -6095,6 +6095,43 @@ td.visible-print {
   font-weight: normal;
   text-transform: uppercase;
 }
+.btn-primary {
+  color: #ffffff;
+  background-color: #2f7f82;
+  border-color: #2f7f82;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: #ffffff;
+  background-color: #246164;
+  border-color: #1f5355;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+  background-color: #2f7f82;
+  border-color: #2f7f82;
+}
 .btn-fb {
   color: #ffffff;
   background-color: #3b579d;
@@ -6146,24 +6183,28 @@ fieldset[disabled] .btn-fb.active {
   background: #3da3a7;
   padding: 20px 15px;
 }
-#mainmenu .navbar-main-title h1 {
+.navbar-contextual {
+  top: 80px;
+  background: #3da3a7;
+  border: none;
+  padding: 0 15px;
+}
+.navbar-contextual .navbar-header {
+  margin-left: -15px;
+}
+.navbar-contextual .navbar-header .navbar-brand {
   color: white;
-  font-size: 40px;
-  line-height: 40px;
   font-weight: 200;
-  margin: 0;
 }
-#mainmenu .navbar-main-title .btn-group {
-  margin: 3px 0;
-}
-#mainmenu .navbar-main-table {
+.navbar-contextual .navbar-main-table {
   background: #c5c5c5;
   padding: 5px 15px;
+  clear: both;
 }
-#mainmenu .navbar-main-table table {
+.navbar-contextual .navbar-main-table table {
   border-spacing: 0;
 }
-#mainmenu .navbar-main-table table tr th {
+.navbar-contextual .navbar-main-table table tr th {
   font-weight: normal;
   color: white;
   padding: 5px;
@@ -6321,4 +6362,26 @@ footer .nav {
 }
 footer .nav a {
   color: #999999;
+}
+.gridView {
+  padding-top: 40px;
+}
+.gridView .row {
+  margin: 0;
+  padding: 10px 0;
+}
+.gridView .header {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  height: 0;
+}
+.gridView .header .row {
+  position: relative;
+  top: -40px;
+  background: #c5c5c5;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 300;
+  color: white;
 }

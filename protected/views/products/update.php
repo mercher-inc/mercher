@@ -1,10 +1,6 @@
 <?php
 
-echo CHtml::tag(
-    'h2',
-    array(),
-    Yii::t('product', 'edit')
-);
+Yii::app()->controller->headerTitle = Yii::t('product', 'edit');
 
 //==form==
 echo CHtml::beginForm(
