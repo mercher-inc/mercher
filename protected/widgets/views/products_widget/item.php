@@ -5,8 +5,9 @@
 echo CHtml::openTag('div', ['class'=>'row']);
 
 echo CHtml::tag('div', ['class'=>'col-lg-1 col-md-1'], $product->id);
+echo CHtml::tag('div', ['class' => 'col-lg-1 col-md-1'], $product->image_id?CHtml::image($product->image->getSize('s'), '', ['class'=>'img-thumbnail']):'');
 echo CHtml::tag('div', ['class' => 'col-lg-2 col-md-2'], $product->title);
-echo CHtml::tag('div', ['class' => 'col-lg-2 col-md-2'], $product->category ? $product->category->title : '');
+echo CHtml::tag('div', ['class' => 'col-lg-1 col-md-1'], $product->category ? $product->category->title : '');
 echo CHtml::tag('div', ['class' => 'col-lg-1 col-md-1'], $product->amount ? ('&#36;' . $product->amount) : 'Not set');
 echo CHtml::tag('div', ['class' => 'col-lg-3 col-md-3'], $product->description);
 echo CHtml::tag('div', ['class' => 'col-lg-1 col-md-1'], $product->is_active ? Yii::t('label', 'active') : Yii::t('label', 'disabled'));

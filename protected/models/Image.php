@@ -103,4 +103,21 @@ class Image extends CActiveRecord
     {
         return parent::model($className);
     }
+
+    public function getSize($size)
+    {
+        try {
+            $data = CJSON::decode($this->data);
+            if (!is_array($data)) {
+                $data = array();
+            }
+        } catch (Exception $e) {
+            $data = array();
+        }
+
+        if (isset($data[$size])) {
+            return $data[$size];
+        }
+        return false;
+    }
 }
