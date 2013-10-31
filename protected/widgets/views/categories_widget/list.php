@@ -1,4 +1,52 @@
-<h2><?php echo Yii::t('label', 'categories') ?></h2>
+<?php Yii::app()->controller->headerTitle = Yii::t('label', 'categories') ?>
+
+<?php
+Yii::app()->controller->headerTable = [
+    [
+        'title' =>  Yii::t('label', '#'),
+        'htmlOptions'=>[
+            'style' =>  'width: 5%;'
+        ]
+    ],
+    [
+        'title' =>  Yii::t('category', Category::model()->getAttributeLabel('title')),
+        'htmlOptions'=>[
+            'style' =>  'width: 10%;'
+        ]
+    ],
+    [
+        'title' =>  Yii::t('category', Category::model()->getAttributeLabel('description')),
+        'htmlOptions'=>[
+            'style' =>  'width: 20%;'
+        ]
+    ],
+    [
+        'title' =>  Yii::t('category', Category::model()->getAttributeLabel('is_active')),
+        'htmlOptions'=>[
+            'style' =>  'width: 5%;'
+        ]
+    ],
+    [
+        'title' =>  Yii::t('category', Category::model()->getAttributeLabel('is_banned')),
+        'htmlOptions'=>[
+            'style' =>  'width: 5%;'
+        ]
+    ],
+    [
+        'title' =>  '',
+        'htmlOptions'=>[
+            'style' =>  'width: 5%;'
+        ]
+    ]
+];
+
+Yii::app()->controller->headerButtons = [
+    [
+        'title'       => Yii::t('category', 'create'),
+        'url'         => Yii::app()->urlManager->createUrl('categories/create', array('shop_id'=>$this->shop->id))
+    ],
+];
+?>
 
 <?php if (!count($this->categories)) { ?>
     <div class="alert alert-info">
@@ -7,20 +55,6 @@
     </div>
 <?php } else { ?>
     <table class="table table-hover">
-        <thead>
-        <tr>
-            <th><?php echo Yii::t('label', '#') ?></th>
-            <th><?php echo Yii::t('category', Category::model()->getAttributeLabel('is_active')) ?></th>
-            <th><?php echo Yii::t('category', Category::model()->getAttributeLabel('is_banned')) ?></th>
-            <th><?php echo Yii::t('category', Category::model()->getAttributeLabel('title')) ?></th>
-            <th><?php echo Yii::t('category', Category::model()->getAttributeLabel('description')) ?></th>
-            <th>
-                <div class="pull-right">
-                    <a class="btn btn-success" href="<?php echo Yii::app()->urlManager->createUrl('categories/create', array('shop_id'=>$this->shop->id)) ?>"><?php echo Yii::t('category', 'create') ?></a>
-                </div>
-            </th>
-        </tr>
-        </thead>
         <tbody>
         <?php foreach ($this->categories as $category) {
             $this->render('categories_widget/item', array('category' => $category));

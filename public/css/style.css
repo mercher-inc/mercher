@@ -6132,12 +6132,61 @@ fieldset[disabled] .btn-fb.active {
   background-color: #3b579d;
   border-color: #3b579d;
 }
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  border-width: 0 0 4px;
+#mainmenu {
+  border-width: 0 0 4px 0;
 }
-.navbar-default {
+#mainmenu .navbar-nav {
   text-transform: uppercase;
+}
+#mainmenu.with-menu {
+  border-color: #3da3a7;
+}
+#mainmenu .navbar-main-title {
+  clear: both;
+  background: #3da3a7;
+  padding: 20px 15px;
+}
+#mainmenu .navbar-main-title h1 {
+  color: white;
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 200;
+  margin: 0;
+}
+#mainmenu .navbar-main-title .btn-group {
+  margin: 3px 0;
+}
+#mainmenu .navbar-main-table {
+  background: #c5c5c5;
+  padding: 5px 15px;
+}
+#mainmenu .navbar-main-table table {
+  border-spacing: 0;
+}
+#mainmenu .navbar-main-table table tr th {
+  font-weight: normal;
+  color: white;
+  padding: 5px;
+  font-size: 14px;
+}
+body {
+  margin-top: 80px;
+}
+body.with-menu #mainmenu {
+  border-color: #3da3a7;
+}
+body.with-title #mainmenu,
+body.with-table #mainmenu {
+  border-width: 0;
+}
+body.with-title {
+  margin-top: 160px;
+}
+body.with-table {
+  margin-top: 120px;
+}
+body.with-title.with-table {
+  margin-top: 200px;
 }
 .hero {
   background-color: #3da3a7;
@@ -6257,12 +6306,6 @@ fieldset[disabled] .btn-fb.active {
 .form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
-}
-body {
-  padding-top: 80px;
-}
-#content {
-  margin: 20px 0;
 }
 footer {
   margin-top: 20px;
