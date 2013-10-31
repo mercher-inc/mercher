@@ -1,13 +1,11 @@
+<div class="container">
 <?php
 //==form==
 echo CHtml::beginForm(
     $this->createUrl('shops/create')
 );
-echo CHtml::tag(
-    'legend',
-    array(),
-    Yii::t('shop', 'create')
-);
+
+Yii::app()->controller->headerTitle = Yii::t('shop', 'create');
 
 //==title==
 echo CHtml::openTag(
@@ -222,3 +220,4 @@ echo CHtml::submitButton(
 
 echo CHtml::endForm();
 ?>
+</div>

@@ -1,4 +1,8 @@
+<div class="container">
 <?php
+
+Yii::app()->controller->headerTitle = Yii::t('product', 'create');
+
 //==form==
 echo CHtml::beginForm(
     $this->createUrl('products/create', array('shop_id' => $this->shop->id)),
@@ -6,11 +10,6 @@ echo CHtml::beginForm(
     array(
         'enctype' => 'multipart/form-data'
     )
-);
-echo CHtml::tag(
-    'legend',
-    array(),
-    Yii::t('product', 'create')
 );
 
 //==title==
@@ -219,3 +218,4 @@ echo CHtml::submitButton(
 
 echo CHtml::endForm();
 ?>
+</div>

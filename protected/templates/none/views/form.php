@@ -4,11 +4,7 @@ echo CHtml::beginForm(
     Yii::app()->urlManager->createUrl('design/index', array('shop_id' => $this->template->shop->id))
 );
 
-echo CHtml::tag(
-    'legend',
-    array(),
-    Yii::t('shop', 'design')
-);
+Yii::app()->controller->headerTitle = Yii::t('label', 'design');
 
 //==title==
 echo CHtml::openTag(

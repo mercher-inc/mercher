@@ -14,13 +14,13 @@ class ShopsController extends Controller
     public function actionIndex()
     {
         $user  = User::model()->findByPk(Yii::app()->user->id);
-        $shops = $user->shops;
-        $this->render(
-            'index',
-            array(
-                'shops' => $shops
-            )
-        );
+        $shops = $user->shops(['limit'=>1, 'order'=>'created']);
+
+        if (count($shops)) {
+            $this->redirect(Yii::app()->urlManager->createUrl('products/index', ['shop_id'=>$shops[0]->id]));
+        } else {
+            $this->redirect(Yii::app()->urlManager->createUrl('shops/create'));
+        }
     }
 
     public function actionCreate()
@@ -46,17 +46,6 @@ class ShopsController extends Controller
         );
     }
 
-    public function actionRead()
-    {
-        $this->layout = '//layouts/shop';
-        $this->render(
-            'read',
-            array(
-                'shop' => $this->shop
-            )
-        );
-    }
-
     public function actionUpdate()
     {
         $this->layout = '//layouts/shop';
@@ -71,17 +60,6 @@ class ShopsController extends Controller
 
         $this->render(
             'update',
-            array(
-                'shop' => $this->shop
-            )
-        );
-    }
-
-    public function actionDelete()
-    {
-        $this->layout = '//layouts/shop';
-        $this->render(
-            'delete',
             array(
                 'shop' => $this->shop
             )

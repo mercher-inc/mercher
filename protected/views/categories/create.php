@@ -1,12 +1,10 @@
+<div class="container">
 <?php
+Yii::app()->controller->headerTitle = Yii::t('category', 'create');
+
 //==form==
 echo CHtml::beginForm(
     $this->createUrl('categories/create', array('shop_id'=>$this->shop->id))
-);
-echo CHtml::tag(
-    'legend',
-    array(),
-    Yii::t('category', 'create')
 );
 
 //==title==
@@ -107,3 +105,4 @@ echo CHtml::submitButton(
 
 echo CHtml::endForm();
 ?>
+</div>

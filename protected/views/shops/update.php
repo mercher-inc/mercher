@@ -1,10 +1,7 @@
+<div class="container">
 <?php
 
-echo CHtml::tag(
-    'h2',
-    array(),
-    Yii::t('shop', 'edit')
-);
+Yii::app()->controller->headerTitle = Yii::t('shop', 'edit');
 
 //==form==
 echo CHtml::beginForm(
@@ -169,3 +166,4 @@ echo CHtml::submitButton(
 
 echo CHtml::endForm();
 ?>
+</div>

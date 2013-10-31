@@ -1,3 +1,4 @@
+<div class="container">
 <?php
 
 Yii::app()->controller->headerTitle = Yii::t('product', 'edit');
@@ -217,3 +218,4 @@ echo CHtml::submitButton(
 
 echo CHtml::endForm();
 ?>
+</div>
