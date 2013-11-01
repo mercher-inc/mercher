@@ -2,7 +2,15 @@
 
 return array_merge(
     array(
-        'http://tab.<hostname>/'                                    => 'tab/index/index',
+        'http://tab.<hostname:(mercher.dev|mercher.net)>/'          => 'tab/index/index',
+        [
+            'management/<controller>/<action>',
+            'pattern'       => 'management/<controller:\w+>/<action:\w+>',
+            'defaultParams' => [
+                'controller' => 'index',
+                'action'     => 'index'
+            ]
+        ],
         ''                                                          => 'index/index',
         'logout'                                                    => 'index/logout',
         'contact'                                                   => 'index/contact',
