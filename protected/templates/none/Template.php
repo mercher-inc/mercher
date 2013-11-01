@@ -46,7 +46,7 @@ class Template extends \CComponent
 
             //rendering css file from less file
             exec(
-                '/usr/bin/lessc --yui-compress ' . $configsPath . DIRECTORY_SEPARATOR . 'config.less',
+                '/usr/bin/lessc -x ' . $configsPath . DIRECTORY_SEPARATOR . 'config.less',
                 $outputCss,
                 $errorCss
             );
