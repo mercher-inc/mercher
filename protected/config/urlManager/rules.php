@@ -4,6 +4,7 @@ return array_merge(
     array(
         'http://tab.<hostname:(mercher.dev|mercher.net)>/'                                => 'tab/index/index',
         'management'                                                                      => 'management/index/index',
+        'management/<_a:(login|logout)>'                                                  => 'management/index/<_a>',
         'management/<_c:(users|shops|products|categories)>/<id:\d+>/<_a:(update|delete)>' => 'management/<_c>/<_a>',
         'management/<_c:(users|shops|products|categories)>/<id:\d+>'                      => 'management/<_c>/view',
         'management/<_c:(users|shops|products|categories)>/<_a:(create|admin)'            => 'management/<_c>/<_a>',
