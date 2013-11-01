@@ -11,6 +11,32 @@ class ShopsController extends Controller
 {
     protected $_shop;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array(
+                    'index',
+                    'create',
+                    'update'
+                ),
+                'users'   => array('@'),
+            ),
+            array(
+                'deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $user  = User::model()->findByPk(Yii::app()->user->id);

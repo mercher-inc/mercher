@@ -13,6 +13,30 @@ class DesignController extends Controller
 
     protected $_shop;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array(
+                    'index',
+                ),
+                'users'   => array('@'),
+            ),
+            array(
+                'deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         if (Yii::app()->request->isPostRequest) {

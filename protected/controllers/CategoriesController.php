@@ -14,6 +14,33 @@ class CategoriesController extends Controller
     protected $_shop;
     protected $_category;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array(
+                    'index',
+                    'create',
+                    'read',
+                    'update'
+                ),
+                'users'   => array('@'),
+            ),
+            array(
+                'deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $this->render(
