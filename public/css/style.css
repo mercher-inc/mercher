@@ -6210,6 +6210,86 @@ fieldset[disabled] .btn-fb.active {
   padding: 5px;
   font-size: 14px;
 }
+.wizard-steps {
+  clear: both;
+  height: 154px;
+  background: #e5e3e4;
+  border-bottom: 4px solid transparent;
+}
+.wizard-steps.step1 {
+  border-bottom-color: #f05253;
+}
+.wizard-steps.step2 {
+  border-bottom-color: #97c03c;
+}
+.wizard-steps.step3 {
+  border-bottom-color: #f07c53;
+}
+.wizard-steps.step4 {
+  border-bottom-color: #3da3a7;
+}
+.wizard-steps .step1btn,
+.wizard-steps .step2btn,
+.wizard-steps .step3btn,
+.wizard-steps .step4btn {
+  height: 150px;
+  padding-top: 20px;
+}
+.wizard-steps .step1btn h1,
+.wizard-steps .step2btn h1,
+.wizard-steps .step3btn h1,
+.wizard-steps .step4btn h1,
+.wizard-steps .step1btn h2,
+.wizard-steps .step2btn h2,
+.wizard-steps .step3btn h2,
+.wizard-steps .step4btn h2,
+.wizard-steps .step1btn h3,
+.wizard-steps .step2btn h3,
+.wizard-steps .step3btn h3,
+.wizard-steps .step4btn h3 {
+  color: white;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.wizard-steps .step1btn h1,
+.wizard-steps .step2btn h1,
+.wizard-steps .step3btn h1,
+.wizard-steps .step4btn h1,
+.wizard-steps .step1btn h2,
+.wizard-steps .step2btn h2,
+.wizard-steps .step3btn h2,
+.wizard-steps .step4btn h2 {
+  font-size: 24px;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 40px;
+}
+.wizard-steps .step1btn h3,
+.wizard-steps .step2btn h3,
+.wizard-steps .step3btn h3,
+.wizard-steps .step4btn h3 {
+  font-size: 20px;
+  font-weight: 300;
+  text-transform: lowercase;
+  line-height: 20px;
+  margin: 20px 0 10px 0;
+}
+.wizard-steps .step4btn h2 {
+  line-height: 80px;
+}
+.wizard-steps .step1btn {
+  background: #f05253;
+}
+.wizard-steps .step2btn {
+  background: #97c03c;
+}
+.wizard-steps .step3btn {
+  background: #f07c53;
+}
+.wizard-steps .step4btn {
+  background: #3da3a7;
+}
 body {
   margin-top: 80px;
 }
@@ -6217,7 +6297,8 @@ body.with-menu #mainmenu {
   border-color: #3da3a7;
 }
 body.with-title #mainmenu,
-body.with-table #mainmenu {
+body.with-table #mainmenu,
+body.with-wizard #mainmenu {
   border-width: 0;
 }
 body.with-title {
@@ -6228,6 +6309,9 @@ body.with-table {
 }
 body.with-title.with-table {
   margin-top: 200px;
+}
+body.with-wizard {
+  margin-top: 230px;
 }
 .hero {
   background-color: #3da3a7;

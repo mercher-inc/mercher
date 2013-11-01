@@ -35,6 +35,9 @@ return array_merge(
         'shops/<shop_id:\d+>/orders/<order_id:\d+>'                                       => 'orders/read',
         //==Design==
         'shops/<shop_id:\d+>/design'                                                      => 'design/index',
+        'wizard/create_shop'                                                              => 'wizard/step1',
+        'wizard/create_category'                                                          => 'wizard/step2',
+        'wizard/create_product'                                                           => 'wizard/step3',
     ),
     require(dirname(__FILE__) . '/rest_rules.php'),
     require(dirname(__FILE__) . '/rpc_rules.php')

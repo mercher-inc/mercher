@@ -52,6 +52,81 @@
   }
 }
 
+.wizard-steps {
+  clear: both;
+  height: 154px;
+  background: #e5e3e4;
+  border-bottom: 4px solid transparent;
+
+  &.step1 {
+    border-bottom-color: @brand-danger;
+  }
+
+  &.step2 {
+    border-bottom-color: @brand-success;
+  }
+
+  &.step3 {
+    border-bottom-color: @brand-warning;
+  }
+
+  &.step4 {
+    border-bottom-color: @brand-primary;
+  }
+
+  .step1btn,
+  .step2btn,
+  .step3btn,
+  .step4btn {
+    height: 150px;
+    padding-top: 20px;
+
+    h1, h2, h3 {
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-size: 24px;
+      font-weight: normal;
+      text-transform: uppercase;
+      line-height: 40px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 300;
+      text-transform: lowercase;
+      line-height: 20px;
+      margin: 20px 0 10px 0;
+    }
+  }
+
+  .step4btn {
+    h2 {
+      line-height: 80px;
+    }
+  }
+
+  .step1btn {
+    background: @brand-danger;
+  }
+
+  .step2btn {
+    background: @brand-success;
+  }
+
+  .step3btn {
+    background: @brand-warning;
+  }
+
+  .step4btn {
+    background: @brand-primary;
+  }
+}
+
 body {
   margin-top: @navbar-height;
 
@@ -61,7 +136,9 @@ body {
     }
   }
 
-  &.with-title, &.with-table {
+  &.with-title,
+  &.with-table,
+  &.with-wizard {
     #mainmenu {
       border-width: 0;
     }
@@ -77,5 +154,9 @@ body {
 
   &.with-title.with-table {
     margin-top: @navbar-height + @navbar-title-height + @navbar-table-height;
+  }
+
+  &.with-wizard {
+    margin-top: @navbar-height + 150;
   }
 }
