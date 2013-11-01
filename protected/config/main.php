@@ -35,9 +35,7 @@ return array(
         */
         'api',
         'tab',
-        'management'    => [
-            'password'  =>  'asd'
-        ]
+        'management'
     ),
     // application components
     'components'     => array(

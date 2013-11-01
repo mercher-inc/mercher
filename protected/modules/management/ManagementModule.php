@@ -4,7 +4,7 @@ class ManagementModule extends CWebModule
 {
     public $defaultController = 'index';
 
-    public $password = 'admin';
+    public $password = '163acfdb29ce6cc41964158f012c4b81a582b4aa';
 
     public function init()
     {

@@ -12,6 +12,7 @@ class LoginForm extends CFormModel
 	{
 		return array(
 			array('password', 'required'),
+            array('password', 'filter', 'filter'=>'sha1'),
 			array('password', 'authenticate'),
 		);
 	}
