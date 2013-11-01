@@ -20,7 +20,7 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
 <div id="fb-root"></div>
 <nav id="mainmenu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" href="<?php echo Yii::app()->urlManager->createUrl('shops/index') ?>">
+        <a class="navbar-brand" href="<?php echo Yii::app()->controller->createUrl('index/index') ?>">
             <?php echo CHtml::encode(Yii::app()->name); ?>
         </a>
     </div>

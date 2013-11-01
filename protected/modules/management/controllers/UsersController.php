@@ -2,7 +2,6 @@
 
 class UsersController extends Controller
 {
-
 	/**
 	 * @return array action filters
 	 */

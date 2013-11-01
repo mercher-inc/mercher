@@ -75,7 +75,7 @@ Yii::app()->clientScript->registerScript(
         var data = google.visualization.arrayToDataTable('.CJSON::encode($grid).');
 
         var options = {
-          title: "Mercher progress",
+          title: "Mercher usage",
           backgroundColor: "transparent"
         };
 

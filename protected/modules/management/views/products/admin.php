@@ -2,15 +2,12 @@
 /* @var $this ProductsController */
 /* @var $model Product */
 
-$this->breadcrumbs=array(
-	'Products'=>array('index'),
-	'Manage',
-);
-
 $this->menu=array(
 	array('label'=>'List Product', 'url'=>array('index')),
 	array('label'=>'Create Product', 'url'=>array('create')),
 );
+
+$this->headerTitle = 'Manage Products';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -25,8 +22,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
-<h1>Manage Products</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

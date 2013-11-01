@@ -2,11 +2,6 @@
 /* @var $this ShopsController */
 /* @var $model Shop */
 
-$this->breadcrumbs=array(
-	'Shops'=>array('index'),
-	$model->title,
-);
-
 $this->menu=array(
 	array('label'=>'List Shop', 'url'=>array('index')),
 	array('label'=>'Create Shop', 'url'=>array('create')),
@@ -14,11 +9,10 @@ $this->menu=array(
 	array('label'=>'Delete Shop', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Shop', 'url'=>array('admin')),
 );
-?>
 
-<h1>View Shop #<?php echo $model->id; ?></h1>
+$this->headerTitle = 'View Shop';
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -35,4 +29,4 @@ $this->menu=array(
 		'pp_merchant_id',
 		'tax',
 	),
-)); ?>
+));

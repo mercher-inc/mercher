@@ -2,17 +2,11 @@
 /* @var $this UsersController */
 /* @var $model User */
 
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	'Create',
-);
-
 $this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
+    array('label'=>'List User', 'url'=>array('index')),
+    array('label'=>'Manage User', 'url'=>array('admin')),
 );
-?>
 
-<h1>Create User</h1>
+$this->headerTitle = 'Create User';
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+$this->renderPartial('_form', array('model'=>$model));

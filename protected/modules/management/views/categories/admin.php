@@ -2,15 +2,12 @@
 /* @var $this CategoriesController */
 /* @var $model Category */
 
-$this->breadcrumbs=array(
-	'Categories'=>array('index'),
-	'Manage',
-);
-
 $this->menu=array(
 	array('label'=>'List Category', 'url'=>array('index')),
 	array('label'=>'Create Category', 'url'=>array('create')),
 );
+
+$this->headerTitle = 'Manage Categories';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -25,8 +22,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
-<h1>Manage Categories</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
