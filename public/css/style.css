@@ -6436,6 +6436,10 @@ label {
   font-weight: 300;
   color: #555555;
 }
+body.with-wizard #page form {
+  margin: 100px 0;
+  text-align: center;
+}
 footer {
   margin-top: 20px;
   border-top: 4px solid #c5c5c5;

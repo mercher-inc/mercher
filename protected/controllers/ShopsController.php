@@ -45,7 +45,7 @@ class ShopsController extends Controller
         if (count($shops)) {
             $this->redirect(Yii::app()->urlManager->createUrl('products/index', ['shop_id'=>$shops[0]->id]));
         } else {
-            $this->redirect(Yii::app()->urlManager->createUrl('shops/create'));
+            $this->redirect(Yii::app()->urlManager->createUrl('wizard'));
         }
     }
 

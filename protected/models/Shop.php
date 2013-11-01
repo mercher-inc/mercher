@@ -42,11 +42,12 @@ class Shop extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('owner_id', 'setOwnerId', 'on' => 'insert'),
+            array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
+            array('title', 'setDefaultTitle', 'on' => 'insert'),
             array('description, fb_id', 'default', 'value' => null),
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
-            array('fb_id, owner_id, title, tax', 'required'),
+            array('fb_id, owner_id', 'required'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
             array(
                 'fb_id',
@@ -71,9 +72,14 @@ class Shop extends CActiveRecord
         );
     }
 
-    public function setOwnerId()
+    public function setDefaultOwnerId()
     {
         $this->owner_id = Yii::app()->user->id;
+    }
+
+    public function setDefaultTitle()
+    {
+        $this->title = 'asdasdasd';
     }
 
     public function checkOwnerId()
