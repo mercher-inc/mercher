@@ -20,6 +20,7 @@
  * @property User $owner
  * @property Template $template
  * @property Product[] $products
+ * @property Image[] $images
  * @property Category[] $categories
  */
 class Shop extends CActiveRecord
@@ -59,7 +60,7 @@ class Shop extends CActiveRecord
             ),
             array('fb_id', 'checkFbId', 'on' => 'insert'),
             array('title, template_alias', 'length', 'max' => 50),
-            array('tax', 'numerical', 'max' => 99.9999, 'min'=>0),
+            array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
             array('title, description, pp_merchant_id, is_active', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
@@ -169,11 +170,13 @@ class Shop extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'owner'         => array(self::BELONGS_TO, 'User', 'owner_id'),
+            'owner'           => array(self::BELONGS_TO, 'User', 'owner_id'),
             'template'        => array(self::BELONGS_TO, 'Template', 'template_alias'),
-            'products'      => array(self::HAS_MANY, 'Product', 'shop_id'),
+            'products'        => array(self::HAS_MANY, 'Product', 'shop_id'),
             'productsCount'   => array(self::STAT, 'Product', 'shop_id'),
-            'categories'    => array(self::HAS_MANY, 'Category', 'shop_id'),
+            'images'          => array(self::HAS_MANY, 'Image', 'shop_id'),
+            'imagesCount'     => array(self::STAT, 'Image', 'shop_id'),
+            'categories'      => array(self::HAS_MANY, 'Category', 'shop_id'),
             'categoriesCount' => array(self::STAT, 'Category', 'shop_id'),
         );
     }
@@ -191,6 +194,7 @@ class Shop extends CActiveRecord
             'owner_id'        => 'Owner',
             'title'           => 'Title',
             'description'     => 'Description',
+            'tax'             => 'Tax',
             'template_alias'  => 'Template Alias',
             'template_config' => 'Template Config',
             'is_active'       => 'Active',
@@ -220,6 +224,7 @@ class Shop extends CActiveRecord
         $criteria->compare('owner_id', $this->owner_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('tax', $this->tax, true);
         $criteria->compare('template_alias', $this->template_alias, true);
         $criteria->compare('template_config', $this->template_config, true);
         $criteria->compare('is_active', $this->is_active);

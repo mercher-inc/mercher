@@ -88,6 +88,7 @@ class Product extends CActiveRecord
             $this->new_image->saveAs($path . DIRECTORY_SEPARATOR . $filename);
 
             $image                = new Image();
+            $image->shop_id       = $this->shop_id;
             $image->original_file = $path . DIRECTORY_SEPARATOR . $filename;
 
             $i = new Imagick($image->original_file);

@@ -6,10 +6,12 @@
  * @property string $id
  * @property string $created
  * @property string $updated
+ * @property string $shop_id
  * @property string $original_file
  * @property string $data
  * The followings are the available model relations:
  * @property Product[] $products
+ * @property Shop $shop
  */
 class Image extends CActiveRecord
 {
@@ -29,10 +31,11 @@ class Image extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('shop_id', 'required', 'on' => 'insert'),
             array('original_file', 'required'),
             array('original_file', 'length', 'max' => 250),
             // The following rule is used by search().
-            array('id, created, updated, original_file', 'safe', 'on' => 'search'),
+            array('id, created, updated, shop_id, original_file', 'safe', 'on' => 'search'),
         );
     }
 
@@ -45,6 +48,7 @@ class Image extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'products' => array(self::HAS_MANY, 'Product', 'image_id'),
+            'shop'     => array(self::BELONGS_TO, 'Shop', 'shop_id'),
         );
     }
 
@@ -57,6 +61,7 @@ class Image extends CActiveRecord
             'id'            => 'ID',
             'created'       => 'Created',
             'updated'       => 'Updated',
+            'shop_id'       => 'Shop',
             'original_file' => 'Original File',
             'data'          => 'Data',
         );
@@ -79,6 +84,7 @@ class Image extends CActiveRecord
         $criteria->compare('id', $this->id, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
+        $criteria->compare('shop_id', $this->shop_id, true);
         $criteria->compare('original_file', $this->original_file, true);
 
         return new CActiveDataProvider($this, array(
