@@ -36,6 +36,18 @@
     echo $form->error($model,'fb_id',['class'=>'help-block']);
     echo CHtml::closeTag('div');
 
+    echo CHtml::openTag('div', ['class'=>'form-group'.($model->hasErrors('pp_merchant_id')?' has-error':'')]);
+    echo $form->label($model,'pp_merchant_id', ['class'=>'control-label']);
+    echo $form->textField(
+        $model,
+        'pp_merchant_id',
+        [
+            'class' => 'form-control'
+        ]
+    );
+    echo $form->error($model,'pp_merchant_id',['class'=>'help-block']);
+    echo CHtml::closeTag('div');
+
     echo CHtml::submitButton('Next', ['class'=>'btn btn-lg btn-danger']);
 
     $this->endWidget();

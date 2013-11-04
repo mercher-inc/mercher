@@ -49,6 +49,7 @@ class Shop extends CActiveRecord
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id', 'required'),
+            array('pp_merchant_id', 'email'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
             array(
                 'fb_id',
@@ -199,7 +200,7 @@ class Shop extends CActiveRecord
             'template_config' => 'Template Config',
             'is_active'       => 'Active',
             'is_banned'       => 'Banned',
-            'pp_merchant_id'  => 'PayPal Merchant ID',
+            'pp_merchant_id'  => 'PayPal merchant email',
         );
     }
 
