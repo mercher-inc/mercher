@@ -96,16 +96,31 @@ class ProductsController extends Controller
 
     public function actionUpdate()
     {
-        if (Yii::app()->request->isPostRequest) {
-            $this->product->attributes = $_POST;
-            $this->product->new_image  = CUploadedFile::getInstanceByName('new_image');
+        if (isset($_POST['Product'])) {
+            $this->product->attributes = $_POST['Product'];
+            $this->product->new_image  = CUploadedFile::getInstanceByName('Product[new_image]');
 
             if ($this->product->save()) {
                 $this->product->refresh();
             }
         }
 
-        $this->render('update');
+        $categories = $this->shop->categories;
+        $categoriesList = ['' => 'Not set'];
+        if (count($categories)) {
+            foreach ($categories as $c) {
+                $categoriesList[$c->id] = $c->title;
+            }
+        }
+
+        $this->render(
+            'update',
+            array(
+                'shop'  => $this->shop,
+                'model' => $this->product,
+                'categoriesList'   =>  $categoriesList
+            )
+        );
     }
 
     public function getShop()

@@ -43,6 +43,25 @@ echo $form->error($model, 'title', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
+echo CHtml::openTag('div', ['class' => 'row']);
+
+//==new_image==
+echo CHtml::openTag('div', ['class' => 'form-group col-lg-4' . ($model->hasErrors('new_image') ? ' has-error' : '')]);
+echo $form->label($model, 'new_image', ['class' => 'control-label']);
+echo $form->imageField(
+    $model,
+    'new_image',
+    [
+        'data-toggle' => 'tooltip',
+        'title'       => 'Provide an image for your first product'
+    ],
+    'image_id'
+);
+echo $form->error($model, 'new_image', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
+
+echo CHtml::openTag('div', ['class' => 'col-lg-8']);
+
 //==description==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
@@ -62,25 +81,6 @@ echo $form->textArea(
 echo $form->error($model, 'description', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
-
-echo CHtml::openTag('div', ['class' => 'row']);
-
-//==new_image==
-echo CHtml::openTag('div', ['class' => 'form-group col-lg-4' . ($model->hasErrors('new_image') ? ' has-error' : '')]);
-echo $form->label($model, 'new_image', ['class' => 'control-label']);
-echo $form->imageField(
-    $model,
-    'new_image',
-    [
-        'data-toggle' => 'tooltip',
-        'title'       => 'Provide an image for your first product'
-    ],
-    'image_id'
-);
-echo $form->error($model, 'new_image', ['class' => 'help-block']);
-echo CHtml::closeTag('div');
-
-echo CHtml::openTag('div', ['class' => 'col-lg-8']);
 
 //==category_id==
 echo CHtml::openTag('div', ['class' => 'row']);
