@@ -10,5 +10,7 @@ return array(
     'save'            => 'Save shop settings',
     'delete'          => 'Delete shop',
     'not_set'         => 'Not set',
-
+    'create_success'  => 'Shop was created successfully. {view}',
+    'save_success'    => 'Shop settings were saved successfully. {view}',
+    'view_online'     => 'View shop online',
 );

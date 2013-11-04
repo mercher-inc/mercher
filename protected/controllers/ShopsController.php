@@ -40,10 +40,10 @@ class ShopsController extends Controller
     public function actionIndex()
     {
         $user  = User::model()->findByPk(Yii::app()->user->id);
-        $shops = $user->shops(['limit'=>1, 'order'=>'created']);
+        $shops = $user->shops(['limit' => 1, 'order' => 'created']);
 
         if (count($shops)) {
-            $this->redirect(Yii::app()->urlManager->createUrl('products/index', ['shop_id'=>$shops[0]->id]));
+            $this->redirect(Yii::app()->urlManager->createUrl('products/index', ['shop_id' => $shops[0]->id]));
         } else {
             $this->redirect(Yii::app()->urlManager->createUrl('wizard'));
         }
@@ -76,18 +76,41 @@ class ShopsController extends Controller
     {
         $this->layout = '//layouts/shop';
 
-        if (Yii::app()->request->isPostRequest) {
-            $this->shop->attributes = $_POST;
+        if (isset($_POST['Shop'])) {
+            $this->shop->attributes = $_POST['Shop'];
 
             if ($this->shop->save()) {
-                $this->shop->refresh();
+                Yii::app()->user->setFlash(
+                    'Shop',
+                    Yii::t(
+                        'shop',
+                        'save_success',
+                        [
+                            '{view}' => CHtml::link(
+                                Yii::t('shop', 'view_online'),
+                                '//www.facebook.com/' .
+                                    $this->shop->fb_id .
+                                    '?'
+                                    . http_build_query(
+                                    array(
+                                        'sk' => 'app_' . Yii::app()->facebook->sdk->getAppId()
+                                    )
+                                ),
+                                [
+                                    'class'  => 'alert-link',
+                                    'target' => '_blank'
+                                ]
+                            )
+                        ]
+                    )
+                );
             }
         }
 
         $this->render(
             'update',
             array(
-                'shop' => $this->shop
+                'model' => $this->shop,
             )
         );
     }

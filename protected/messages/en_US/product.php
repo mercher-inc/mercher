@@ -10,5 +10,5 @@ return array(
     'not_set'         => 'Not set',
     'create_success'  => 'Product was created successfully. {view}',
     'save_success'    => 'Product was saved successfully. {view}',
-    'view_online'     => 'View online',
+    'view_online'     => 'View product online',
 );
