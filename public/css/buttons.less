@@ -4,9 +4,30 @@
 }
 
 .btn-primary {
-  .button-variant(@btn-primary-color; darken(@btn-primary-bg, 10%); darken(@btn-primary-border, 10%));
+  .button-variant(@btn-primary-color, darken(@btn-primary-bg, 10%), darken(@btn-primary-border, 10%));
 }
 
 .btn-fb {
   .button-variant(@btn-fb-color, @btn-fb-bg, @btn-fb-border);
+}
+
+
+
+.btn-default-link {
+  .button-variant(darken(@btn-default-bg, 10%), fadeout(@btn-default-bg, 100%), fadeout(@btn-default-border, 100%));
+}
+.btn-primary-link {
+  .button-variant(darken(@btn-primary-bg, 10%), fadeout(@btn-primary-bg, 100%), fadeout(@btn-primary-border, 100%));
+}
+.btn-warning-link {
+  .button-variant(darken(@btn-warning-bg, 10%), fadeout(@btn-warning-bg, 100%), fadeout(@btn-warning-border, 100%));
+}
+.btn-danger-link {
+  .button-variant(darken(@btn-danger-bg, 10%), fadeout(@btn-danger-bg, 100%), fadeout(@btn-danger-border, 100%));
+}
+.btn-success-link {
+  .button-variant(darken(@btn-success-bg, 10%), fadeout(@btn-success-bg, 100%), fadeout(@btn-success-border, 100%));
+}
+.btn-info-link {
+  .button-variant(darken(@btn-info-bg, 10%), fadeout(@btn-info-bg, 100%), fadeout(@btn-info-border, 100%));
 }

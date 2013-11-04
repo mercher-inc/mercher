@@ -28,6 +28,7 @@
     echo CHtml::closeTag('div');
 
     echo CHtml::submitButton('Next', ['class'=>'btn btn-lg btn-success']);
+    echo CHtml::link('Skip', $this->createUrl('step3'), ['class'=>'btn btn-lg btn-success-link']);
 
     $this->endWidget();
     ?>
