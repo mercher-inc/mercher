@@ -167,7 +167,7 @@ echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
 echo CHtml::submitButton(
     Yii::t('product', 'save'),
     array(
-        'class' => 'btn btn-lg btn-primary'
+        'class' => 'btn btn-primary'
     )
 );
 echo CHtml::closeTag('div');

@@ -1,109 +1,68 @@
-<div class="container">
 <?php
+/**
+ * @var $this CategoriesController
+ * @var $model Category
+ * @var $form CActiveForm
+ */
 
 Yii::app()->controller->headerTitle = Yii::t('category', 'edit');
 
-//==form==
-echo CHtml::beginForm(
-    $this->createUrl('categories/update', array('shop_id'=>$this->shop->id, 'category_id'=>$this->category->id))
+$form = $this->beginWidget(
+    'CActiveForm',
+    [
+        'id'                   => 'category-form',
+        'enableAjaxValidation' => false,
+        'htmlOptions'          => [
+            'class' => 'main-form'
+        ]
+    ]
 );
 
-//==title==
-echo CHtml::openTag(
-    'div',
-    array(
-        'class' => 'form-group' . ($this->category->hasErrors('title') ? ' has-error' : '')
-    )
+Yii::app()->clientScript->registerPackage('bootstrap');
+Yii::app()->clientScript->registerScript(
+    'category-form-tooltips',
+    "$('#category-form *[data-toggle=\"tooltip\"]').tooltip();"
 );
 
-echo CHtml::label(
-    Yii::t('category', $this->category->getAttributeLabel('title')),
-    'titleInput'
-);
-echo CHtml::textField(
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('title') ? ' has-error' : '')]);
+echo $form->label($model, 'title', ['class' => 'control-label']);
+echo $form->textField(
+    $model,
     'title',
-    $this->category->title,
-    array(
+    [
         'class'       => 'form-control',
-        'id'          => 'titleInput',
-        'placeholder' => Yii::t('category', $this->category->getAttributeLabel('title'))
-    )
+        'data-toggle' => 'tooltip',
+        'title'       => 'Provide the title of category'
+    ]
 );
-echo CHtml::error(
-    $this->category,
-    'title',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'title', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
-//==description==
+echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
     'div',
-    array(
-        'class' => 'form-group' . ($this->category->hasErrors('description') ? ' has-error' : '')
-    )
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('description') ? ' has-error' : '')]
 );
-echo CHtml::label(
-    Yii::t('category', $this->category->getAttributeLabel('description')),
-    'descriptionInput'
-);
-echo CHtml::textArea(
+echo $form->label($model, 'description', ['class' => 'control-label']);
+echo $form->textArea(
+    $model,
     'description',
-    $this->category->description,
-    array(
+    [
         'class'       => 'form-control',
-        'id'          => 'descriptionInput',
-        'placeholder' => Yii::t('category', $this->category->getAttributeLabel('description')),
-        'rows'        => 3
-    )
+        'data-toggle' => 'tooltip',
+        'title'       => 'Provide the description of category'
+    ]
 );
-echo CHtml::error(
-    $this->category,
-    'description',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'description', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
-//==is_active==
-echo CHtml::openTag(
-    'div',
-    array(
-        'class' => 'checkbox' . ($this->category->hasErrors('is_active') ? ' has-error' : '')
-    )
-);
-echo CHtml::label(
-    Yii::t('category', $this->category->getAttributeLabel('is_active')),
-    'isActiveInput'
-);
-echo CHtml::checkBox(
-    'is_active',
-    $this->category->is_active,
-    array(
-        'id'           => 'isActiveInput',
-        'uncheckValue' => 0
-    )
-);
-echo CHtml::error(
-    $this->category,
-    'is_active',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
+echo CHtml::submitButton(Yii::t('category', 'save'), ['class' => 'btn btn-primary']);
+echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
-//==submit==
-echo CHtml::submitButton(
-    Yii::t('category', 'save'),
-    array(
-        'class' => 'btn btn-default'
-    )
-);
-
-echo CHtml::endForm();
-?>
-</div>
+$this->endWidget();

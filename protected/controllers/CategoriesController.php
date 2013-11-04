@@ -55,8 +55,8 @@ class CategoriesController extends Controller
     {
         $this->category = new Category;
 
-        if (Yii::app()->request->isPostRequest) {
-            $this->category->attributes = $_POST;
+        if (isset($_POST['Category'])) {
+            $this->category->attributes = $_POST['Category'];
             $this->category->shop_id = $this->shop->id;
 
             if ($this->category->save()) {
@@ -70,7 +70,8 @@ class CategoriesController extends Controller
         $this->render(
             'create',
             array(
-                'category' => $this->category
+                'shop'  => $this->shop,
+                'model' => $this->category,
             )
         );
     }
@@ -82,15 +83,21 @@ class CategoriesController extends Controller
 
     public function actionUpdate()
     {
-        if (Yii::app()->request->isPostRequest) {
-            $this->category->attributes = $_POST;
+        if (isset($_POST['Category'])) {
+            $this->category->attributes = $_POST['Category'];
 
             if ($this->category->save()) {
                 $this->category->refresh();
             }
         }
 
-        $this->render('update');
+        $this->render(
+            'update',
+            array(
+                'shop'  => $this->shop,
+                'model' => $this->category,
+            )
+        );
     }
 
     public function getShop()
