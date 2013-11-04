@@ -1,186 +1,131 @@
-<div class="container">
 <?php
+/**
+ * @var $this ProductsController
+ * @var $model Product
+ * @var $form CActiveForm
+ * @var $categoriesList array
+ */
 
 Yii::app()->controller->headerTitle = Yii::t('product', 'create');
 
-//==form==
-echo CHtml::beginForm(
-    $this->createUrl('products/create', array('shop_id' => $this->shop->id)),
-    'post',
-    array(
-        'enctype' => 'multipart/form-data'
-    )
+$form = $this->beginWidget(
+    'ActiveForm',
+    [
+        'id'                   => 'product-form',
+        'enableAjaxValidation' => false,
+        'htmlOptions'          => [
+            'class'   => 'main-form',
+            'enctype' => 'multipart/form-data'
+        ]
+    ]
+);
+
+Yii::app()->clientScript->registerPackage('bootstrap');
+Yii::app()->clientScript->registerScript(
+    'product-form-tooltips',
+    "$('#product-form *[data-toggle=\"tooltip\"]').tooltip();"
 );
 
 //==title==
-echo CHtml::openTag(
-    'div',
-    array(
-        'class' => 'form-group' . ($this->product->hasErrors('title') ? ' has-error' : '')
-    )
-);
-
-echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('title')),
-    'titleInput'
-);
-echo CHtml::textField(
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('title') ? ' has-error' : '')]);
+echo $form->label($model, 'title', ['class' => 'control-label']);
+echo $form->textField(
+    $model,
     'title',
-    $this->product->title,
-    array(
+    [
         'class'       => 'form-control',
-        'id'          => 'titleInput',
-        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('title'))
-    )
+        'data-toggle' => 'tooltip',
+        'title'       => 'Provide the title of your first product'
+    ]
 );
-echo CHtml::error(
-    $this->product,
-    'title',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'title', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
 //==description==
+echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
     'div',
-    array(
-        'class' => 'form-group' . ($this->product->hasErrors('description') ? ' has-error' : '')
-    )
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('description') ? ' has-error' : '')]
 );
-echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('description')),
-    'descriptionInput'
-);
-echo CHtml::textArea(
+echo $form->label($model, 'description', ['class' => 'control-label']);
+echo $form->textArea(
+    $model,
     'description',
-    $this->product->description,
-    array(
+    [
         'class'       => 'form-control',
-        'id'          => 'descriptionInput',
-        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('description')),
-        'rows'        => 3
-    )
+        'data-toggle' => 'tooltip',
+        'title'       => 'Provide the description of your first product'
+    ]
 );
-echo CHtml::error(
-    $this->product,
-    'description',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'description', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+
+echo CHtml::openTag('div', ['class' => 'row']);
 
 //==new_image==
-echo CHtml::openTag(
-    'div',
-    array(
-        'class' => 'form-group' . ($this->product->hasErrors('new_image') ? ' has-error' : '')
-    )
-);
-
-echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('new_image')),
-    'newImageInput'
-);
-echo CHtml::fileField(
+echo CHtml::openTag('div', ['class' => 'form-group col-lg-4' . ($model->hasErrors('new_image') ? ' has-error' : '')]);
+echo $form->label($model, 'new_image', ['class' => 'control-label']);
+echo $form->imageField(
+    $model,
     'new_image',
-    '',
-    array(
-        'class' => 'form-control',
-        'id'    => 'newImageInput'
-    )
+    [
+        'data-toggle' => 'tooltip',
+        'title'       => 'Provide an image for your first product'
+    ],
+    'image_id'
 );
-if ($this->product->image) {
-    echo CHtml::hiddenField(
-        'image_id',
-        $this->product->image->id
-    );
-    $data = CJSON::decode($this->product->image->data);
-    echo CHtml::image(
-        $data['m'],
-        '',
-        array(
-            'class' => 'img-thumbnail'
-        )
-    );
-}
-echo CHtml::error(
-    $this->product,
-    'new_image',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'new_image', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 
+echo CHtml::openTag('div', ['class' => 'col-lg-8']);
+
 //==category_id==
+echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
     'div',
-    array(
-        'class' => 'form-group' . ($this->product->hasErrors('category_id') ? ' has-error' : '')
-    )
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('category_id') ? ' has-error' : '')]
 );
-echo CHtml::label(
-    Yii::t('category', $this->product->getAttributeLabel('category_id')),
-    'categoryIdInput'
-);
-$categoriesOptions = array(
-    '' => Yii::t('category', 'not_set')
-);
-foreach ($this->shop->categories as $category) {
-    $categoriesOptions[$category->id] = $category->title;
-}
-echo CHtml::dropDownList(
+echo $form->label($model, 'category_id', ['class' => 'control-label']);
+echo $form->dropDownList(
+    $model,
     'category_id',
-    $this->product->category_id,
-    $categoriesOptions,
-    array(
-        'class' => 'form-control',
-        'id'    => 'categoryIdInput'
-    )
+    $categoriesList,
+    [
+        'class'       => 'form-control',
+        'data-toggle' => 'tooltip',
+        'title'       => 'Select one of categories for the product'
+    ]
 );
-echo CHtml::error(
-    $this->product,
-    'category_id',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'category_id', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
 //==amount==
+echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
     'div',
-    array(
-        'class' => 'form-group' . ($this->product->hasErrors('amount') ? ' has-error' : '')
-    )
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('amount') ? ' has-error' : '')]
 );
-
-echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('amount')) . ', &#36;',
-    'amountInput'
-);
-echo CHtml::textField(
+echo $form->label($model, 'amount', ['class' => 'control-label']);
+echo $form->textField(
+    $model,
     'amount',
-    $this->product->amount,
-    array(
+    [
         'class'       => 'form-control',
-        'id'          => 'amountInput',
-        'placeholder' => Yii::t('product', $this->product->getAttributeLabel('amount'))
-    )
+        'data-toggle' => 'tooltip',
+        'title'       => 'Set product\'s amount'
+    ]
 );
-echo CHtml::error(
-    $this->product,
-    'amount',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'amount', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
 //==is_active==
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag('div', ['class' => 'col-lg-12']);
 echo CHtml::openTag(
     'div',
     array(
@@ -207,15 +152,25 @@ echo CHtml::error(
     )
 );
 echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+
+
+echo CHtml::closeTag('div');
+
+echo CHtml::closeTag('div');
 
 //==submit==
+
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
 echo CHtml::submitButton(
-    Yii::t('product', 'save'),
+    Yii::t('product', 'create'),
     array(
-        'class' => 'btn btn-default'
+        'class' => 'btn btn-lg btn-primary'
     )
 );
+echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
 
-echo CHtml::endForm();
-?>
-</div>
+$this->endWidget();

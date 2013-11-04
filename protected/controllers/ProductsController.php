@@ -55,9 +55,9 @@ class ProductsController extends Controller
     {
         $this->product = new Product;
 
-        if (Yii::app()->request->isPostRequest) {
-            $this->product->attributes = $_POST;
-            $this->product->new_image  = CUploadedFile::getInstanceByName('new_image');
+        if (isset($_POST['Product'])) {
+            $this->product->attributes = $_POST['Product'];
+            $this->product->new_image  = CUploadedFile::getInstanceByName('Product[new_image]');
             $this->product->shop_id    = $this->shop->id;
 
             if ($this->product->save()) {
@@ -71,12 +71,20 @@ class ProductsController extends Controller
             }
         }
 
-        //var_dump($this->shop);
+        $categories = $this->shop->categories;
+        $categoriesList = ['' => 'Not set'];
+        if (count($categories)) {
+            foreach ($categories as $c) {
+                $categoriesList[$c->id] = $c->title;
+            }
+        }
 
         $this->render(
             'create',
             array(
-                'shop' => $this->shop
+                'shop'  => $this->shop,
+                'model' => $this->product,
+                'categoriesList'   =>  $categoriesList
             )
         );
     }
