@@ -29,18 +29,38 @@ if (isset($result['data'])) {
 
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('fb_id') ? ' has-error' : '')]);
-echo $form->label($model, 'fb_id', ['class' => 'control-label']);
-echo $form->dropDownList(
-    $model,
-    'fb_id',
-    $accounts,
-    [
-        'class'       => 'form-control',
-        'data-toggle' => 'tooltip',
-        'title'       => 'Select one of your Facebook pages to create shop for'
-    ]
-);
-echo $form->error($model, 'fb_id', ['class' => 'help-block']);
+if (count($accounts)) {
+    echo $form->label($model, 'fb_id', ['class' => 'control-label']);
+    echo $form->dropDownList(
+        $model,
+        'fb_id',
+        $accounts,
+        [
+            'class'       => 'form-control',
+            'data-toggle' => 'tooltip',
+            'title'       => 'Select one of your Facebook pages to create shop for'
+        ]
+    );
+    echo $form->error($model, 'fb_id', ['class' => 'help-block']);
+} else {
+    echo CHtml::openTag('div', ['class' => 'alert alert-info']);
+    echo Yii::t(
+        'label',
+        'no_fb_pages',
+        [
+            '{create_link}' => CHtml::link(
+                Yii::t('label', 'create'),
+                '//www.facebook.com/pages/create.php',
+                [
+                    'class'  => 'btn btn-primary',
+                    'target' => '_blank'
+                ]
+            )
+        ]
+    );
+    echo CHtml::closeTag('div');
+
+}
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
