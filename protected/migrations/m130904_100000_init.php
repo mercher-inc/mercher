@@ -39,23 +39,6 @@ class m130904_100000_init extends CDbMigration
         );
 
         /*
-         * TABLE_IMAGE
-         */
-        $this->createTable(
-            self::TABLE_IMAGE,
-            array(
-                'original_file' => 'varchar(250) NOT NULL',
-                'data'          => 'text',
-            ),
-            'INHERITS (' . self::TABLE_OBJECT . ')'
-        );
-        $this->addPrimaryKey(
-            self::PREFIX_PRIMARY_KEY . self::TABLE_IMAGE,
-            self::TABLE_IMAGE,
-            'id'
-        );
-
-        /*
          * TABLE_TEMPLATE
          */
         $this->createTable(
@@ -107,8 +90,10 @@ class m130904_100000_init extends CDbMigration
             array(
                 'fb_id'           => 'bigint NULL',
                 'owner_id'        => 'bigint NOT NULL',
+                'pp_merchant_id'  => 'varchar(50)',
                 'title'           => 'varchar(50) NOT NULL',
                 'description'     => 'text',
+                'tax'             => 'NUMERIC (6, 4) DEFAULT 0',
                 'template_alias'  => 'varchar(50) NULL',
                 'template_config' => 'text',
                 'is_active'       => 'boolean NOT NULL DEFAULT TRUE',
@@ -147,6 +132,33 @@ class m130904_100000_init extends CDbMigration
         );
 
         /*
+         * TABLE_IMAGE
+         */
+        $this->createTable(
+            self::TABLE_IMAGE,
+            array(
+                'shop_id'       => 'bigint NOT NULL',
+                'original_file' => 'varchar(250) NOT NULL',
+                'data'          => 'text',
+            ),
+            'INHERITS (' . self::TABLE_OBJECT . ')'
+        );
+        $this->addPrimaryKey(
+            self::PREFIX_PRIMARY_KEY . self::TABLE_IMAGE,
+            self::TABLE_IMAGE,
+            'id'
+        );
+        $this->addForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_IMAGE . '_shop_id',
+            self::TABLE_IMAGE,
+            'shop_id',
+            self::TABLE_SHOP,
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
+        /*
          * TABLE_CATEGORY
          */
         $this->createTable(
@@ -181,15 +193,16 @@ class m130904_100000_init extends CDbMigration
         $this->createTable(
             self::TABLE_PRODUCT,
             array(
-                'fb_id'       => 'bigint NULL',
-                'shop_id'     => 'bigint NOT NULL',
-                'category_id' => 'bigint NULL',
-                'title'       => 'varchar(50) NOT NULL',
-                'description' => 'text',
-                'image_id'    => 'bigint NULL',
-                'price'       => 'money NULL',
-                'is_active'   => 'boolean NOT NULL DEFAULT TRUE',
-                'is_banned'   => 'boolean NOT NULL DEFAULT FALSE',
+                'fb_id'             => 'bigint NULL',
+                'shop_id'           => 'bigint NOT NULL',
+                'category_id'       => 'bigint NULL',
+                'title'             => 'varchar(50) NOT NULL',
+                'description'       => 'text',
+                'image_id'          => 'bigint NULL',
+                'amount'            => 'NUMERIC (9, 2) DEFAULT NULL',
+                'quantity_in_stock' => 'integer DEFAULT NULL',
+                'is_active'         => 'boolean NOT NULL DEFAULT TRUE',
+                'is_banned'         => 'boolean NOT NULL DEFAULT FALSE',
             ),
             'INHERITS (' . self::TABLE_OBJECT . ')'
         );
@@ -262,6 +275,15 @@ class m130904_100000_init extends CDbMigration
         $this->dropTable(self::TABLE_CATEGORY);
 
         /*
+         * TABLE_IMAGE
+         */
+        $this->dropForeignKey(
+            self::PREFIX_FOREIGN_KEY . self::TABLE_IMAGE . '_shop_id',
+            self::TABLE_IMAGE
+        );
+        $this->dropTable(self::TABLE_IMAGE);
+
+        /*
          * TABLE_SHOP
          */
         $this->dropForeignKey(
@@ -283,11 +305,6 @@ class m130904_100000_init extends CDbMigration
          * TABLE_TEMPLATE
          */
         $this->dropTable(self::TABLE_TEMPLATE);
-
-        /*
-         * TABLE_IMAGE
-         */
-        $this->dropTable(self::TABLE_IMAGE);
 
         /*
          * TABLE_OBJECT
