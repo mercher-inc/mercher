@@ -196,7 +196,7 @@ class Product extends CActiveRecord
                 );
             }
             $count++;
-            if ($count > 25) {
+            if ($count > 10) {
                 $this->addError('is_active', Yii::t('product', 'too_many_active'));
                 return false;
             }
