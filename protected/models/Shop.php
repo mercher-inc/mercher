@@ -81,7 +81,17 @@ class Shop extends CActiveRecord
 
     public function setDefaultTitle()
     {
-        $this->title = 'asdasdasd';
+        if (!$this->title and $this->fb_id) {
+            try {
+                $result = Yii::app()->facebook->sdk->api('/' . $this->fb_id . '?fields=name');
+            } catch (FacebookApiException $e) {
+                return;
+            }
+            if (!isset($result['name'])) {
+                return;
+            }
+            $this->title = $result['name'];
+        }
     }
 
     public function checkOwnerId()
