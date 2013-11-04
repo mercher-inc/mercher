@@ -23,7 +23,7 @@ class Template extends \CComponent
 
     public function processForm()
     {
-        $this->form->attributes = $_POST;
+        $this->form->attributes = $_POST['templates_none_Form'];
         if ($this->form->validate()) {
 
             //getting paths
@@ -83,8 +83,8 @@ class Template extends \CComponent
             }
 
             \Yii::app()->user->setFlash(
-                'success',
-                'Template config saved. <a href="//www.facebook.com/' .
+                'templates_none_Form',
+                'Your design was saved successfully. <a href="//www.facebook.com/' .
                     $this->shop->fb_id .
                     '?sk=app_' .
                     \Yii::app()->facebook->sdk->getAppId() .

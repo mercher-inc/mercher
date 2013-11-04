@@ -57,11 +57,25 @@ class CategoriesController extends Controller
 
         if (isset($_POST['Category'])) {
             $this->category->attributes = $_POST['Category'];
-            $this->category->shop_id = $this->shop->id;
+            $this->category->shop_id    = $this->shop->id;
 
             if ($this->category->save()) {
-                $this->category->refresh();
-                $this->redirect(Yii::app()->urlManager->createUrl('categories/index', array('shop_id'=>$this->shop->id)));
+                Yii::app()->user->setFlash(
+                    'Category',
+                    Yii::t(
+                        'category',
+                        'create_success'
+                    )
+                );
+                $this->redirect(
+                    Yii::app()->urlManager->createUrl(
+                        'categories/update',
+                        array(
+                            'shop_id'     => $this->shop->id,
+                            'category_id' => $this->category->id
+                        )
+                    )
+                );
             }
         }
 
@@ -87,7 +101,13 @@ class CategoriesController extends Controller
             $this->category->attributes = $_POST['Category'];
 
             if ($this->category->save()) {
-                $this->category->refresh();
+                Yii::app()->user->setFlash(
+                    'Category',
+                    Yii::t(
+                        'category',
+                        'save_success'
+                    )
+                );
             }
         }
 

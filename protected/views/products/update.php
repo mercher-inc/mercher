@@ -20,6 +20,14 @@ $form = $this->beginWidget(
     ]
 );
 
+$messages = Yii::app()->user->getFlashes('Product');
+if (count($messages)) {
+    Yii::app()->clientScript->registerPackage('bootstrap');
+}
+foreach ($messages as $key => $message) {
+    echo '<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' . $message . "</div>\n";
+}
+
 Yii::app()->clientScript->registerPackage('bootstrap');
 Yii::app()->clientScript->registerScript(
     'product-form-tooltips',

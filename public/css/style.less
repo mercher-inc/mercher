@@ -31,7 +31,6 @@ footer {
 .gridView {
   padding-top: 40px;
 
-
   .row {
     margin: 0;
     padding: 10px 0;
@@ -55,6 +54,50 @@ footer {
       line-height: 20px;
       font-weight: 300;
       color: white;
+    }
+  }
+}
+
+.design-in-row-line {
+
+  .design-in-row-btn {
+    &-r2c2,
+    &-r3c3,
+    &-r4c4 {
+      height: 200px;
+      background: @input-bg;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+
+      border-radius: @border-radius-base;
+      border: 4px solid @input-border;
+      cursor: pointer;
+
+      input {
+        width: 0;
+        height: 0;
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      &.active {
+        border-color: @brand-primary;
+      }
+    }
+
+
+    &-r2c2 {
+      background-image: url('/img/r2c2.png');
+    }
+
+    &-r3c3 {
+      background-image: url('/img/r3c3.png');
+    }
+
+    &-r4c4 {
+      background-image: url('/img/r4c4.png');
     }
   }
 }

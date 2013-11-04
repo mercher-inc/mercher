@@ -61,17 +61,48 @@ class ProductsController extends Controller
             $this->product->shop_id    = $this->shop->id;
 
             if ($this->product->save()) {
-                $this->product->refresh();
+                Yii::app()->user->setFlash(
+                    'Product',
+                    Yii::t(
+                        'product',
+                        'create_success',
+                        [
+                            '{view}' => CHtml::link(
+                                Yii::t('product', 'view_online'),
+                                '//www.facebook.com/' .
+                                    $this->shop->fb_id .
+                                    '?'
+                                    . http_build_query(
+                                    array(
+                                        'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
+                                        'app_data' => CJSON::encode(
+                                            array(
+                                                'product_id' => $this->product->id
+                                            )
+                                        )
+                                    )
+                                ),
+                                [
+                                    'class'  => 'alert-link',
+                                    'target' => '_blank'
+                                ]
+                            )
+                        ]
+                    )
+                );
                 $this->redirect(
                     Yii::app()->urlManager->createUrl(
-                        'products/index',
-                        array('shop_id' => $this->shop->id)
+                        'products/update',
+                        array(
+                            'shop_id'    => $this->shop->id,
+                            'product_id' => $this->product->id
+                        )
                     )
                 );
             }
         }
 
-        $categories = $this->shop->categories;
+        $categories     = $this->shop->categories;
         $categoriesList = ['' => 'Not set'];
         if (count($categories)) {
             foreach ($categories as $c) {
@@ -82,9 +113,9 @@ class ProductsController extends Controller
         $this->render(
             'create',
             array(
-                'shop'  => $this->shop,
-                'model' => $this->product,
-                'categoriesList'   =>  $categoriesList
+                'shop'           => $this->shop,
+                'model'          => $this->product,
+                'categoriesList' => $categoriesList
             )
         );
     }
@@ -101,11 +132,39 @@ class ProductsController extends Controller
             $this->product->new_image  = CUploadedFile::getInstanceByName('Product[new_image]');
 
             if ($this->product->save()) {
-                $this->product->refresh();
+                Yii::app()->user->setFlash(
+                    'Product',
+                    Yii::t(
+                        'product',
+                        'save_success',
+                        [
+                            '{view}' => CHtml::link(
+                                Yii::t('product', 'view_online'),
+                                '//www.facebook.com/' .
+                                    $this->shop->fb_id .
+                                    '?'
+                                    . http_build_query(
+                                    array(
+                                        'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
+                                        'app_data' => CJSON::encode(
+                                            array(
+                                                'product_id' => $this->product->id
+                                            )
+                                        )
+                                    )
+                                ),
+                                [
+                                    'class'  => 'alert-link',
+                                    'target' => '_blank'
+                                ]
+                            )
+                        ]
+                    )
+                );
             }
         }
 
-        $categories = $this->shop->categories;
+        $categories     = $this->shop->categories;
         $categoriesList = ['' => 'Not set'];
         if (count($categories)) {
             foreach ($categories as $c) {
@@ -116,9 +175,9 @@ class ProductsController extends Controller
         $this->render(
             'update',
             array(
-                'shop'  => $this->shop,
-                'model' => $this->product,
-                'categoriesList'   =>  $categoriesList
+                'shop'           => $this->shop,
+                'model'          => $this->product,
+                'categoriesList' => $categoriesList
             )
         );
     }

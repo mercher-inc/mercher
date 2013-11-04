@@ -1,5 +1,1 @@
-<div class="container">
-<?php
-$this->shop->templateInstance->printForm();
-?>
-</div>
+<?php $this->shop->templateInstance->printForm(); ?>

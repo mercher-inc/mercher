@@ -20,9 +20,20 @@ class Form extends \CFormModel
     public function rules()
     {
         return array(
+            array('primary_color', 'filter', 'filter' => 'strtoupper'),
+            array('primary_color', 'color'),
             array('title, primary_color, per_page_count', 'safe'),
             array('per_page_count', 'in', 'range' => array('4', '9', '16')),
         );
+    }
+
+    public function color($attribute, $params)
+    {
+        if ($this->$attribute) {
+            if (!preg_match('/^\#([A-F0-9]{6}|[A-F0-9]{3})$/i', $this->$attribute)) {
+                $this->addError($attribute, 'Not a color');
+            }
+        }
     }
 
     public function attributeLabels()

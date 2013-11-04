@@ -8,5 +8,6 @@ return array(
     'save'            => 'Save category settings',
     'delete'          => 'Delete category',
     'not_set'         => 'Not set',
-
+    'create_success'  => 'Category was created successfully.',
+    'save_success'    => 'Category was saved successfully.',
 );
