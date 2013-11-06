@@ -26,6 +26,7 @@ return array(
     'add'                    => 'Add',
     'delete'                 => 'Delete',
     'not_set'                => 'Not set',
-    'no_fb_pages'            => 'As we see, you have no Facebook pages. But you can {create_link} one and add shop to it!'
+    'refresh'                => 'Refresh',
+    'no_fb_pages'            => 'As we see, you have no Facebook pages. But you can create one and add shop to it!'
 
 );

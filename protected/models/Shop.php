@@ -48,7 +48,7 @@ class Shop extends CActiveRecord
             array('description, fb_id', 'default', 'value' => null),
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
-            array('fb_id, owner_id', 'required'),
+            array('fb_id, owner_id, pp_merchant_id', 'required'),
             array('pp_merchant_id', 'email'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
             array(
@@ -63,7 +63,7 @@ class Shop extends CActiveRecord
             array('title, template_alias', 'length', 'max' => 50),
             array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
-            array('title, description, pp_merchant_id, is_active', 'safe'),
+            array('title, description, is_active', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(

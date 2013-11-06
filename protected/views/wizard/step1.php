@@ -3,6 +3,15 @@
 /* @var $model Shop */
 /* @var $form CActiveForm */
 
+
+$accounts = [];
+$result   = Yii::app()->facebook->sdk->api('/me/accounts?fields=id,name&limit=50');
+if (isset($result['data'])) {
+    foreach ($result['data'] as $row) {
+        $accounts[$row['id']] = $row['name'];
+    }
+}
+
 $form = $this->beginWidget(
     'CActiveForm',
     [
@@ -13,23 +22,18 @@ $form = $this->beginWidget(
         ]
     ]
 );
-
-Yii::app()->clientScript->registerPackage('bootstrap');
-Yii::app()->clientScript->registerScript('shop-form-tooltips', "$('#shop-form *[data-toggle=\"tooltip\"]').tooltip();");
-
-echo CHtml::tag('legend', [], 'Select one of your Facebook pages to create shop for it and provide your PayPal ID');
-
-$accounts = [];
-$result   = Yii::app()->facebook->sdk->api('/me/accounts?fields=id,name&limit=50');
-if (isset($result['data'])) {
-    foreach ($result['data'] as $row) {
-        $accounts[$row['id']] = $row['name'];
-    }
-}
-
-echo CHtml::openTag('div', ['class' => 'row']);
-echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('fb_id') ? ' has-error' : '')]);
 if (count($accounts)) {
+
+    Yii::app()->clientScript->registerPackage('bootstrap');
+    Yii::app()->clientScript->registerScript(
+        'shop-form-tooltips',
+        "$('#shop-form *[data-toggle=\"tooltip\"]').tooltip();"
+    );
+
+    echo CHtml::tag('legend', [], 'Select one of your Facebook pages to create shop for it and provide your PayPal ID');
+
+    echo CHtml::openTag('div', ['class' => 'row']);
+    echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('fb_id') ? ' has-error' : '')]);
     echo $form->label($model, 'fb_id', ['class' => 'control-label']);
     echo $form->dropDownList(
         $model,
@@ -42,51 +46,61 @@ if (count($accounts)) {
         ]
     );
     echo $form->error($model, 'fb_id', ['class' => 'help-block']);
-} else {
-    echo CHtml::openTag('div', ['class' => 'alert alert-info']);
-    echo Yii::t(
-        'label',
-        'no_fb_pages',
+    echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
+
+    echo CHtml::openTag('div', ['class' => 'row']);
+    echo CHtml::openTag(
+        'div',
+        ['class' => 'form-group col-lg-12' . ($model->hasErrors('pp_merchant_id') ? ' has-error' : '')]
+    );
+    echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
+    echo $form->textField(
+        $model,
+        'pp_merchant_id',
         [
-            '{create_link}' => CHtml::link(
-                Yii::t('label', 'create'),
-                '//www.facebook.com/pages/create.php',
-                [
-                    'class'  => 'btn btn-primary',
-                    'target' => '_blank'
-                ]
-            )
+            'class'       => 'form-control',
+            'data-toggle' => 'tooltip',
+            'title'       => 'Provide your PayPal merchant email'
+        ]
+    );
+    echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
+    echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
+
+    echo CHtml::openTag('div', ['class' => 'row']);
+    echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
+    echo CHtml::submitButton('Next', ['class' => 'btn btn-lg btn-danger']);
+    echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
+
+} else {
+
+    echo CHtml::openTag('div', ['class' => 'alert alert-danger']);
+    echo Yii::t('label', 'no_fb_pages');
+    echo CHtml::closeTag('div');
+
+    echo CHtml::openTag('div', ['class' => 'row']);
+    echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
+    echo CHtml::link(
+        Yii::t('label', 'create'),
+        '//www.facebook.com/pages/create.php',
+        [
+            'class'  => 'btn btn-danger btn-lg',
+            'target' => '_blank'
+        ]
+    );
+    echo CHtml::link(
+        Yii::t('label', 'refresh'),
+        $this->createUrl('step1'),
+        [
+            'class'   => 'btn btn-danger-link btn-lg',
+            'onclick' => 'window.location.reload(); return false;'
         ]
     );
     echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
 
 }
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('div');
-
-echo CHtml::openTag('div', ['class' => 'row']);
-echo CHtml::openTag(
-    'div',
-    ['class' => 'form-group col-lg-12' . ($model->hasErrors('pp_merchant_id') ? ' has-error' : '')]
-);
-echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
-echo $form->textField(
-    $model,
-    'pp_merchant_id',
-    [
-        'class'       => 'form-control',
-        'data-toggle' => 'tooltip',
-        'title'       => 'Provide your PayPal merchant email'
-    ]
-);
-echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('div');
-
-echo CHtml::openTag('div', ['class' => 'row']);
-echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
-echo CHtml::submitButton('Next', ['class' => 'btn btn-lg btn-danger']);
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('div');
 
 $this->endWidget();
