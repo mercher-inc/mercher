@@ -3,13 +3,10 @@
 /* @var $error array */
 
 $this->pageTitle=Yii::app()->name . ' - Error';
-$this->breadcrumbs=array(
-	'Error',
-);
+
+Yii::app()->controller->headerTitle = 'Error ' . (int) $code;
 ?>
 
-<h2>Error <?php echo $code; ?></h2>
-
-<div class="error">
-<?php echo CHtml::encode($message); ?>
+<div class="container">
+    <?php echo CHtml::encode($message); ?>
 </div>
