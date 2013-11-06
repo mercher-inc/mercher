@@ -6673,6 +6673,9 @@ body.with-wizard {
   margin-top: 40px;
   text-align: center;
 }
+.main-form textarea {
+  max-width: 800px;
+}
 .imageField {
   border-radius: 2px;
   border: 1px solid #e5e3e4;
