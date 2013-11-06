@@ -64,6 +64,9 @@ class IndexController extends Controller
                 $this->redirect(Yii::app()->user->returnUrl);
             }
         }
+        if (Yii::app()->request->getParam('error_code') and Yii::app()->request->getParam('error_message')) {
+            throw new CHttpException(Yii::app()->request->getParam('error_code'), Yii::app()->request->getParam('error_message'));
+        }
         $this->render('index');
     }
 
