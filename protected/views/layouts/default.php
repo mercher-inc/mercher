@@ -61,14 +61,14 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
 
 <?php
 if ($this->headerTitle or count($this->headerButtons) or count($this->headerTable)) {
-    echo CHtml::openTag('nav', ['class' => 'navbar navbar-contextual navbar-fixed-top', 'role'=>'navigation']);
+    echo CHtml::openTag('nav', ['class' => 'navbar navbar-contextual navbar-fixed-top', 'role' => 'navigation']);
     if (count($this->headerButtons)) {
         foreach ($this->headerButtons as $headerButton) {
             echo CHtml::link(
                 $headerButton['title'] ? $headerButton['title'] : '',
                 $headerButton['url'] ? $headerButton['url'] : '#',
                 [
-                    'class' =>  'btn btn-primary navbar-btn navbar-right'
+                    'class' => 'btn btn-primary navbar-btn navbar-right'
                 ]
             );
 
@@ -76,7 +76,7 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
     }
     if ($this->headerTitle) {
         echo CHtml::openTag('div', ['class' => 'navbar-header']);
-        echo CHtml::link($this->headerTitle, '#', ['class'=>'navbar-brand']);
+        echo CHtml::link($this->headerTitle, '#', ['class' => 'navbar-brand']);
         echo CHtml::closeTag('div');
     }
     if (count($this->headerTable)) {
@@ -104,16 +104,20 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
 <footer>
     <?php $this->widget(
         'zii.widgets.CMenu',
-        array(
-            'items'       => array(
-                array('label' => 'About', 'url' => array('index/page', 'view' => 'about')),
-                array('label' => 'Contact', 'url' => array('index/contact')),
-                array('label' => 'Support', 'url' => array('support/index')),
-            ),
-            'htmlOptions' => array(
+        [
+            'items'       => [
+                ['label' => 'About', 'url' => ['index/page', 'view' => 'about']],
+                [
+                    'label'       => 'Contact',
+                    'url'         => '//www.facebook.com/messages/mercher.net',
+                    'linkOptions' => ['target' => '_blank']
+                ],
+                ['label' => 'Support', 'url' => ['support/index']],
+            ],
+            'htmlOptions' => [
                 'class' => 'nav nav-pills nav-justified'
-            )
-        )
+            ]
+        ]
     ); ?>
     &copy;<?php echo date('Y'); ?> Mercher. All Rights Reserved.
 </footer>
