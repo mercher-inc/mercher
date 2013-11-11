@@ -25,8 +25,21 @@ class ActiveForm extends CActiveForm
             $html .= $this->hiddenField($model, $imageAttribute);
         }
 
+        Yii::app()->clientScript->registerScript(
+            'imageFieldScript',
+            '$(".imageField input[type=\"file\"]").change(function(e){
+                var imageField = $(e.target).parent(".imageField");
+                var helpText = $(".helpText", imageField);
+                var filename = $(e.target).val().replace(/^.*[\\\\\/]/, \'\');
+                imageField.css("background-image", "");
+                helpText.html("<p>Save item to upload image " + filename + "</p>");
+                helpText.show();
+            });'
+        );
+
         $html .= CHtml::openTag('label', $htmlOptions);
         $html .= $this->fileField($model, $attribute);
+        $html .= CHtml::tag('div', ['class' => 'helpText', 'style' => 'display: none;'], '');
         $html .= CHtml::closeTag('label');
         return $html;
     }

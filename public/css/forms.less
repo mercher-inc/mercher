@@ -42,6 +42,7 @@
   background: @input-bg;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 
   input[type="file"] {
     width: 0;
@@ -49,5 +50,20 @@
     border: none;
     margin: 0;
     padding: 0;
+  }
+
+  .helpText {
+    font-size: 24px;
+    line-height: 24px;
+    position: relative;
+    padding: 0 10px;
+    top: 50%;
+    height: 0;
+    text-align: center;
+
+    p {
+      position: relative;
+      top: -24px;
+    }
   }
 }

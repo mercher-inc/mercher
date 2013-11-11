@@ -6686,6 +6686,7 @@ body.with-wizard {
   background: #e5e3e4;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 }
 .imageField input[type="file"] {
   width: 0;
@@ -6693,6 +6694,19 @@ body.with-wizard {
   border: none;
   margin: 0;
   padding: 0;
+}
+.imageField .helpText {
+  font-size: 24px;
+  line-height: 24px;
+  position: relative;
+  padding: 0 10px;
+  top: 50%;
+  height: 0;
+  text-align: center;
+}
+.imageField .helpText p {
+  position: relative;
+  top: -24px;
 }
 footer {
   margin-top: 20px;

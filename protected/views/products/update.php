@@ -2,7 +2,7 @@
 /**
  * @var $this ProductsController
  * @var $model Product
- * @var $form CActiveForm
+ * @var $form ActiveForm
  * @var $categoriesList array
  */
 
@@ -144,7 +144,7 @@ echo CHtml::label(
     Yii::t('product', $this->product->getAttributeLabel('is_active')),
     'isActiveInput',
     [
-        'class'=>'control-label'
+        'class' => 'control-label'
     ]
 );
 echo CHtml::checkBox(
