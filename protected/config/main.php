@@ -46,6 +46,7 @@ return array(
             'loginUrl'       => array('index/index'),
         ),
         'urlManager'   => array(
+            'class'          => 'UrlManager',
             'urlFormat'      => 'path',
             'urlSuffix'      => '.html',
             'baseUrl'        => 'http://' . $_SERVER['HTTP_HOST'],
