@@ -67,7 +67,7 @@ require(['jquery', 'backbone', 'app/router', 'minicart.min'], function ($, Backb
             "channelUrl": "http:\/\/tab.mercher.dev\/channel.html"
         });
 
-        FB.Canvas.setAutoGrow(true);
+        //FB.Canvas.setAutoGrow(true);
 
         router = new Router();
         Backbone.history.start();
