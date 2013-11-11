@@ -6730,6 +6730,10 @@ footer .nav a {
   margin: 0;
   padding: 10px 0;
 }
+.gridView .row .gridCell {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
 .gridView .row:hover {
   background: #eeeeee;
 }
