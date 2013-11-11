@@ -134,6 +134,12 @@ class Template extends \CComponent
                     'tax'            => (float)$this->shop->tax
                 )
             ) . ";\n" .
+                'appConfig.FB = ' . \CJSON::encode(
+                array(
+                    'appId'      => \Yii::app()->facebook->sdk->getAppId(),
+                    "channelUrl" => \Yii::app()->controller->createAbsoluteUrl('/channel'),
+                )
+            ) . ";\n" .
                 'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(
                 $assetsPath
             ) . '/app";',

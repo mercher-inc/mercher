@@ -60,11 +60,11 @@ require(['jquery', 'backbone', 'app/router', 'minicart.min'], function ($, Backb
     window.fbAsyncInit = function () {
 
         FB.init({
-            "appId": "631238416902634",
+            "appId": appConfig.FB.appId,
             "cookie": true,
             "xfbml": true,
             "status": true,
-            "channelUrl": "http:\/\/tab.mercher.dev\/channel.html"
+            "channelUrl": appConfig.FB.channelUrl
         });
 
         //FB.Canvas.setAutoGrow(true);
