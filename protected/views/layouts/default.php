@@ -38,6 +38,15 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
         array(
             'items'       => array(
                 array(
+                    'label'       => 'View shop',
+                    'url'         => isset($this->shop) ? ('//www.facebook.com/' . $this->shop->fb_id . '?sk=app_' . Yii::app(
+                    )->facebook->sdk->getAppId()) : '',
+                    'visible'     => isset($this->shop),
+                    'linkOptions' => array(
+                        'target' => '_blank'
+                    )
+                ),
+                array(
                     'label'       => 'Login',
                     'url'         => Yii::app()->facebook->getLoginUrl(),
                     'visible'     => Yii::app()->user->isGuest,
