@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     width="1000px" height="1000px">
+
+    <circle cx="500" cy="500" r="400"
+            fill="#3da3a7" stroke="#56bdc1" stroke-width="50"  />
+
+    <g fill="none" stroke-width="50" stroke="white">
+        <polyline points="350,250 400,250 500,550 600,250 650,250"/>
+        <polyline points="400,250 400,750 350,750"/>
+        <polyline points="600,250 600,750 650,750"/>
+    </g>
+</svg>
