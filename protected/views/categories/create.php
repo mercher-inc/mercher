@@ -33,7 +33,7 @@ echo $form->textField(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the title of category'
+        'title'       => Yii::t('category', 'help_title')
     ]
 );
 echo $form->error($model, 'title', ['class' => 'help-block']);
@@ -52,7 +52,7 @@ echo $form->textArea(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the description of category'
+        'title'       => Yii::t('category', 'help_description')
     ]
 );
 echo $form->error($model, 'description', ['class' => 'help-block']);
@@ -68,7 +68,15 @@ echo CHtml::openTag(
         'class' => 'checkbox' . ($model->hasErrors('is_active') ? ' has-error' : '')
     )
 );
-echo $form->label($model, 'is_active', ['class' => 'control-label']);
+echo $form->label(
+    $model,
+    'is_active',
+    [
+        'class'       => 'control-label',
+        'data-toggle' => 'tooltip',
+        'title'       => Yii::t('category', 'help_is_active')
+    ]
+);
 echo $form->checkBox(
     $model,
     'is_active',

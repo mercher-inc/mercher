@@ -64,7 +64,7 @@ echo $form->textField(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the title of your first product'
+        'title'       => Yii::t('product', 'help_title')
     ]
 );
 echo $form->error($model, 'title', ['class' => 'help-block']);
@@ -81,7 +81,7 @@ echo $form->imageField(
     'new_image',
     [
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide an image for your first product'
+        'title'       => Yii::t('product', 'help_new_image')
     ],
     'image_id'
 );
@@ -103,7 +103,7 @@ echo $form->textArea(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the description of your first product'
+        'title'       => Yii::t('product', 'help_description')
     ]
 );
 echo $form->error($model, 'description', ['class' => 'help-block']);
@@ -124,7 +124,7 @@ echo $form->dropDownList(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Select one of categories for the product'
+        'title'       => Yii::t('product', 'help_category_id')
     ]
 );
 echo $form->error($model, 'category_id', ['class' => 'help-block']);
@@ -144,7 +144,7 @@ echo $form->textField(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Set product\'s amount'
+        'title'       => Yii::t('product', 'help_amount')
     ]
 );
 echo $form->error($model, 'amount', ['class' => 'help-block']);
@@ -160,7 +160,15 @@ echo CHtml::openTag(
         'class' => 'checkbox' . ($this->product->hasErrors('is_active') ? ' has-error' : '')
     )
 );
-echo $form->label($model, 'is_active', ['class' => 'control-label']);
+echo $form->label(
+    $model,
+    'is_active',
+    [
+        'class'       => 'control-label',
+        'data-toggle' => 'tooltip',
+        'title'       => Yii::t('product', 'help_is_active')
+    ]
+);
 echo $form->checkBox(
     $model,
     'is_active',

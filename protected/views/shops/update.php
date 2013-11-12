@@ -42,7 +42,7 @@ echo $form->textField(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the title of your first product'
+        'title'       => Yii::t('shop', 'help_title')
     ]
 );
 echo $form->error($model, 'title', ['class' => 'help-block']);
@@ -67,7 +67,7 @@ echo $form->textArea(
         'class'       => 'form-control',
         'rows'        => 7,
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the description of your first product'
+        'title'       => Yii::t('shop', 'help_description')
     ]
 );
 echo $form->error($model, 'description', ['class' => 'help-block']);
@@ -88,7 +88,7 @@ echo $form->textField(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the tax of your first product'
+        'title'       => Yii::t('shop', 'help_tax')
     ]
 );
 echo $form->error($model, 'tax', ['class' => 'help-block']);
@@ -108,7 +108,7 @@ echo $form->textField(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the pp_merchant_id of your first product'
+        'title'       => Yii::t('shop', 'help_pp_merchant_id')
     ]
 );
 echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
@@ -124,28 +124,23 @@ echo CHtml::openTag(
         'class' => 'checkbox' . ($model->hasErrors('is_active') ? ' has-error' : '')
     )
 );
-echo CHtml::label(
-    Yii::t('product', $model->getAttributeLabel('is_active')),
-    'isActiveInput',
+echo $form->label(
+    $model,
+    'is_active',
     [
-        'class'=>'control-label'
+        'class'       => 'control-label',
+        'data-toggle' => 'tooltip',
+        'title'       => Yii::t('shop', 'help_is_active')
     ]
 );
-echo CHtml::checkBox(
-    'is_active',
-    $model->is_active,
-    array(
-        'id'           => 'isActiveInput',
-        'uncheckValue' => 0
-    )
-);
-echo CHtml::error(
+echo $form->checkBox(
     $model,
     'is_active',
     array(
-        'class' => 'help-block'
+        'uncheckValue' => 0
     )
 );
+echo $form->error($model, 'is_active', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
