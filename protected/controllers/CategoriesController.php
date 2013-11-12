@@ -43,10 +43,18 @@ class CategoriesController extends Controller
 
     public function actionIndex()
     {
+        $model = new Category('search');
+        $model->unsetAttributes();
+
+        if (isset($_GET['Category'])) {
+            $model->attributes = $_GET['Category'];
+        }
+        $model->shop_id = $this->shop->id;
+
         $this->render(
             'index',
             array(
-                'categories' => $this->shop->categories
+                'model' => $model,
             )
         );
     }
