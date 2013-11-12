@@ -119,4 +119,9 @@ class IndexController extends Controller
         }
         $this->render('contact', array('model' => $model));
     }
+
+    public function actionTest()
+    {
+        Yii::log(print_r($_REQUEST, true), CLogger::LEVEL_WARNING, 'test');
+    }
 }
