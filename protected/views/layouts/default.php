@@ -38,15 +38,6 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
         array(
             'items'       => array(
                 array(
-                    'label'       => 'View shop',
-                    'url'         => isset($this->shop) ? ('https://www.facebook.com/' . $this->shop->fb_id . '?sk=app_' . Yii::app(
-                    )->facebook->sdk->getAppId()) : '',
-                    'visible'     => isset($this->shop),
-                    'linkOptions' => array(
-                        'target' => '_blank'
-                    )
-                ),
-                array(
                     'label'       => 'Login',
                     'url'         => Yii::app()->facebook->getLoginUrl(),
                     'visible'     => Yii::app()->user->isGuest,
@@ -72,16 +63,35 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
 if ($this->headerTitle or count($this->headerButtons) or count($this->headerTable)) {
     echo CHtml::openTag('nav', ['class' => 'navbar navbar-contextual navbar-fixed-top', 'role' => 'navigation']);
     if (count($this->headerButtons)) {
+        echo CHtml::openTag('div', ['class' => 'btn-group navbar-right']);
         foreach ($this->headerButtons as $headerButton) {
+            if (!isset($headerButton['htmlOptions']) or !is_array($headerButton['htmlOptions'])) {
+                $headerButton['htmlOptions'] = [];
+            }
+            if (isset($headerButton['htmlOptions']['class'])) {
+                $headerButton['htmlOptions']['class'] .= ' btn navbar-btn';
+
+                if (
+                    !count(
+                        array_intersect(
+                            ['btn-default', 'btn-primary', 'btn-warning', 'btn-danger', 'btn-success', 'btn-info'],
+                            explode(' ', $headerButton['htmlOptions']['class'])
+                        )
+                    )
+                ) {
+                    $headerButton['htmlOptions']['class'] .= ' btn-primary';
+                }
+            } else {
+                $headerButton['htmlOptions']['class'] = 'btn btn-primary navbar-btn';
+            }
             echo CHtml::link(
                 $headerButton['title'] ? $headerButton['title'] : '',
                 $headerButton['url'] ? $headerButton['url'] : '#',
-                [
-                    'class' => 'btn btn-primary navbar-btn navbar-right'
-                ]
+                $headerButton['htmlOptions']
             );
 
         }
+        echo CHtml::closeTag('div');
     }
     if ($this->headerTitle) {
         echo CHtml::openTag('div', ['class' => 'navbar-header']);

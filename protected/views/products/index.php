@@ -6,12 +6,13 @@
 
 Yii::app()->controller->headerTitle = Yii::t('label', 'products');
 
-Yii::app()->controller->headerButtons = [
+array_push(
+    Yii::app()->controller->headerButtons,
     [
         'title' => Yii::t('product', 'create'),
         'url'   => Yii::app()->urlManager->createUrl('products/create', array('shop_id' => $this->shop->id))
-    ],
-];
+    ]
+);
 
 $this->widget(
     'application.widgets.grid.GridView',

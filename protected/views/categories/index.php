@@ -6,12 +6,13 @@
 
 Yii::app()->controller->headerTitle = Yii::t('label', 'categories');
 
-Yii::app()->controller->headerButtons = [
+array_push(
+    Yii::app()->controller->headerButtons,
     [
-        'title'       => Yii::t('category', 'create'),
-        'url'         => Yii::app()->urlManager->createUrl('categories/create', array('shop_id'=>$this->shop->id))
-    ],
-];
+        'title' => Yii::t('category', 'create'),
+        'url'   => Yii::app()->urlManager->createUrl('categories/create', ['shop_id' => $this->shop->id])
+    ]
+);
 
 $this->widget(
     'application.widgets.grid.GridView',
@@ -28,8 +29,8 @@ $this->widget(
                 'name'               => 'description',
                 'cssClassExpression' => '$data->description?"":"not_set"',
                 'value'              => '$data->description?$data->description:""',
-                'htmlOptions'       => [
-                    'style' =>  'overflow: hidden; max-width: 150px; text-overflow: ellipsis;'
+                'htmlOptions'        => [
+                    'style' => 'overflow: hidden; max-width: 150px; text-overflow: ellipsis;'
                 ]
             ],
             [
