@@ -1,15 +1,38 @@
 <?php
 /* @var $this CategoriesController */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $model Category */
 
-$this->menu=array(
-	array('label'=>'Create Category', 'url'=>array('create')),
-	array('label'=>'Manage Category', 'url'=>array('admin')),
+$this->menu = array(
+    array('label' => 'List Category', 'url' => array('index')),
+    array('label' => 'Create Category', 'url' => array('create')),
 );
 
-$this->headerTitle = 'Categories';
+$this->headerTitle = 'Manage Categories';
 
-$this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-));
+$this->renderPartial(
+    '_search',
+    array(
+        'model' => $model,
+    )
+);
+
+$this->widget(
+    'application.widgets.grid.GridView',
+    array(
+        'id'           => 'category-grid',
+        'dataProvider' => $model->search(),
+        'columns'      => array(
+            'id',
+            'created',
+            'updated',
+            'shop_id',
+            'title',
+            'description',
+            'is_active',
+            'is_banned',
+            array(
+                'class' => 'CButtonColumn',
+            ),
+        ),
+    )
+);

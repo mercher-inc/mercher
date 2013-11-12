@@ -1,15 +1,43 @@
 <?php
 /* @var $this ShopsController */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $model Shop */
 
-$this->menu=array(
-	array('label'=>'Create Shop', 'url'=>array('create')),
-	array('label'=>'Manage Shop', 'url'=>array('admin')),
+$this->menu = array(
+    array('label' => 'List Shop', 'url' => array('index')),
+    array('label' => 'Create Shop', 'url' => array('create')),
 );
 
-$this->headerTitle = 'Shops';
+$this->headerTitle = 'Manage Shops';
 
-$this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-));
+$this->renderPartial(
+    '_search',
+    array(
+        'model' => $model,
+    )
+);
+
+$this->widget(
+    'application.widgets.grid.GridView',
+    array(
+        'id'           => 'shop-grid',
+        'dataProvider' => $model->search(),
+        'columns'      => array(
+            'id',
+            'created',
+            'updated',
+            'fb_id',
+            'owner_id',
+            'title',
+            'description',
+            'template_alias',
+            'template_config',
+            'is_active',
+            'is_banned',
+            'pp_merchant_id',
+            'tax',
+            array(
+                'class' => 'CButtonColumn',
+            ),
+        ),
+    )
+);

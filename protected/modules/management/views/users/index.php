@@ -1,15 +1,39 @@
 <?php
 /* @var $this UsersController */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $model User */
 
-$this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
+$this->menu = array(
+    array('label' => 'List User', 'url' => array('index')),
+    array('label' => 'Create User', 'url' => array('create')),
 );
 
-$this->headerTitle = 'Users';
+$this->headerTitle = 'Manage Users';
 
-$this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-));
+$this->renderPartial(
+    '_search',
+    array(
+        'model' => $model,
+    )
+);
+
+$this->widget(
+    'application.widgets.grid.GridView',
+    array(
+        'id'           => 'user-grid',
+        'dataProvider' => $model->search(),
+        'columns'      => array(
+            'id',
+            'created',
+            'updated',
+            'fb_id',
+            'email',
+            'first_name',
+            'last_name',
+            'is_banned',
+            'last_login',
+            array(
+                'class' => 'CButtonColumn',
+            ),
+        ),
+    )
+);

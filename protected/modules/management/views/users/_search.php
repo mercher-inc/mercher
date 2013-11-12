@@ -9,6 +9,9 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+    'htmlOptions'          => [
+        'class'   => 'main-form',
+    ]
 )); ?>
 
 	<div class="row">
