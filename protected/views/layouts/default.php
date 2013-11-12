@@ -39,7 +39,7 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
             'items'       => array(
                 array(
                     'label'       => 'View shop',
-                    'url'         => isset($this->shop) ? ('//www.facebook.com/' . $this->shop->fb_id . '?sk=app_' . Yii::app(
+                    'url'         => isset($this->shop) ? ('https://www.facebook.com/' . $this->shop->fb_id . '?sk=app_' . Yii::app(
                     )->facebook->sdk->getAppId()) : '',
                     'visible'     => isset($this->shop),
                     'linkOptions' => array(
