@@ -125,13 +125,13 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
         'zii.widgets.CMenu',
         [
             'items'       => [
-                ['label' => 'About', 'url' => ['index/page', 'view' => 'about']],
+                ['label' => Yii::t('label', 'policy'), 'url' => ['index/page', 'view' => 'policy']],
+                ['label' => Yii::t('label', 'terms'), 'url' => ['index/page', 'view' => 'terms']],
                 [
-                    'label'       => 'Contact',
+                    'label'       => Yii::t('label', 'contact'),
                     'url'         => '//www.facebook.com/messages/mercher.net',
                     'linkOptions' => ['target' => '_blank']
                 ],
-                ['label' => 'Support', 'url' => ['support/index']],
             ],
             'htmlOptions' => [
                 'class' => 'nav nav-pills nav-justified'

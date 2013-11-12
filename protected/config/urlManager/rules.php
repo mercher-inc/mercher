@@ -39,6 +39,19 @@ return array_merge(
         'wizard/create_shop'                                                              => 'wizard/step1',
         'wizard/create_category'                                                          => 'wizard/step2',
         'wizard/create_product'                                                           => 'wizard/step3',
+        //==Static pages==
+        'policy'                                                                          => [
+            'index/page',
+            'defaultParams' => [
+                'view' => 'policy'
+            ]
+        ],
+        'terms'                                                                           => [
+            'index/page',
+            'defaultParams' => [
+                'view' => 'terms'
+            ]
+        ],
     ),
     require(dirname(__FILE__) . '/rest_rules.php'),
     require(dirname(__FILE__) . '/rpc_rules.php')

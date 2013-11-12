@@ -21,6 +21,14 @@ return array(
     'design'                 => 'Design',
     'settings'               => 'Settings',
     //====================================
+    'fast'                   => 'Fast',
+    'easy'                   => 'Easy',
+    'cheap'                  => 'Free',
+    //====================================
+    'terms'                  => 'Terms of Service',
+    'policy'                 => 'Privacy Policy',
+    'contact'                => 'Contact Us',
+    //====================================
     'create'                 => 'Create',
     'edit'                   => 'Edit',
     'add'                    => 'Add',
