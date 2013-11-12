@@ -43,10 +43,18 @@ class ProductsController extends Controller
 
     public function actionIndex()
     {
+        $model = new Product('search');
+        $model->unsetAttributes();
+
+        if (isset($_GET['Product'])) {
+            $model->attributes = $_GET['Product'];
+        }
+        $model->shop_id = $this->shop->id;
+
         $this->render(
             'index',
             array(
-                'products' => $this->shop->with('category')->products
+                'model' => $model,
             )
         );
     }

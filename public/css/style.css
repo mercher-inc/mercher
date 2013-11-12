@@ -6752,6 +6752,69 @@ footer .nav a {
   font-weight: 300;
   color: white;
 }
+.grid-view table.items {
+  width: 100%;
+}
+.grid-view table.items thead {
+  background: #cccccc;
+}
+.grid-view table.items thead th {
+  height: 40px;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 300;
+  color: white;
+  padding: 10px 15px;
+}
+.grid-view table.items thead th a,
+.grid-view table.items thead th a:hover {
+  color: white;
+  text-decoration: none;
+}
+.grid-view table.items thead th a.sort-link,
+.grid-view table.items thead th a:hover.sort-link {
+  padding-right: 22px;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+.grid-view table.items thead th a.sort-link.asc,
+.grid-view table.items thead th a:hover.sort-link.asc {
+  background-image: url('/img/asc_white.png');
+}
+.grid-view table.items thead th a.sort-link.desc,
+.grid-view table.items thead th a:hover.sort-link.desc {
+  background-image: url('/img/desc_white.png');
+}
+.grid-view table.items tbody tr:hover {
+  background-color: rgba(85, 85, 85, 0.050000000000000044);
+}
+.grid-view table.items tbody tr:hover td.yes,
+.grid-view table.items tbody tr:hover td.no,
+.grid-view table.items tbody tr:hover td.not_set {
+  background-color: rgba(85, 85, 85, 0.050000000000000044);
+}
+.grid-view table.items tbody tr td {
+  padding: 10px 15px;
+}
+.grid-view table.items tbody tr td.yes,
+.grid-view table.items tbody tr td.no,
+.grid-view table.items tbody tr td.not_set {
+  background-color: #eeeeee;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.grid-view table.items tbody tr td.yes {
+  background-image: url('/img/yes.png');
+}
+.grid-view table.items tbody tr td.no {
+  background-image: url('/img/no.png');
+}
+.grid-view table.items tbody tr td.not_set {
+  background-image: url('/img/not_set.png');
+}
+.grid-view .pages {
+  text-align: center;
+}
 .design-in-row-line .design-in-row-btn-r2c2,
 .design-in-row-line .design-in-row-btn-r3c3,
 .design-in-row-line .design-in-row-btn-r4c4 {

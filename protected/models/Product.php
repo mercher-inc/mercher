@@ -254,15 +254,15 @@ class Product extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
+        $criteria->compare('id', $this->id);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
-        $criteria->compare('fb_id', $this->fb_id, true);
-        $criteria->compare('shop_id', $this->shop_id, true);
-        $criteria->compare('category_id', $this->category_id, true);
+        $criteria->compare('fb_id', $this->fb_id);
+        $criteria->compare('shop_id', $this->shop_id);
+        $criteria->compare('category_id', $this->category_id);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('image_id', $this->image_id, true);
+        $criteria->compare('image_id', $this->image_id);
         $criteria->compare('amount', $this->amount, true);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);

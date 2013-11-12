@@ -63,6 +63,83 @@ footer {
   }
 }
 
+.grid-view {
+  table.items {
+    width: 100%;
+
+    thead {
+      background: lighten(@gray-light, 20%);
+
+      th {
+        height: 40px;
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 300;
+        color: white;
+        padding: 10px 15px;
+
+        a, a:hover {
+          color: white;
+          text-decoration: none;
+
+          &.sort-link {
+            padding-right: 22px;
+            background-position: right center;
+            background-repeat: no-repeat;
+
+            &.asc {
+              background-image: url('/img/asc_white.png');
+            }
+            &.desc {
+              background-image: url('/img/desc_white.png');
+            }
+          }
+        }
+
+      }
+    }
+
+    tbody {
+      tr {
+        &:hover {
+          background-color: fadeout(@gray, 95%);
+          td {
+            &.yes, &.no, &.not_set {
+              background-color: fadeout(@gray, 95%);
+            }
+          }
+        }
+
+        td {
+          padding: 10px 15px;
+
+          &.yes, &.no, &.not_set {
+            background-color: @gray-lighter;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+
+          &.yes {
+            background-image: url('/img/yes.png');
+          }
+
+          &.no {
+            background-image: url('/img/no.png');
+          }
+
+          &.not_set {
+            background-image: url('/img/not_set.png');
+          }
+        }
+      }
+    }
+  }
+
+  .pages {
+    text-align: center;
+  }
+}
+
 .design-in-row-line {
 
   .design-in-row-btn {
@@ -91,7 +168,6 @@ footer {
         border-color: @brand-primary;
       }
     }
-
 
     &-r2c2 {
       background-image: url('/img/r2c2.png');

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     width="20px" height="20px">
+
+    <g stroke="white">
+        <line x1="7" x2="7" y1="2" y2="18" stroke-width="1"/>
+        <polyline fill="none" stroke-width="1" points="4,5 7,2 10,5"/>
+    </g>
+
+    <text x="12" y="17" font-family="Verdana" font-size="10" fill="white">a</text>
+    <text x="12" y="7" font-family="Verdana" font-size="10" fill="white">z</text>
+</svg>
