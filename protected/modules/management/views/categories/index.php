@@ -23,13 +23,34 @@ $this->widget(
         'dataProvider' => $model->search(),
         'columns'      => array(
             'id',
-            'created',
-            'updated',
-            'shop_id',
             'title',
-            'description',
-            'is_active',
-            'is_banned',
+            [
+                'name' => 'description',
+                'htmlOptions' => [
+                    'style'=>'overflow: hidden; max-width: 150px; text-overflow: ellipsis;'
+                ]
+            ],
+            [
+                'name' => 'shop_id',
+                'value'=> 'CHtml::link($data->shop->title, Yii::app()->urlManager->createUrl("management/shops/view", ["id"=>$data->shop_id]))',
+                'type' => 'raw'
+            ],
+            [
+                'name' => 'is_active',
+                'type' => 'boolean'
+            ],
+            [
+                'name' => 'is_banned',
+                'type' => 'boolean'
+            ],
+            [
+                'name' => 'created',
+                'type' => 'datetime'
+            ],
+            [
+                'name' => 'updated',
+                'type' => 'datetime'
+            ],
             array(
                 'class' => 'CButtonColumn',
             ),

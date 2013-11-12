@@ -23,14 +23,33 @@ $this->widget(
         'dataProvider' => $model->search(),
         'columns'      => array(
             'id',
-            'created',
-            'updated',
-            'fb_id',
-            'email',
             'first_name',
             'last_name',
-            'is_banned',
-            'last_login',
+            [
+                'name' => 'last_login',
+                'type' => 'datetime'
+            ],
+            [
+                'name' => 'fb_id',
+                'value'=> 'CHtml::link($data->fb_id, "https://www.facebook.com/".$data->fb_id, ["target"=>"_blank"])',
+                'type' => 'raw'
+            ],
+            [
+                'name' => 'email',
+                'type' => 'email'
+            ],
+            [
+                'name' => 'is_banned',
+                'type' => 'boolean'
+            ],
+            [
+                'name' => 'created',
+                'type' => 'datetime'
+            ],
+            [
+                'name' => 'updated',
+                'type' => 'datetime'
+            ],
             array(
                 'class' => 'CButtonColumn',
             ),
