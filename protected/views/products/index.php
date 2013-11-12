@@ -8,8 +8,8 @@ Yii::app()->controller->headerTitle = Yii::t('label', 'products');
 
 Yii::app()->controller->headerButtons = [
     [
-        'title'       => Yii::t('product', 'create'),
-        'url'         => Yii::app()->urlManager->createUrl('products/create', array('shop_id' => $this->shop->id))
+        'title' => Yii::t('product', 'create'),
+        'url'   => Yii::app()->urlManager->createUrl('products/create', array('shop_id' => $this->shop->id))
     ],
 ];
 
@@ -37,6 +37,7 @@ $this->widget(
                 'value'              => '$data->category_id?$data->category->title:""'
             ],
             [
+                'type'               => 'raw',
                 'name'               => 'amount',
                 'cssClassExpression' => '$data->amount?"":"not_set"',
                 'value'              => '$data->amount?("&#36;" . $data->amount):""'
@@ -45,8 +46,8 @@ $this->widget(
                 'name'               => 'description',
                 'cssClassExpression' => '$data->description?"":"not_set"',
                 'value'              => '$data->description?$data->description:""',
-                'htmlOptions'       => [
-                    'style' =>  'overflow: hidden; max-width: 150px; text-overflow: ellipsis;'
+                'htmlOptions'        => [
+                    'style' => 'overflow: hidden; max-width: 150px; text-overflow: ellipsis;'
                 ]
             ],
             [
