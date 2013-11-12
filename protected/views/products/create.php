@@ -132,28 +132,15 @@ echo CHtml::openTag(
         'class' => 'checkbox' . ($this->product->hasErrors('is_active') ? ' has-error' : '')
     )
 );
-echo CHtml::label(
-    Yii::t('product', $this->product->getAttributeLabel('is_active')),
-    'isActiveInput',
-    [
-        'class' => 'control-label'
-    ]
-);
-echo CHtml::checkBox(
+echo $form->label($model, 'is_active', ['class' => 'control-label']);
+echo $form->checkBox(
+    $model,
     'is_active',
-    $this->product->is_active,
     array(
-        'id'           => 'isActiveInput',
         'uncheckValue' => 0
     )
 );
-echo CHtml::error(
-    $this->product,
-    'is_active',
-    array(
-        'class' => 'help-block'
-    )
-);
+echo $form->error($model, 'is_active', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
