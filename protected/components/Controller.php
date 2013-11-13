@@ -59,7 +59,7 @@ class Controller extends CController
             '
                 if (location.hostname.match(/^app./)) {
                     if (self == top) {
-                        top.location.replace("https://apps.facebook.com/mercher/");
+                        top.location.replace(location.href.replace(/^(http|https):\/\/(app.)/, "http://"));
                     }
                 }
             '
