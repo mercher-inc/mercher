@@ -55,6 +55,17 @@ class Controller extends CController
         Yii::app()->clientScript->registerMetaTag('en', 'language');
 
         Yii::app()->clientScript->registerScript(
+            'appIframeCheck',
+            '
+                if (location.hostname.match(/^app./)) {
+                    if (self == top) {
+                        top.location.replace("https://apps.facebook.com/mercher/");
+                    }
+                }
+            '
+        );
+
+        Yii::app()->clientScript->registerScript(
             'fb_init',
             'FB.init(' . CJSON::encode(
                 array(
