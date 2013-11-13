@@ -18,6 +18,10 @@ $this->menu        = array(
         'label' => Yii::t('label', 'categories'),
         'url'   => array('categories/index')
     ),
+    array(
+        'label' => Yii::t('label', 'subscriptions'),
+        'url'   => array('subscriptions/index')
+    ),
 );
 $this->headerTitle = Yii::t('label', 'management');
 
