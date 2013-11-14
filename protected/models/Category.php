@@ -192,7 +192,7 @@ class Category extends CActiveRecord
                         't'   => 'event',
                         'ec'  => 'category',
                         'ea'  => $this->isNewRecord?'create':'update',
-                        'el'  => $this->shop->title,
+                        'el'  => $this->shop_id,
                     ])
             );
             curl_setopt($ch, CURLOPT_HEADER, 0);
