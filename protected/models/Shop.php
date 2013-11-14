@@ -205,7 +205,7 @@ class Shop extends CActiveRecord
             'owner_id'        => 'Owner',
             'title'           => 'Title',
             'description'     => 'Description',
-            'tax'             => 'Tax percentage your country/state',
+            'tax'             => 'Tax percentage in your country/state',
             'template_alias'  => 'Template Alias',
             'template_config' => 'Template Config',
             'is_active'       => 'Active',
