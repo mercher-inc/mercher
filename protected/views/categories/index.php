@@ -9,7 +9,14 @@ Yii::app()->controller->headerTitle = Yii::t('label', 'categories');
 array_push(
     Yii::app()->controller->headerButtons,
     [
-        'title' => Yii::t('category', 'create'),
+        'title' => Yii::t(
+            'category',
+            'create',
+            [
+                '{categoriesCount}' => $this->shop->categoriesCount,
+                '{categoriesMax}'   => 10
+            ]
+        ),
         'url'   => Yii::app()->urlManager->createUrl('categories/create', ['shop_id' => $this->shop->id])
     ]
 );

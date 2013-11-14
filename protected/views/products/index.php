@@ -9,8 +9,15 @@ Yii::app()->controller->headerTitle = Yii::t('label', 'products');
 array_push(
     Yii::app()->controller->headerButtons,
     [
-        'title' => Yii::t('product', 'create'),
-        'url'   => Yii::app()->urlManager->createUrl('products/create', array('shop_id' => $this->shop->id))
+        'title' => Yii::t(
+            'product',
+            'create',
+            [
+                '{productsCount}' => $this->shop->productsCount,
+                '{productsMax}'   => 10
+            ]
+        ),
+        'url'   => Yii::app()->urlManager->createUrl('products/create', array('shop_id' => $this->shop->id)),
     ]
 );
 

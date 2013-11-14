@@ -5,7 +5,14 @@
  * @var $form CActiveForm
  */
 
-Yii::app()->controller->headerTitle = Yii::t('category', 'create');
+Yii::app()->controller->headerTitle = Yii::t(
+    'category',
+    'create',
+    [
+        '{categoriesCount}' => $this->shop->categoriesCount,
+        '{categoriesMax}'   => 10
+    ]
+);
 
 $form = $this->beginWidget(
     'CActiveForm',

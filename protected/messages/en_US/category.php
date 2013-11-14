@@ -3,7 +3,7 @@
 return array(
     'no_items_found'   => 'No categories found',
     'too_many_active'  => 'Too many active categories',
-    'create'           => 'Create new category',
+    'create'           => 'Create new category ({categoriesCount}/{categoriesMax})',
     'edit'             => 'Category settings',
     'save'             => 'Save category settings',
     'delete'           => 'Delete category',

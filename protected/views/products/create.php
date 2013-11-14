@@ -6,7 +6,14 @@
  * @var $categoriesList array
  */
 
-Yii::app()->controller->headerTitle = Yii::t('product', 'create');
+Yii::app()->controller->headerTitle = Yii::t(
+    'product',
+    'create',
+    [
+        '{productsCount}' => $this->shop->productsCount,
+        '{productsMax}'   => 10
+    ]
+);
 
 $form = $this->beginWidget(
     'ActiveForm',
