@@ -301,15 +301,18 @@ class Product extends CActiveRecord
             curl_setopt(
                 $ch,
                 CURLOPT_POSTFIELDS,
-                http_build_query([
+                http_build_query(
+                    [
                         'v'   => 1,
                         'tid' => 'UA-23393444-12',
                         'cid' => 555,
                         't'   => 'event',
                         'ec'  => 'product',
-                        'ea'  => $this->isNewRecord?'create':'update',
-                        'el'  => $this->isNewRecord?'New product was created':'Product was updated',
-                    ])
+                        'ea'  => $this->isNewRecord ? 'create' : 'update',
+                        'el'  => $this->isNewRecord ? 'New product was created' : 'Product was updated',
+                        'ev'  => $this->id
+                    ]
+                )
             );
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_POST, 1);
