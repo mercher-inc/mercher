@@ -4,6 +4,26 @@
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <?php
+
+Yii::app()->clientScript->registerScript(
+    'ga',
+    "(function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-23393444-12');
+    ga('set', 'page', " . CJSON::encode($this->route) . ");
+    ga('send', 'pageview');",
+    CClientScript::POS_HEAD
+);
+
 $bodyClass = explode(' ', $this->bodyHtmlOptions['class']);
 if (count($this->menu)) {
     $bodyClass[] = 'with-menu';
@@ -141,26 +161,6 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
     &copy;<?php echo date('Y'); ?> Mercher. All Rights Reserved.
 </footer>
 <!-- footer -->
-
-<!-- Google Analytics -->
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-23393444-12');
-    ga('set', 'page', <?php echo CJSON::encode($this->route) ?>);
-    ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
 
 </body>
 </html>
