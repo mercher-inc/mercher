@@ -21,7 +21,7 @@ define(function (require) {
         },
 
         render: function () {
-            ga('send', 'pageview', 'products');
+            ga('send', 'pageview', 'shop/products');
 
             this.$el.html(template({collection: this.collection}));
 
