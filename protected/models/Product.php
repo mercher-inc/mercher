@@ -308,7 +308,7 @@ class Product extends CActiveRecord
                         't'   => 'event',
                         'ec'  => 'product',
                         'ea'  => $this->isNewRecord?'create':'update',
-                        'el'  => $this->title,
+                        'el'  => $this->shop->title,
                     ])
             );
             curl_setopt($ch, CURLOPT_HEADER, 0);
