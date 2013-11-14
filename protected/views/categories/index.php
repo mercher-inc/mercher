@@ -6,20 +6,23 @@
 
 Yii::app()->controller->headerTitle = Yii::t('label', 'categories');
 
-array_push(
-    Yii::app()->controller->headerButtons,
-    [
-        'title' => Yii::t(
-            'category',
-            'create_btn',
-            [
-                '{categoriesCount}' => $this->shop->categoriesCount,
-                '{categoriesMax}'   => 10
-            ]
-        ),
-        'url'   => Yii::app()->urlManager->createUrl('categories/create', ['shop_id' => $this->shop->id])
-    ]
-);
+if ($this->shop->categoriesCount < 10) {
+    array_push(
+        Yii::app()->controller->headerButtons,
+        [
+            'title' => Yii::t(
+                'category',
+                'create_btn',
+                [
+                    '{categoriesCount}' => $this->shop->categoriesCount,
+                    '{categoriesMax}'   => 10
+                ]
+            ),
+            'url'   => Yii::app()->urlManager->createUrl('categories/create', ['shop_id' => $this->shop->id])
+        ]
+    );
+}
+
 
 $this->widget(
     'application.widgets.grid.GridView',

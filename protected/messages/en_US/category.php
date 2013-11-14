@@ -2,6 +2,7 @@
 
 return array(
     'no_items_found'   => 'No categories found',
+    'too_many'         => 'Too many categories',
     'too_many_active'  => 'Too many active categories',
     'create_btn'       => 'Create new category ({categoriesCount}/{categoriesMax})',
     'create'           => 'Create new category',

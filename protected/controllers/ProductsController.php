@@ -61,6 +61,10 @@ class ProductsController extends Controller
 
     public function actionCreate()
     {
+        if ($this->shop->productsCount >= 10) {
+            throw new CHttpException(402, Yii::t('product', 'too_many'));
+        }
+
         $this->product = new Product;
 
         if (isset($_POST['Product'])) {

@@ -61,6 +61,10 @@ class CategoriesController extends Controller
 
     public function actionCreate()
     {
+        if ($this->shop->categoriesCount >= 10) {
+            throw new CHttpException(402, Yii::t('category', 'too_many'));
+        }
+
         $this->category = new Category;
 
         if (isset($_POST['Category'])) {
