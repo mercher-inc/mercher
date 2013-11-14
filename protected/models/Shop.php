@@ -295,5 +295,29 @@ class Shop extends CActiveRecord
         if ($this->isNewRecord) {
             $this->templateInstance->processForm();
         }
+
+        try {
+            $ch = curl_init('http://www.google-analytics.com/collect');
+            curl_setopt(
+                $ch,
+                CURLOPT_POSTFIELDS,
+                http_build_query([
+                        'v'   => 1,
+                        'tid' => 'UA-23393444-12',
+                        'cid' => 555,
+                        't'   => 'event',
+                        'ec'  => 'shop',
+                        'ea'  => $this->isNewRecord?'create':'update',
+                        'el'  => $this->title,
+                    ])
+            );
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_exec($ch);
+            curl_close($ch);
+        } catch (Exception $e) {
+
+        }
     }
 }
