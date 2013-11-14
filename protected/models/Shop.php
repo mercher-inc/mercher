@@ -205,12 +205,12 @@ class Shop extends CActiveRecord
             'owner_id'        => 'Owner',
             'title'           => 'Title',
             'description'     => 'Description',
-            'tax'             => 'Tax',
+            'tax'             => 'Tax percentage your country/state',
             'template_alias'  => 'Template Alias',
             'template_config' => 'Template Config',
             'is_active'       => 'Active',
             'is_banned'       => 'Banned',
-            'pp_merchant_id'  => 'PayPal merchant email',
+            'pp_merchant_id'  => 'Your PayPal merchant email',
         );
     }
 
