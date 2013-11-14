@@ -6683,7 +6683,8 @@ body.with-wizard {
   height: 240px;
   cursor: pointer;
   margin: 0;
-  background: #e5e3e4;
+  background-color: #e5e3e4;
+  background-image: url('/img/icon_add.png');
   background-size: cover;
   background-position: center;
   overflow: hidden;

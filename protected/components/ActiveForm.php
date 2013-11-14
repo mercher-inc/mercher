@@ -31,7 +31,7 @@ class ActiveForm extends CActiveForm
                 var imageField = $(e.target).parent(".imageField");
                 var helpText = $(".helpText", imageField);
                 var filename = $(e.target).val().replace(/^.*[\\\\\/]/, \'\');
-                imageField.css("background-image", "");
+                imageField.css("background-image", "none");
                 helpText.html("<p>Save item to upload image " + filename + "</p>");
                 helpText.show();
             });'
