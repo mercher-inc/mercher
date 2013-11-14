@@ -21,6 +21,8 @@ define(function (require) {
         },
 
         render: function () {
+            ga('send', 'pageview', 'products');
+
             this.$el.html(template({collection: this.collection}));
 
             var $list = $('.list:first', this.$el);

@@ -20,6 +20,8 @@ define(function (require) {
         },
 
         render: function () {
+            ga('send', 'pageview', 'products/' + this.model.id);
+
             this.$el.html(template({model: this.model}));
             return this;
         },

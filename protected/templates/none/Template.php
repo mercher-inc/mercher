@@ -126,8 +126,7 @@ class Template extends \CComponent
             \Yii::app()->assetManager->getPublishedUrl($assetsPath) . '/main.js'
         );
 
-        \Yii::app()->clientScript->registerScript(
-            'appConfig',
+        $scripts = [
             'appConfig.shop = ' . \CJSON::encode(
                 array(
                     'id'             => $this->shop->id,
@@ -136,16 +135,29 @@ class Template extends \CComponent
                     'pp_merchant_id' => $this->shop->pp_merchant_id,
                     'tax'            => (float)$this->shop->tax
                 )
-            ) . ";\n" .
-                'appConfig.FB = ' . \CJSON::encode(
+            ) . ';',
+            'appConfig.FB = ' . \CJSON::encode(
                 array(
                     'appId'      => \Yii::app()->facebook->sdk->getAppId(),
                     "channelUrl" => \Yii::app()->controller->createAbsoluteUrl('/channel'),
                 )
-            ) . ";\n" .
-                'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(
+            ) . ';',
+            'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(
                 $assetsPath
-            ) . '/app";',
+            ) . '/app";'
+        ];
+
+        if ($this->shop->ga_id) {
+            $scripts[] = 'appConfig.GA = ' . \CJSON::encode(
+                array(
+                    'id' => $this->shop->ga_id
+                )
+            ) . ';';
+        }
+
+        \Yii::app()->clientScript->registerScript(
+            'appConfig',
+            implode("\n", $scripts),
             \CClientScript::POS_HEAD
         );
 
