@@ -308,7 +308,7 @@ class Shop extends CActiveRecord
                         't'   => 'event',
                         'ec'  => 'shop',
                         'ea'  => $this->isNewRecord?'create':'update',
-                        'el'  => $this->id,
+                        'el'  => $this->isNewRecord?'New shop was created':'Shop was updated',
                     ])
             );
             curl_setopt($ch, CURLOPT_HEADER, 0);
