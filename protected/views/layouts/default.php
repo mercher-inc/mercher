@@ -157,6 +157,7 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-23393444-12');
+    ga('set', 'page', <?php echo CJSON::encode($this->route) ?>);
     ga('send', 'pageview');
 </script>
 <!-- End Google Analytics -->
