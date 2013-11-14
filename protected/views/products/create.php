@@ -8,11 +8,7 @@
 
 Yii::app()->controller->headerTitle = Yii::t(
     'product',
-    'create',
-    [
-        '{productsCount}' => $this->shop->productsCount,
-        '{productsMax}'   => 10
-    ]
+    'create'
 );
 
 $form = $this->beginWidget(

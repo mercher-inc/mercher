@@ -7,11 +7,7 @@
 
 Yii::app()->controller->headerTitle = Yii::t(
     'category',
-    'create',
-    [
-        '{categoriesCount}' => $this->shop->categoriesCount,
-        '{categoriesMax}'   => 10
-    ]
+    'create'
 );
 
 $form = $this->beginWidget(

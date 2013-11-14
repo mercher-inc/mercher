@@ -11,7 +11,7 @@ array_push(
     [
         'title' => Yii::t(
             'product',
-            'create',
+            'create_btn',
             [
                 '{productsCount}' => $this->shop->productsCount,
                 '{productsMax}'   => 10

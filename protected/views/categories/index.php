@@ -11,7 +11,7 @@ array_push(
     [
         'title' => Yii::t(
             'category',
-            'create',
+            'create_btn',
             [
                 '{categoriesCount}' => $this->shop->categoriesCount,
                 '{categoriesMax}'   => 10
