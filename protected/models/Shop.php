@@ -287,4 +287,13 @@ class Shop extends CActiveRecord
         }
         return $this->_templateInstance;
     }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord) {
+            $this->templateInstance->processForm();
+        }
+    }
 }

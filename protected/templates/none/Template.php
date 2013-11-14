@@ -23,7 +23,10 @@ class Template extends \CComponent
 
     public function processForm()
     {
-        $this->form->attributes = $_POST['templates_none_Form'];
+        if (isset($_POST['templates_none_Form'])) {
+            $this->form->attributes = $_POST['templates_none_Form'];
+        }
+
         if ($this->form->validate()) {
 
             //getting paths
