@@ -9,6 +9,7 @@
  * @property string $fb_id
  * @property string $owner_id
  * @property string $pp_merchant_id
+ * @property string $ga_id
  * @property string $title
  * @property string $description
  * @property string $tax
@@ -45,11 +46,12 @@ class Shop extends CActiveRecord
         return array(
             array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
             array('title', 'setDefaultTitle', 'on' => 'insert'),
-            array('description, fb_id', 'default', 'value' => null),
+            array('description, fb_id, ga_id', 'default', 'value' => null),
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id, pp_merchant_id', 'required'),
             array('pp_merchant_id', 'email'),
+            array('ga_id', 'match', 'pattern'=>'/^UA-\d{1,12}-\d{1,4}/'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
             array(
                 'fb_id',
@@ -63,7 +65,7 @@ class Shop extends CActiveRecord
             array('title, template_alias', 'length', 'max' => 50),
             array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
-            array('title, description, is_active', 'safe'),
+            array('title, description, is_active, ga_id', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(
@@ -211,6 +213,7 @@ class Shop extends CActiveRecord
             'is_active'       => 'Active',
             'is_banned'       => 'Banned',
             'pp_merchant_id'  => 'Your PayPal merchant email',
+            'ga_id'           => 'Google Analytics ID',
         );
     }
 
@@ -241,6 +244,7 @@ class Shop extends CActiveRecord
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
         $criteria->compare('pp_merchant_id', $this->pp_merchant_id, true);
+        $criteria->compare('ga_id', $this->ga_id, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

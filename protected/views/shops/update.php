@@ -115,6 +115,27 @@ echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
+//==ga_id==
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag(
+    'div',
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('ga_id') ? ' has-error' : '')]
+);
+echo $form->label($model, 'ga_id', ['class' => 'control-label']);
+echo $form->textField(
+    $model,
+    'ga_id',
+    [
+        'class'       => 'form-control',
+        'data-toggle' => 'tooltip',
+        'title'       => Yii::t('shop', 'help_ga_id'),
+        'placeholder'   => 'UA-12345678-12'
+    ]
+);
+echo $form->error($model, 'ga_id', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+
 //==is_active==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'col-lg-12']);
