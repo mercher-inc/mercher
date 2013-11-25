@@ -96,8 +96,7 @@ class WizardController extends Controller
             $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
         }
 
-        $model        = new Category;
-        $model->title = $shop->title . ' first category';
+        $model = new Category;
 
         if (isset($_POST['Category'])) {
             $model->attributes = $_POST['Category'];
@@ -130,8 +129,7 @@ class WizardController extends Controller
             $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
         }
 
-        $model        = new Product;
-        $model->title = $shop->title . ' first product';
+        $model = new Product;
 
         $categoriesList = ['' => 'Not set'];
         if (count($categories)) {
