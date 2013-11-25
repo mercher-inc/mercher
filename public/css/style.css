@@ -6441,11 +6441,20 @@ fieldset[disabled] .btn-info-link.active {
 .wizard-steps.step1 {
   border-bottom-color: #f05253;
 }
+.wizard-steps.step1 .step1btn .arrow {
+  display: block;
+}
 .wizard-steps.step2 {
   border-bottom-color: #97c03c;
 }
+.wizard-steps.step2 .step2btn .arrow {
+  display: block;
+}
 .wizard-steps.step3 {
   border-bottom-color: #f07c53;
+}
+.wizard-steps.step3 .step3btn .arrow {
+  display: block;
 }
 .wizard-steps.step4 {
   border-bottom-color: #3da3a7;
@@ -6497,17 +6506,40 @@ fieldset[disabled] .btn-info-link.active {
   line-height: 20px;
   margin: 20px 0 10px 0;
 }
+.wizard-steps .step1btn .arrow,
+.wizard-steps .step2btn .arrow,
+.wizard-steps .step3btn .arrow,
+.wizard-steps .step4btn .arrow {
+  background-repeat: no-repeat;
+  background-position: top center;
+  position: absolute;
+  height: 11px;
+  width: 100%;
+  margin-top: 4px;
+  margin-left: -15px;
+  margin-right: -15px;
+  display: none;
+}
 .wizard-steps .step4btn h2 {
   line-height: 80px;
 }
 .wizard-steps .step1btn {
   background: #f05253;
 }
+.wizard-steps .step1btn .arrow {
+  background-image: url('/img/arrow_red.png');
+}
 .wizard-steps .step2btn {
   background: #97c03c;
 }
+.wizard-steps .step2btn .arrow {
+  background-image: url('/img/arrow_green.png');
+}
 .wizard-steps .step3btn {
   background: #f07c53;
+}
+.wizard-steps .step3btn .arrow {
+  background-image: url('/img/arrow_orange.png');
 }
 .wizard-steps .step4btn {
   background: #3da3a7;

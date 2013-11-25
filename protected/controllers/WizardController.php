@@ -168,12 +168,6 @@ class WizardController extends Controller
             $this->redirect(Yii::app()->urlManager->createUrl('wizard/step1'));
         }
 
-        $shop = Shop::model()->findByAttributes(['owner_id' => $this->user->id]);
-
-        if (count($shop->products) < 1) {
-            $this->redirect(Yii::app()->urlManager->createUrl('wizard/step4'));
-        }
-
         $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
     }
 

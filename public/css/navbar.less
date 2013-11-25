@@ -60,14 +60,32 @@
 
   &.step1 {
     border-bottom-color: @brand-danger;
+
+    .step1btn {
+      .arrow {
+        display: block;
+      }
+    }
   }
 
   &.step2 {
     border-bottom-color: @brand-success;
+
+    .step2btn {
+      .arrow {
+        display: block;
+      }
+    }
   }
 
   &.step3 {
     border-bottom-color: @brand-warning;
+
+    .step3btn {
+      .arrow {
+        display: block;
+      }
+    }
   }
 
   &.step4 {
@@ -102,6 +120,18 @@
       line-height: 20px;
       margin: 20px 0 10px 0;
     }
+
+    .arrow {
+      background-repeat: no-repeat;
+      background-position: top center;
+      position: absolute;
+      height: 11px;
+      width: 100%;
+      margin-top: 4px;
+      margin-left: -15px;
+      margin-right: -15px;
+      display: none;
+    }
   }
 
   .step4btn {
@@ -112,14 +142,26 @@
 
   .step1btn {
     background: @brand-danger;
+
+    .arrow {
+      background-image: url('/img/arrow_red.png');
+    }
   }
 
   .step2btn {
     background: @brand-success;
+
+    .arrow {
+      background-image: url('/img/arrow_green.png');
+    }
   }
 
   .step3btn {
     background: @brand-warning;
+
+    .arrow {
+      background-image: url('/img/arrow_orange.png');
+    }
   }
 
   .step4btn {

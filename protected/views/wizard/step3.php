@@ -134,6 +134,7 @@ echo CHtml::closeTag('div');
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
 echo CHtml::submitButton('Next', ['class' => 'btn btn-lg btn-warning']);
+echo CHtml::link('Skip', $this->createUrl('step4'), ['class' => 'btn btn-lg btn-warning-link']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
