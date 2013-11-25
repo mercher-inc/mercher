@@ -27,15 +27,29 @@ define(function (require) {
 
             var $list = $('.list:first', this.$el);
             $list.empty();
-            var $row = $('<div class="row"></div>');
 
             _.each(this.collection.models, function (product, i) {
-                if (i % Math.sqrt(appConfig.perPageCount) == 0) {
-                    $row = $('<div class="row"></div>');
-                    $row.appendTo($list);
-                }
-                $row.append(new ProductsListItemView({model: product}).render().el);
+                $list.append(new ProductsListItemView({model: product}).render().el);
             }, this);
+
+            var canvasHeight = Math.max(Math.ceil(this.collection.length / 3) * 270, 800);
+
+            FB.Canvas.setSize({height: canvasHeight});
+
+            var view = this;
+
+            if (this.collection.data.count - this.collection.length > 0) {
+                var scrollCheckInterval = setInterval(function () {
+                    FB.Canvas.getPageInfo(
+                        function (info) {
+                            if (canvasHeight + info.offsetTop - info.scrollTop <= info.clientHeight) {
+                                clearInterval(scrollCheckInterval);
+                                view.showMore();
+                            }
+                        }
+                    );
+                }, 500);
+            }
 
             return this;
         },

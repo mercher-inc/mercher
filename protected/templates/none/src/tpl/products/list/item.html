@@ -1,27 +1,24 @@
-<div class="item">
-    <button class="likeProduct" data-loading-text="..."></button>
-    <div class="image">
-        <% if (!_.isEmpty(model.get('image'))) { %>
-            <img src="<%- (appConfig.perPageCount > 9)?model.get('image').m:model.get('image').l %>">
-        <% } else { %>
-            <img src="https://graph.facebook.com/<%- appConfig.shop.page %>/picture?width=400&height=400">
-        <% } %>
-    </div>
+<div class="image">
+    <% if (!_.isEmpty(model.get('image'))) { %>
+        <img src="<%- model.get('image').l %>">
+    <% } else { %>
+        <img src="https://graph.facebook.com/<%- appConfig.shop.page %>/picture?width=400&height=400">
+    <% } %>
+</div>
+<div class="info">
     <div class="title">
         <h4 class="text-center">
             <%- model.get('title') %>
         </h4>
     </div>
-    <% if (model.get('description')) { %>
-        <div class="description closed">
-            <p class="text-muted">
-                <small><%- model.get('description') %></small>
-            </p>
-        </div>
-    <% } %>
+    <div class="description">
+        <% if (model.get('description')) { %>
+            <%- model.get('description') %>
+        <% } %>
+    </div>
     <div class="actions">
         <% if (model.get('amount') && appConfig.shop.pp_merchant_id) { %>
-            <button class="btn btn-primary btn-block addToCart">Buy for &#36;<%- model.get('amount') %></button>
+            <button class="addToCart">Buy for &#36;<%- model.get('amount') %></button>
         <% } %>
     </div>
 </div>

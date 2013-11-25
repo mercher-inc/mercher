@@ -83,18 +83,23 @@ class Template extends \CComponent
                     //rmdir($oldAssetsPath);
                     //var_dump($oldAssetsPath);
                 }
-            }
 
-            \Yii::app()->user->setFlash(
-                'templates_none_Form',
-                'Your design was saved successfully. <a href="//www.facebook.com/' .
-                    $this->shop->fb_id .
-                    '?sk=app_' .
-                    \Yii::app()->facebook->sdk->getAppId() .
-                    '" class="alert-link" target="_blank">View result</a>'
-            );
-            $this->shop->template_config = \CJSON::encode($this->form->attributes);
-            $this->shop->save();
+                \Yii::app()->user->setFlash(
+                    'templates_none_Form',
+                    'Your design was saved successfully. <a href="//www.facebook.com/' .
+                        $this->shop->fb_id .
+                        '?sk=app_' .
+                        \Yii::app()->facebook->sdk->getAppId() .
+                        '" class="alert-link" target="_blank">View result</a>'
+                );
+                $this->shop->template_config = \CJSON::encode($this->form->attributes);
+                $this->shop->save();
+            } else {
+                \Yii::app()->user->setFlash(
+                    'templates_none_Form',
+                    'Your design has errors!'
+                );
+            }
         }
     }
 

@@ -1,131 +1,106 @@
-@import "/bootstrap/less/bootstrap.less";
-@import "/css/fonts.less";
-
 /*!
  * Mercher v1.0.0
  * Template None
  */
-@font-family-sans-serif:  Helvetica, Arial, sans-serif;
-@font-family-base: "Roboto";
-@headings-font-weight:    200;
 
 @brand-primary: #3da3a7;
-@brand-success: #97c03c;
-@brand-warning: #f07c53;
-@brand-danger: #f05253;
 
 body {
-  margin-top: 100px;
-}
-
-#main-navbar {
-  position: absolute;
-  z-index: 1030;
-  left: 0;
-  right: 0;
   margin: 0;
-  top: 0;
-  .border-top-radius(0);
-  .border-bottom-radius(0);
-}
-
-#PayPalCart {
-  position: absolute;
-  z-index: 1000;
-  right: 0;
-  left: 0;
-  top: 50px;
-
-  #PPMiniCart{
-    height: 35px;
-    width: 100%;
-
-    form {
-      position: relative;
-      width: 100%;
-      left: 0;
-      right: 0;
-      color: @text-color;
-      background-color: @navbar-default-bg;
-      border-color: @navbar-default-border;
-      .box-shadow(none);
-      .border-bottom-radius(@border-radius-base);
-    }
-
-    p {
-      input {
-        .btn();
-        .btn-primary();
-        .btn-xs();
-        margin: 0;
-      }
-    }
-  }
-}
-
-.container {
-  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 .product_list {
-  .item {
-    margin: 0 0 30px 0;
 
-    .likeProduct {
-      width: 50px;
-      height: 50px;
-      float: left;
-      margin: 0 0 -50px 0;
-      z-index: 2;
+  .item {
+    display: inline-block;
+    width: 240px;
+    height: 240px;
+    margin: 15px;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px #999;
+
+    .image {
       position: relative;
-      background: none;
-      border: none;
-      padding: 0;
-      background: url('./app/img/heart.png');
-      color: #f5f5f5;
-      &.active {
-        background: url('./app/img/heart_active.png');
-        color: #777777;
+      z-index: -1;
+
+      img {
+        display: block;
+        width: 240px;
+        height: 240px;
       }
-      &:hover {
-        background: url('./app/img/heart_hover.png');
-        &.active {
-          background: url('./app/img/heart_hover_active.png');
+    }
+
+    .info {
+      background: fadeout(@brand-primary, 25%);
+      color: white;
+      width: 240px;
+      height: 240px;
+      position: relative;
+      top: -30px;
+
+      transition: top 0.25s;
+      -webkit-transition: top 0.25s;
+
+      .title {
+        height: 30px;
+
+        h4 {
+          margin: 0;
+          padding: 0;
+          font-weight: normal;
+          font-size: 12px;
+          text-align: center;
+          line-height: 30px;
+        }
+      }
+
+      .description {
+        height: 140px;
+        overflow: hidden;
+        padding: 0 8px;
+        font-size: 12px;
+        line-height: 14px;
+        margin: 0 0 8px 0;
+      }
+
+      .actions {
+        padding: 0 8px;
+        .addToCart {
+          background: none;
+          color: white;
+          border: none;
+          margin: 0;
+          padding: 8px 16px;
+          cursor: pointer;
+          width: 100%;
+          border-radius: 4px;
+
+          &:hover {
+            background: @brand-primary;
+          }
         }
       }
     }
 
-    .image {
-      margin: 0;
-      cursor: pointer;
+    &:hover {
+      .info {
+        top: -240px;
 
-      img {
-        width: 100%;
+        .title {
+          height: 50px;
+
+          h4 {
+            font-size: 16px;
+            text-align: center;
+            line-height: 50px;
+          }
+        }
+
       }
     }
-    .title {
-      margin: 10px 0 0 0;
-      cursor: pointer;
-    }
-    .description {
-      margin: 10px 0 0 0;
-      text-align: justify;
-      cursor: pointer;
-
-      &.closed {
-        max-height: 60px;
-        overflow: hidden;
-      }
-    }
-    .actions {
-      margin: 10px 0 0 0;
-    }
-  }
-}
-
-.row {
-  .row {
-    margin-left: 0;
-    margin-right: 0;
   }
 }

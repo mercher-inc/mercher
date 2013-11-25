@@ -11,17 +11,17 @@ define(function (require) {
 
     return Backbone.View.extend({
 
-        className: 'col-sm-' + Math.round(12 / Math.sqrt(appConfig.perPageCount)),
+        className: 'item',
 
         initialize: function () {
             this.listenTo(this.model, "sync", this.render);
         },
 
         events: {
-            "click .likeProduct": "likeProduct",
-            "click .description": "toggleDescription",
-            "click .image": "openProduct",
-            "click .title": "openProduct",
+            //"click .likeProduct": "likeProduct",
+            //"click .description": "toggleDescription",
+            //"click .image": "openProduct",
+            //"click .title": "openProduct",
             "click .addToCart": "addToCart"
         },
 
@@ -44,7 +44,7 @@ define(function (require) {
 
                 if (appConfig.shop.tax) {
                     obj.tax = Math.ceil(
-                        this.model.get('amount') * (appConfig.shop.tax/100) * 100
+                        this.model.get('amount') * (appConfig.shop.tax / 100) * 100
                     ) / 100;
                 }
             }
