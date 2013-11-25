@@ -57,7 +57,16 @@ class IndexController extends Controller
                 }
             }
         }
-        if (Yii::app()->request->getParam('code') or Yii::app()->request->getParam('signed_request')) {
+        if (
+            (
+                Yii::app()->request->getParam('code')
+                or
+                Yii::app()->request->getParam('signed_request')
+            )
+            and
+            Yii::app()->facebook->sdk->getUser()
+        ) {
+
             $identity = new UserIdentity();
             if ($identity->authenticate()) {
                 Yii::app()->user->login($identity, 3600 * 24 * 7);

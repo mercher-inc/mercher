@@ -3,6 +3,7 @@
 class UserIdentity extends CBaseUserIdentity
 {
     const ERROR_MISSING_PERMISSIONS = 1000;
+    const ERROR_API                 = 1001;
 
     private $_fbUser;
     private $_user;
@@ -21,8 +22,8 @@ class UserIdentity extends CBaseUserIdentity
             $this->_fbUser = Yii::app()->facebook->sdk->api('/me');
         } catch (FacebookApiException $e) {
             $result             = $e->getResult();
-            $this->errorCode    = self::ERROR_NONE;
-            $this->errorMessage = 'Facebook API error: ' . $result['error']['message'];
+            $this->errorCode    = self::ERROR_API;
+            $this->errorMessage = $result['error']['message'];
             return false;
         }
 
@@ -37,8 +38,8 @@ class UserIdentity extends CBaseUserIdentity
             }
         } catch (FacebookApiException $e) {
             $result             = $e->getResult();
-            $this->errorCode    = self::ERROR_NONE;
-            $this->errorMessage = 'Facebook API error: ' . $result['error']['message'];
+            $this->errorCode    = self::ERROR_API;
+            $this->errorMessage = $result['error']['message'];
             return false;
         }
 
