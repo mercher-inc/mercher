@@ -59,7 +59,25 @@ class WizardController extends Controller
             }
         }
 
-        $this->render('step1', ['model' => $model]);
+        $accounts = [];
+        try {
+            $result = Yii::app()->facebook->sdk->api('/me/accounts?fields=id,name&limit=50');
+        } catch (FacebookApiException $e) {
+            throw new CHttpException(500, $e->getMessage(), $e->getCode());
+        }
+        if (isset($result['data'])) {
+            foreach ($result['data'] as $row) {
+                $accounts[$row['id']] = $row['name'];
+            }
+        }
+
+        $this->render(
+            'step1',
+            [
+                'model'    => $model,
+                'accounts' => $accounts
+            ]
+        );
     }
 
     public function actionStep2()
@@ -78,7 +96,7 @@ class WizardController extends Controller
             $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
         }
 
-        $model = new Category;
+        $model        = new Category;
         $model->title = $shop->title . ' first category';
 
         if (isset($_POST['Category'])) {

@@ -35,6 +35,8 @@ return array(
     'delete'                 => 'Delete',
     'not_set'                => 'Not set',
     'refresh'                => 'Refresh',
-    'no_fb_pages'            => 'As we see, you have no Facebook pages. But you can create one and add shop to it!'
+    'no_fb_pages_dlg_title'  => 'No Facebook pages found',
+    'no_fb_pages'            => 'As we see, you have no Facebook pages. But you can create one and add shop to it! Click "Create Facebook page", fill all required fields and come back to this page to proceed.',
+    'create_facebook_page'   => 'Create Facebook page'
 
 );
