@@ -62,10 +62,16 @@ class IndexController extends Controller
             if ($identity->authenticate()) {
                 Yii::app()->user->login($identity, 3600 * 24 * 7);
                 $this->redirect(Yii::app()->user->returnUrl);
+            } else {
+                $this->render(
+                    'index',
+                    [
+                        'errorCode'    => $identity->errorCode,
+                        'errorMessage' => $identity->errorMessage,
+                    ]
+                );
+                return;
             }
-        }
-        if (Yii::app()->request->getParam('error_code') and Yii::app()->request->getParam('error_message')) {
-            throw new CHttpException(Yii::app()->request->getParam('error_code'), Yii::app()->request->getParam('error_message'));
         }
         $this->render('index');
     }

@@ -1,5 +1,9 @@
 <?php
-/* @var $this SiteController */
+/**
+ * @var $this SiteController
+ * @var $errorCode integer
+ * @var $errorMessage string
+ */
 
 Yii::app()->clientScript->registerPackage('bootstrap');
 Yii::app()->clientScript->registerScript(
@@ -31,6 +35,63 @@ Yii::app()->clientScript->registerScript(
 );
 
 $this->pageTitle = Yii::app()->name;
+
+if (isset($errorCode) and isset($errorMessage)) {
+
+    echo CHtml::openTag(
+        'div',
+        [
+            'id'              => 'authErrorDlg',
+            'class'           => 'modal fade',
+            'tabindex'        => '-1',
+            'role'            => 'dialog',
+            'aria-labelledby' => 'authErrorDlgLabel',
+            'aria-hidden'     => 'true',
+        ]
+    );
+    echo CHtml::openTag('div', ['class' => 'modal-dialog']);
+    echo CHtml::openTag('div', ['class' => 'modal-content']);
+    echo CHtml::openTag('div', ['class' => 'modal-header']);
+    echo CHtml::tag(
+        'button',
+        [
+            'class'        => 'close',
+            'type'         => 'button',
+            'data-dismiss' => 'modal',
+            'aria-hidden'  => 'true',
+        ],
+        '&times;'
+    );
+    echo CHtml::tag(
+        'h4',
+        [
+            'id'    => 'authErrorDlgLabel',
+            'class' => 'modal-title',
+        ],
+        Yii::t('auth', 'error_' . $errorCode)
+    );
+    echo CHtml::closeTag('div');
+    echo CHtml::openTag('div', ['class' => 'modal-body']);
+    echo CHtml::tag('p', [], $errorMessage);
+    echo CHtml::closeTag('div');
+    echo CHtml::openTag('div', ['class' => 'modal-footer']);
+    echo CHtml::tag(
+        'button',
+        [
+            'class'        => 'btn btn-default',
+            'type'         => 'button',
+            'data-dismiss' => 'modal',
+        ],
+        'OK'
+    );
+    echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
+
+    Yii::app()->clientScript->registerScript('authErrorDlg', "$('#authErrorDlg').modal();");
+}
+
 ?>
 
 <div class="hero">

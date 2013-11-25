@@ -92,9 +92,8 @@ return array(
             'namespace' => 'mercher',
             'scope'     => array(
                 'email',
-                'publish_actions',
-                'manage_pages',
-                'publish_stream'
+                'publish_stream',
+                'manage_pages'
             )
         ),
     ),
