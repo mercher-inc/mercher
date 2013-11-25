@@ -34,7 +34,7 @@ define(function (require) {
 
                 var collection = new Collection();
 
-                collection.data.limit = appConfig.perPageCount;
+                collection.data.limit = 9;
                 activeView = new View({
                     el: $content,
                     collection: collection

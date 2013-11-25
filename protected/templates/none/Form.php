@@ -13,17 +13,14 @@ namespace templates\none;
 class Form extends \CFormModel
 {
     protected $_template;
-    public $title;
     public $primary_color;
-    public $per_page_count = 9;
 
     public function rules()
     {
         return array(
             array('primary_color', 'filter', 'filter' => 'strtoupper'),
             array('primary_color', 'color'),
-            array('title, primary_color, per_page_count', 'safe'),
-            array('per_page_count', 'in', 'range' => array('4', '9', '16')),
+            array('primary_color', 'safe'),
         );
     }
 
@@ -39,9 +36,7 @@ class Form extends \CFormModel
     public function attributeLabels()
     {
         return array(
-            'title'          => 'Custom title',
-            'primary_color'  => 'Primary color',
-            'per_page_count' => 'Products on page',
+            'primary_color' => 'Branding color',
         );
     }
 
@@ -53,5 +48,23 @@ class Form extends \CFormModel
     public function getTemplate()
     {
         return $this->_template;
+    }
+
+    public function setTitle()
+    {
+    }
+
+    public function getTitle()
+    {
+        return null;
+    }
+
+    public function setPer_page_count()
+    {
+    }
+
+    public function getPer_page_count()
+    {
+        return null;
     }
 }

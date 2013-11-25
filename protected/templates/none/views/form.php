@@ -50,61 +50,6 @@ echo $form->error($model, 'primary_color', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
-//==per_page_count==
-echo CHtml::openTag(
-    'div',
-    array(
-        'class' => 'form-group' . ($this->template->form->hasErrors('per_page_count') ? ' has-error' : '')
-    )
-);
-
-echo CHtml::label(
-    $this->template->form->getAttributeLabel('per_page_count'),
-    'perPageCountInput'
-);
-
-Yii::app()->clientScript->registerScript(
-    'design-form-per_page_count',
-    "
-        $('.design-in-row-btn-r2c2 input, .design-in-row-btn-r3c3 input, .design-in-row-btn-r4c4 input', $('#design-form')).change(function(e){
-            $('.design-in-row-btn-r2c2, .design-in-row-btn-r3c3, .design-in-row-btn-r4c4', $('#design-form')).removeClass('active');
-            $(e.target).parent().addClass('active');
-        });
-    "
-);
-
-echo CHtml::openTag('div', ['class' => 'design-in-row-line row']);
-$attr = 'per_page_count';
-echo CHtml::openTag('label', ['class' => 'col-lg-4']);
-echo CHtml::openTag('div', ['class' => 'design-in-row-btn-r2c2' . ($model->per_page_count == 4 ? ' active' : '')]);
-echo CHtml::radioButton(CHtml::resolveName($model, $attr), $model->per_page_count == 4, ['value' => 4]);
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('label');
-
-echo CHtml::openTag('label', ['class' => 'col-lg-4']);
-echo CHtml::openTag('div', ['class' => 'design-in-row-btn-r3c3' . ($model->per_page_count == 9 ? ' active' : '')]);
-echo CHtml::radioButton(CHtml::resolveName($model, $attr), $model->per_page_count == 9, ['value' => 9]);
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('label');
-
-echo CHtml::openTag('label', ['class' => 'col-lg-4']);
-echo CHtml::openTag('div', ['class' => 'design-in-row-btn-r4c4' . ($model->per_page_count == 16 ? ' active' : '')]);
-echo CHtml::radioButton(CHtml::resolveName($model, $attr), $model->per_page_count == 16, ['value' => 16]);
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('label');
-
-echo CHtml::closeTag('div');
-
-echo CHtml::error(
-    $this->template->form,
-    'per_page_count',
-    array(
-        'class' => 'help-block'
-    )
-);
-echo CHtml::closeTag('div');
-
-
 //==submit==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
