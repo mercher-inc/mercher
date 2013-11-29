@@ -1,33 +1,15 @@
 define(function (require) {
 
     "use strict";
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        Backbone = require('backbone'),
-        Bootstrap = require('bootstrap'),
-        tpl = require('text!app/tpl/layouts/default.html'),
-        template = _.template(tpl);
+    var _ = require('underscore'),
+        Backbone = require('backbone');
 
     return Backbone.View.extend({
-
-        initialize: function () {
-            this.listenTo(this.options.categories, "sync", this.printCategories);
-            this.options.categories.fetch({data: {limit: 100}});
-        },
-
+        template: _.template(require('text!app/tpl/layouts/default.html')),
         render: function () {
-            this.$el.html(template());
-            return this;
-        },
-
-        printCategories: function () {
-            $('#categories_menu', this.$el).append('<li><a href="#products">All</a></li>');
-            this.options.categories.each(function(category) {
-                $('#categories_menu', this.$el).append('<li><a href="#category/'+category.get('id')+'/products">'+category.get('title')+'</a></li>');
-            }, this);
+            this.$el.html(this.template());
             return this;
         }
-
     });
 
 });

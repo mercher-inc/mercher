@@ -5,7 +5,6 @@ define(function (require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
-        Bootstrap = require('bootstrap'),
         tpl = require('text!app/tpl/products/list.html'),
         ProductsListItemView = require('app/views/products/list/item'),
         template = _.template(tpl);
@@ -16,40 +15,36 @@ define(function (require) {
             this.listenTo(this.collection, "sync", this.render);
         },
 
-        events: {
-            "click .showMore": "showMore"
-        },
-
         render: function () {
-            ga('send', 'pageview', 'mercher/products');
-
-            this.$el.html(template({collection: this.collection}));
-
-            var $list = $('.list:first', this.$el);
-            $list.empty();
-
-            _.each(this.collection.models, function (product, i) {
-                $list.append(new ProductsListItemView({model: product}).render().el);
-            }, this);
-
-            var canvasHeight = Math.max(Math.ceil(this.collection.length / 3) * 270, 800);
-
-            FB.Canvas.setSize({height: canvasHeight});
-
             var view = this;
+            require(['app/fb', 'app/ga'], function (FB, ga) {
+                ga('send', 'pageview', 'mercher/products');
+                view.$el.html(template({collection: view.collection}));
 
-            if (this.collection.data.count - this.collection.length > 0) {
-                var scrollCheckInterval = setInterval(function () {
-                    FB.Canvas.getPageInfo(
-                        function (info) {
-                            if (canvasHeight + info.offsetTop - info.scrollTop <= info.clientHeight) {
-                                clearInterval(scrollCheckInterval);
-                                view.showMore();
+                var $list = $('.list:first', view.$el);
+                $list.empty();
+
+                _.each(view.collection.models, function (product, i) {
+                    $list.append(new ProductsListItemView({model: product}).render().el);
+                }, view);
+
+                var canvasHeight = Math.max(Math.ceil(view.collection.length / 3) * 270, 800);
+
+                FB.Canvas.setSize({height: canvasHeight});
+
+                if (view.collection.data.count - view.collection.length > 0) {
+                    var scrollCheckInterval = setInterval(function () {
+                        FB.Canvas.getPageInfo(
+                            function (info) {
+                                if (canvasHeight + info.offsetTop - info.scrollTop <= info.clientHeight) {
+                                    clearInterval(scrollCheckInterval);
+                                    view.showMore();
+                                }
                             }
-                        }
-                    );
-                }, 500);
-            }
+                        );
+                    }, 500);
+                }
+            });
 
             return this;
         },

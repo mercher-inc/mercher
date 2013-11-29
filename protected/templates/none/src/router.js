@@ -16,14 +16,11 @@ define(function (require) {
     return Backbone.Router.extend({
 
         routes: {
-            //"": "products",
-            "products": "products",
-            "category/:category_id/products": "products",
-            "products/:product_id": "product"
+            "products": "products"
         },
 
-        products: function (category_id) {
-            require(["app/views/products/list", "app/collections/products"], function (View, Collection) {
+        products: function () {
+            require(["app/views/products/list", "app/collections/products", 'app/fb'], function (View, Collection, FB) {
 
                 FB.Canvas.scrollTo(0,0);
 
@@ -40,35 +37,9 @@ define(function (require) {
                     collection: collection
                 });
 
-                if (category_id) {
-                    activeView.collection.data.category_id = category_id;
-                } else {
-                    activeView.collection.data.category_id = null;
-                    delete activeView.collection.data.category_id;
-                }
                 activeView.collection.data.offset = 0;
 
                 activeView.collection.fetch({data: activeView.collection.data});
-            });
-        },
-
-        product: function (product_id) {
-            require(["app/views/products/item", "app/models/product"], function (View, Model) {
-
-                FB.Canvas.scrollTo(0,0);
-
-                if (activeView) {
-                    activeView.setElement(null);
-                    activeView.remove();
-                }
-
-                var model = new Model({id: product_id});
-                activeView = new View({
-                    el: $content,
-                    model: model
-                });
-
-                model.fetch();
             });
         }
 
