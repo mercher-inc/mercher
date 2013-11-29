@@ -12,12 +12,12 @@ requirejs.config({
         "google-analytics": "//www.google-analytics.com/analytics"
     },
     shim: {
+        "underscore": {
+            exports: '_'
+        },
         "backbone": {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
-        },
-        "underscore": {
-            exports: '_'
         },
         "bootstrap": {
             deps: ['jquery']

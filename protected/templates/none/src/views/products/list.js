@@ -5,11 +5,10 @@ define(function (require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
-        tpl = require('text!app/tpl/products/list.html'),
-        ProductsListItemView = require('app/views/products/list/item'),
-        template = _.template(tpl);
+        ProductsListItemView = require('app/views/products/list/item');
 
     return Backbone.View.extend({
+        template: _.template(require('text!app/tpl/products/list.html')),
 
         initialize: function () {
             this.listenTo(this.collection, "sync", this.render);
@@ -19,7 +18,7 @@ define(function (require) {
             var view = this;
             require(['app/fb', 'app/ga'], function (FB, ga) {
                 ga('send', 'pageview', 'mercher/products');
-                view.$el.html(template({collection: view.collection}));
+                view.$el.html(view.template({collection: view.collection}));
 
                 var $list = $('.list:first', view.$el);
                 $list.empty();

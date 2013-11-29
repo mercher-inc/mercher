@@ -2,14 +2,11 @@ define(function (require) {
 
     "use strict";
 
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        Backbone = require('backbone'),
-        Bootstrap = require('bootstrap'),
-        tpl = require('text!app/tpl/products/list/item.html'),
-        template = _.template(tpl);
+    var _ = require('underscore'),
+        Backbone = require('backbone');
 
     return Backbone.View.extend({
+        template: _.template(require('text!app/tpl/products/list/item.html')),
 
         className: 'item',
 
@@ -22,11 +19,11 @@ define(function (require) {
         },
 
         render: function () {
-            this.$el.html(template({model: this.model}));
+            this.$el.html(this.template({model: this.model}));
             return this;
         },
 
-        addToCart: function (event) {
+        addToCart: function () {
             var obj = {
                 "business": appConfig.shop.pp_merchant_id,
                 "item_name": this.model.get('title'),
