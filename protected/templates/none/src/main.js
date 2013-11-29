@@ -36,19 +36,6 @@ router = null;
 
 require(['jquery', 'backbone', 'app/router', 'minicart.min'], function ($, Backbone, Router, Minicart) {
 
-    PAYPAL.apps.MiniCart.render({
-        paypalURL: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
-        parent: 'PayPalCart',
-        formTarget: '_blank',
-        edgeDistance: '15px',
-        strings: {
-            subtotal: 'Subtotal: ',
-            shipping: 'Does not include shipping',
-            button: 'Checkout',
-            processing: 'Checkout'
-        }
-    });
-
     router = new Router();
     Backbone.history.start();
 

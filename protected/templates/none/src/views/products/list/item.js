@@ -6,6 +6,7 @@ define(function (require) {
         Backbone = require('backbone');
 
     return Backbone.View.extend({
+
         template: _.template(require('text!app/tpl/products/list/item.html')),
 
         className: 'item',

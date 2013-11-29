@@ -2,54 +2,106 @@ define(function (require) {
 
     "use strict";
 
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        Backbone = require('backbone'),
-        ProductsListItemView = require('app/views/products/list/item');
+    //requirements
+    var _ = require('underscore'),
+        Backbone = require('backbone');
+    //scroll check interval
+    var scrollCheckInterval = null;
 
     return Backbone.View.extend({
-        template: _.template(require('text!app/tpl/products/list.html')),
+
+        className: 'list product_list',
 
         initialize: function () {
-            this.listenTo(this.collection, "sync", this.render);
+            //if collection was reset render view again
+            this.listenTo(this.collection, "reset", this.render);
+            //if new model was added render product view
+            this.listenTo(this.collection, "add", this.renderProduct);
+            //stop scroll check
+            this.listenTo(this.collection, "request", this.stopScrollCheck);
+            //start scroll check
+            this.listenTo(this.collection, "sync", this.startScrollCheck);
         },
 
-        render: function () {
+        render: function (collection, options) {
+            //append to content block
+            this.$el.appendTo('#content');
+            //clear list
+            this.$el.empty();
+            //render product views
+            _.each(this.collection.models, function (model) {
+                this.renderProduct(model);
+            }, this);
+            //resize canvas
+            this.resizeCanvas();
+            //return view
+            return this;
+        },
+
+        renderProduct: function (model, collection, options) {
             var view = this;
-            require(['app/fb', 'app/ga'], function (FB, ga) {
-                ga('send', 'pageview', 'mercher/products');
-                view.$el.html(view.template({collection: view.collection}));
+            //get product view module
+            require(['app/views/products/list/item'], function (ProductView) {
+                //create product view
+                var productView = new ProductView({model: model});
+                //render product view
+                view.$el.append(productView.render().$el);
+                //resize canvas
+                view.resizeCanvas();
+            });
+            //return view
+            return this;
+        },
 
-                var $list = $('.list:first', view.$el);
-                $list.empty();
+        calculateHeight: function () {
+            return Math.ceil(this.collection.length / 3) * 270;
+        },
 
-                _.each(view.collection.models, function (product, i) {
-                    $list.append(new ProductsListItemView({model: product}).render().el);
-                }, view);
-
-                var canvasHeight = Math.max(Math.ceil(view.collection.length / 3) * 270, 800);
-
+        resizeCanvas: function () {
+            var view = this;
+            //getting FB object
+            require(['app/fb'], function (FB) {
+                //calculating required canvas height
+                var canvasHeight = Math.max(view.calculateHeight(), 800);
+                //setting canvas size
                 FB.Canvas.setSize({height: canvasHeight});
+            });
+        },
 
-                if (view.collection.data.count - view.collection.length > 0) {
-                    var scrollCheckInterval = setInterval(function () {
+        startScrollCheck: function () {
+            var view = this;
+            var canvasHeight = view.calculateHeight();
+            //if there are other models
+            if (view.collection.data.count - view.collection.length > 0) {
+                //every 0.5 seconds
+                this.stopScrollCheck();
+                scrollCheckInterval = setInterval(function () {
+                    //getting FB object
+                    require(['app/fb'], function (FB) {
+                        //get canvas size
                         FB.Canvas.getPageInfo(
                             function (info) {
+                                //if bottom edge of canvas is visible
                                 if (canvasHeight + info.offsetTop - info.scrollTop <= info.clientHeight) {
-                                    clearInterval(scrollCheckInterval);
+                                    //and get more models
                                     view.showMore();
                                 }
                             }
                         );
-                    }, 500);
-                }
-            });
+                    });
+                }, 500);
+            }
+        },
 
-            return this;
+        stopScrollCheck: function () {
+            //stop checking canvas size
+            clearInterval(scrollCheckInterval);
         },
 
         showMore: function () {
+            //setting offset to request new models
             this.collection.data.offset = this.collection.length;
+            //fetching new models from server
             this.collection.fetch({
                 data: this.collection.data,
                 remove: false
