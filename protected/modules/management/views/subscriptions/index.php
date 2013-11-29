@@ -38,6 +38,14 @@ $this->widget(
             'trial_duration',
             'products_count',
             [
+                'name'  => 'shopsCount',
+                'value' => '$data->shopsCount'
+            ],
+            [
+                'name'  => 'is_public',
+                'type' => 'boolean'
+            ],
+            [
                 'name' => 'created',
                 'type' => 'datetime'
             ],

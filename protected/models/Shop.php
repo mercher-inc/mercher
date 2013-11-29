@@ -8,6 +8,7 @@
  * @property string $updated
  * @property string $fb_id
  * @property string $owner_id
+ * @property string $subscription_id
  * @property string $pp_merchant_id
  * @property string $ga_id
  * @property string $title
@@ -19,10 +20,13 @@
  * @property boolean $is_banned
  * The followings are the available model relations:
  * @property User $owner
+ * @property Subscription $subscription
  * @property Template $template
  * @property Product[] $products
  * @property Image[] $images
  * @property Category[] $categories
+ *
+ * @property integer maxProductsCount
  */
 class Shop extends CActiveRecord
 {
@@ -51,7 +55,7 @@ class Shop extends CActiveRecord
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id, pp_merchant_id', 'required'),
             array('pp_merchant_id', 'email'),
-            array('ga_id', 'match', 'pattern'=>'/^UA-\d{1,12}-\d{1,4}/'),
+            array('ga_id', 'match', 'pattern' => '/^UA-\d{1,12}-\d{1,4}/'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
             array(
                 'fb_id',
@@ -184,6 +188,7 @@ class Shop extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'owner'           => array(self::BELONGS_TO, 'User', 'owner_id'),
+            'subscription'    => array(self::BELONGS_TO, 'Subscription', 'subscription_id'),
             'template'        => array(self::BELONGS_TO, 'Template', 'template_alias'),
             'products'        => array(self::HAS_MANY, 'Product', 'shop_id'),
             'productsCount'   => array(self::STAT, 'Product', 'shop_id'),
@@ -205,6 +210,7 @@ class Shop extends CActiveRecord
             'updated'         => 'Updated',
             'fb_id'           => 'Facebook page',
             'owner_id'        => 'Owner',
+            'subscription_id'        => 'Subscription',
             'title'           => 'Title',
             'description'     => 'Description',
             'tax'             => 'Tax percentage in your country/state',
@@ -236,6 +242,7 @@ class Shop extends CActiveRecord
         $criteria->compare('updated', $this->updated, true);
         $criteria->compare('fb_id', $this->fb_id, true);
         $criteria->compare('owner_id', $this->owner_id, true);
+        $criteria->compare('subscription_id', $this->subscription_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('tax', $this->tax, true);
@@ -268,6 +275,14 @@ class Shop extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function getMaxProductsCount()
+    {
+        if ($this->subscription_id) {
+            return $this->subscription->products_count;
+        }
+        return 10;
     }
 
     public function getTemplateInstance()

@@ -6,7 +6,7 @@
 
 Yii::app()->controller->headerTitle = Yii::t('label', 'categories');
 
-if ($this->shop->categoriesCount < 10) {
+if ($this->shop->categoriesCount < $this->shop->maxProductsCount) {
     array_push(
         Yii::app()->controller->headerButtons,
         [
@@ -15,7 +15,7 @@ if ($this->shop->categoriesCount < 10) {
                 'create_btn',
                 [
                     '{categoriesCount}' => $this->shop->categoriesCount,
-                    '{categoriesMax}'   => 10
+                    '{categoriesMax}'   => $this->shop->maxProductsCount
                 ]
             ),
             'url'   => Yii::app()->urlManager->createUrl('categories/create', ['shop_id' => $this->shop->id])

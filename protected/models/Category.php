@@ -92,7 +92,7 @@ class Category extends CActiveRecord
                 );
             }
             $count++;
-            if ($count > 10) {
+            if ($count > $this->shop->maxProductsCount) {
                 $this->addError('is_active', Yii::t('category', 'too_many_active'));
                 return false;
             }
