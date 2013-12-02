@@ -144,10 +144,7 @@ class Template extends \CComponent
                     'pp_merchant_id' => $this->shop->pp_merchant_id,
                     'tax'            => (float)$this->shop->tax
                 )
-            ) . ';',
-            'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(
-                $assetsPath
-            ) . '/app";'
+            ) . ';'
         ];
 
         \Yii::app()->clientScript->registerScript(

@@ -41,7 +41,7 @@ define(function (require) {
         renderProduct: function (model, collection, options) {
             var view = this;
             //get product view module
-            require(['app/views/products/list/item'], function (ProductView) {
+            require(['views/products/list/item'], function (ProductView) {
                 //create product view
                 var productView = new ProductView({model: model});
                 //render product view
@@ -60,7 +60,7 @@ define(function (require) {
         resizeCanvas: function () {
             var view = this;
             //getting FB object
-            require(['config/fb'], function (FB) {
+            require(['fb'], function (FB) {
                 //calculating required canvas height
                 var canvasHeight = Math.max(view.calculateHeight(), 800);
                 //setting canvas size
@@ -77,7 +77,7 @@ define(function (require) {
                 this.stopScrollCheck();
                 scrollCheckInterval = setInterval(function () {
                     //getting FB object
-                    require(['config/fb'], function (FB) {
+                    require(['fb'], function (FB) {
                         //get canvas size
                         FB.Canvas.getPageInfo(
                             function (info) {

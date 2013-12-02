@@ -7,7 +7,7 @@ define(function (require) {
 
     return Backbone.View.extend({
 
-        template: _.template(require('text!app/tpl/products/list/item.html')),
+        template: _.template(require('text!tpl/products/list/item.html')),
 
         className: 'item',
 

@@ -3,14 +3,14 @@ define(function (require) {
     "use strict";
 
     var Backbone = require('backbone'),
-        DefaultLayout = require('app/views/layouts/default');
+        DefaultLayout = require('views/layouts/default');
 
     return Backbone.Router.extend({
 
         initialize: function () {
             new DefaultLayout({el: 'body'}).render();
 
-            require(['minicart.min'], function () {
+            require(['minicart'], function () {
                 PAYPAL.apps.MiniCart.render({
                     paypalURL: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
                     parent: 'PayPalCart',
@@ -32,11 +32,11 @@ define(function (require) {
         },
 
         products: function () {
-            require(['config/ga'], function (ga) {
+            require(['ga'], function (ga) {
                 ga('send', 'pageview', 'mercher/products');
             });
 
-            require(["app/views/products/list", "app/collections/products", 'config/fb'], function (View, Collection, FB) {
+            require(["views/products/list", "collections/products", 'fb'], function (View, Collection, FB) {
 
                 FB.Canvas.scrollTo(0, 0);
 

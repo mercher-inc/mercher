@@ -5,13 +5,13 @@ define(function (require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
-        ProductModel = require('app/models/product');
+        ProductModel = require('models/product');
 
     return Backbone.Collection.extend({
         initialize: function () {
             this.data = {};
         },
-        comparator : function(firstProduct, secondProduct) {
+        comparator: function (firstProduct, secondProduct) {
             var firstDate = Date.parse(firstProduct.get('created')),
                 secondDate = Date.parse(secondProduct.get('created'));
             if (firstDate > secondDate) {
@@ -24,7 +24,7 @@ define(function (require) {
         },
         url: '/api/shops/' + appConfig.shop.id + '/products',
         model: ProductModel,
-        parse     : function (response) {
+        parse: function (response) {
             this.data.limit = response.limit;
             this.data.count = response.count;
             this.data.offset = response.offset;

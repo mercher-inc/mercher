@@ -4,13 +4,17 @@
  */
 
 requirejs.config({
-    baseUrl: '/js',
     paths: {
-        "app": appConfig.appPath,
-        "config": appConfig.appPath + '/..',
-        "bootstrap": '/bootstrap/dist/js/bootstrap',
-        "facebook": '//connect.facebook.net/en_US/all',
-        "google-analytics": "//www.google-analytics.com/analytics"
+        "jquery": "/js/jquery",
+        "text": "/js/text",
+        "underscore": "/js/underscore",
+        "backbone": "/js/backbone",
+        "minicart": "/js/minicart.min",
+        "bootstrap": "/lib/bootstrap/dist/js/bootstrap",
+        "facebook": "//connect.facebook.net/en_US/all",
+        "google-analytics": "//www.google-analytics.com/analytics",
+        "fb": "../fb",
+        "ga": "../ga"
     },
     shim: {
         "underscore": {
@@ -35,7 +39,7 @@ requirejs.config({
 
 router = null;
 
-require(['jquery', 'backbone', 'app/router', 'minicart.min'], function ($, Backbone, Router, Minicart) {
+require(['jquery', 'backbone', 'router', 'minicart'], function ($, Backbone, Router, Minicart) {
 
     router = new Router();
     Backbone.history.start();

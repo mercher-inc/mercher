@@ -5,7 +5,7 @@ define(function (require) {
         Backbone = require('backbone');
 
     return Backbone.View.extend({
-        template: _.template(require('text!app/tpl/layouts/default.html')),
+        template: _.template(require('text!tpl/layouts/default.html')),
         render: function () {
             this.$el.html(this.template());
             return this;
