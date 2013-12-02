@@ -31,7 +31,7 @@ class OgProductBehavior extends CActiveRecordBehavior
 
         if ($model->image) {
             $data               = CJSON::decode($model->image->data);
-            $object['og:image'] = $_SERVER['HTTP_ORIGIN'] . $data['origin'];
+            $object['og:image'] = 'https://' . $_SERVER['HTTP_HOST'] . $data['xl'];
         }
 
         $object['og:url'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
