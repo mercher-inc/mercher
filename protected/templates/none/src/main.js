@@ -14,7 +14,8 @@ requirejs.config({
         "facebook": "//connect.facebook.net/en_US/all",
         "google-analytics": "//www.google-analytics.com/analytics",
         "fb": "../fb",
-        "ga": "../ga"
+        "ga": "../ga",
+        "shop": "../shop"
     },
     shim: {
         "underscore": {

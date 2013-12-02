@@ -2,7 +2,7 @@
     <% if (!_.isEmpty(model.get('image'))) { %>
         <img src="<%- model.get('image').l %>">
     <% } else { %>
-        <img src="https://graph.facebook.com/<%- appConfig.shop.page %>/picture?width=400&height=400">
+        <img src="https://graph.facebook.com/<%- shop.get('page') %>/picture?width=400&height=400">
     <% } %>
 </div>
 <div class="info">
@@ -17,7 +17,7 @@
         <% } %>
     </div>
     <div class="actions">
-        <% if (model.get('amount') && appConfig.shop.pp_merchant_id) { %>
+        <% if (model.get('amount') && shop.get('pp_merchant_id')) { %>
             <button class="addToCart">Buy for &#36;<%- model.get('amount') %></button>
         <% } %>
     </div>

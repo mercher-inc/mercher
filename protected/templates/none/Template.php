@@ -74,6 +74,10 @@ class Template extends \CComponent
                     $assetsPath . DIRECTORY_SEPARATOR . 'fb.js',
                     $this->widget->render('fb', null, true)
                 );
+                file_put_contents(
+                    $assetsPath . DIRECTORY_SEPARATOR . 'shop.js',
+                    $this->widget->render('shop', null, true)
+                );
 
                 //linking assets src to template src
                 if (!file_exists($assetsPath . DIRECTORY_SEPARATOR . 'app')) {
@@ -129,28 +133,6 @@ class Template extends \CComponent
 
         \Yii::app()->clientScript->registerCssFile(
             \Yii::app()->assetManager->getPublishedUrl($assetsPath) . '/main.css'
-        );
-
-        \Yii::app()->clientScript->registerScriptFile(
-            \Yii::app()->assetManager->getPublishedUrl($assetsPath) . '/main.js'
-        );
-
-        $scripts = [
-            'appConfig.shop = ' . \CJSON::encode(
-                array(
-                    'id'             => $this->shop->id,
-                    'page'           => $this->shop->fb_id,
-                    'title'          => $this->shop->title,
-                    'pp_merchant_id' => $this->shop->pp_merchant_id,
-                    'tax'            => (float)$this->shop->tax
-                )
-            ) . ';'
-        ];
-
-        \Yii::app()->clientScript->registerScript(
-            'appConfig',
-            implode("\n", $scripts),
-            \CClientScript::POS_HEAD
         );
 
         \Yii::app()->clientScript->registerScriptFile(

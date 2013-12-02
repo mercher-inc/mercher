@@ -5,7 +5,8 @@ define(function (require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
-        ProductModel = require('models/product');
+        ProductModel = require('models/product'),
+        shop = require('shop');
 
     return Backbone.Collection.extend({
         initialize: function () {
@@ -22,7 +23,7 @@ define(function (require) {
                 return 0;
             }
         },
-        url: '/api/shops/' + appConfig.shop.id + '/products',
+        url: '/api/shops/' + shop.get("id") + '/products',
         model: ProductModel,
         parse: function (response) {
             this.data.limit = response.limit;

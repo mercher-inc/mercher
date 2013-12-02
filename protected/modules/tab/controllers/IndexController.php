@@ -11,8 +11,8 @@ class IndexController extends CController
 
     public $shop;
 
-	public function actionIndex()
-	{
+    public function actionIndex()
+    {
         $this->shop = Shop::model()->find('fb_id = :pageId', array('pageId' => $this->pageId));
 
         if (!$this->shop or !$this->shop->is_active or $this->shop->is_banned) {
@@ -20,12 +20,6 @@ class IndexController extends CController
             return;
         }
 
-        \Yii::app()->clientScript->registerScript(
-            'appConfig.requestData',
-            'appConfig.requestData = ' . \CJSON::encode($this->data) . ";\n",
-            \CClientScript::POS_HEAD
-        );
-
-		$this->render('index');
-	}
+        $this->render('index');
+    }
 }
