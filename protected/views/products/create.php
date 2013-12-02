@@ -51,14 +51,12 @@ echo CHtml::openTag('div', ['class' => 'row']);
 //==new_image==
 echo CHtml::openTag('div', ['class' => 'form-group col-lg-4' . ($model->hasErrors('new_image') ? ' has-error' : '')]);
 echo $form->label($model, 'new_image', ['class' => 'control-label']);
-echo $form->imageField(
-    $model,
-    'new_image',
+$this->widget(
+    'application.widgets.ImageUploadWidget',
     [
-        'data-toggle' => 'tooltip',
-        'title'       => Yii::t('product', 'help_new_image')
-    ],
-    'image_id'
+        'model'     => $model,
+        'attribute' => 'image_id'
+    ]
 );
 echo $form->error($model, 'new_image', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
