@@ -72,48 +72,10 @@ class ProductsController extends Controller
 
         if (isset($_POST['Product'])) {
             $this->product->attributes = $_POST['Product'];
-            $this->product->new_image  = CUploadedFile::getInstanceByName('Product[new_image]');
             $this->product->shop_id    = $this->shop->id;
 
             if ($this->product->save()) {
-                Yii::app()->user->setFlash(
-                    'Product',
-                    Yii::t(
-                        'product',
-                        'create_success',
-                        [
-                            '{view}' => CHtml::link(
-                                Yii::t('product', 'view_online'),
-                                '//www.facebook.com/' .
-                                    $this->shop->fb_id .
-                                    '?'
-                                    . http_build_query(
-                                    array(
-                                        'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
-                                        'app_data' => CJSON::encode(
-                                            array(
-                                                'product_id' => $this->product->id
-                                            )
-                                        )
-                                    )
-                                ),
-                                [
-                                    'class'  => 'alert-link',
-                                    'target' => '_blank'
-                                ]
-                            )
-                        ]
-                    )
-                );
-                $this->redirect(
-                    Yii::app()->urlManager->createUrl(
-                        'products/update',
-                        array(
-                            'shop_id'    => $this->shop->id,
-                            'product_id' => $this->product->id
-                        )
-                    )
-                );
+                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
             }
         }
 
@@ -144,38 +106,9 @@ class ProductsController extends Controller
     {
         if (isset($_POST['Product'])) {
             $this->product->attributes = $_POST['Product'];
-            $this->product->new_image  = CUploadedFile::getInstanceByName('Product[new_image]');
 
             if ($this->product->save()) {
-                Yii::app()->user->setFlash(
-                    'Product',
-                    Yii::t(
-                        'product',
-                        'save_success',
-                        [
-                            '{view}' => CHtml::link(
-                                Yii::t('product', 'view_online'),
-                                '//www.facebook.com/' .
-                                    $this->shop->fb_id .
-                                    '?'
-                                    . http_build_query(
-                                    array(
-                                        'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
-                                        'app_data' => CJSON::encode(
-                                            array(
-                                                'product_id' => $this->product->id
-                                            )
-                                        )
-                                    )
-                                ),
-                                [
-                                    'class'  => 'alert-link',
-                                    'target' => '_blank'
-                                ]
-                            )
-                        ]
-                    )
-                );
+                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
             }
         }
 
