@@ -18,51 +18,66 @@ class ImageUploadWidget extends CWidget
 
     public function run()
     {
-
         if (!isset($this->htmlOptions['class'])) {
             $this->htmlOptions['class'] = 'imageField';
         }
         $this->htmlOptions['id'] = $this->id;
 
+        if ($this->model->{$this->attribute}) {
+            $image = Image::model()->findByPk($this->model->{$this->attribute});
+        } else {
+            $image = null;
+        }
+
+        if ($image) {
+            $this->htmlOptions['style'] = 'background-image: url('.$image->getSize('l').')';
+        }
+
+        $js = <<<JS
+            $("#{$this->id}").click(function(e){
+                var fileInputForm = $("#{$this->id}_fileInputForm");
+                if (!fileInputForm.length) {
+                    fileInputForm = $("<form></form>");
+                    fileInputForm.attr("id", "{$this->id}_fileInputForm");
+                    fileInputForm.attr("enctype", "multipart/form-data");
+                    fileInputForm.appendTo("body");
+
+                    var fileInput = $("<input/>");
+                    fileInput.attr("type", "file");
+                    fileInput.attr("name", "image");
+                    fileInput.css("display", "none");
+                    fileInput.appendTo(fileInputForm);
+
+                    fileInput.change(function(){
+                        var file = this.files[0];
+                        var formData = new FormData(fileInputForm[0]);
+                        $.ajax({
+                            url: '/api/shops/{$this->model->shop_id}/images',
+                            type: 'POST',
+                            data: formData,
+                            success: function(image) {
+                                $("#{$this->id}").css('background-image', 'url(' + image.data.l + ')');
+
+                                var hidden = $('#{$this->id} input[type="hidden"]');
+                                hidden.attr("value", image.id);
+                                console.log(hidden);
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    });
+                }
+                $('input[type="file"]', fileInputForm).click();
+            });
+JS;
         Yii::app()->clientScript->registerScript(
             $this->id,
-            "
-            $(\"#{$this->id}\").click(function(e){
-                if (e.target == this) {
-                    $('input[type=\"file\"]', this).click();
-                }
-            });
-            $('#{$this->id} input[type=\"file\"]').change(function(){
-                var input = this;
-                var holder = $(\"#{$this->id}\");
-                var iframe = $('<iframe></iframe>');
-                iframe.attr(\"name\", \"{$this->id}iframe\");
-                iframe.attr(\"id\", \"{$this->id}iframe\");
-                iframe.css(\"display\", \"none\");
-                iframe.appendTo(\"body\");
-
-                var form = $('<form></form>');
-                form.attr(\"action\", \"/api/images\");
-                form.attr(\"method\", \"post\");
-                form.attr(\"enctype\", \"multipart/form-data\");
-                form.attr(\"encoding\", \"multipart/form-data\");
-                form.attr(\"target\", \"{$this->id}iframe\");
-                form.appendTo(\"body\");
-                form.append(input);
-
-                form.submit();
-
-                holder.append(input);
-
-                $(\"#{$this->id}iframe\").load(function () {
-                    console.log($(\"#{$this->id}iframe\")[0].contentWindow.document.body.innerHTML);
-                });
-            });
-            "
+            $js
         );
 
         echo CHtml::openTag('div', $this->htmlOptions);
-        echo CHtml::fileField('image');
+        echo CHtml::activeHiddenField($this->model, $this->attribute);
         echo CHtml::closeTag('div');
     }
 }

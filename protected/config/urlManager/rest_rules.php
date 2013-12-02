@@ -25,4 +25,10 @@ return array(
         'verb'      => 'GET',
         'urlSuffix' => false,
     ),
+    array(
+        'api/images/upload',
+        'pattern'   => 'api/shops/<shop_id:\d+>/images',
+        'verb'      => 'POST',
+        'urlSuffix' => false,
+    ),
 );
