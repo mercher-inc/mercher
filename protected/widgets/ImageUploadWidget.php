@@ -36,6 +36,9 @@ class ImageUploadWidget extends CWidget
         $js = <<<JS
             $("#{$this->id}").click(function(e){
                 var holder = $("#{$this->id}");
+                if (holder.hasClass('loading')) {
+                    return false;
+                }
                 var fileInputForm = $("#{$this->id}_fileInputForm");
                 if (!fileInputForm.length) {
                     fileInputForm = $("<form></form>");
@@ -87,6 +90,7 @@ class ImageUploadWidget extends CWidget
                     });
                 }
                 $('input[type="file"]', fileInputForm).click();
+                return false;
             });
 JS;
         Yii::app()->clientScript->registerScript(
