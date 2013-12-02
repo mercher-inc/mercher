@@ -45,10 +45,12 @@ class ProductsController extends Controller
     {
         $model = new Product('search');
         $model->unsetAttributes();
+        $model->getDbCriteria()->order = 'created DESC';
 
         if (isset($_GET['Product'])) {
             $model->attributes = $_GET['Product'];
         }
+
         $model->shop_id = $this->shop->id;
 
         $this->render(
