@@ -51,7 +51,7 @@ class ProductsController extends \Controller
         }
 
         $criteria->with  = array('category', 'image');
-        $criteria->order = 'products.title ASC';
+        $criteria->order = 'products.created DESC';
 
         $products = $shop->products(
             $criteria
