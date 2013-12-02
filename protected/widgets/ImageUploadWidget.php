@@ -35,6 +35,7 @@ class ImageUploadWidget extends CWidget
 
         $js = <<<JS
             $("#{$this->id}").click(function(e){
+                var holder = $("#{$this->id}");
                 var fileInputForm = $("#{$this->id}_fileInputForm");
                 if (!fileInputForm.length) {
                     fileInputForm = $("<form></form>");
@@ -49,23 +50,35 @@ class ImageUploadWidget extends CWidget
                     fileInput.appendTo(fileInputForm);
 
                     fileInput.change(function(){
-                        var file = this.files[0];
+                        holder.addClass('loading');
+                        var hidden = $('input[type="hidden"]', holder);
+                        var prevBg = holder.css('background-image');
+                        var prevId = hidden.val();
+
+                        holder.css('background-image', '');
+                        hidden.val('');
+
                         var formData = new FormData(fileInputForm[0]);
                         $.ajax({
                             url: '/api/shops/{$this->model->shop_id}/images',
                             type: 'POST',
                             data: formData,
                             success: function(image) {
-                                $("#{$this->id}").css('background-image', 'url(' + image.data.l + ')');
-                                var hidden = $('#{$this->id} input[type="hidden"]');
+                                holder.removeClass('loading');
+                                holder.css('background-image', 'url(' + image.data.l + ')');
                                 hidden.attr("value", image.id);
 
-                                $("#{$this->id}").parent().removeClass('has-error');
-                                $('.help-block', $("#{$this->id}").parent()).remove();
+                                holder.parent().removeClass('has-error');
+                                $('.help-block', holder.parent()).remove();
                             },
                             error: function (response) {
-                                $("#{$this->id}").parent().append('<div class="help-block">'+response.responseJSON.error.message+'</div>');
-                                $("#{$this->id}").parent().addClass('has-error');
+                                holder.removeClass('loading');
+
+                                holder.css('background-image', prevBg);
+                                hidden.attr("value", prevId);
+
+                                holder.parent().append('<div class="help-block">'+response.responseJSON.error.message+'</div>');
+                                holder.parent().addClass('has-error');
                             },
                             cache: false,
                             contentType: false,
