@@ -48,9 +48,9 @@ echo CHtml::closeTag('div');
 
 echo CHtml::openTag('div', ['class' => 'row']);
 
-//==new_image==
-echo CHtml::openTag('div', ['class' => 'form-group col-lg-4' . ($model->hasErrors('new_image') ? ' has-error' : '')]);
-echo $form->label($model, 'new_image', ['class' => 'control-label']);
+//==image_id==
+echo CHtml::openTag('div', ['class' => 'form-group col-lg-4' . ($model->hasErrors('image_id') ? ' has-error' : '')]);
+echo $form->label($model, 'image_id', ['class' => 'control-label']);
 $this->widget(
     'application.widgets.ImageUploadWidget',
     [
@@ -58,7 +58,7 @@ $this->widget(
         'attribute' => 'image_id'
     ]
 );
-echo $form->error($model, 'new_image', ['class' => 'help-block']);
+echo $form->error($model, 'image_id', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 
 echo CHtml::openTag('div', ['class' => 'col-lg-8']);

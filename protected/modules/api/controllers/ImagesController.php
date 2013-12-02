@@ -44,7 +44,25 @@ class ImagesController extends CController
     public function actionUpload($shop_id)
     {
         if (!isset($_FILES['image'])) {
-            throw new CHttpException(406, 'No file');
+            throw new CHttpException(400, 'Image file is required');
+        }
+
+        switch ($_FILES['image']['error']) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                throw new CHttpException(400, 'File is too big');
+            case UPLOAD_ERR_PARTIAL:
+            case UPLOAD_ERR_NO_FILE:
+                throw new CHttpException(400, 'Image file is required');
+            case UPLOAD_ERR_NO_TMP_DIR:
+            case UPLOAD_ERR_CANT_WRITE:
+                throw new CHttpException(500, 'Internal error');
+            case UPLOAD_ERR_EXTENSION:
+                throw new CHttpException(400, 'This file is not acceptable');
+        }
+
+        if ($_FILES['image']['size'] > 1024*1024*1) {
+            throw new CHttpException(400, 'File is too big');
         }
 
         $path = Yii::getPathOfAlias('webroot.images.shop_' . $shop_id . '.products');
@@ -54,8 +72,23 @@ class ImagesController extends CController
 
         $pathInfo = pathinfo($_FILES['image']['name']);
 
-        $extension = $pathInfo['extension'];
+        $extension = strtolower($pathInfo['extension']);
+
+        if (!in_array($extension, ['jpeg', 'jpg', 'png'])) {
+            throw new CHttpException(400, 'This file is not acceptable');
+        }
+
         $name = $pathInfo['filename'];
+
+        $size = getimagesize ($_FILES['image']['tmp_name']);
+
+        if ($size[0] > 2000 or $size[1] > 2000) {
+            throw new CHttpException(400, 'Image is too large');
+        }
+
+        if (!in_array($size[2], [2, 3])) {
+            throw new CHttpException(400, 'This file is not acceptable');
+        }
 
         $filename = md5(
             $name
@@ -70,7 +103,7 @@ class ImagesController extends CController
         }
 
         if (!move_uploaded_file($_FILES['image']['tmp_name'], $path . DIRECTORY_SEPARATOR . $filename)) {
-            throw new CHttpException(406, 'Possible file upload attack!');
+            throw new CHttpException(400, 'File upload problem');
         }
 
         $image                = new Image();

@@ -68,6 +68,7 @@ class ProductsController extends Controller
         }
 
         $this->product = new Product;
+        $this->product->shop_id = $this->shop->id;
 
         if (isset($_POST['Product'])) {
             $this->product->attributes = $_POST['Product'];
