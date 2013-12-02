@@ -65,10 +65,14 @@ class Template extends \CComponent
                 //saving generated css file
                 file_put_contents($assetsPath . DIRECTORY_SEPARATOR . 'main.css', implode("\n", $outputCss));
 
-                //generating and saving js file
+                //generating and saving js files
                 file_put_contents(
-                    $assetsPath . DIRECTORY_SEPARATOR . 'main.js',
-                    $this->widget->render('js', null, true)
+                    $assetsPath . DIRECTORY_SEPARATOR . 'ga.js',
+                    $this->widget->render('ga', null, true)
+                );
+                file_put_contents(
+                    $assetsPath . DIRECTORY_SEPARATOR . 'fb.js',
+                    $this->widget->render('fb', null, true)
                 );
 
                 //linking assets src to template src
@@ -141,24 +145,10 @@ class Template extends \CComponent
                     'tax'            => (float)$this->shop->tax
                 )
             ) . ';',
-            'appConfig.FB = ' . \CJSON::encode(
-                array(
-                    'appId'      => \Yii::app()->facebook->sdk->getAppId(),
-                    "channelUrl" => \Yii::app()->controller->createAbsoluteUrl('/channel'),
-                )
-            ) . ';',
             'appConfig.appPath = "' . \Yii::app()->assetManager->getPublishedUrl(
                 $assetsPath
             ) . '/app";'
         ];
-
-        if ($this->shop->ga_id) {
-            $scripts[] = 'appConfig.GA = ' . \CJSON::encode(
-                array(
-                    'id' => $this->shop->ga_id
-                )
-            ) . ';';
-        }
 
         \Yii::app()->clientScript->registerScript(
             'appConfig',

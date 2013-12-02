@@ -60,7 +60,7 @@ define(function (require) {
         resizeCanvas: function () {
             var view = this;
             //getting FB object
-            require(['app/fb'], function (FB) {
+            require(['config/fb'], function (FB) {
                 //calculating required canvas height
                 var canvasHeight = Math.max(view.calculateHeight(), 800);
                 //setting canvas size
@@ -77,7 +77,7 @@ define(function (require) {
                 this.stopScrollCheck();
                 scrollCheckInterval = setInterval(function () {
                     //getting FB object
-                    require(['app/fb'], function (FB) {
+                    require(['config/fb'], function (FB) {
                         //get canvas size
                         FB.Canvas.getPageInfo(
                             function (info) {

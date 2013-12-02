@@ -7,6 +7,7 @@ requirejs.config({
     baseUrl: '/js',
     paths: {
         "app": appConfig.appPath,
+        "config": appConfig.appPath + '/..',
         "bootstrap": '/bootstrap/dist/js/bootstrap',
         "facebook": '//connect.facebook.net/en_US/all',
         "google-analytics": "//www.google-analytics.com/analytics"

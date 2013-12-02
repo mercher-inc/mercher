@@ -32,11 +32,11 @@ define(function (require) {
         },
 
         products: function () {
-            require(['app/ga'], function (ga) {
+            require(['config/ga'], function (ga) {
                 ga('send', 'pageview', 'mercher/products');
             });
 
-            require(["app/views/products/list", "app/collections/products", 'app/fb'], function (View, Collection, FB) {
+            require(["app/views/products/list", "app/collections/products", 'config/fb'], function (View, Collection, FB) {
 
                 FB.Canvas.scrollTo(0, 0);
 
