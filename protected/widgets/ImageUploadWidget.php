@@ -64,11 +64,8 @@ class ImageUploadWidget extends CWidget
                                 $('.help-block', $("#{$this->id}").parent()).remove();
                             },
                             error: function (response) {
-                                $("#{$this->id}").after('<div class="help-block">'+response.responseJSON.error.message+'</div>');
+                                $("#{$this->id}").parent().append('<div class="help-block">'+response.responseJSON.error.message+'</div>');
                                 $("#{$this->id}").parent().addClass('has-error');
-                                $("#{$this->id}").css('background-image', '');
-                                var hidden = $('#{$this->id} input[type="hidden"]');
-                                hidden.attr("value", '');
                             },
                             cache: false,
                             contentType: false,
@@ -87,5 +84,6 @@ JS;
         echo CHtml::openTag('div', $this->htmlOptions);
         echo CHtml::activeHiddenField($this->model, $this->attribute);
         echo CHtml::closeTag('div');
+        echo CHtml::tag('div', ['class'=>'text-muted'], '* ' . CHtml::tag('em', [], 'Max. image size is 1MB, 2000*2000 pixels'));
     }
 }
