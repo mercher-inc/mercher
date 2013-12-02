@@ -11,8 +11,11 @@ $this->menu=array(
 	array('label'=>'List Subscription', 'url'=>array('index')),
 	array('label'=>'Manage Subscription', 'url'=>array('admin')),
 );
-?>
 
-<h1>Create Subscription</h1>
+Yii::app()->controller->headerTitle = Yii::t(
+    'subscription',
+    'create'
+);
+?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -50,7 +50,7 @@ class Shop extends CActiveRecord
         return array(
             array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
             array('title', 'setDefaultTitle', 'on' => 'insert'),
-            array('description, fb_id, ga_id', 'default', 'value' => null),
+            array('description, fb_id, ga_id, subscription_id', 'default', 'value' => null),
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id, pp_merchant_id', 'required'),
@@ -69,7 +69,7 @@ class Shop extends CActiveRecord
             array('title, template_alias', 'length', 'max' => 50),
             array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
-            array('title, description, is_active, ga_id', 'safe'),
+            array('title, description, is_active, ga_id, subscription_id', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(
@@ -102,7 +102,12 @@ class Shop extends CActiveRecord
 
     public function checkOwnerId()
     {
-        if ($this->owner_id != Yii::app()->user->id) {
+        if (
+            Yii::app()->user->id !== 'admin'
+            and
+            $this->owner_id != Yii::app()->user->id
+        ) {
+            $this->addError('owner_id', 'You are not owner of this shop');
             return false;
         }
         return true;
@@ -153,7 +158,7 @@ class Shop extends CActiveRecord
 
     public function checkActiveCount()
     {
-        if ($this->is_active) {
+        if ($this->is_active && Yii::app()->user->id !== 'admin') {
             if ($this->isNewRecord) {
                 $count = (int)Shop::model()->count(
                     'owner_id = :ownerId AND is_active = TRUE',

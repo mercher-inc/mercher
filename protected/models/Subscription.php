@@ -34,11 +34,11 @@ class Subscription extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created, title, image, price', 'required'),
+            array('title, image, price', 'required'),
             array('trial_duration, products_count', 'numerical', 'integerOnly' => true),
             array('title, image', 'length', 'max' => 250),
             array('price', 'length', 'max' => 9),
-            array('updated, description', 'safe'),
+            array('is_public, description', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array(
