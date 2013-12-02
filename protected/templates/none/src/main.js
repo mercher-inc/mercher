@@ -38,12 +38,12 @@ requirejs.config({
     waitSeconds: 0
 });
 
-router = null;
+require(['backbone', 'router'], function (Backbone, Router) {
 
-require(['jquery', 'backbone', 'router', 'minicart'], function ($, Backbone, Router, Minicart) {
-
-    router = new Router();
+    //instantiate router
+    var router = new Router();
     Backbone.history.start();
 
+    //navigating to products
     router.navigate('products', {trigger: true});
 });
