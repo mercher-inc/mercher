@@ -130,6 +130,7 @@ class WizardController extends Controller
         }
 
         $model = new Product;
+        $model->shop_id = $shop->id;
 
         $categoriesList = ['' => 'Not set'];
         if (count($categories)) {
@@ -143,7 +144,6 @@ class WizardController extends Controller
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
-            $model->new_image  = CUploadedFile::getInstanceByName('Product[new_image]');
             $model->shop_id    = $shop->id;
 
             if ($model->save()) {
