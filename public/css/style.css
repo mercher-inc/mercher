@@ -902,7 +902,7 @@ body.with-wizard{margin-top:230px}
 .main-form label{font-weight:300;color:#555}
 .main-form .actions{margin-top:40px;text-align:center}
 .main-form textarea{max-width:800px}
-.imageField{border-radius:2px;border:1px solid #e5e3e4;width:240px;height:240px;cursor:pointer;margin:0;background-color:#e5e3e4;background-image:url('/img/icon_add.png');background-size:cover;background-position:center;overflow:hidden}.imageField.loading{background-image:url('/img/icon_loading.png')}
+.imageField{border-radius:2px;border:1px solid #e5e3e4;width:240px;height:240px;cursor:pointer;margin:0;background-color:#e5e3e4;background-image:url('/img/upload_white.png');background-size:cover;background-position:center;overflow:hidden}.imageField.loading{background-image:url('/img/icon_loading.png')}
 footer{margin-top:20px;border-top:4px solid #c5c5c5;text-align:center;padding:10px 0 40px 0;text-transform:uppercase;color:#999}footer .nav{width:450px;margin:10px auto}footer .nav a{color:#999}
 .gridView{padding-top:40px}.gridView .row{margin:0;padding:10px 0}.gridView .row .gridCell{text-overflow:ellipsis;overflow-x:hidden}
 .gridView .row:hover{background:#eee}
