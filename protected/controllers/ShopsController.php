@@ -80,30 +80,7 @@ class ShopsController extends Controller
             $this->shop->attributes = $_POST['Shop'];
 
             if ($this->shop->save()) {
-                Yii::app()->user->setFlash(
-                    'Shop',
-                    Yii::t(
-                        'shop',
-                        'save_success',
-                        [
-                            '{view}' => CHtml::link(
-                                Yii::t('shop', 'view_online'),
-                                '//www.facebook.com/' .
-                                    $this->shop->fb_id .
-                                    '?'
-                                    . http_build_query(
-                                    array(
-                                        'sk' => 'app_' . Yii::app()->facebook->sdk->getAppId()
-                                    )
-                                ),
-                                [
-                                    'class'  => 'alert-link',
-                                    'target' => '_blank'
-                                ]
-                            )
-                        ]
-                    )
-                );
+                $this->redirect(['index']);
             }
         }
 

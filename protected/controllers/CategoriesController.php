@@ -72,22 +72,7 @@ class CategoriesController extends Controller
             $this->category->shop_id    = $this->shop->id;
 
             if ($this->category->save()) {
-                Yii::app()->user->setFlash(
-                    'Category',
-                    Yii::t(
-                        'category',
-                        'create_success'
-                    )
-                );
-                $this->redirect(
-                    Yii::app()->urlManager->createUrl(
-                        'categories/update',
-                        array(
-                            'shop_id'     => $this->shop->id,
-                            'category_id' => $this->category->id
-                        )
-                    )
-                );
+                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
             }
         }
 
@@ -113,13 +98,7 @@ class CategoriesController extends Controller
             $this->category->attributes = $_POST['Category'];
 
             if ($this->category->save()) {
-                Yii::app()->user->setFlash(
-                    'Category',
-                    Yii::t(
-                        'category',
-                        'save_success'
-                    )
-                );
+                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
             }
         }
 
