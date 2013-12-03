@@ -30,7 +30,8 @@ class CategoriesController extends Controller
                     'index',
                     'create',
                     'read',
-                    'update'
+                    'update',
+                    'delete'
                 ),
                 'users'   => array('@'),
             ),
@@ -72,7 +73,7 @@ class CategoriesController extends Controller
             $this->category->shop_id    = $this->shop->id;
 
             if ($this->category->save()) {
-                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
+                $this->redirect(['index', 'shop_id' => $this->shop->id]);
             }
         }
 
@@ -98,7 +99,7 @@ class CategoriesController extends Controller
             $this->category->attributes = $_POST['Category'];
 
             if ($this->category->save()) {
-                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
+                $this->redirect(['index', 'shop_id' => $this->shop->id]);
             }
         }
 
@@ -107,6 +108,21 @@ class CategoriesController extends Controller
             array(
                 'shop'  => $this->shop,
                 'model' => $this->category,
+            )
+        );
+    }
+
+    public function actionDelete()
+    {
+        if (Yii::app()->request->isDeleteRequest) {
+            $this->category->delete();
+            $this->redirect(['index', 'shop_id' => $this->shop->id]);
+        }
+        $this->render(
+            'delete',
+            array(
+                'shop'  => $this->shop,
+                'model' => $this->category
             )
         );
     }

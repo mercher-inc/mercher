@@ -55,18 +55,30 @@ $this->widget(
             ],
             [
                 'type'  => 'raw',
-                'value' => 'CHtml::link(
-                    Yii::t("label", "edit"),
-                    Yii::app()->urlManager->createUrl(
-                        "categories/update",
-                        ["shop_id" => $data->shop_id, "category_id" => $data->id]
-                    ),
-                    ["class" => "btn btn-default btn-block"]
-                )'
+                'value' => 'CHtml::tag(
+                    "div",
+                    ["class"=>"btn-group btn-group-justified"],
+                    CHtml::link(
+                        Yii::t("label", "edit"),
+                        Yii::app()->urlManager->createUrl(
+                            "categories/update",
+                            ["shop_id" => $data->shop_id, "category_id" => $data->id]
+                        ),
+                        ["class" => "btn btn-default"]
+                    ) . CHtml::link(
+                        Yii::t("label", "delete"),
+                        Yii::app()->urlManager->createUrl(
+                            "categories/delete",
+                            ["shop_id" => $data->shop_id, "category_id" => $data->id]
+                        ),
+                        ["class" => "btn btn-default"]
+                    )
+                )',
+                'htmlOptions'        => [
+                    'style' => 'width: 200px;'
+                ]
             ]
         ]
     ]
 );
 ?>
-
-<?php //$this->widget('application.widgets.CategoriesWidget', array('shop' => $this->shop, 'categories' => $categories)); ?>

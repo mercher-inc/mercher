@@ -30,7 +30,8 @@ class ProductsController extends Controller
                     'index',
                     'create',
                     'read',
-                    'update'
+                    'update',
+                    'delete'
                 ),
                 'users'   => array('@'),
             ),
@@ -67,7 +68,7 @@ class ProductsController extends Controller
             throw new CHttpException(402, Yii::t('product', 'too_many'));
         }
 
-        $this->product = new Product;
+        $this->product          = new Product;
         $this->product->shop_id = $this->shop->id;
 
         if (isset($_POST['Product'])) {
@@ -75,7 +76,7 @@ class ProductsController extends Controller
             $this->product->shop_id    = $this->shop->id;
 
             if ($this->product->save()) {
-                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
+                $this->redirect(['index', 'shop_id' => $this->shop->id]);
             }
         }
 
@@ -108,7 +109,7 @@ class ProductsController extends Controller
             $this->product->attributes = $_POST['Product'];
 
             if ($this->product->save()) {
-                $this->redirect(['index', 'shop_id'=>$this->shop->id]);
+                $this->redirect(['index', 'shop_id' => $this->shop->id]);
             }
         }
 
@@ -126,6 +127,21 @@ class ProductsController extends Controller
                 'shop'           => $this->shop,
                 'model'          => $this->product,
                 'categoriesList' => $categoriesList
+            )
+        );
+    }
+
+    public function actionDelete()
+    {
+        if (Yii::app()->request->isDeleteRequest) {
+            $this->product->delete();
+            $this->redirect(['index', 'shop_id' => $this->shop->id]);
+        }
+        $this->render(
+            'delete',
+            array(
+                'shop'  => $this->shop,
+                'model' => $this->product
             )
         );
     }

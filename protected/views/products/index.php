@@ -72,14 +72,28 @@ $this->widget(
             ],
             [
                 'type'  => 'raw',
-                'value' => 'CHtml::link(
-                    Yii::t("label", "edit"),
-                    Yii::app()->urlManager->createUrl(
-                        "products/update",
-                        ["shop_id" => $data->shop_id, "product_id" => $data->id]
-                    ),
-                    ["class" => "btn btn-default btn-block"]
-                )'
+                'value' => 'CHtml::tag(
+                    "div",
+                    ["class"=>"btn-group btn-group-justified"],
+                    CHtml::link(
+                        Yii::t("label", "edit"),
+                        Yii::app()->urlManager->createUrl(
+                            "products/update",
+                            ["shop_id" => $data->shop_id, "product_id" => $data->id]
+                        ),
+                        ["class" => "btn btn-default"]
+                    ) . CHtml::link(
+                        Yii::t("label", "delete"),
+                        Yii::app()->urlManager->createUrl(
+                            "products/delete",
+                            ["shop_id" => $data->shop_id, "product_id" => $data->id]
+                        ),
+                        ["class" => "btn btn-default"]
+                    )
+                )',
+                'htmlOptions'        => [
+                    'style' => 'width: 200px;'
+                ]
             ]
         ]
     ]
