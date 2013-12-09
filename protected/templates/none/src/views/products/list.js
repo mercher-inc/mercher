@@ -113,7 +113,8 @@ define(function (require) {
                     'send',
                     'event',
                     'products',
-                    'showMore'
+                    'showMore',
+                    'Show more products'
                 );
             });
         }
