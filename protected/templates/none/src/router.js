@@ -14,20 +14,27 @@ define(function (require) {
 
             //render minicart
             require(['minicart'], function () {
-                PAYPAL.apps.MiniCart.render({
-                    //paypalURL: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
-                    parent: 'PayPalCart',
-                    formTarget: '_blank',
-                    edgeDistance: '15px',
-                    strings: {
-                        subtotal: 'Subtotal: ',
-                        shipping: 'Does not include shipping',
-                        button: 'Checkout',
-                        processing: 'Checkout'
-                    }
+                paypal.minicart.render({
+                    action: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+                    target: '_blank'
+                });
+
+                paypal.minicart.cart.on('checkout', function(e){
+                    console.log(e);
                 });
             });
 
+            setInterval(function () {
+                //getting FB object
+                require(['fb'], function (FB) {
+                    //get canvas size
+                    FB.Canvas.getPageInfo(
+                        function (info) {
+                            $('#PPMiniCart').css('top', info.scrollTop - info.offsetTop + 200);
+                        }
+                    );
+                });
+            }, 500);
         },
 
         routes: {

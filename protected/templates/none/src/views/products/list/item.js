@@ -29,7 +29,8 @@ define(function (require) {
             return this;
         },
 
-        addToCart: function () {
+        addToCart: function (e) {
+            var view = this;
             if (!this.model.get('amount')) {
                 return;
             }
@@ -39,23 +40,13 @@ define(function (require) {
                 "business": shop.get("pp_merchant_id"),
                 "item_name": this.model.get('title'),
                 "item_number": this.model.id,
-                "amount": Math.ceil(this.model.get('amount') * 100) / 100,
+                "amount": Math.ceil((this.model.get('amount') / (100 - shop.get("tax"))) * (100 + shop.get("tax")) * 100) / 100,
                 "currency_code": "USD"
             };
 
-            //calculating tax
-            if (shop.get("tax")) {
-                obj.tax = Math.ceil(
-                    this.model.get('amount') * (shop.get("tax") / 100) * 100
-                ) / 100;
-            }
-
             //adding object to cart
-            PAYPAL.apps.MiniCart.addToCart(obj);
-
-            //scrolling to top
-            require(['fb'], function (FB) {
-                FB.Canvas.scrollTo(0, 0);
+            require(['minicart'], function () {
+                paypal.minicart.cart.add(obj);
             });
         }
 

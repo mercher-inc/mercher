@@ -106,10 +106,28 @@ body {
   }
 }
 
-#PayPalCart {
-  #PPMiniCart {
-    form {
-      z-index: 100;
-    }
+#PPMiniCart {
+  ul {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  transition: top 0.25s;
+}
+
+body {
+
+  #backdrop {
+    background: fadeout(#FFF, 25%);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+  }
+
+  &.minicart-showing #backdrop {
+    display: block;
   }
 }
