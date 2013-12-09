@@ -5,7 +5,11 @@
 </head>
 <?php
 
-$page = CJSON::encode($this->route);
+$page = Yii::app()->controller->id;
+if (Yii::app()->controller->defaultAction != Yii::app()->controller->action->id) {
+    $page .= '/' . Yii::app()->controller->action->id;
+}
+$page = CJSON::encode($page);
 
 $ga = <<<JS
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
