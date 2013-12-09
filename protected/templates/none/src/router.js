@@ -37,7 +37,14 @@ define(function (require) {
         products: function () {
             //track page view
             require(['ga'], function (ga) {
-                ga('send', 'pageview', 'mercher/products');
+                ga(
+                    'send',
+                    'pageview',
+                    {
+                        page: 'products',
+                        title: 'Products'
+                    }
+                );
             });
 
             //load requirements
