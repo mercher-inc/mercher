@@ -99,12 +99,24 @@ define(function (require) {
         },
 
         showMore: function () {
+            var view = this;
             //setting offset to request new models
             this.collection.data.offset = this.collection.length;
             //fetching new models from server
             this.collection.fetch({
                 data: this.collection.data,
                 remove: false
+            });
+            //track showMore event
+            require(['ga'], function (ga) {
+                ga(
+                    'send',
+                    'event',
+                    'button',
+                    'click',
+                    'Show more',
+                    Math.ceil(view.collection.data.offset / view.collection.data.limit) + 1
+                );
             });
         }
 
