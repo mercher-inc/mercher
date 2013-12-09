@@ -318,7 +318,10 @@ class Shop extends CActiveRecord
 
         if ($this->isNewRecord) {
             $this->templateInstance->processForm();
+        } else {
+            $this->templateInstance->buildShop();
         }
+
 
         try {
             $ch = curl_init('http://www.google-analytics.com/collect');
