@@ -5,24 +5,20 @@
 </head>
 <?php
 
-Yii::app()->clientScript->registerScript(
-    'ga',
-    "(function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-23393444-12');
-    ga('set', 'page', " . CJSON::encode($this->route) . ");
-    ga('send', 'pageview');",
-    CClientScript::POS_HEAD
-);
+$page = CJSON::encode($this->route);
+
+$ga = <<<JS
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-23393444-14', 'mercher.net');
+ga('set', 'page', $page);
+ga('send', 'pageview');
+JS;
+
+Yii::app()->clientScript->registerScript('ga', $ga, CClientScript::POS_HEAD);
 
 $bodyClass = explode(' ', $this->bodyHtmlOptions['class']);
 if (count($this->menu)) {

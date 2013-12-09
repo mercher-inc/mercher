@@ -231,7 +231,7 @@ class Product extends CActiveRecord
                 http_build_query(
                     [
                         'v'   => 1,
-                        'tid' => 'UA-23393444-12',
+                        'tid' => 'UA-23393444-14',
                         'cid' => 555,
                         't'   => 'event',
                         'ec'  => 'product',
