@@ -112,10 +112,12 @@ define(function (require) {
                 ga(
                     'send',
                     'event',
-                    'button',
-                    'click',
-                    'Show more',
-                    Math.ceil(view.collection.data.offset / view.collection.data.limit) + 1
+                    'products',
+                    'showMore',
+                    {
+                        page: 'products?offset=' + view.collection.data.offset,
+                        title: 'Products'
+                    }
                 );
             });
         }
