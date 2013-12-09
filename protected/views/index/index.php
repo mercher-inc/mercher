@@ -5,6 +5,18 @@
  * @var $errorMessage string
  */
 
+$ga_ctaButton = <<<JS
+$("#ctaButton").click(function(){
+    ga('send', 'event', 'CTA', 'click', 'CTA click');
+});
+JS;
+
+
+Yii::app()->clientScript->registerScript(
+    "ga_ctaButton",
+    $ga_ctaButton
+);
+
 Yii::app()->clientScript->registerPackage('bootstrap');
 Yii::app()->clientScript->registerScript(
     'heroTabs',
@@ -144,7 +156,7 @@ if (isset($errorCode) and isset($errorMessage)) {
     </div>
 
     <div class="hero-get-started">
-        <a class="btn btn-primary btn-lg" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
+        <a class="btn btn-primary btn-lg" id="ctaButton" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
            target="_top"><?php echo Yii::t('label', 'get_started'); ?></a>
     </div>
 </div>

@@ -5,11 +5,12 @@
 </head>
 <?php
 
-$page = Yii::app()->controller->id;
-if (Yii::app()->controller->defaultAction != Yii::app()->controller->action->id) {
-    $page .= '/' . Yii::app()->controller->action->id;
-}
-$page = CJSON::encode($page);
+$gaConfig = CJSON::encode(
+    [
+        'page'  => $this->route,
+        'title' => $this->pageTitle
+    ]
+);
 
 $ga = <<<JS
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -18,7 +19,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-23393444-14', 'mercher.net');
-ga('set', 'page', $page);
+ga('set', $gaConfig);
 ga('send', 'pageview');
 JS;
 
