@@ -113,11 +113,7 @@ define(function (require) {
                     'send',
                     'event',
                     'products',
-                    'showMore',
-                    {
-                        page: 'products?offset=' + view.collection.data.offset,
-                        title: 'Products'
-                    }
+                    'showMore'
                 );
             });
         }
