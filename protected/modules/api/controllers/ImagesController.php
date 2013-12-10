@@ -61,7 +61,7 @@ class ImagesController extends CController
                 throw new CHttpException(400, 'This file is not acceptable');
         }
 
-        if ($_FILES['image']['size'] > 1024*1024*1) {
+        if ($_FILES['image']['size'] > 1024 * 1024 * 1) {
             throw new CHttpException(400, 'File is too big');
         }
 
@@ -80,7 +80,7 @@ class ImagesController extends CController
 
         $name = $pathInfo['filename'];
 
-        $size = getimagesize ($_FILES['image']['tmp_name']);
+        $size = getimagesize($_FILES['image']['tmp_name']);
 
         if ($size[0] > 2000 or $size[1] > 2000) {
             throw new CHttpException(400, 'Image is too large');
@@ -132,6 +132,10 @@ class ImagesController extends CController
         $xl->cropThumbnailImage(800, 800);
         $xl->writeImage($path . DIRECTORY_SEPARATOR . 'xl_' . $filename);
 
+        $sh = clone $i;
+        $sh->cropThumbnailImage(111, 74);
+        $sh->writeImage($path . DIRECTORY_SEPARATOR . 'sh_' . $filename);
+
         $image->data = CJSON::encode(
             array(
                 'origin' => '/images/shop_' . $shop_id . '/products/' . $filename,
@@ -140,13 +144,13 @@ class ImagesController extends CController
                 'm'      => '/images/shop_' . $shop_id . '/products/' . 'm_' . $filename,
                 'l'      => '/images/shop_' . $shop_id . '/products/' . 'l_' . $filename,
                 'xl'     => '/images/shop_' . $shop_id . '/products/' . 'xl_' . $filename,
-
+                'sh'     => '/images/shop_' . $shop_id . '/products/' . 'sh_' . $filename,
             )
         );
         $image->save();
         $image->refresh();
 
-        $response = $image->attributes;
+        $response         = $image->attributes;
         $response['data'] = CJSON::decode($response['data']);
 
         echo CJSON::encode($response);

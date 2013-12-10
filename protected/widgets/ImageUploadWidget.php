@@ -18,8 +18,20 @@ class ImageUploadWidget extends CWidget
 
     public function run()
     {
+        switch (get_class($this->model)) {
+            case 'Shop':
+                $shop_id = $this->model->id;
+                $imageSize = 'sh';
+                break;
+            default:
+                $shop_id = $this->model->shop_id;
+                $imageSize = 'l';
+        }
+
         if (!isset($this->htmlOptions['class'])) {
             $this->htmlOptions['class'] = 'imageField';
+        } else {
+            $this->htmlOptions['class'] .= ' imageField';
         }
         $this->htmlOptions['id'] = $this->id;
 
@@ -30,7 +42,11 @@ class ImageUploadWidget extends CWidget
         }
 
         if ($image) {
-            $this->htmlOptions['style'] = 'background-image: url('.$image->getSize('l').')';
+            if (!isset($this->htmlOptions['style'])) {
+                $this->htmlOptions['style'] = 'background-image: url('.$image->getSize($imageSize).');';
+            } else {
+                $this->htmlOptions['style'] .= ' background-image: url('.$image->getSize($imageSize).');';
+            }
         }
 
         $js = <<<JS
@@ -63,12 +79,12 @@ class ImageUploadWidget extends CWidget
 
                         var formData = new FormData(fileInputForm[0]);
                         $.ajax({
-                            url: '/api/shops/{$this->model->shop_id}/images',
+                            url: '/api/shops/{$shop_id}/images',
                             type: 'POST',
                             data: formData,
                             success: function(image) {
                                 holder.removeClass('loading');
-                                holder.css('background-image', 'url(' + image.data.l + ')');
+                                holder.css('background-image', 'url(' + image.data.{$imageSize} + ')');
                                 hidden.attr("value", image.id);
 
                                 holder.parent().removeClass('has-error');

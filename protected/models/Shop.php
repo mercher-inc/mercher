@@ -13,6 +13,7 @@
  * @property string $ga_id
  * @property string $title
  * @property string $description
+ * @property string $image_id
  * @property string $tax
  * @property string $template_alias
  * @property string $template_config
@@ -50,7 +51,7 @@ class Shop extends CActiveRecord
         return array(
             array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
             array('title', 'default', 'value' => 'Shop'),
-            array('description, fb_id, ga_id, subscription_id', 'default', 'value' => null),
+            array('description, fb_id, ga_id, subscription_id, image_id', 'default', 'value' => null),
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id, pp_merchant_id', 'required'),
@@ -69,11 +70,11 @@ class Shop extends CActiveRecord
             array('title, template_alias', 'length', 'max' => 50),
             array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
-            array('title, description, is_active, ga_id, subscription_id', 'safe'),
+            array('title, description, is_active, ga_id, subscription_id, image_id', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, owner_id, title, description, template_alias, is_active, is_banned, pp_merchant_id',
+                'id, created, updated, fb_id, owner_id, title, description, template_alias, is_active, is_banned, pp_merchant_id, image_id',
                 'safe',
                 'on' => 'search'
             ),
@@ -186,6 +187,7 @@ class Shop extends CActiveRecord
             'imagesCount'     => array(self::STAT, 'Image', 'shop_id'),
             'categories'      => array(self::HAS_MANY, 'Category', 'shop_id'),
             'categoriesCount' => array(self::STAT, 'Category', 'shop_id'),
+            'image'    => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
 
@@ -203,6 +205,7 @@ class Shop extends CActiveRecord
             'subscription_id'        => 'Subscription',
             'title'           => 'Title',
             'description'     => 'Description',
+            'image_id'          => 'Image',
             'tax'             => 'Tax percentage in your country/state',
             'template_alias'  => 'Template Alias',
             'template_config' => 'Template Config',
@@ -235,6 +238,7 @@ class Shop extends CActiveRecord
         $criteria->compare('subscription_id', $this->subscription_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('image_id', $this->image_id);
         $criteria->compare('tax', $this->tax, true);
         $criteria->compare('template_alias', $this->template_alias, true);
         $criteria->compare('template_config', $this->template_config, true);

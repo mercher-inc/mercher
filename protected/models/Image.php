@@ -11,6 +11,7 @@
  * @property string $data
  * The followings are the available model relations:
  * @property Product[] $products
+ * @property Shop[] $shops
  * @property Shop $shop
  */
 class Image extends CActiveRecord
@@ -49,6 +50,7 @@ class Image extends CActiveRecord
         return array(
             'products' => array(self::HAS_MANY, 'Product', 'image_id'),
             'shop'     => array(self::BELONGS_TO, 'Shop', 'shop_id'),
+            'shops'     => array(self::HAS_MANY, 'Shop', 'image_id'),
         );
     }
 
