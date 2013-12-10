@@ -54,7 +54,7 @@
                     <div class="arrow"></div>
                 </div>
                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs step3btn">
-                    <h1>3rt</h1>
+                    <h1>3rd</h1>
                     <h2>Step</h2>
                     <h3>Product</h3>
                     <div class="arrow"></div>
