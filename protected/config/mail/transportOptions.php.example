@@ -1,0 +1,10 @@
+<?php
+
+return [
+    'host'       => 'smtp.gmail.com',
+    'username'   => '',
+    'password'   => '',
+    'port'       => 465,
+    'timeout'    => 30,
+    'encryption' => 'ssl'
+];

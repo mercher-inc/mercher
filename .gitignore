@@ -2,3 +2,4 @@
 /protected/runtime/*
 /public/assets/*
 /public/images/*
+/protected/config/mail/transportOptions.php

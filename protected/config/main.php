@@ -24,6 +24,7 @@ return array(
     'import'         => array(
         'application.models.*',
         'application.components.*',
+        'ext.yii-mail.YiiMailMessage',
     ),
     'modules'        => array( // uncomment the following to enable the Gii tool
         'gii' => array(
@@ -38,6 +39,15 @@ return array(
     ),
     // application components
     'components'     => array(
+        'mail'         => [
+            'class'            => 'ext.yii-mail.YiiMail',
+            'transportType'    => 'smtp',
+            'viewPath'         => 'application.views.mail',
+            'logging'          => true,
+            'dryRun'           => false,
+            require(dirname(__FILE__) . '/urlManager/rules.php'),
+            'transportOptions' => require(dirname(__FILE__) . '/mail/transportOptions.php'),
+        ],
         'user'         => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
