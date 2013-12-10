@@ -101,7 +101,7 @@ return array(
     // using Yii::app()->params['paramName']
     'params'         => array(
         // this is used in contact page
-        'adminEmail' => 'support@mercher.dev',
+        'adminEmail' => 'support@mercher.net',
         'isApp'      => preg_match('/^app./', $_SERVER['HTTP_HOST'])
     ),
 );

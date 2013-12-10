@@ -153,6 +153,7 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
                     'url'         => '//www.facebook.com/messages/mercher.net',
                     'linkOptions' => ['target' => '_blank']
                 ],
+                //['label' => Yii::t('label', 'contact'), 'url' => ['index/contact']],
             ],
             'htmlOptions' => [
                 'class' => 'nav nav-pills nav-justified'
