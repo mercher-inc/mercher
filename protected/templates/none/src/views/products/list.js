@@ -54,17 +54,15 @@ define(function (require) {
         },
 
         calculateHeight: function () {
-            return Math.ceil(this.collection.length / 3) * 270;
+            return Math.ceil(this.collection.length / 3) * 270 + 50;
         },
 
         resizeCanvas: function () {
             var view = this;
             //getting FB object
             require(['fb'], function (FB) {
-                //calculating required canvas height
-                var canvasHeight = Math.max(view.calculateHeight(), 800);
                 //setting canvas size
-                FB.Canvas.setSize({height: canvasHeight});
+                FB.Canvas.setSize({height: view.calculateHeight()});
             });
         },
 
