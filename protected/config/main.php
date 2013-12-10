@@ -45,7 +45,6 @@ return array(
             'viewPath'         => 'application.views.mail',
             'logging'          => true,
             'dryRun'           => false,
-            require(dirname(__FILE__) . '/urlManager/rules.php'),
             'transportOptions' => require(dirname(__FILE__) . '/mail/transportOptions.php'),
         ],
         'user'         => array(
