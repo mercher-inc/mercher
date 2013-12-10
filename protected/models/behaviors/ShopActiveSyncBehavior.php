@@ -132,7 +132,7 @@ class ShopActiveSyncBehavior extends CActiveRecordBehavior
                 //'is_non_connection_landing_tab' => true,
             ];
             if ($this->getOwner()->image_id) {
-                $obj['custom_image_url'] = $this->getOwner()->image->getSize('sh');
+                $obj['custom_image_url'] = 'https://' . $_SERVER['HTTP_HOST'] . $this->getOwner()->image->getSize('sh');
             }
             $opts[CURLOPT_POSTFIELDS] = http_build_query($obj);
             $opts[CURLOPT_URL]        = 'https://graph.facebook.com/'
