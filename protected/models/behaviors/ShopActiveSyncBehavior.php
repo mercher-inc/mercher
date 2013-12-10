@@ -125,15 +125,16 @@ class ShopActiveSyncBehavior extends CActiveRecordBehavior
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_TIMEOUT        => 60
             );
-            $opts[CURLOPT_POSTFIELDS] = http_build_query(
-                array(
-                    'access_token'                  => $this->pageAccessToken,
-                    'custom_name'                   => $this->getOwner()->title,
-                    //'position'                      => '2',
-                    //'is_non_connection_landing_tab' => true,
-                    //'custom_image_url'  =>  'http://mercher.net/images/shop_137/products/xs_ca538c343179bf0fbdfab6cd10469afd.jpg'
-                )
-            );
+            $obj = [
+                'access_token'                  => $this->pageAccessToken,
+                'custom_name'                   => $this->getOwner()->title,
+                //'position'                      => '2',
+                //'is_non_connection_landing_tab' => true,
+            ];
+            if ($this->getOwner()->image_id) {
+                $obj['custom_image_url'] = $this->getOwner()->image->getSize('sh');
+            }
+            $opts[CURLOPT_POSTFIELDS] = http_build_query($obj);
             $opts[CURLOPT_URL]        = 'https://graph.facebook.com/'
                 . $this->getOwner()->fb_id
                 . '/tabs/app_'
