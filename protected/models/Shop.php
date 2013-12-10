@@ -49,7 +49,7 @@ class Shop extends CActiveRecord
         // will receive user inputs.
         return array(
             array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
-            array('title', 'setDefaultTitle', 'on' => 'insert'),
+            array('title', 'default', 'value' => 'Shop'),
             array('description, fb_id, ga_id, subscription_id', 'default', 'value' => null),
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
@@ -83,21 +83,6 @@ class Shop extends CActiveRecord
     public function setDefaultOwnerId()
     {
         $this->owner_id = Yii::app()->user->id;
-    }
-
-    public function setDefaultTitle()
-    {
-        if (!$this->title and $this->fb_id) {
-            try {
-                $result = Yii::app()->facebook->sdk->api('/' . $this->fb_id . '?fields=name');
-            } catch (FacebookApiException $e) {
-                return;
-            }
-            if (!isset($result['name'])) {
-                return;
-            }
-            $this->title = $result['name'];
-        }
     }
 
     public function checkOwnerId()
