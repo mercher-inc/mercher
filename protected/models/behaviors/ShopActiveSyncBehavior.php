@@ -128,8 +128,8 @@ class ShopActiveSyncBehavior extends CActiveRecordBehavior
             $obj = [
                 'access_token'                  => $this->pageAccessToken,
                 'custom_name'                   => $this->getOwner()->title,
-                //'position'                      => '2',
-                //'is_non_connection_landing_tab' => true,
+                'position'                      => '2',
+                'is_non_connection_landing_tab' => true,
             ];
             if ($this->getOwner()->image_id) {
                 $obj['custom_image_url'] = 'https://' . $_SERVER['HTTP_HOST'] . $this->getOwner()->image->getSize('sh');
