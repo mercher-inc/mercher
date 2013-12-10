@@ -35,7 +35,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="form-group col-lg-12 <?= $model->hasErrors('title') ? ' has-error' : '' ?>">
-        <?
+        <?php
         echo $form->label($model, 'title', ['class' => 'control-label']);
         echo $form->textField(
             $model,
@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerScript(
     <div class="col-lg-2">
         <div class="row">
             <div class="form-group col-lg-12 <?= $model->hasErrors('image_id') ? ' has-error' : '' ?>">
-                <?
+                <?php
                 echo $form->label($model, 'image_id', ['class' => 'control-label']);
                 $this->widget(
                     'application.widgets.ImageUploadWidget',
@@ -75,7 +75,7 @@ Yii::app()->clientScript->registerScript(
     <div class="col-lg-10">
         <div class="row">
             <div class="form-group col-lg-12 <?= $model->hasErrors('description') ? ' has-error' : '' ?>">
-                <?
+                <?php
                 echo $form->label($model, 'description', ['class' => 'control-label']);
                 echo $form->textArea(
                     $model,
@@ -95,7 +95,7 @@ Yii::app()->clientScript->registerScript(
 </div>
 <div class="row">
     <div class="form-group col-lg-12 <?= $model->hasErrors('tax') ? ' has-error' : '' ?>">
-        <?
+        <?php
         echo $form->label($model, 'tax', ['class' => 'control-label']);
         echo $form->textField(
             $model,
@@ -112,7 +112,7 @@ Yii::app()->clientScript->registerScript(
 </div>
 <div class="row">
     <div class="form-group col-lg-12 <?= $model->hasErrors('pp_merchant_id') ? ' has-error' : '' ?>">
-        <?
+        <?php
         echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
         echo $form->textField(
             $model,
@@ -129,7 +129,7 @@ Yii::app()->clientScript->registerScript(
 </div>
 <div class="row">
     <div class="form-group col-lg-12 <?= $model->hasErrors('ga_id') ? ' has-error' : '' ?>">
-        <?
+        <?php
         echo $form->label($model, 'ga_id', ['class' => 'control-label']);
         echo $form->textField(
             $model,
@@ -148,7 +148,7 @@ Yii::app()->clientScript->registerScript(
 <div class="row">
     <div class="form-group col-lg-12">
         <div class="checkbox <?= $model->hasErrors('is_active') ? ' has-error' : '' ?>">
-            <?
+            <?php
             echo $form->label(
                 $model,
                 'is_active',
@@ -173,7 +173,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="form-group actions col-lg-12">
-        <?
+        <?php
         echo CHtml::submitButton(
             Yii::t('shop', 'save'),
             array(
@@ -184,6 +184,5 @@ Yii::app()->clientScript->registerScript(
     </div>
 </div>
 
-<?
-
+<?php
 $this->endWidget();
