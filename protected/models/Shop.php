@@ -26,7 +26,6 @@
  * @property Product[] $products
  * @property Image[] $images
  * @property Category[] $categories
- *
  * @property integer maxProductsCount
  */
 class Shop extends CActiveRecord
@@ -187,7 +186,7 @@ class Shop extends CActiveRecord
             'imagesCount'     => array(self::STAT, 'Image', 'shop_id'),
             'categories'      => array(self::HAS_MANY, 'Category', 'shop_id'),
             'categoriesCount' => array(self::STAT, 'Category', 'shop_id'),
-            'image'    => array(self::BELONGS_TO, 'Image', 'image_id'),
+            'image'           => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
 
@@ -202,16 +201,16 @@ class Shop extends CActiveRecord
             'updated'         => 'Updated',
             'fb_id'           => 'Facebook page',
             'owner_id'        => 'Owner',
-            'subscription_id'        => 'Subscription',
-            'title'           => 'Title',
+            'subscription_id' => 'Subscription',
+            'title'           => 'Tab name',
             'description'     => 'Description',
-            'image_id'          => 'Image',
-            'tax'             => 'Tax percentage in your country/state',
+            'image_id'        => 'Tab image',
+            'tax'             => 'Tax percentage',
             'template_alias'  => 'Template Alias',
             'template_config' => 'Template Config',
-            'is_active'       => 'Active',
+            'is_active'       => 'Show tab',
             'is_banned'       => 'Banned',
-            'pp_merchant_id'  => 'Your PayPal merchant email',
+            'pp_merchant_id'  => 'PayPal merchant email',
             'ga_id'           => 'Google Analytics ID',
         );
     }
