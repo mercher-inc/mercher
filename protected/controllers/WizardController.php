@@ -67,6 +67,9 @@ class WizardController extends Controller
         }
         if (isset($result['data'])) {
             foreach ($result['data'] as $row) {
+                if ($row['id'] == '430253050396911') {
+                    continue;
+                }
                 $accounts[$row['id']] = $row['name'];
             }
         }
@@ -129,7 +132,7 @@ class WizardController extends Controller
             $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
         }
 
-        $model = new Product;
+        $model          = new Product;
         $model->shop_id = $shop->id;
 
         $categoriesList = ['' => 'Not set'];
