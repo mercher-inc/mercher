@@ -862,7 +862,7 @@ th.visible-print,td.visible-print{display:none !important}
 #mainmenu .navbar-nav{text-transform:uppercase}
 #mainmenu.with-menu{border-color:#3da3a7}
 #mainmenu .navbar-main-title{clear:both;background:#3da3a7;padding:20px 15px}
-.navbar-contextual{top:80px;background:#3da3a7;border:none;padding:0 15px}.navbar-contextual .navbar-header{margin-left:-15px}.navbar-contextual .navbar-header .navbar-brand{color:#fff;font-weight:200}
+.navbar-contextual{top:80px;background:#3da3a7;border:none;padding:0 15px;z-index:1000}.navbar-contextual .navbar-header{margin-left:-15px}.navbar-contextual .navbar-header .navbar-brand{color:#fff;font-weight:200}
 .navbar-contextual .navbar-main-table{background:#c5c5c5;padding:5px 15px;clear:both}.navbar-contextual .navbar-main-table table{border-spacing:0}.navbar-contextual .navbar-main-table table tr th{font-weight:normal;color:#fff;padding:5px;font-size:14px}
 .wizard-steps{clear:both;height:154px;background:#e5e3e4;border-bottom:4px solid transparent}.wizard-steps.step1{border-bottom-color:#f05253}.wizard-steps.step1 .step1btn .arrow{display:block}
 .wizard-steps.step2{border-bottom-color:#97c03c}.wizard-steps.step2 .step2btn .arrow{display:block}
