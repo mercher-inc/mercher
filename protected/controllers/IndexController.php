@@ -117,10 +117,10 @@ class IndexController extends Controller
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
             if ($model->validate()) {
-                $mail       = new YiiMailMessage($model->subject, $model->body, 'text/html', 'utf-8');
-                $mail->to   = 'dmitry.les@mercher.net';
-                $mail->from = $model->email;
                 try {
+                    $mail       = new YiiMailMessage($model->subject, $model->body, 'text/html', 'utf-8');
+                    $mail->to   = 'dmitry.les@mercher.net';
+                    $mail->from = $model->email;
                     Yii::app()->mail->send($mail);
                 } catch (Exception $e) {
                     D($e);
