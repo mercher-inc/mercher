@@ -120,7 +120,11 @@ class IndexController extends Controller
                 $mail       = new YiiMailMessage($model->subject, $model->body, 'text/html', 'utf-8');
                 $mail->to   = 'dmitry.les@mercher.net';
                 $mail->from = $model->email;
-                Yii::app()->mail->send($mail);
+                try {
+                    Yii::app()->mail->send($mail);
+                } catch (Exception $e) {
+                    D($e);
+                }
                 Yii::app()->user->setFlash(
                     'contact',
                     'Thank you for contacting us. We will respond to you as soon as possible.'
