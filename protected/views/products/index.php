@@ -95,6 +95,22 @@ $this->widget(
                     'style' => 'width: 200px;'
                 ]
             ]
+            /*
+            [
+                'type'  => 'raw',
+                'value' => 'CHtml::tag(
+                        "button",
+                        [
+                            "type"=>"button",
+                            "class" => "btn btn-default btn-block"
+                        ],
+                        "Like as page"
+                    )',
+                'htmlOptions'        => [
+                    'style' => 'width: 150px;'
+                ]
+            ]
+            */
         ]
     ]
 );

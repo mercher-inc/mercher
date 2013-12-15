@@ -1,7 +1,7 @@
 <?php
 
 $rpcActions = array(
-
+    'like'
 );
 
 $rpcRoutes = array();
