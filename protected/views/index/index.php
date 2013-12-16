@@ -5,6 +5,18 @@
  * @var $errorMessage string
  */
 
+$this->pageTitle = 'Facebook Shop Builder - Facebook Store Platform - ' . Yii::app()->name;
+
+Yii::app()->clientScript->registerMetaTag(
+    'Mercher: The easiest way to build an effective Facebook shop (F-store).',
+    'description'
+);
+
+Yii::app()->clientScript->registerMetaTag(
+    'facebook shop, facebook store, facebook shop application, social ecommerce software, social commerce platform, shop wizard',
+    'keywords'
+);
+
 $ga_ctaButton = <<<JS
 $("#ctaButton").click(function(){
     ga('send', 'event', 'CTA', 'click', 'CTA click');
@@ -45,8 +57,6 @@ Yii::app()->clientScript->registerScript(
         })
     "
 );
-
-$this->pageTitle = Yii::app()->name;
 
 if (isset($errorCode) and isset($errorMessage)) {
 
