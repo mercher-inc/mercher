@@ -26,6 +26,17 @@ class OgController extends CController
 
     public function actionProducts($product_id)
     {
-        D($product_id);
+        $product = Product::model()->findByPk((int)$product_id);
+
+        if (!$product) {
+            throw new CHttpException(404);
+        }
+
+        $this->render(
+            'product',
+            [
+                'product' => $product
+            ]
+        );
     }
 }
