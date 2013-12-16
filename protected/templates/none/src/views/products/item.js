@@ -24,10 +24,10 @@ define(function (require) {
         },
 
         render: function (model, options) {
+            var view = this;
+
             //append to content block
             this.$el.appendTo('#content');
-
-            var view = this;
 
             //render product view
             this.$el.html(this.template({model: this.model, shop: shop}));

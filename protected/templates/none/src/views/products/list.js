@@ -4,13 +4,17 @@ define(function (require) {
 
     //requirements
     var _ = require('underscore'),
-        Backbone = require('backbone');
+        Backbone = require('backbone'),
+        shop = require('shop');
+
     //scroll check interval
     var scrollCheckInterval = null;
 
     return Backbone.View.extend({
 
-        className: 'list product_list',
+        template: _.template(require('text!tpl/products/list.html')),
+
+        className: 'product_list',
 
         initialize: function () {
             //if collection was reset render view again
@@ -24,8 +28,14 @@ define(function (require) {
         },
 
         render: function (collection, options) {
+            var view = this;
+
             //append to content block
             this.$el.appendTo('#content');
+
+            //render product view
+            this.$el.html(this.template({collection: this.collection, shop: shop}));
+
             //getting FB object
             require(['fb'], function (FB) {
                 //scroll top
@@ -33,7 +43,7 @@ define(function (require) {
             });
 
             //clear list
-            this.$el.empty();
+            $(".list", this.$el).empty();
             //render product views
             _.each(this.collection.models, function (model) {
                 this.renderProduct(model);
@@ -63,7 +73,7 @@ define(function (require) {
                 //create product view
                 var productView = new ProductView({model: model});
                 //render product view
-                view.$el.append(productView.render().$el);
+                $(".list", view.$el).append(productView.render().$el);
                 //resize canvas
                 view.resizeCanvas();
             });
