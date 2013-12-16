@@ -9,23 +9,50 @@ define(function (require) {
 
     return Backbone.View.extend({
 
-        template: _.template(require('text!tpl/products/list/item.html')),
+        template: _.template(require('text!tpl/products/item.html')),
 
-        className: 'item',
+        className: 'product_item',
 
         initialize: function () {
-            //render view on model update
+            //if collection was reset render view again
             this.listenTo(this.model, "sync", this.render);
         },
 
         events: {
             "click .addToCart": "addToCart",
-            "click .title, .description": "showDetails"
+            "click .back": "goToProducts"
         },
 
-        render: function () {
+        render: function (model, options) {
+            //append to content block
+            this.$el.appendTo('#content');
+
+            var view = this;
+
             //render product view
             this.$el.html(this.template({model: this.model, shop: shop}));
+
+            //getting FB object
+            require(['fb'], function (FB) {
+                //setting canvas size
+                FB.Canvas.setSize({height: 810});
+                //scroll top
+                FB.Canvas.scrollTo(0, 0);
+
+                FB.XFBML.parse(view.el);
+            });
+
+            //track page view
+            require(['ga'], function (ga) {
+                ga(
+                    'send',
+                    'pageview',
+                    {
+                        page: 'products/' + view.model.id,
+                        title: view.model.get('title')
+                    }
+                );
+            });
             //return view
             return this;
         },
@@ -51,8 +78,8 @@ define(function (require) {
             });
         },
 
-        showDetails: function () {
-            router.navigate('products/' + this.model.id, {trigger: true});
+        goToProducts: function () {
+            router.navigate('products', {trigger: true});
         }
 
     });

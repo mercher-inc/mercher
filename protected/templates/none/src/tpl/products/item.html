@@ -1,0 +1,29 @@
+<div class="image">
+    <% if (!_.isEmpty(model.get('image'))) { %>
+    <img src="<%- model.get('image').xl %>">
+    <% } else { %>
+    <img src="https://graph.facebook.com/<%- shop.get('page') %>/picture?width=400&height=400">
+    <% } %>
+</div>
+<div class="shadow">
+    <button type="button" class="back">&lt;</button>
+</div>
+<div class="info">
+    <div class="fb-like" data-href="http://mercher.net/og/products/<%- model.id %>.html" data-width="370" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+    <div class="title">
+        <h1>
+            <%- model.get('title') %>
+        </h1>
+    </div>
+    <div class="description">
+        <% if (model.get('description')) { %>
+        <%- model.get('description') %>
+        <% } %>
+    </div>
+    <div class="actions">
+        <% if (model.get('amount') && shop.get('pp_merchant_id')) { %>
+        <button class="addToCart">Buy for &#36;<%- Math.ceil((model.get('amount') / (100 - shop.get("tax"))) * (100 + shop.get("tax")) * 100) / 100 %></button>
+        <% } %>
+    </div>
+    <div class="fb-comments" data-href="http://mercher.net/og/products/<%- model.id %>.html" data-width="370" data-numposts="5" data-colorscheme="light"></div>
+</div>

@@ -26,6 +26,12 @@ define(function (require) {
         render: function (collection, options) {
             //append to content block
             this.$el.appendTo('#content');
+            //getting FB object
+            require(['fb'], function (FB) {
+                //scroll top
+                FB.Canvas.scrollTo(0, 0);
+            });
+
             //clear list
             this.$el.empty();
             //render product views
@@ -34,6 +40,18 @@ define(function (require) {
             }, this);
             //resize canvas
             this.resizeCanvas();
+
+            //track page view
+            require(['ga'], function (ga) {
+                ga(
+                    'send',
+                    'pageview',
+                    {
+                        page: 'products',
+                        title: 'Products'
+                    }
+                );
+            });
             //return view
             return this;
         },

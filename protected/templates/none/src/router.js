@@ -8,6 +8,8 @@ define(function (require) {
 
     return Backbone.Router.extend({
 
+        currentView: null,
+
         initialize: function () {
             //render layout
             new DefaultLayout({el: 'body'}).render();
@@ -18,7 +20,7 @@ define(function (require) {
                     target: '_blank'
                 });
 
-                paypal.minicart.cart.on('checkout', function(e){
+                paypal.minicart.cart.on('checkout', function (e) {
                     console.log(e);
                 });
             });
@@ -34,31 +36,22 @@ define(function (require) {
                     );
                 });
             }, 500);
+
+            this.on('route', function () {
+                if (this.currentView != null) {
+                    this.currentView.remove();
+                }
+            });
         },
 
         routes: {
-            "products": "products"
+            "products": "products",
+            "products/:product_id": "product"
         },
 
         products: function () {
-            //track page view
-            require(['ga'], function (ga) {
-                ga(
-                    'send',
-                    'pageview',
-                    {
-                        page: 'products',
-                        title: 'Products'
-                    }
-                );
-            });
-
             //load requirements
             require(["views/products/list", "collections/products", 'fb'], function (View, Collection, FB) {
-
-                //scroll top
-                FB.Canvas.scrollTo(0, 0);
-
                 //setting products collection
                 var collection = new Collection();
                 collection.data.limit = 9;
@@ -71,6 +64,25 @@ define(function (require) {
 
                 //fetching products from server
                 view.collection.fetch({data: view.collection.data, reset: true});
+
+                router.currentView = view;
+            });
+        },
+
+        product: function (product_id) {
+            require(["views/products/item", "models/product", 'fb'], function (View, Model, FB) {
+                //setting product model
+                var model = new Model({id: product_id});
+
+                //setting view
+                var view = new View({
+                    model: model
+                });
+
+                //fetching product from server
+                view.model.fetch();
+
+                router.currentView = view;
             });
         }
 

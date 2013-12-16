@@ -38,10 +38,12 @@ requirejs.config({
     waitSeconds: 0
 });
 
+var router = null;
+
 require(['backbone', 'router'], function (Backbone, Router) {
 
     //instantiate router
-    var router = new Router();
+    router = new Router();
     Backbone.history.start();
 
     //navigating to products
