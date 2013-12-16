@@ -137,17 +137,7 @@ if (isset($errorCode) and isset($errorMessage)) {
                 <div class="hero-circle-arrow"></div>
             </div>
             <div class="col-lg-6 col-md-6 hidden-sm hidden-xs">
-
-
                 <div id="carousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                    </ol>
-
-                    <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
                             <img class="hero-img" src="/img/hero-img-1.jpg">
@@ -160,8 +150,6 @@ if (isset($errorCode) and isset($errorMessage)) {
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
