@@ -34,6 +34,9 @@ class OgProductBehavior extends CActiveRecordBehavior
             $object['og:image'] = 'https://' . $_SERVER['HTTP_HOST'] . $data['xl'];
         }
 
+        $object['og:url'] = Yii::app()->urlManager->createUrl('og/products', ['product_id' => $model->id]);
+
+        /*
         $object['og:url'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
             array(
                 'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
@@ -44,6 +47,7 @@ class OgProductBehavior extends CActiveRecordBehavior
                 )
             )
         );
+        */
 
         $accessToken = Yii::app()->facebook->sdk->getAppId() . '|' . Yii::app()->facebook->sdk->getAppSecret();
         $opts        = array(

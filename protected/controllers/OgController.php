@@ -23,4 +23,9 @@ class OgController extends CController
             ]
         );
     }
+
+    public function actionProducts($product_id)
+    {
+        D($product_id);
+    }
 }

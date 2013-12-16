@@ -53,7 +53,8 @@ return array_merge(
             ]
         ],
         //==OpenGraph==
-        'og/subscription/<subscription_id:\d+>'                                                         => 'og/subscription'
+        'og/subscription/<subscription_id:\d+>'                                                         => 'og/subscription',
+        'og/products/<product_id:\d+>'                                                                  => 'og/products'
     ),
     require(dirname(__FILE__) . '/rest_rules.php'),
     require(dirname(__FILE__) . '/rpc_rules.php')
