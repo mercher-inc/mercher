@@ -15,7 +15,6 @@ define(function (require) {
             //render minicart
             require(['minicart'], function () {
                 paypal.minicart.render({
-                    action: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
                     target: '_blank'
                 });
 
