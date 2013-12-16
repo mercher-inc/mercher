@@ -110,8 +110,12 @@ if (isset($errorCode) and isset($errorMessage)) {
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 text-center">
-                <h1 class="hero-heading-first"><?php echo Yii::t('label', 'start_business_with_us'); ?></h1>
+                <h1 class="hero-heading-first">
+                    Set Up Your Facebook Store
+                </h1>
+
                 <h1 class="hero-heading-second"><?php echo Yii::t('label', 'it_is'); ?></h1>
+
                 <div class="hero-circle-block nav">
                     <div class="hero-circle-holder">
                         <a class="hero-circle-fast" href="#hero-desc-fast">
@@ -142,16 +146,29 @@ if (isset($errorCode) and isset($errorMessage)) {
 <div class="container">
     <div id="hero-desc-block" class="tab-content">
         <div class="tab-pane fade active in" id="hero-desc-index">
-            <?php echo CHtml::tag('p', [], Yii::t('hero', 'index')); ?>
+            <p>
+                Today Facebook is the largest social network. It means that a lot of your customers are present there.
+                So, why not set up a Facebook shop right now? If your answer is that development of an online store
+                isn't easy even on Facebook, you are in the right place: Mercher.net is just for you! Mercher is an
+                effective but easy-to-use Facebook shop builder for non-techie users. As a social e-commerce software
+                platform Mercher allows you to launch your shop fast, easy and for free for 10 items of goods - not so
+                bad to start your online business, isn't it?
+            </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-fast">
-            <?php echo CHtml::tag('p', [], Yii::t('hero', 'fast')); ?>
+            <p>
+                With Mercher you need only 3 clicks to launch your Facebook store.
+            </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-easy">
-            <?php echo CHtml::tag('p', [], Yii::t('hero', 'easy')); ?>
+            <p>
+                The very simple and easy-to-understand procedure of the Facebook shop setting up.
+            </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-cheap">
-            <?php echo CHtml::tag('p', [], Yii::t('hero', 'cheap')); ?>
+            <p>
+                A Facebook store with 10 items of goods is free and with a small fee for larger stores.
+            </p>
         </div>
     </div>
 

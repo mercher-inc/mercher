@@ -42,7 +42,11 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
 <nav id="mainmenu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand" href="<?php echo Yii::app()->controller->createUrl('index/index') ?>">
-            &nbsp;
+            Mercher,
+            <br>
+            the easiest way to build an
+            <br>
+            effective Facebook shop
         </a>
     </div>
     <?php $this->widget(
