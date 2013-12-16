@@ -62,6 +62,11 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
         'zii.widgets.CMenu',
         array(
             'items'       => array(
+                [
+                    'label'       => 'On-line support',
+                    'url'         => '//www.facebook.com/messages/mercher.net',
+                    'linkOptions' => ['target' => '_blank']
+                ],
                 array(
                     'label'       => 'Login',
                     'url'         => Yii::app()->facebook->getLoginUrl(),
@@ -155,12 +160,7 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
             'items'       => [
                 ['label' => Yii::t('label', 'policy'), 'url' => ['index/page', 'view' => 'policy']],
                 ['label' => Yii::t('label', 'terms'), 'url' => ['index/page', 'view' => 'terms']],
-                [
-                    'label'       => Yii::t('label', 'contact'),
-                    'url'         => '//www.facebook.com/messages/mercher.net',
-                    'linkOptions' => ['target' => '_blank']
-                ],
-                //['label' => Yii::t('label', 'contact'), 'url' => ['index/contact']],
+                ['label' => Yii::t('label', 'contact'), 'url' => ['index/contact']],
             ],
             'htmlOptions' => [
                 'class' => 'nav nav-pills nav-justified'

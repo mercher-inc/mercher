@@ -100,6 +100,21 @@ $this->breadcrumbs = array(
             </div>
         </div>
 
+        <hr>
+        <div class="alert alert-success">
+            <p>
+                Also you can always write a message to
+                <a href="//www.facebook.com/mercher.net" target="_blank">our fan-page</a>
+                on Facebook&reg; or send an e-mail to
+                <a href="mailto:support@mercher.net">support@mercher.net</a>.
+            </p>
+            <p>
+                <a>
+                    <a class="btn btn-success btn-block" href="//www.facebook.com/messages/mercher.net" target="_blank">Start on-line chat</a>
+                </a>
+            </p>
+        </div>
+
         <?php $this->endWidget(); ?>
 
     </div><!-- form -->
