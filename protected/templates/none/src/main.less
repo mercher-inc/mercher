@@ -12,6 +12,18 @@ body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: @brand-primary;
+}
+
 .product_list {
 
   .item {
@@ -110,117 +122,126 @@ body {
 
 .product_item {
 
-  .image {
-    position: fixed;
-    z-index: -1;
-    width: 810px;
-    height: 810px;
-    top: 0;
-    left: 0;
+  .item {
+    width: 800px;
+    height: 800px;
+    margin: 5px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px #999;
+    overflow: hidden;
 
-    img {
-      display: block;
-      width: 810px;
-      height: 810px;
+    .image {
+      position: fixed;
+      z-index: -1;
+      width: 800px;
+      height: 800px;
+      border-radius: 4px;
+
+      img {
+        display: block;
+        width: 800px;
+        height: 800px;
+        border-radius: 4px;
+      }
     }
-  }
 
-  .shadow {
-    position: fixed;
-    z-index: 0;
-    width: 810px;
-    height: 810px;
-    top: 0;
-    left: 0;
-    background: fadeout(@brand-primary, 100%);
-
-    transition: background-color 0.25s;
-    -webkit-transition: background-color 0.25s;
-
-    .back {
-      background: fadeout(@brand-primary, 75%);
-      border: none;
-      width: 50px;
-      margin: 0;
-      padding: 0;
-      height: 810px;
-      color: white;
-      cursor: pointer;
-      outline: none;
-      display: none;
+    .shadow {
+      position: fixed;
+      z-index: 0;
+      width: 800px;
+      height: 800px;
+      border-radius: 4px;
+      background: fadeout(@brand-primary, 100%);
 
       transition: background-color 0.25s;
       -webkit-transition: background-color 0.25s;
 
-      &:hover {
-        background: @brand-primary;
-      }
-    }
-  }
-
-  .info {
-    position: fixed;
-    width: 370px;
-    height: 780px;
-    top: 0;
-    left: 810px;
-    float: left;
-    color: white;
-    padding: 15px 15px 15px 375px;
-    overflow: auto;
-
-    transition: left 0.25s;
-    -webkit-transition: left 0.25s;
-
-    .fb-like {
-      float: right;
-    }
-
-    .title {
-      h1 {
-        font-size: 24px;
-        line-height: 20px;
-        font-weight: normal;
-        margin: 0 0 20px 0;
-        text-shadow: 1px 1px 5px #333;
-      }
-    }
-    .description {
-      font-size: 14px;
-      font-weight: normal;
-      margin: 0 0 20px 0;
-      text-shadow: 1px 1px 5px #333;
-    }
-
-    .actions {
-      margin: 0 0 20px 0;
-
-      .addToCart {
-        background: @brand-primary;
-        color: white;
-        font-size: 16px;
-        font-weight: normal;
-        border: none;
-        margin: 0;
-        padding: 8px 16px;
-        cursor: pointer;
-        width: 100%;
-        border-radius: 4px;
-      }
-    }
-  }
-
-  &:hover {
-    .shadow {
-      background: fadeout(@brand-primary, 50%);
-
       .back {
-        display: block;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+        background: fadeout(@brand-primary, 75%);
+        border: none;
+        width: 50px;
+        margin: 0;
+        padding: 0;
+        height: 800px;
+        color: white;
+        cursor: pointer;
+        outline: none;
+        display: none;
+
+        transition: background-color 0.25s;
+        -webkit-transition: background-color 0.25s;
+
+        &:hover {
+          background: @brand-primary;
+        }
       }
     }
 
     .info {
-      left: 50px;
+      position: fixed;
+      width: 400px;
+      height: 770px;
+      left: 800px;
+      float: left;
+      color: white;
+      padding: 15px 15px 15px 335px;
+      overflow: auto;
+
+      transition: left 0.25s;
+      -webkit-transition: left 0.25s;
+
+      .fb-like {
+        float: right;
+      }
+
+      .title {
+        h1 {
+          font-size: 24px;
+          line-height: 20px;
+          font-weight: normal;
+          margin: 0 0 20px 0;
+          text-shadow: 1px 1px 5px #333;
+        }
+      }
+      .description {
+        font-size: 14px;
+        font-weight: normal;
+        margin: 0 0 20px 0;
+        text-shadow: 1px 1px 5px #333;
+      }
+
+      .actions {
+        margin: 0 0 20px 0;
+
+        .addToCart {
+          background: @brand-primary;
+          color: white;
+          font-size: 16px;
+          font-weight: normal;
+          border: none;
+          margin: 0;
+          padding: 8px 16px;
+          cursor: pointer;
+          width: 100%;
+          border-radius: 4px;
+        }
+      }
+    }
+
+    &:hover {
+      .shadow {
+        background: fadeout(@brand-primary, 50%);
+
+        .back {
+          display: block;
+        }
+      }
+
+      .info {
+        left: 55px;
+      }
     }
   }
 }
