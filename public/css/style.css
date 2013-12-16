@@ -894,7 +894,7 @@ body.with-wizard{margin-top:230px}
 .hero .hero-circle-arrow2{background:url('/img/arrow2.png');height:15px;width:30px;position:absolute;background-repeat:no-repeat;background-position:top center;display:none;transition-duration:.25s;transition-timing-function:ease}
 .hero-img{width:100%}
 .hero-heading-first{margin:40px 0 0 0}
-.hero-heading-second{margin:25px 0 0 0;font-weight:500;font-size:48px}
+.hero-heading-second{margin:25px 0 0 0;font-weight:200;font-size:48px;display:block;line-height:1.1}
 .hero-get-started{text-align:center;margin:20px 0}
 #hero-desc-index,#hero-desc-fast,#hero-desc-easy,#hero-desc-cheap{color:#999;font-size:20px}
 #hero-desc-block{margin:40px 0;font-size:16px;min-height:150px}

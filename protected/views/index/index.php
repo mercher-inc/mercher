@@ -114,7 +114,7 @@ if (isset($errorCode) and isset($errorMessage)) {
                     Set Up Your Facebook Store
                 </h1>
 
-                <h1 class="hero-heading-second"><?php echo Yii::t('label', 'it_is'); ?></h1>
+                <span class="hero-heading-second"><?php echo Yii::t('label', 'it_is'); ?></span>
 
                 <div class="hero-circle-block nav">
                     <div class="hero-circle-holder">
@@ -159,27 +159,27 @@ if (isset($errorCode) and isset($errorMessage)) {
     <div id="hero-desc-block" class="tab-content">
         <div class="tab-pane fade active in" id="hero-desc-index">
             <p>
-                Today Facebook is the largest social network. It means that a lot of your customers are present there.
-                So, why not set up a Facebook shop right now? If your answer is that development of an online store
-                isn't easy even on Facebook, you are in the right place: Mercher.net is just for you! Mercher is an
-                effective but easy-to-use Facebook shop builder for non-techie users. As a social e-commerce software
+                Today Facebook&reg; is the largest social network. It means that a lot of your customers are present there.
+                So, why not set up a Facebook&reg; shop right now? If your answer is that development of an online store
+                isn't easy even on Facebook&reg;, you are in the right place: Mercher.net is just for you! Mercher is an
+                effective but easy-to-use Facebook&reg; shop builder for non-techie users. As a social e-commerce software
                 platform Mercher allows you to launch your shop fast, easy and for free for 10 items of goods - not so
                 bad to start your online business, isn't it?
             </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-fast">
             <p>
-                With Mercher you need only 3 clicks to launch your Facebook store.
+                With Mercher you need only 3 clicks to launch your Facebook&reg; store.
             </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-easy">
             <p>
-                The very simple and easy-to-understand procedure of the Facebook shop setting up.
+                The very simple and easy-to-understand procedure of the Facebook&reg; shop setting up.
             </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-cheap">
             <p>
-                A Facebook store with 10 items of goods is free and with a small fee for larger stores.
+                A Facebook&reg; store with 10 items of goods is free and with a small fee for larger stores.
             </p>
         </div>
     </div>
