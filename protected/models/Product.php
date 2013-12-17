@@ -222,6 +222,7 @@ class Product extends CActiveRecord
     public function getOgParams()
     {
         $object = array(
+            'id'               => $this->fb_id,
             'og:title'         => $this->title,
             'og:locale'        => 'en_US',
             'fb:admins'        => $this->shop->owner->fb_id,
