@@ -15,7 +15,11 @@ class OgProductBehavior extends CActiveRecordBehavior
 
         $ch     = curl_init();
         $object = array(
-            'og:title' => $model->title
+            'og:title'             => $model->title,
+            'og:locale'            => 'en_US',
+            'fb:admins'            => $model->shop->owner->fb_id,
+            'fb:app_id'            => Yii::app()->facebook->sdk->getAppId(),
+            'product:retailer'     => $model->shop->fb_id
         );
         if ($model->amount) {
             $object['product:price:amount']   = $model->amount;
@@ -36,8 +40,7 @@ class OgProductBehavior extends CActiveRecordBehavior
 
         $object['og:url'] = Yii::app()->urlManager->createUrl('og/products', ['product_id' => $model->id]);
 
-        /*
-        $object['og:url'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
+        $object['product:product_link'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
             array(
                 'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
                 'app_data' => CJSON::encode(
@@ -47,7 +50,6 @@ class OgProductBehavior extends CActiveRecordBehavior
                 )
             )
         );
-        */
 
         $accessToken = Yii::app()->facebook->sdk->getAppId() . '|' . Yii::app()->facebook->sdk->getAppSecret();
         $opts        = array(

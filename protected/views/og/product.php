@@ -4,6 +4,43 @@
  * @var $product Product
  */
 
+$object = array(
+    'og:title'             => $product->title,
+    'og:locale'            => 'en_US',
+    'fb:admins'            => $product->shop->owner->fb_id,
+    'fb:app_id'            => Yii::app()->facebook->sdk->getAppId(),
+    'product:retailer'     => $product->shop->fb_id
+);
+if ($product->amount) {
+    $object['product:price:amount']   = $product->amount;
+    $object['product:price:currency'] = 'USD';
+}
+if ($product->description) {
+    $object['og:description'] = $product->description;
+}
+
+if ($product->category) {
+    $object['product:category'] = $product->category->title;
+}
+
+if ($product->image) {
+    $data               = CJSON::decode($product->image->data);
+    $object['og:image'] = 'https://' . $_SERVER['HTTP_HOST'] . $data['xl'];
+}
+
+$object['og:url'] = Yii::app()->urlManager->createUrl('og/products', ['product_id' => $product->id]);
+
+$object['product:product_link'] = 'http://www.facebook.com/' . $product->shop->fb_id . '?' . http_build_query(
+    array(
+        'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
+        'app_data' => CJSON::encode(
+            array(
+                'product_id' => $product->id
+            )
+        )
+    )
+);
+
 
 echo CHtml::openTag('html');
 echo CHtml::openTag(
@@ -12,75 +49,13 @@ echo CHtml::openTag(
         'prefix' => 'og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#'
     ]
 );
-echo CHtml::tag(
-    'meta',
-    [
-        'property' => 'fb:app_id',
-        'content'  => Yii::app()->facebook->sdk->getAppId()
-    ]
-);
-echo CHtml::tag(
-    'meta',
-    [
-        'property' => 'og:type',
-        'content'  => 'product'
-    ]
-);
-echo CHtml::tag(
-    'meta',
-    [
-        'property' => 'og:url',
-        'content'  => $this->createAbsoluteUrl('', ['product_id' => $product->id])
-    ]
-);
-echo CHtml::tag(
-    'meta',
-    [
-        'property' => 'og:title',
-        'content'  => $product->title
-    ]
-);
-if ($product->description) {
+
+foreach ($object as $property=>$content) {
     echo CHtml::tag(
         'meta',
         [
-            'property' => 'og:description',
-            'content'  => $product->description
-        ]
-    );
-}
-if ($product->image_id) {
-    $data = CJSON::decode($product->image->data);
-    echo CHtml::tag(
-        'meta',
-        [
-            'property' => 'og:image',
-            'content'  => 'https://mercher.net' . $data['xl']
-        ]
-    );
-}
-if ($product->amount) {
-    echo CHtml::tag(
-        'meta',
-        [
-            'property' => 'product:price:amount',
-            'content'  => $product->amount
-        ]
-    );
-    echo CHtml::tag(
-        'meta',
-        [
-            'property' => 'product:price:currency',
-            'content'  => 'USD'
-        ]
-    );
-}
-if ($product->category_id) {
-    echo CHtml::tag(
-        'meta',
-        [
-            'property' => 'product:category',
-            'content'  => $product->category->title
+            'property' => $property,
+            'content'  => $content
         ]
     );
 }
