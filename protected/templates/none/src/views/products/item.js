@@ -20,17 +20,28 @@ define(function (require) {
 
         events: {
             "click .addToCart": "addToCart",
+            "click .likeBtn": "likeProduct",
             "click .back": "goToProducts"
         },
 
         render: function (model, options) {
             var view = this;
+            var showShareBtn = false;
 
             //append to content block
             this.$el.appendTo('#content');
 
+            var authResponse = FB.getAuthResponse();
+            if (authResponse !== null) {
+                if (authResponse.userID == '100006639336793' || authResponse.userID == '100005603078334') {
+                    showShareBtn = true;
+                }
+            }
+
             //render product view
-            this.$el.html(this.template({model: this.model, shop: shop}));
+            this.$el.html(this.template({model: this.model, shop: shop, showShareBtn: showShareBtn}));
+
+
 
             //getting FB object
             require(['fb'], function (FB) {
@@ -75,6 +86,23 @@ define(function (require) {
             //adding object to cart
             require(['minicart'], function () {
                 paypal.minicart.cart.add(obj);
+            });
+        },
+
+        likeProduct: function (e) {
+            var view = this;
+            //getting FB object
+            require(['fb'], function (FB) {
+                FB.api(
+                    'me/og.likes',
+                    'post',
+                    {
+                        object: view.model.get('fb_id')
+                    },
+                    function(response) {
+                        console.log(response);
+                    }
+                );
             });
         },
 
