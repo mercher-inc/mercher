@@ -132,7 +132,7 @@ class IndexController extends Controller
                 $this->refresh();
             }
         }
-        $this->render('contact', array('model' => $model));
+        $this->render('contact_temp', array('model' => $model));
     }
 
     /*
