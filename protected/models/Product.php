@@ -222,12 +222,12 @@ class Product extends CActiveRecord
     public function getOgParams()
     {
         $object = array(
-            'id'               => $this->fb_id,
             'og:title'         => $this->title,
             'og:locale'        => 'en_US',
+            'product:retailer' => $this->shop->fb_id,
             'fb:admins'        => $this->shop->owner->fb_id,
             'fb:app_id'        => Yii::app()->facebook->sdk->getAppId(),
-            'product:retailer' => $this->shop->fb_id
+            'fb:profile_id'    => $this->shop->fb_id,
         );
         if ($this->amount) {
             $object['product:price:amount']   = $this->amount;
