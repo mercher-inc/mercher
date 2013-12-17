@@ -46,6 +46,11 @@ require(['backbone', 'router'], function (Backbone, Router) {
     router = new Router();
     Backbone.history.start();
 
-    //navigating to products
-    router.navigate('products', {trigger: true});
+    if (typeof app_data.product_id != 'undefined') {
+        //navigating to product
+        router.navigate('products/' + app_data.product_id, {trigger: true});
+    } else {
+        //navigating to products
+        router.navigate('products', {trigger: true});
+    }
 });

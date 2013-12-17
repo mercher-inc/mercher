@@ -137,6 +137,21 @@ class Template extends \CComponent
                 ) . '/app/main.js'
             )
         );
+
+        $signedRequest = \Yii::app()->facebook->sdk->getSignedRequest();
+        if (isset($signedRequest['app_data'])) {
+            \Yii::app()->clientScript->registerScript(
+                'app_data',
+                'var app_data = ' . $signedRequest['app_data'] . ';',
+                \CClientScript::POS_HEAD
+            );
+        } else {
+            \Yii::app()->clientScript->registerScript(
+                'app_data',
+                'var app_data = {};',
+                \CClientScript::POS_HEAD
+            );
+        }
     }
 
     public function getWidget()
