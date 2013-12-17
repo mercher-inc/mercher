@@ -31,15 +31,8 @@ define(function (require) {
             //append to content block
             this.$el.appendTo('#content');
 
-            var authResponse = FB.getAuthResponse();
-            if (authResponse !== null) {
-                if (authResponse.userID == '100006639336793' || authResponse.userID == '100005603078334') {
-                    showShareBtn = true;
-                }
-            }
-
             //render product view
-            this.$el.html(this.template({model: this.model, shop: shop, showShareBtn: showShareBtn}));
+            this.$el.html(this.template({model: this.model, shop: shop}));
 
 
 
@@ -93,16 +86,22 @@ define(function (require) {
             var view = this;
             //getting FB object
             require(['fb'], function (FB) {
-                FB.api(
-                    'me/og.likes',
-                    'post',
-                    {
-                        object: view.model.get('fb_id')
-                    },
-                    function(response) {
-                        console.log(response);
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        FB.api('me/og.likes', 'post', {object: view.model.get('fb_id')}, function(response){
+                            console.log(response);
+                        });
+                    } else {
+                        FB.login(function(response) {
+                            if (response.authResponse) {
+                                FB.api('me/og.likes', 'post', {object: view.model.get('fb_id')}, function(response){
+                                    console.log(response);
+                                });
+                            }
+                        }, {scope: 'publish_actions'});
                     }
-                );
+                });
+
             });
         },
 
