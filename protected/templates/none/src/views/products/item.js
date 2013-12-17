@@ -89,13 +89,13 @@ define(function (require) {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
                         FB.api('me/og.likes', 'post', {object: view.model.get('fb_id')}, function(response){
-                            console.log(response);
+                            //console.log(response);
                         });
                     } else {
                         FB.login(function(response) {
                             if (response.authResponse) {
                                 FB.api('me/og.likes', 'post', {object: view.model.get('fb_id')}, function(response){
-                                    console.log(response);
+                                    //console.log(response);
                                 });
                             }
                         }, {scope: 'publish_actions'});
