@@ -119,7 +119,7 @@ if (isset($errorCode) and isset($errorMessage)) {
 <div class="hero">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6 text-center">
+            <div class="col-lg-6 text-center">
                 <h1 class="hero-heading-first">
                     Set Up Your Facebook Store
                 </h1>
@@ -146,7 +146,7 @@ if (isset($errorCode) and isset($errorMessage)) {
                 <div class="hero-circle-arrow2"></div>
                 <div class="hero-circle-arrow"></div>
             </div>
-            <div class="col-lg-6 col-md-6 hidden-sm hidden-xs">
+            <div class="col-lg-6 col-md-6 hidden-sm hidden-xs hidden-md">
                 <div id="carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="item active">
