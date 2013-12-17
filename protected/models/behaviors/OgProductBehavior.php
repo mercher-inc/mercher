@@ -14,42 +14,6 @@ class OgProductBehavior extends CActiveRecordBehavior
         $model = $this->getOwner();
 
         $ch     = curl_init();
-        $object = array(
-            'og:title'             => $model->title,
-            'og:locale'            => 'en_US',
-            'fb:admins'            => $model->shop->owner->fb_id,
-            'fb:app_id'            => Yii::app()->facebook->sdk->getAppId(),
-            'product:retailer'     => $model->shop->fb_id
-        );
-        if ($model->amount) {
-            $object['product:price:amount']   = $model->amount;
-            $object['product:price:currency'] = 'USD';
-        }
-        if ($model->description) {
-            $object['og:description'] = $model->description;
-        }
-
-        if ($model->category) {
-            $object['product:category'] = $model->category->title;
-        }
-
-        if ($model->image) {
-            $data               = CJSON::decode($model->image->data);
-            $object['og:image'] = 'https://' . $_SERVER['HTTP_HOST'] . $data['xl'];
-        }
-
-        $object['og:url'] = Yii::app()->urlManager->createUrl('og/products', ['product_id' => $model->id]);
-
-        $object['product:product_link'] = 'http://www.facebook.com/' . $model->shop->fb_id . '?' . http_build_query(
-            array(
-                'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
-                'app_data' => CJSON::encode(
-                    array(
-                        'product_id' => $model->id
-                    )
-                )
-            )
-        );
 
         $accessToken = Yii::app()->facebook->sdk->getAppId() . '|' . Yii::app()->facebook->sdk->getAppSecret();
         $opts        = array(
@@ -59,7 +23,7 @@ class OgProductBehavior extends CActiveRecordBehavior
             CURLOPT_POSTFIELDS     => http_build_query(
                 array(
                     'access_token' => $accessToken,
-                    'object'       => CJSON::encode($object)
+                    'object'       => CJSON::encode($model->ogParams)
                 )
             ),
             CURLOPT_POST           => 1

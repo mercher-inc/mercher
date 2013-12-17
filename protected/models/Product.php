@@ -219,6 +219,48 @@ class Product extends CActiveRecord
         return parent::model($className);
     }
 
+    public function getOgParams()
+    {
+        $object = array(
+            'og:title'         => $this->title,
+            'og:locale'        => 'en_US',
+            'fb:admins'        => $this->shop->owner->fb_id,
+            'fb:app_id'        => Yii::app()->facebook->sdk->getAppId(),
+            'product:retailer' => $this->shop->fb_id
+        );
+        if ($this->amount) {
+            $object['product:price:amount']   = $this->amount;
+            $object['product:price:currency'] = 'USD';
+        }
+        if ($this->description) {
+            $object['og:description'] = $this->description;
+        }
+
+        if ($this->category) {
+            $object['product:category'] = $this->category->title;
+        }
+
+        if ($this->image) {
+            $data               = CJSON::decode($this->image->data);
+            $object['og:image'] = 'https://' . $_SERVER['HTTP_HOST'] . $data['xl'];
+        }
+
+        $object['og:url'] = Yii::app()->urlManager->createUrl('og/products', ['product_id' => $this->id]);
+
+        $object['product:product_link'] = 'http://www.facebook.com/' . $this->shop->fb_id . '?' . http_build_query(
+            array(
+                'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
+                'app_data' => CJSON::encode(
+                    array(
+                        'product_id' => $this->id
+                    )
+                )
+            )
+        );
+
+        return $object;
+    }
+
     protected function afterSave()
     {
         parent::afterSave();
