@@ -12,8 +12,8 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'policy');
     </div>
     <p>
         <strong>
-            Few applications are more transparent than Mercher.
-            We aim to respect your privacy and to build a useful product.
+            Few applications are more transparent than Mercher. (Also referred to as “we” in this document”) We aim to
+            respect your privacy and to build a useful product.
         </strong>
     </p>
 
@@ -63,22 +63,22 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'policy');
     </h2>
     <ul>
         <li>
-            We will not share your personal data (e.g. User ID ) with third parties.
-        </li>
-        <li>
-            We do not sell lists containing personal information about website vendors or customers
+            Mercher could use the information for the following purposes: to contact you, to investigate, prevent or
+            take action regarding illegal activities, suspected fraud, for violations of Mercher’s terms of use or as
+            otherwise required by law, to improve Mercher’s services, to notify you of changes made to the website or
+            new products and services made available on or through the website, to evaluate your needs and customize
+            website content delivered to you according to those needs, to facilitate the processing of any purchases you
+            make through the website, to send you promotional material from Mercher and our affiliates, and for other
+            legitimate and lawful business purposes;
         </li>
         <li>
             We allow you to Like, Post, and Share Facebook&reg; Actions on your Fan Page
         </li>
         <li>
-            We could use the stored information for the following purposes: to contact you, to investigate, prevent or
-            take action regarding illegal activities, suspected fraud, for violations of Mercher’s terms of use or as
-            otherwise required by law, to improve Mercher’s services, to notify you of changes made to the website or
-            new products and services made available on or through the website, to evaluate your needs and customize
-            website content delivered to you according to those needs, to facilitate the processing of any purchases you
-            make through the Site, to send you promotional material from Mercher and our affiliates, and for other
-            legitimate and lawful business purposes.
+            We will not share your personal data (e.g. User ID ) with third parties.
+        </li>
+        <li>
+            We do not sell lists containing personal information about website vendors or customers
         </li>
         <li>
             We may, in the future, display some paid advertisement on the website, which may lead you to an external
@@ -94,7 +94,7 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'policy');
     </h2>
     <ul>
         <li>
-            Mercher, may, from time to time, change its privacy practices because of changes in business practices, and
+            Mercher, may, from time to time, change its privacy policy because of changes in business practices, and
             relevant and applicable legal or regulatory requirements, - reasons to better serve your needs, or for any
             other reason at Mercher’s sole discretion. We do not have the resources to inform each user of changes
             individually, so we encourage you to review this Policy whenever you use our products.
