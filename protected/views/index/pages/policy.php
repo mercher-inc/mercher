@@ -37,8 +37,8 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'policy');
     </h2>
     <ul>
         <li>
-            Access to your fan page. (this is logical as given the way Mercher works, users create their sales page on
-            Mercher and then attach it to the Facebook&reg; fan page. Additional information Mercher uses includes:
+            Access to your fan page. (Тhis is logical as given the way Mercher works, users create their sales page on
+            Mercher and then attach it to the Facebook&reg; fan page.) Additional information Mercher uses includes:
             <ul>
                 <li>
                     Basic Facebook&reg; Information
@@ -72,25 +72,25 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'policy');
             legitimate and lawful business purposes;
         </li>
         <li>
-            We allow you to Like, Post, and Share Facebook&reg; Actions on your Fan Page
+            We allow you to Like, Post, and Share Facebook&reg; Actions on your Fan Page;
         </li>
         <li>
-            We will not share your personal data (e.g. User ID ) with third parties.
+            We will not share your personal data (e.g. User ID ) with third parties;
         </li>
         <li>
-            We do not sell lists containing personal information about website vendors or customers
+            We do not sell lists containing personal information about website vendors or customers;
         </li>
         <li>
             We may, in the future, display some paid advertisement on the website, which may lead you to an external
-            website. We would not responsible for the content of the external website.
+            website. We would not responsible for the content of the external website;
         </li>
         <li>
             Though we do not share any of your data, unless it’s permitted by you, in case of legal action we will
-            support official authorities as much as we can in investigation by providing information required.
+            support official authorities as much as we can in investigation by providing information required;
         </li>
     </ul>
     <h2>
-        Changes to Privacy Policy
+        Changes to Privacy Policy:
     </h2>
     <ul>
         <li>
