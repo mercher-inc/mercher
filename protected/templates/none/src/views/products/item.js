@@ -21,6 +21,7 @@ define(function (require) {
         events: {
             "click .addToCart": "addToCart",
             "click .likeBtn": "likeProduct",
+            "click .addBtn": "addProduct",
             "click .back": "goToProducts"
         },
 
@@ -95,6 +96,29 @@ define(function (require) {
                         FB.login(function(response) {
                             if (response.authResponse) {
                                 FB.api('me/og.likes', 'post', {object: view.model.get('fb_id')}, function(response){
+                                    //console.log(response);
+                                });
+                            }
+                        }, {scope: 'publish_actions'});
+                    }
+                });
+
+            });
+        },
+
+        addProduct: function (e) {
+            var view = this;
+            //getting FB object
+            require(['fb'], function (FB) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        FB.api('me/mercher:add', 'post', {product: view.model.get('fb_id')}, function(response){
+                            //console.log(response);
+                        });
+                    } else {
+                        FB.login(function(response) {
+                            if (response.authResponse) {
+                                FB.api('me/mercher:add', 'post', {product: view.model.get('fb_id')}, function(response){
                                     //console.log(response);
                                 });
                             }
