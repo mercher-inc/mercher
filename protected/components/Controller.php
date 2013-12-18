@@ -45,25 +45,11 @@ class Controller extends CController
      */
     public $breadcrumbs = array();
 
-    protected function beforeRender($view)
+    protected function beforeAction($action)
     {
-        Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', null, 'Content-Type');
-        Yii::app()->clientScript->registerMetaTag(
-            'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
-            'viewport'
-        );
-        Yii::app()->clientScript->registerMetaTag('en', 'language');
-
-        Yii::app()->clientScript->registerScript(
-            'appIframeCheck',
-            '
-                if (location.hostname.match(/^app./)) {
-                    if (self == top) {
-                        top.location.replace(location.href.replace(/^(http|https):\/\/(app.)/, "http://"));
-                    }
-                }
-            '
-        );
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
 
         Yii::app()->clientScript->registerScript(
             'fb_init',
@@ -95,6 +81,29 @@ class Controller extends CController
             'fb_app_id',
             'var fb_app_id = ' . CJSON::encode(Yii::app()->facebook->sdk->getAppId()) . ';',
             ClientScript::POS_END
+        );
+
+        return true;
+    }
+
+    protected function beforeRender($view)
+    {
+        Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', null, 'Content-Type');
+        Yii::app()->clientScript->registerMetaTag(
+            'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
+            'viewport'
+        );
+        Yii::app()->clientScript->registerMetaTag('en', 'language');
+
+        Yii::app()->clientScript->registerScript(
+            'appIframeCheck',
+            '
+                if (location.hostname.match(/^app./)) {
+                    if (self == top) {
+                        top.location.replace(location.href.replace(/^(http|https):\/\/(app.)/, "http://"));
+                    }
+                }
+            '
         );
 
         Yii::app()->clientScript->registerCssFile('/css/style.css');
