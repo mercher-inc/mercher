@@ -9,8 +9,11 @@
 
 class OgProductBehavior extends CActiveRecordBehavior
 {
-    public function beforeSave(CModelEvent $event)
+    public function afterSave(CEvent $event)
     {
+        /**
+         * @var $model Product
+         */
         $model = $this->getOwner();
 
         $ch     = curl_init();
@@ -33,7 +36,17 @@ class OgProductBehavior extends CActiveRecordBehavior
             $opts[CURLOPT_URL] = 'https://graph.facebook.com/app/objects/product';
             curl_setopt_array($ch, $opts);
             $result       = CJSON::decode(curl_exec($ch));
-            $model->fb_id = $result['id'];
+            Yii::app()->db->createCommand()->update(
+                $model->tableName(),
+                [
+                    'fb_id' =>  $result['id']
+                ],
+                'id = :productId',
+                [
+                    'productId' => $model->id
+                ]
+            );
+            $model->refresh();
             return true;
         } else {
             $opts[CURLOPT_URL] = 'https://graph.facebook.com/' . $model->fb_id;

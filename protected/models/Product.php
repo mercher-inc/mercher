@@ -243,10 +243,18 @@ class Product extends CActiveRecord
 
         if ($this->image) {
             $data               = CJSON::decode($this->image->data);
-            $object['og:image'] = 'https://' . $_SERVER['HTTP_HOST'] . $data['xl'];
+            $object['og:image'] = str_replace(
+                'app.mercher',
+                'mercher',
+                Yii::app()->urlManager->createUrl('/') . $data['xl']
+            );
         }
 
-        $object['og:url'] = Yii::app()->urlManager->createUrl('og/products', ['product_id' => $this->id]);
+        $object['og:url'] = str_replace(
+            'app.mercher',
+            'mercher',
+            Yii::app()->urlManager->createUrl('og/products', ['product_id' => $this->id])
+        );
 
         $object['product:product_link'] = 'http://www.facebook.com/' . $this->shop->fb_id . '?' . http_build_query(
             array(
