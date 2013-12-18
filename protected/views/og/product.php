@@ -25,11 +25,7 @@ foreach ($product->ogParams as $property => $content) {
 $options = array_merge(
     [
         'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
-        'app_data' => CJSON::encode(
-            [
-                'product_id' => $product->id
-            ]
-        )
+        'app_data' => CJSON::encode($_GET)
     ],
     $_GET
 );
