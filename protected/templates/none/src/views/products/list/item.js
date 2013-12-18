@@ -20,7 +20,7 @@ define(function (require) {
 
         events: {
             "click .addToCart": "addToCart",
-            "click .title, .description": "showDetails"
+            "click .title": "showDetails"
         },
 
         render: function () {

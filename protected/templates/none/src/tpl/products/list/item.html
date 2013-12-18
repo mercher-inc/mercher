@@ -11,11 +11,6 @@
             <%- model.get('title') %>
         </h4>
     </div>
-    <div class="description">
-        <% if (model.get('description')) { %>
-            <%- model.get('description') %>
-        <% } %>
-    </div>
     <div class="actions">
         <% if (model.get('amount') && shop.get('pp_merchant_id')) { %>
             <button class="addToCart">Buy for &#36;<%- Math.ceil((model.get('amount') / (100 - shop.get("tax"))) * (100 + shop.get("tax")) * 100) / 100 %></button>
