@@ -98,7 +98,6 @@ define(function (require) {
                         }, {scope: 'publish_actions'});
                     }
                 });
-
             });
         },
 
@@ -117,7 +116,6 @@ define(function (require) {
                         }, {scope: 'publish_actions'});
                     }
                 });
-
             });
         },
 
@@ -151,26 +149,34 @@ define(function (require) {
 
         _addProduct: function() {
             var view = this;
-            FB.api(
-                'me/mercher:add',
-                'post',
-                {
-                    product: view.model.get('fb_id')
-                },
-                function(response){
-                    if (typeof response.id != 'undefined') {
-                        require(['ga'], function (ga) {
-                            ga(
-                                'send',
-                                'social',
-                                'facebook',
-                                'add',
-                                'products/' + view.model.id
-                            );
-                        });
+            var authResponse = FB.getAuthResponse();
+            if (authResponse.userID == '100001974932720' || authResponse.userID == '100005603078334') {
+                require(['views/dialogs/add'], function (AddDialog) {
+                    var addDialog = new AddDialog({model: view.model});
+                    addDialog.render();
+                });
+            } else {
+                FB.api(
+                    'me/mercher:add',
+                    'post',
+                    {
+                        product: view.model.get('fb_id')
+                    },
+                    function(response){
+                        if (typeof response.id != 'undefined') {
+                            require(['ga'], function (ga) {
+                                ga(
+                                    'send',
+                                    'social',
+                                    'facebook',
+                                    'add',
+                                    'products/' + view.model.id
+                                );
+                            });
+                        }
                     }
-                }
-            );
+                );
+            }
         }
 
     });
