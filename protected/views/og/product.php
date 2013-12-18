@@ -22,21 +22,24 @@ foreach ($product->ogParams as $property => $content) {
     );
 }
 
+$options = array_merge(
+    [
+        'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
+        'app_data' => CJSON::encode(
+            [
+                'product_id' => $product->id
+            ]
+        )
+    ],
+    $_GET
+);
+
 echo CHtml::script(
     'location.replace("'
         . 'https://www.facebook.com/'
         . $product->shop->fb_id
         . '?'
-        . http_build_query(
-            [
-                'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
-                'app_data' => CJSON::encode(
-                    [
-                        'product_id' => $product->id
-                    ]
-                )
-            ]
-        )
+        . http_build_query($options)
         . '");'
 );
 

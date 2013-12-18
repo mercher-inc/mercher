@@ -67,9 +67,11 @@ class WizardController extends Controller
         }
         if (isset($result['data'])) {
             foreach ($result['data'] as $row) {
+                /*
                 if ($row['id'] == '430253050396911') {
                     continue;
                 }
+                */
                 $accounts[$row['id']] = $row['name'];
             }
         }
