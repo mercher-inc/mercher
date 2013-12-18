@@ -89,15 +89,11 @@ define(function (require) {
             require(['fb'], function (FB) {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
-                        FB.api('me/og.likes', 'post', {object: view.model.get('fb_id')}, function(response){
-                            //console.log(response);
-                        });
+                        view._likeProduct();
                     } else {
                         FB.login(function(response) {
                             if (response.authResponse) {
-                                FB.api('me/og.likes', 'post', {object: view.model.get('fb_id')}, function(response){
-                                    //console.log(response);
-                                });
+                                view._likeProduct();
                             }
                         }, {scope: 'publish_actions'});
                     }
@@ -112,15 +108,11 @@ define(function (require) {
             require(['fb'], function (FB) {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
-                        FB.api('me/mercher:add', 'post', {product: view.model.get('fb_id')}, function(response){
-                            //console.log(response);
-                        });
+                        view._addProduct();
                     } else {
                         FB.login(function(response) {
                             if (response.authResponse) {
-                                FB.api('me/mercher:add', 'post', {product: view.model.get('fb_id')}, function(response){
-                                    //console.log(response);
-                                });
+                                view._addProduct();
                             }
                         }, {scope: 'publish_actions'});
                     }
@@ -131,6 +123,54 @@ define(function (require) {
 
         goToProducts: function () {
             router.navigate('products', {trigger: true});
+        },
+
+        _likeProduct: function() {
+            var view = this;
+            FB.api(
+                'me/og.likes',
+                'post',
+                {
+                    object: view.model.get('fb_id')
+                },
+                function(response){
+                    if (typeof response.id != 'undefined') {
+                        require(['ga'], function (ga) {
+                            ga(
+                                'send',
+                                'social',
+                                'facebook',
+                                'like',
+                                'products/' + view.model.id
+                            );
+                        });
+                    }
+                }
+            );
+        },
+
+        _addProduct: function() {
+            var view = this;
+            FB.api(
+                'me/mercher:add',
+                'post',
+                {
+                    product: view.model.get('fb_id')
+                },
+                function(response){
+                    if (typeof response.id != 'undefined') {
+                        require(['ga'], function (ga) {
+                            ga(
+                                'send',
+                                'social',
+                                'facebook',
+                                'add',
+                                'products/' + view.model.id
+                            );
+                        });
+                    }
+                }
+            );
         }
 
     });
