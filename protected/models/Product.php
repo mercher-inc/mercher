@@ -227,7 +227,6 @@ class Product extends CActiveRecord
             'product:retailer' => $this->shop->fb_id,
             'fb:admins'        => $this->shop->owner->fb_id,
             'fb:app_id'        => Yii::app()->facebook->sdk->getAppId(),
-            'fb:profile_id'    => $this->shop->fb_id,
         );
         if ($this->amount) {
             $object['product:price:amount']   = $this->amount;
