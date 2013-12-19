@@ -35,7 +35,14 @@ class OgProductBehavior extends CActiveRecordBehavior
         if (!$model->fb_id) {
             $opts[CURLOPT_URL] = 'https://graph.facebook.com/app/objects/product';
             curl_setopt_array($ch, $opts);
-            $result       = CJSON::decode(curl_exec($ch));
+            try {
+                $result       = CJSON::decode(curl_exec($ch));
+            } catch (Exception $e) {
+                D($e, 1);
+            }
+            if (!isset($result['id'])) {
+                D($result, 1);
+            }
             Yii::app()->db->createCommand()->update(
                 $model->tableName(),
                 [
