@@ -38,10 +38,10 @@ class OgProductBehavior extends CActiveRecordBehavior
             try {
                 $result       = CJSON::decode(curl_exec($ch));
             } catch (Exception $e) {
-                D($e, 1);
+                throw new CHttpException(500, $e->getMessage());
             }
-            if (!isset($result['id'])) {
-                D($result, 1);
+            if (isset($result['error'])) {
+                throw new CHttpException(500, $result['error']['message']);
             }
             Yii::app()->db->createCommand()->update(
                 $model->tableName(),
