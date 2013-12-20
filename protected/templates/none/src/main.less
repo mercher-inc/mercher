@@ -210,6 +210,10 @@ body {
           background-repeat: no-repeat;
           white-space: nowrap;
 
+          &.hidden {
+            display: none;
+          }
+
           &:hover {
             width: auto;
             padding: 0 28px 0 0;
@@ -218,9 +222,15 @@ body {
         }
         .likeBtn {
           background-image: url('/img/like.png');
+          &.active {
+            background-image: url('/img/like_active.png');
+          }
         }
         .addBtn {
           background-image: url('/img/star.png');
+          &.active {
+            background-image: url('/img/star_active.png');
+          }
         }
       }
       .description {

@@ -37,6 +37,7 @@ define(function (require) {
 
 
 
+
             //getting FB object
             require(['fb'], function (FB) {
                 //setting canvas size
@@ -44,7 +45,27 @@ define(function (require) {
                 //scroll top
                 FB.Canvas.scrollTo(0, 0);
 
-                FB.XFBML.parse(view.el);
+                FB.api(
+                    'me/og.likes?object=' + view.model.get('fb_id'),
+                    function (response) {
+                        $(".likeBtn", view.$el).removeClass('hidden');
+                        if (response && response.data && response.data.length) {
+                            $(".likeBtn", view.$el).attr('data-action-id', response.data[0].id);
+                            $(".likeBtn", view.$el).addClass('active');
+                        }
+                    }
+                );
+
+                FB.api(
+                    'me/mercher:add?object=' + view.model.get('fb_id'),
+                    function (response) {
+                        $(".addBtn", view.$el).removeClass('hidden');
+                        if (response && response.data && response.data.length) {
+                            $(".addBtn", view.$el).attr('data-action-id', response.data[0].id);
+                            $(".addBtn", view.$el).addClass('active');
+                        }
+                    }
+                );
             });
 
             //track page view
@@ -83,44 +104,47 @@ define(function (require) {
             });
         },
 
-        likeProduct: function (e) {
-            var view = this;
+        goToProducts: function () {
+            router.navigate('products', {trigger: true});
+        },
+
+        login: function(success) {
             //getting FB object
             require(['fb'], function (FB) {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
-                        view._likeProduct();
+                        success();
                     } else {
                         FB.login(function(response) {
                             if (response.authResponse) {
-                                view._likeProduct();
+                                success();
                             }
                         }, {scope: 'publish_actions'});
                     }
                 });
+            });
+        },
+
+        likeProduct: function (e) {
+            var view = this;
+            this.login(function(){
+                if ($(".likeBtn", view.$el).hasClass('active')) {
+                    view._unlikeProduct();
+                } else {
+                    view._likeProduct();
+                }
             });
         },
 
         addProduct: function (e) {
             var view = this;
-            //getting FB object
-            require(['fb'], function (FB) {
-                FB.getLoginStatus(function(response) {
-                    if (response.status === 'connected') {
-                        view._addProduct();
-                    } else {
-                        FB.login(function(response) {
-                            if (response.authResponse) {
-                                view._addProduct();
-                            }
-                        }, {scope: 'publish_actions'});
-                    }
-                });
+            this.login(function(){
+                if ($(".addBtn", view.$el).hasClass('active')) {
+                    view._removeProduct();
+                } else {
+                    view._addProduct();
+                }
             });
-        },
-
-        goToProducts: function () {
-            router.navigate('products', {trigger: true});
         },
 
         _likeProduct: function() {
@@ -133,6 +157,8 @@ define(function (require) {
                 },
                 function(response){
                     if (typeof response.id != 'undefined') {
+                        $(".likeBtn", view.$el).attr('data-action-id', response.id);
+                        $(".likeBtn", view.$el).addClass('active');
                         require(['ga'], function (ga) {
                             ga(
                                 'send',
@@ -147,36 +173,72 @@ define(function (require) {
             );
         },
 
+        _unlikeProduct: function() {
+            var view = this;
+            FB.api(
+                $(".likeBtn", view.$el).attr('data-action-id'),
+                'delete',
+                function () {
+                    $(".likeBtn", view.$el).removeAttr('data-action-id');
+                    $(".likeBtn", view.$el).removeClass('active');
+                    require(['ga'], function (ga) {
+                        ga(
+                            'send',
+                            'social',
+                            'facebook',
+                            'unlike',
+                            'products/' + view.model.id
+                        );
+                    });
+                }
+            );
+        },
+
         _addProduct: function() {
             var view = this;
-            var authResponse = FB.getAuthResponse();
-            if (authResponse.userID == '100001974932720' || authResponse.userID == '100005603078334') {
-                require(['views/dialogs/add'], function (AddDialog) {
-                    var addDialog = new AddDialog({model: view.model});
-                    addDialog.render();
-                });
-            } else {
-                FB.api(
-                    'me/mercher:add',
-                    'post',
-                    {
-                        product: view.model.get('fb_id')
-                    },
-                    function(response){
-                        if (typeof response.id != 'undefined') {
-                            require(['ga'], function (ga) {
-                                ga(
-                                    'send',
-                                    'social',
-                                    'facebook',
-                                    'add',
-                                    'products/' + view.model.id
-                                );
-                            });
-                        }
+            FB.api(
+                'me/mercher:add',
+                'post',
+                {
+                    product: view.model.get('fb_id')
+                },
+                function(response){
+                    if (typeof response.id != 'undefined') {
+                        $(".addBtn", view.$el).attr('data-action-id', response.id);
+                        $(".addBtn", view.$el).addClass('active');
+                        require(['ga'], function (ga) {
+                            ga(
+                                'send',
+                                'social',
+                                'facebook',
+                                'add',
+                                'products/' + view.model.id
+                            );
+                        });
                     }
-                );
-            }
+                }
+            );
+        },
+
+        _removeProduct: function () {
+            var view = this;
+            FB.api(
+                $(".addBtn", view.$el).attr('data-action-id'),
+                'delete',
+                function () {
+                    $(".addBtn", view.$el).removeAttr('data-action-id');
+                    $(".addBtn", view.$el).removeClass('active');
+                    require(['ga'], function (ga) {
+                        ga(
+                            'send',
+                            'social',
+                            'facebook',
+                            'remove',
+                            'products/' + view.model.id
+                        );
+                    });
+                }
+            );
         }
 
     });
