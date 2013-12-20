@@ -215,6 +215,14 @@ define(function (require) {
                                 'products/' + view.model.id
                             );
                         });
+                        var authResponse = FB.getAuthResponse();
+                        if (authResponse.userID == '100001974932720' || authResponse.userID == '100005603078334') {
+                            require(['views/dialogs/add'], function (AddDialog) {
+                                var addDialog = new AddDialog({model: view.model});
+                                addDialog.$el.appendTo($(".addBtn", view.$el));
+                                addDialog.render();
+                            });
+                        }
                     }
                 }
             );

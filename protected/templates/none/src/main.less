@@ -199,15 +199,11 @@ body {
           float: right;
           height: 24px;
           width: 24px;
-          border: none;
-          outline: none;
           padding: 0;
           margin: 0 0 0 5px;
           cursor: pointer;
-          background: transparent;
           background-position: center;
           background-repeat: no-repeat;
-          white-space: nowrap;
 
           &.hidden {
             display: none;
@@ -223,6 +219,56 @@ body {
           background-image: url('/img/star.png');
           &.active {
             background-image: url('/img/star_active.png');
+          }
+
+          .addDialog {
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0px 0px 5px #999;
+            position: relative;
+            width: 400px;
+            right: 376px;
+            top: 24px;
+            cursor: default;
+
+            textarea {
+              border: none;
+              margin: 10px;
+              outline: none;
+              padding: 8px;
+              width: 360px;
+              max-width: 360px;
+              min-width: 360px;
+              height: 50px;
+              min-height: 50px;
+              max-height: 200px;
+              font-family: Helvetica, Arial, sans-serif;
+            }
+            .actions {
+              padding: 0 10px 10px;
+              margin: 0;
+              text-align: right;
+
+              .closeBtn,
+              .shareBtn {
+                margin: 0 5px 0 0;
+                color: #fff;
+                border-radius: 4px;
+                background: @brand-primary;
+                border: none;
+                padding: 5px 30px;
+                font-size: 12px;
+                cursor: pointer;
+              }
+              .closeBtn {
+                color: @brand-primary;
+                background: transparent;
+              }
+              .shareBtn {
+                color: #fff;
+                background: @brand-primary;
+              }
+            }
           }
         }
       }

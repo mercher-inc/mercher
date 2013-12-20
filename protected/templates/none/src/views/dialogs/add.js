@@ -10,18 +10,24 @@ define(function (require) {
 
         template: _.template(require('text!tpl/dialogs/add.html')),
 
-        className: 'dialog dialog-add',
+        className: 'addDialog',
+
+        initialize: function() {
+            var view = this;
+            $('body').one('click', function(){
+                view.remove();
+            });
+            this.$el.on('click', function(){
+                return false;
+            });
+        },
 
         events: {
-            "click .addBtn": "addProduct"
+            "click .closeBtn": "close",
+            "click .shareBtn": "share"
         },
 
         render: function () {
-
-            //append to content block
-            this.$el.appendTo('body');
-            $("#backdrop").show();
-
             //render product view
             this.$el.html(this.template({model: this.model}));
 
@@ -29,36 +35,22 @@ define(function (require) {
             return this;
         },
 
-        addProduct: function() {
-            var view = this;
+        close: function() {
+            this.remove();
+        },
 
-            var obj = {
-                product: view.model.get('fb_id'),
-                "fb:explicitly_shared" : $('input[name="share"]', this.$el).is(':checked')
-            };
-            if ($('textarea[name="message"]', this.$el).val()) {
-                obj.message = $('textarea[name="message"]', this.$el).val();
-            }
+        share: function() {
+            var view = this;
             FB.api(
-                'me/mercher:add',
+                view.$el.parent().attr('data-action-id'),
                 'post',
-                obj,
-                function(response){
-                    if (typeof response.id != 'undefined') {
-                        require(['ga'], function (ga) {
-                            ga(
-                                'send',
-                                'social',
-                                'facebook',
-                                'add',
-                                'products/' + view.model.id
-                            );
-                        });
-                    }
+                {
+                    message: $('textarea[name="message"]', view.$el).val()
+                },
+                function () {
+                    view.remove();
                 }
             );
-            view.remove();
-            $("#backdrop").hide();
         }
     });
 
