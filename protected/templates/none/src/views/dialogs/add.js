@@ -12,12 +12,12 @@ define(function (require) {
 
         className: 'addDialog',
 
-        initialize: function() {
+        initialize: function () {
             var view = this;
-            $('body').one('click', function(){
+            $('body').one('click', function () {
                 view.remove();
             });
-            this.$el.on('click', function(){
+            this.$el.on('click', function () {
                 return false;
             });
         },
@@ -35,17 +35,18 @@ define(function (require) {
             return this;
         },
 
-        close: function() {
+        close: function () {
             this.remove();
         },
 
-        share: function() {
+        share: function () {
             var view = this;
             FB.api(
                 view.$el.parent().attr('data-action-id'),
                 'post',
                 {
-                    message: $('textarea[name="message"]', view.$el).val()
+                    message: $('textarea[name="message"]', view.$el).val(),
+                    "fb:explicitly_shared": true
                 },
                 function () {
                     view.remove();
