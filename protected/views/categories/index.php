@@ -36,21 +36,8 @@ $this->widget(
                 'value'              => '$data->title?$data->title:""'
             ],
             [
-                'name'               => 'description',
-                'cssClassExpression' => '$data->description?"":"not_set"',
-                'value'              => '$data->description?$data->description:""',
-                'htmlOptions'        => [
-                    'style' => 'overflow: hidden; max-width: 150px; text-overflow: ellipsis;'
-                ]
-            ],
-            [
                 'name'               => 'is_active',
                 'cssClassExpression' => '$data->is_active?"yes":"no"',
-                'value'              => ''
-            ],
-            [
-                'name'               => 'is_banned',
-                'cssClassExpression' => '$data->is_banned?"yes":"no"',
                 'value'              => ''
             ],
             [

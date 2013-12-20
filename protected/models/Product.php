@@ -160,8 +160,8 @@ class Product extends CActiveRecord
             'title'             => 'Title',
             'description'       => 'Description',
             'image_id'          => 'Image',
-            'amount'            => 'Amount',
-            'is_active'         => 'Active',
+            'amount'            => 'Price',
+            'is_active'         => 'Show in shop',
             'is_banned'         => 'Banned',
             'quantity_in_stock' => 'Quantity In Stock',
         );

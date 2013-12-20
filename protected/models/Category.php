@@ -125,7 +125,7 @@ class Category extends CActiveRecord
             'shop_id'     => 'Shop',
             'title'       => 'Title',
             'description' => 'Description',
-            'is_active'   => 'Active',
+            'is_active'   => 'Show in shop',
             'is_banned'   => 'Banned',
         );
     }
