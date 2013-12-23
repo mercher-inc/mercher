@@ -5,6 +5,12 @@
   border-width: 0 0 4px 0;
   height: 80px;
 
+  .navbar-collapse {
+    @media (max-width: @grid-float-breakpoint) {
+      background: @gray-lighter;
+    }
+  }
+
   .navbar-brand {
     background: url(/img/logo_75.png);
     background-repeat: no-repeat;

@@ -41,6 +41,12 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
 <div id="fb-root"></div>
 <nav id="mainmenu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar_collapse_1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
         <a class="navbar-brand" href="<?php echo Yii::app()->controller->createUrl('index/index') ?>">
             Mercher,
             <br>
@@ -49,46 +55,102 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
             effective Facebook shop
         </a>
     </div>
-    <?php $this->widget(
-        'zii.widgets.CMenu',
-        array(
-            'items'       => $this->menu,
-            'htmlOptions' => array(
-                'class' => 'nav navbar-nav navbar-left'
-            )
-        )
-    ); ?>
-    <?php $this->widget(
-        'zii.widgets.CMenu',
-        array(
-            'items'       => array(
-                [
-                    'label'       => 'On-line support',
-                    'url'         => '//www.facebook.com/messages/mercher.net',
-                    'linkOptions' => ['target' => '_blank']
+    <div class="collapse navbar-collapse" id="navbar_collapse_1">
+        <?php
+        $this->widget(
+            'zii.widgets.CMenu',
+            [
+                'items'       => $this->menu,
+                'htmlOptions' => [
+                    'class' => 'nav navbar-nav navbar-left'
+                ]
+            ]
+        );
+        ?>
+        <?php
+        $this->widget(
+            'zii.widgets.CMenu',
+            [
+                'items'       => [
+                    [
+                        'label'       => 'Login',
+                        'url'         => Yii::app()->facebook->getLoginUrl(),
+                        'visible'     => Yii::app()->user->isGuest,
+                        'linkOptions' => [
+                            'target' => '_top'
+                        ]
+                    ],
+                    [
+                        'label'          => Yii::app()->user->name,
+                        'visible'        => !Yii::app()->user->isGuest,
+                        'url'            => '#',
+                        'linkOptions'    => [
+                            'class'       => 'dropdown-toggle',
+                            'data-toggle' => 'dropdown',
+                        ],
+                        'submenuOptions' => [
+                            'class' => 'dropdown-menu',
+                        ],
+                        'items'          => [
+                            [
+                                'label'       => 'Invite friends',
+                                'url'         => '#',
+                                'linkOptions' => [
+                                    'id' => 'appRequestsBtn'
+                                ]
+                            ],
+                            [
+                                'label'       => 'On-line support',
+                                'url'         => '//www.facebook.com/messages/mercher.net',
+                                'linkOptions' => [
+                                    'target' => '_blank'
+                                ]
+                            ],
+                            [
+                                'itemOptions' => [
+                                    'class' => 'divider'
+                                ]
+                            ],
+                            [
+                                'label' => 'Logout',
+                                'url'   => ['index/logout'],
+                            ]
+                        ]
+                    ]
                 ],
-                array(
-                    'label'       => 'Login',
-                    'url'         => Yii::app()->facebook->getLoginUrl(),
-                    'visible'     => Yii::app()->user->isGuest,
-                    'linkOptions' => array(
-                        'target' => '_top'
-                    )
-                ),
-                array(
-                    'label'   => 'Logout | ' . Yii::app()->user->name,
-                    'url'     => array('index/logout'),
-                    'visible' => !Yii::app()->user->isGuest // and !Yii::app()->params['isApp']
-                )
-            ),
-            'htmlOptions' => array(
-                'class' => 'nav navbar-nav navbar-right'
-            )
-        )
-    ); ?>
-    <div class="navbar-text navbar-right">
-        <div class="fb-like" data-href="https://www.facebook.com/mercher.net" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                'htmlOptions' => [
+                    'class' => 'nav navbar-nav navbar-right'
+                ]
+            ]
+        );
+
+        Yii::app()->clientScript->registerPackage('bootstrap');
+
+        if (!Yii::app()->user->isGuest) {
+            Yii::app()->clientScript->registerScript(
+                'appRequestsBtn',
+                '
+                    $("#appRequestsBtn").click(function(){
+                        FB.ui({
+                            method: "apprequests",
+                            message: "Try Mercher! It turns fan pages into shops."
+                        }, function(response){
+
+                        });
+                    });
+                ',
+                ClientScript::POS_FB
+            );
+        }
+        ?>
     </div>
+
+    <!--
+    <div class="navbar-text navbar-right">
+        <div class="fb-like" data-href="https://www.facebook.com/mercher.net" data-layout="button_count"
+             data-action="like" data-show-faces="false" data-share="false"></div>
+    </div>
+    -->
 </nav>
 <!-- mainmenu -->
 
