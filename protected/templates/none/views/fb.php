@@ -16,6 +16,6 @@ define(['facebook'], function () {
             ]
         )
     ?>);
-    FB._namespace = '<?= (APPLICATION_ENV == 'production')?'mercher':'mercherdev'?>';
+    FB._namespace = '<?= Yii::app()->facebook->namespace ?>';
     return FB;
 });
