@@ -19,6 +19,12 @@ return array_merge(
         'shops/<shop_id:\d+>'                                                                           => 'shops/read',
         'shops/<shop_id:\d+>/settings'                                                                  => 'shops/update',
         'shops/<shop_id:\d+>/delete'                                                                    => 'shops/delete',
+        //==Managers==
+        'shops/<shop_id:\d+>/managers'                                                                  => 'managers/index',
+        'shops/<shop_id:\d+>/managers/new'                                                              => 'managers/create',
+        'shops/<shop_id:\d+>/managers/<user_id:\d+>'                                                    => 'managers/read',
+        'shops/<shop_id:\d+>/managers/<user_id:\d+>/settings'                                           => 'managers/update',
+        'shops/<shop_id:\d+>/managers/<user_id:\d+>/delete'                                             => 'managers/delete',
         //==Categories==
         'shops/<shop_id:\d+>/categories'                                                                => 'categories/index',
         'shops/<shop_id:\d+>/categories/new'                                                            => 'categories/create',

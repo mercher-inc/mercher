@@ -13,6 +13,10 @@ $this->menu = [
         'url'   => ['categories/index', 'shop_id' => $this->shop->id]
     ],
     [
+        'label' => Yii::t('label', 'managers'),
+        'url'   => ['managers/index', 'shop_id' => $this->shop->id]
+    ],
+    [
         'label' => Yii::t('label', 'design'),
         'url'   => ['design/index', 'shop_id' => $this->shop->id]
     ],

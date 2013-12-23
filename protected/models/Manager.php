@@ -42,7 +42,10 @@ class Manager extends CActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array();
+        return array(
+            'user'           => array(self::BELONGS_TO, 'User', 'user_id'),
+            'shop'           => array(self::BELONGS_TO, 'Shop', 'shop_id')
+        );
     }
 
     /**
@@ -73,9 +76,9 @@ class Manager extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('shop_id', $this->shop_id, true);
-        $criteria->compare('role', $this->role, true);
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('shop_id', $this->shop_id);
+        $criteria->compare('role', $this->role);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
