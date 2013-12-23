@@ -26,14 +26,51 @@ class ProductsController extends Controller
         return array(
             array(
                 'allow',
-                'actions' => array(
-                    'index',
-                    'create',
-                    'read',
-                    'update',
-                    'delete'
-                ),
-                'users'   => array('@'),
+                'actions' => array('index'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_READ_PRODUCT => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('create'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_CREATE_PRODUCT => array(
+                        'shop_id' => Yii::app()->request->getParam('shop_id')
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('read'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_READ_PRODUCT => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'product_id' => Yii::app()->request->getParam('product_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('update'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_UPDATE_PRODUCT => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'product_id' => Yii::app()->request->getParam('product_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('delete'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_DELETE_PRODUCT => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'product_id' => Yii::app()->request->getParam('product_id'),
+                    )
+                )
             ),
             array(
                 'deny',

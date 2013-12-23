@@ -61,6 +61,9 @@ return array(
             'showScriptName' => false,
             'rules'          => require(dirname(__FILE__) . '/urlManager/rules.php'),
         ),
+        'authManager'           => [
+            'class' => 'AuthManager',
+        ],
         'clientScript' => array(
             'class'    => 'ClientScript',
             'packages' => require(dirname(__FILE__) . '/clientScript/packages.php'),
