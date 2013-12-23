@@ -15,7 +15,7 @@ define(function (require) {
         initialize: function () {
             var view = this;
             $('body').one('click', function () {
-                view.remove();
+                view.close();
             });
             this.$el.on('click', function () {
                 return false;
@@ -24,7 +24,8 @@ define(function (require) {
 
         events: {
             "click .closeBtn": "close",
-            "click .shareBtn": "share"
+            "click .addImplicitlyBtn": "addImplicitly",
+            "click .addExplicitlyBtn": "addExplicitlyBtn"
         },
 
         render: function () {
@@ -35,21 +36,46 @@ define(function (require) {
             return this;
         },
 
-        close: function () {
+        close: function() {
             this.remove();
         },
 
-        share: function () {
+        addImplicitly: function () {
+            var object = {
+                product: this.model.get('fb_id'),
+                "fb:explicitly_shared": false
+            };
+            var message = $('textarea[name="message"]', this.$el).val();
+            if (message) {
+                object.message = message;
+            }
+            this._send(object);
+        },
+
+        addExplicitlyBtn: function () {
+            var object = {
+                product: this.model.get('fb_id'),
+                "fb:explicitly_shared": true
+            };
+            var message = $('textarea[name="message"]', this.$el).val();
+            if (message) {
+                object.message = message;
+            }
+            this._send(object);
+        },
+
+        _send: function (object) {
             var view = this;
             FB.api(
-                view.$el.parent().attr('data-action-id'),
+                'me/' + FB._namespace + ':add',
                 'post',
-                {
-                    message: $('textarea[name="message"]', view.$el).val(),
-                    "fb:explicitly_shared": true
-                },
-                function () {
-                    view.remove();
+                object,
+                function (response) {
+                    if (response.id) {
+                        view.$el.parent().attr('data-action-id', response.id);
+                        view.$el.parent().addClass('active');
+                    }
+                    view.close();
                 }
             );
         }

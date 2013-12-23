@@ -250,21 +250,29 @@ body {
               text-align: right;
 
               .closeBtn,
-              .shareBtn {
-                margin: 0 5px 0 0;
-                color: #fff;
-                border-radius: 4px;
-                background: @brand-primary;
+              .addImplicitlyBtn,
+              .addExplicitlyBtn {
                 border: none;
-                padding: 5px 30px;
+                padding: 5px 20px;
                 font-size: 12px;
                 cursor: pointer;
+                margin: 0;
               }
-              .closeBtn {
+              .closeBtn,
+              .addImplicitlyBtn {
                 color: @brand-primary;
                 background: transparent;
               }
-              .shareBtn {
+              .addImplicitlyBtn,
+              .addExplicitlyBtn {
+                margin: 0 0 0 5px;
+              }
+              .closeBtn {
+                float: left;
+              }
+              .addExplicitlyBtn {
+                background: @brand-primary;
+                border-radius: 4px;
                 color: #fff;
                 background: @brand-primary;
               }

@@ -57,7 +57,7 @@ define(function (require) {
                 );
 
                 FB.api(
-                    'me/mercher:add?object=' + view.model.get('fb_id'),
+                    'me/' + FB._namespace + ':add?object=' + view.model.get('fb_id'),
                     function (response) {
                         $(".addBtn", view.$el).removeClass('hidden');
                         if (response && response.data && response.data.length) {
@@ -196,36 +196,37 @@ define(function (require) {
 
         _addProduct: function() {
             var view = this;
-            FB.api(
-                'me/mercher:add',
-                'post',
-                {
-                    product: view.model.get('fb_id')
-                },
-                function(response){
-                    if (typeof response.id != 'undefined') {
-                        $(".addBtn", view.$el).attr('data-action-id', response.id);
-                        $(".addBtn", view.$el).addClass('active');
-                        require(['ga'], function (ga) {
-                            ga(
-                                'send',
-                                'social',
-                                'facebook',
-                                'add',
-                                'products/' + view.model.id
-                            );
-                        });
-                        var authResponse = FB.getAuthResponse();
-                        if (authResponse.userID == '100001974932720' || authResponse.userID == '100005603078334') {
-                            require(['views/dialogs/add'], function (AddDialog) {
-                                var addDialog = new AddDialog({model: view.model});
-                                addDialog.$el.appendTo($(".addBtn", view.$el));
-                                addDialog.render();
+            var authResponse = FB.getAuthResponse();
+            if (authResponse.userID == '100001974932720' || authResponse.userID == '100005603078334') {
+                require(['views/dialogs/add'], function (AddDialog) {
+                    var addDialog = new AddDialog({model: view.model});
+                    addDialog.$el.appendTo($(".addBtn", view.$el));
+                    addDialog.render();
+                });
+            } else {
+                FB.api(
+                    'me/' + FB._namespace + ':add',
+                    'post',
+                    {
+                        product: view.model.get('fb_id')
+                    },
+                    function(response){
+                        if (typeof response.id != 'undefined') {
+                            $(".addBtn", view.$el).attr('data-action-id', response.id);
+                            $(".addBtn", view.$el).addClass('active');
+                            require(['ga'], function (ga) {
+                                ga(
+                                    'send',
+                                    'social',
+                                    'facebook',
+                                    'add',
+                                    'products/' + view.model.id
+                                );
                             });
                         }
                     }
-                }
-            );
+                );
+            }
         },
 
         _removeProduct: function () {
