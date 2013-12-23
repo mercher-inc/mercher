@@ -14,6 +14,9 @@
  * @property string $last_login
  * The followings are the available model relations:
  * @property Shop[] $shops
+ * @property integer $shopsCount
+ * @property Shop[] $managedShops
+ * @property integer $managedShopsCount
  */
 class User extends CActiveRecord
 {
@@ -55,6 +58,9 @@ class User extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'shops' => array(self::HAS_MANY, 'Shop', 'owner_id'),
+            'shopsCount' => array(self::STAT, 'Shop', 'owner_id'),
+            'managedShops' => array(self::MANY_MANY, 'Shop', 'manager(user_id, shop_id)'),
+            'managedShopsCount' => array(self::STAT, 'Shop', 'manager(user_id, shop_id)'),
         );
     }
 

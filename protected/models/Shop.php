@@ -27,6 +27,8 @@
  * @property Image[] $images
  * @property Category[] $categories
  * @property integer maxProductsCount
+ * @property User[] $managers
+ * @property integer $managersCount
  */
 class Shop extends CActiveRecord
 {
@@ -187,6 +189,8 @@ class Shop extends CActiveRecord
             'imagesCount'     => array(self::STAT, 'Image', 'shop_id'),
             'categories'      => array(self::HAS_MANY, 'Category', 'shop_id'),
             'categoriesCount' => array(self::STAT, 'Category', 'shop_id'),
+            'managers'         => array(self::MANY_MANY, 'User', 'manager(shop_id, user_id)'),
+            'managersCount'         => array(self::STAT, 'User', 'manager(shop_id, user_id)'),
             'image'           => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
