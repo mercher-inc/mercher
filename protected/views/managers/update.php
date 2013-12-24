@@ -9,10 +9,9 @@
 
 Yii::app()->controller->headerTitle = Yii::t(
     'manager',
-    'create'
+    'edit'
 );
 
-if (count($adminsList)) {
     $form = $this->beginWidget(
         'ActiveForm',
         [
@@ -35,23 +34,12 @@ if (count($adminsList)) {
     echo CHtml::openTag('div', ['class' => 'row']);
     echo CHtml::openTag(
         'div',
-        ['class' => 'form-group col-lg-12' . ($model->hasErrors('user_id') ? ' has-error' : '')]
+        ['class' => 'form-group col-lg-12']
     );
     echo $form->label($model, 'user_id', ['class' => 'control-label']);
-    echo $form->dropDownList(
-        $model,
-        'user_id',
-        $adminsList,
-        [
-            'class'       => 'form-control',
-            'data-toggle' => 'tooltip',
-            'title'       => Yii::t('manager', 'help_user_id')
-        ]
-    );
-    echo $form->error($model, 'user_id', ['class' => 'help-block']);
+    echo CHtml::tag('p', ['class'=>'form-control-static'], $model->user->name);
     echo CHtml::closeTag('div');
     echo CHtml::closeTag('div');
-
 
     //==rolesList==
     echo CHtml::openTag('div', ['class' => 'row']);
@@ -77,7 +65,7 @@ if (count($adminsList)) {
     echo CHtml::openTag('div', ['class' => 'row']);
     echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
     echo CHtml::submitButton(
-        Yii::t('manager', 'create'),
+        Yii::t('manager', 'save'),
         array(
             'class' => 'btn btn-primary'
         )
@@ -86,10 +74,3 @@ if (count($adminsList)) {
     echo CHtml::closeTag('div');
 
     $this->endWidget();
-} else {
-    echo CHtml::openTag('div', ['class' => 'main-form']);
-    echo CHtml::tag('div', ['class' => 'alert alert-danger'], Yii::t('manager', 'no_potential_managers_found'));
-    echo CHtml::closeTag('div');
-    //<div class="alert alert-danger">...</div>
-}
-

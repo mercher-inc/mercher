@@ -202,6 +202,25 @@ class ManagersController extends Controller
         );
     }
 
+    public function actionUpdate()
+    {
+        if (isset($_POST['Manager'])) {
+            $this->manager->attributes = $_POST['Manager'];
+
+            if ($this->manager->save()) {
+                $this->redirect(['index', 'shop_id' => $this->shop->id]);
+            }
+        }
+
+        $this->render(
+            'update',
+            array(
+                'shop'           => $this->shop,
+                'model'          => $this->manager
+            )
+        );
+    }
+
     public function actionDelete()
     {
         if (Yii::app()->request->isDeleteRequest) {
