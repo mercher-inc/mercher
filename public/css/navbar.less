@@ -11,6 +11,24 @@
     }
   }
 
+  .sidebarMenuBtn {
+    background: url('/img/menu.png');
+    background-repeat: repeat-x;
+    background-position: center;
+    height: 80px;
+    width: 20px;
+    float: left;
+    cursor: pointer;
+    margin: 0 0 0 0;
+
+    transition: width 0.1s;
+    -webkit-transition: width 0.1s;
+
+    body.sidebarVisible & {
+      width: 40px;
+    }
+  }
+
   .navbar-brand {
     background: url(/img/logo_75.png);
     background-repeat: no-repeat;

@@ -41,7 +41,10 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
 <div id="fb-root"></div>
 <nav id="mainmenu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand toggleSidebar" href="#">
+        <?php if (!Yii::app()->user->isGuest): ?>
+        <div class="sidebarMenuBtn toggleSidebar"></div>
+        <?php endif; ?>
+        <a class="navbar-brand" href="/">
             Mercher,
             <br>
             the easiest way to build an
@@ -200,6 +203,7 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
 }
 ?>
 
+<?php if (!Yii::app()->user->isGuest): ?>
 <div class="sidebar">
     <?php
     if (count($this->shopsMenu)) {
@@ -231,6 +235,7 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
     }
     ?>
 </div>
+<?php endif; ?>
 
 <div id="page">
 

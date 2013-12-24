@@ -859,6 +859,7 @@ th.visible-print,td.visible-print{display:none !important}
 .btn-info-link:active,.btn-info-link.active,.open .dropdown-toggle.btn-info-link{background-image:none}
 .btn-info-link.disabled,.btn-info-link[disabled],fieldset[disabled] .btn-info-link,.btn-info-link.disabled:hover,.btn-info-link[disabled]:hover,fieldset[disabled] .btn-info-link:hover,.btn-info-link.disabled:focus,.btn-info-link[disabled]:focus,fieldset[disabled] .btn-info-link:focus,.btn-info-link.disabled:active,.btn-info-link[disabled]:active,fieldset[disabled] .btn-info-link:active,.btn-info-link.disabled.active,.btn-info-link[disabled].active,fieldset[disabled] .btn-info-link.active{background-color:rgba(91,192,222,0);border-color:rgba(91,192,222,0)}
 #mainmenu{border-width:0 0 4px 0;height:80px}@media (max-width:768px){#mainmenu .navbar-collapse{background:#eee}}
+#mainmenu .sidebarMenuBtn{background:url('/img/menu.png');background-repeat:repeat-x;background-position:center;height:80px;width:20px;float:left;cursor:pointer;margin:0 0 0 0;transition:width .1s;-webkit-transition:width .1s}body.sidebarVisible #mainmenu .sidebarMenuBtn{width:40px}
 #mainmenu .navbar-brand{background:url(/img/logo_75.png);background-repeat:no-repeat;background-position:left center;height:80px;padding:10px 0 10px 75px;margin:0 15px;line-height:20px;font-weight:normal;font-size:16px;font-style:italic}
 #mainmenu .navbar-nav{text-transform:uppercase}
 #mainmenu.with-menu{border-color:#3da3a7}
