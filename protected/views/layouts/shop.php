@@ -37,8 +37,8 @@ $this->menu = array_merge(
             )
         ],
         [
-            'label' => Yii::t('label', 'design'),
-            'url'   => ['design/index', 'shop_id' => $this->shop->id],
+            'label' => Yii::t('shop', 'edit'),
+            'url'   => ['shops/update', 'shop_id' => $this->shop->id],
             'visible'   => Yii::app()->user->checkAccess(
                 AuthManager::PERMISSION_UPDATE_SHOP,
                 [
@@ -47,8 +47,8 @@ $this->menu = array_merge(
             )
         ],
         [
-            'label' => Yii::t('shop', 'edit'),
-            'url'   => ['shops/update', 'shop_id' => $this->shop->id],
+            'label' => Yii::t('label', 'design'),
+            'url'   => ['design/index', 'shop_id' => $this->shop->id],
             'visible'   => Yii::app()->user->checkAccess(
                 AuthManager::PERMISSION_UPDATE_SHOP,
                 [

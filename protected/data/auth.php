@@ -219,9 +219,7 @@ return array (
     'children' => 
     array (
       0 => 'permissionReadShop',
-      1 => 'permissionReadProduct',
-      2 => 'permissionReadCategory',
-      3 => 'permissionUpdateShop',
+      1 => 'permissionUpdateShop',
     ),
   ),
   'roleProductsManager' => 
@@ -237,11 +235,10 @@ return array (
     'children' => 
     array (
       0 => 'permissionReadShop',
-      1 => 'permissionReadProduct',
-      2 => 'permissionReadCategory',
-      3 => 'permissionCreateProduct',
-      4 => 'permissionUpdateProduct',
-      5 => 'permissionDeleteProduct',
+      1 => 'permissionCreateProduct',
+      2 => 'permissionReadProduct',
+      3 => 'permissionUpdateProduct',
+      4 => 'permissionDeleteProduct',
     ),
   ),
   'roleCategoriesManager' => 
@@ -257,11 +254,10 @@ return array (
     'children' => 
     array (
       0 => 'permissionReadShop',
-      1 => 'permissionReadProduct',
+      1 => 'permissionCreateCategory',
       2 => 'permissionReadCategory',
-      3 => 'permissionCreateCategory',
-      4 => 'permissionUpdateCategory',
-      5 => 'permissionDeleteCategory',
+      3 => 'permissionUpdateCategory',
+      4 => 'permissionDeleteCategory',
     ),
   ),
 );

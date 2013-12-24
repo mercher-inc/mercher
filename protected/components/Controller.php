@@ -118,7 +118,7 @@ class Controller extends CController
                 foreach ($user->shops as $shop) {
                     $this->shopsMenu[] = [
                         'label'       => $shop->title,
-                        'url'         => ['products/index', 'shop_id' => $shop->id],
+                        'url'         => ['shops/read', 'shop_id' => $shop->id],
                         'linkOptions' => [
                             'class'        => 'pageProfile',
                             'data-page-id' => $shop->fb_id,
@@ -127,19 +127,12 @@ class Controller extends CController
                         'active'    => (isset($this->shop) and $this->shop->id == $shop->id)?true:false
                     ];
                 }
-                /*
-                $this->shopsMenu[] = [
-                    'itemOptions' => [
-                        'class' => 'divider'
-                    ]
-                ];
-                */
             }
             if (count($user->managedShops)) {
                 foreach ($user->managedShops as $shop) {
                     $this->shopsMenu[] = [
                         'label'       => $shop->title,
-                        'url'         => ['products/index', 'shop_id' => $shop->id],
+                        'url'         => ['shops/read', 'shop_id' => $shop->id],
                         'linkOptions' => [
                             'class'        => 'pageProfile',
                             'data-page-id' => $shop->fb_id,
@@ -148,13 +141,6 @@ class Controller extends CController
                         'active'    => (isset($this->shop) and $this->shop->id == $shop->id)?true:false
                     ];
                 }
-                /*
-                $this->shopsMenu[] = [
-                    'itemOptions' => [
-                        'class' => 'divider'
-                    ]
-                ];
-                */
             }
             Yii::app()->clientScript->registerScript(
                 'pageProfile',

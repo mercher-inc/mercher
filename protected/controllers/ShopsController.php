@@ -25,7 +25,7 @@ class ShopsController extends Controller
                 'allow',
                 'actions' => array('index'),
                 'roles'   => array(
-                    AuthManager::PERMISSION_READ_SHOP
+                    //AuthManager::PERMISSION_READ_SHOP
                 )
             ),
             array(
@@ -75,9 +75,22 @@ class ShopsController extends Controller
         $shops = $user->shops(['limit' => 1, 'order' => 'created']);
 
         if (count($shops)) {
-            $this->redirect(Yii::app()->urlManager->createUrl('products/index', ['shop_id' => $shops[0]->id]));
+            $this->redirect(Yii::app()->urlManager->createUrl('shops/read', ['shop_id' => $shops[0]->id]));
         } else {
             $this->redirect(Yii::app()->urlManager->createUrl('wizard'));
+        }
+    }
+
+    public function actionRead()
+    {
+        if (Yii::app()->user->checkAccess(AuthManager::PERMISSION_READ_PRODUCT, ['shop_id'=>$this->shop->id])) {
+            $this->redirect(Yii::app()->urlManager->createUrl('products/index', ['shop_id' => $this->shop->id]));
+        } elseif (Yii::app()->user->checkAccess(AuthManager::PERMISSION_READ_CATEGORY, ['shop_id'=>$this->shop->id])) {
+            $this->redirect(Yii::app()->urlManager->createUrl('categories/index', ['shop_id' => $this->shop->id]));
+        } elseif (Yii::app()->user->checkAccess(AuthManager::PERMISSION_UPDATE_SHOP, ['shop_id'=>$this->shop->id])) {
+            $this->redirect(Yii::app()->urlManager->createUrl('shops/update', ['shop_id' => $this->shop->id]));
+        } else {
+            throw new CHttpException(403, 'You are not authorized to perform this action.');
         }
     }
 
