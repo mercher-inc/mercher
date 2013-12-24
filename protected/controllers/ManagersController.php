@@ -24,14 +24,51 @@ class ManagersController extends Controller
         return array(
             array(
                 'allow',
-                'actions' => array(
-                    'index',
-                    'create',
-                    'read',
-                    'update',
-                    'delete'
-                ),
-                'users'   => array('@'),
+                'actions' => array('index'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_READ_MANAGER => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('create'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_CREATE_MANAGER => array(
+                        'shop_id' => Yii::app()->request->getParam('shop_id')
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('read'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_READ_MANAGER => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'user_id' => Yii::app()->request->getParam('user_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('update'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_UPDATE_MANAGER => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'user_id' => Yii::app()->request->getParam('user_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('delete'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_DELETE_MANAGER => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'user_id' => Yii::app()->request->getParam('user_id'),
+                    )
+                )
             ),
             array(
                 'deny',
@@ -64,9 +101,6 @@ class ManagersController extends Controller
             $this->_shop = Shop::model()->findByPk(Yii::app()->request->getParam('shop_id'));
             if (!$this->_shop) {
                 throw new CHttpException(404);
-            }
-            if (Yii::app()->user->id != $this->_shop->owner_id) {
-                throw new CHttpException(401);
             }
         }
         return $this->_shop;

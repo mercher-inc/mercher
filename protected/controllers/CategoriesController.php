@@ -26,14 +26,51 @@ class CategoriesController extends Controller
         return array(
             array(
                 'allow',
-                'actions' => array(
-                    'index',
-                    'create',
-                    'read',
-                    'update',
-                    'delete'
-                ),
-                'users'   => array('@'),
+                'actions' => array('index'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_READ_CATEGORY => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('create'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_CREATE_CATEGORY => array(
+                        'shop_id' => Yii::app()->request->getParam('shop_id')
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('read'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_READ_CATEGORY => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'category_id' => Yii::app()->request->getParam('category_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('update'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_UPDATE_CATEGORY => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'category_id' => Yii::app()->request->getParam('category_id'),
+                    )
+                )
+            ),
+            array(
+                'allow',
+                'actions' => array('delete'),
+                'roles'   => array(
+                    AuthManager::PERMISSION_DELETE_CATEGORY => array(
+                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'category_id' => Yii::app()->request->getParam('category_id'),
+                    )
+                )
             ),
             array(
                 'deny',
@@ -134,9 +171,6 @@ class CategoriesController extends Controller
             if (!$this->_shop) {
                 throw new CHttpException(404);
             }
-            if (Yii::app()->user->id != $this->_shop->owner_id) {
-                throw new CHttpException(401);
-            }
         }
         return $this->_shop;
     }
@@ -147,9 +181,6 @@ class CategoriesController extends Controller
             $this->_category = Category::model()->findByPk(Yii::app()->request->getParam('category_id'));
             if (!$this->_category) {
                 throw new CHttpException(404);
-            }
-            if ($this->_category->shop_id != $this->shop->id) {
-                throw new CHttpException(401);
             }
         }
         return $this->_category;

@@ -14,6 +14,10 @@ class Controller extends CController
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
      */
     public $menu = array();
+    /**
+     * @var array context menu items. This property will be assigned to {@link CMenu::items}.
+     */
+    public $shopsMenu = array();
 
     /**
      * @var string title to display in header
@@ -107,6 +111,70 @@ class Controller extends CController
         );
 
         Yii::app()->clientScript->registerCssFile('/css/style.css');
+
+        if (!Yii::app()->user->isGuest) {
+            $user = User::model()->findByPk(Yii::app()->user->id);
+            if (count($user->shops)) {
+                foreach ($user->shops as $shop) {
+                    $this->shopsMenu[] = [
+                        'label'       => $shop->title,
+                        'url'         => ['products/index', 'shop_id' => $shop->id],
+                        'linkOptions' => [
+                            'class'        => 'pageProfile',
+                            'data-page-id' => $shop->fb_id,
+                            'style'        => 'background-image: url("https://graph.facebook.com/' . $shop->fb_id . '/picture?type=square");'
+                        ],
+                        'active'    => (isset($this->shop) and $this->shop->id == $shop->id)?true:false
+                    ];
+                }
+                /*
+                $this->shopsMenu[] = [
+                    'itemOptions' => [
+                        'class' => 'divider'
+                    ]
+                ];
+                */
+            }
+            if (count($user->managedShops)) {
+                foreach ($user->managedShops as $shop) {
+                    $this->shopsMenu[] = [
+                        'label'       => $shop->title,
+                        'url'         => ['products/index', 'shop_id' => $shop->id],
+                        'linkOptions' => [
+                            'class'        => 'pageProfile',
+                            'data-page-id' => $shop->fb_id,
+                            'style'        => 'background-image: url("https://graph.facebook.com/' . $shop->fb_id . '/picture?type=square");'
+                        ],
+                        'active'    => (isset($this->shop) and $this->shop->id == $shop->id)?true:false
+                    ];
+                }
+                /*
+                $this->shopsMenu[] = [
+                    'itemOptions' => [
+                        'class' => 'divider'
+                    ]
+                ];
+                */
+            }
+            Yii::app()->clientScript->registerScript(
+                'pageProfile',
+                '
+                    $(".pageProfile").each(function(){
+                        var pageProfile = this;
+                        FB.api(
+                            $(pageProfile).attr("data-page-id"),
+                            function(response) {
+                                if (response.name) {
+                                    $(pageProfile).html(response.name);
+                                }
+                            }
+                        );
+                    });
+                ',
+                ClientScript::POS_FB
+            );
+        }
+
         return true;
     }
 

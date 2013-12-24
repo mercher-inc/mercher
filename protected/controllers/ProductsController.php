@@ -190,9 +190,6 @@ class ProductsController extends Controller
             if (!$this->_shop) {
                 throw new CHttpException(404);
             }
-            if (Yii::app()->user->id != $this->_shop->owner_id) {
-                throw new CHttpException(401);
-            }
         }
         return $this->_shop;
     }
@@ -203,9 +200,6 @@ class ProductsController extends Controller
             $this->_product = Product::model()->findByPk(Yii::app()->request->getParam('product_id'));
             if (!$this->_product) {
                 throw new CHttpException(404);
-            }
-            if ($this->_product->shop_id != $this->shop->id) {
-                throw new CHttpException(401);
             }
         }
         return $this->_product;

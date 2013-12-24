@@ -186,6 +186,8 @@ class AuthManager extends CPhpAuthManager
             [__CLASS__, 'checkRoleShopManager']
         );
         $roleShopManager->addChild(self::PERMISSION_READ_SHOP);
+        $roleShopManager->addChild(self::PERMISSION_READ_PRODUCT);
+        $roleShopManager->addChild(self::PERMISSION_READ_CATEGORY);
         $roleShopManager->addChild(self::PERMISSION_UPDATE_SHOP);
 
         $roleProductsManager = $this->createRole(
@@ -193,8 +195,10 @@ class AuthManager extends CPhpAuthManager
             null,
             [__CLASS__, 'checkRoleProductsManager']
         );
-        $roleProductsManager->addChild(self::PERMISSION_CREATE_PRODUCT);
+        $roleProductsManager->addChild(self::PERMISSION_READ_SHOP);
         $roleProductsManager->addChild(self::PERMISSION_READ_PRODUCT);
+        $roleProductsManager->addChild(self::PERMISSION_READ_CATEGORY);
+        $roleProductsManager->addChild(self::PERMISSION_CREATE_PRODUCT);
         $roleProductsManager->addChild(self::PERMISSION_UPDATE_PRODUCT);
         $roleProductsManager->addChild(self::PERMISSION_DELETE_PRODUCT);
 
@@ -203,8 +207,10 @@ class AuthManager extends CPhpAuthManager
             null,
             [__CLASS__, 'checkRoleCategoriesManager']
         );
-        $roleCategoriesManager->addChild(self::PERMISSION_CREATE_CATEGORY);
+        $roleCategoriesManager->addChild(self::PERMISSION_READ_SHOP);
+        $roleCategoriesManager->addChild(self::PERMISSION_READ_PRODUCT);
         $roleCategoriesManager->addChild(self::PERMISSION_READ_CATEGORY);
+        $roleCategoriesManager->addChild(self::PERMISSION_CREATE_CATEGORY);
         $roleCategoriesManager->addChild(self::PERMISSION_UPDATE_CATEGORY);
         $roleCategoriesManager->addChild(self::PERMISSION_DELETE_CATEGORY);
     }
@@ -271,17 +277,59 @@ class AuthManager extends CPhpAuthManager
 
     protected function checkRoleShopManager($params, $data)
     {
-        return true;
+        if (!$shopId = $this->getShopByParams($params)) {
+            return false;
+        }
+
+        return Yii::app()->db->createCommand()
+            ->select("COUNT(*) > 0 AS check")
+            ->from(Manager::model()->tableName())
+            ->where(
+                "shop_id = :shopId AND user_id = :userId",
+                [
+                    ":shopId" => (int)$shopId,
+                    ":userId" => (int)$params['userId'],
+                ]
+            )
+            ->queryScalar();
     }
 
     protected function checkRoleProductsManager($params, $data)
     {
-        return true;
+        if (!$shopId = $this->getShopByParams($params)) {
+            return false;
+        }
+
+        return Yii::app()->db->createCommand()
+            ->select("COUNT(*) > 0 AS check")
+            ->from(Manager::model()->tableName())
+            ->where(
+                "shop_id = :shopId AND user_id = :userId",
+                [
+                    ":shopId" => (int)$shopId,
+                    ":userId" => (int)$params['userId'],
+                ]
+            )
+            ->queryScalar();
     }
 
     protected function checkRoleCategoriesManager($params, $data)
     {
-        return true;
+        if (!$shopId = $this->getShopByParams($params)) {
+            return false;
+        }
+
+        return Yii::app()->db->createCommand()
+            ->select("COUNT(*) > 0 AS check")
+            ->from(Manager::model()->tableName())
+            ->where(
+                "shop_id = :shopId AND user_id = :userId",
+                [
+                    ":shopId" => (int)$shopId,
+                    ":userId" => (int)$params['userId'],
+                ]
+            )
+            ->queryScalar();
     }
 
     protected function checkPermissionCreateShop($params, $data)
