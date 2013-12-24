@@ -30,6 +30,7 @@ class Manager extends CActiveRecord
         return array(
             array('user_id, shop_id', 'required'),
             array('rolesList', 'safe'),
+            array('rolesList', 'checkRolesList'),
             array('role', 'unsafe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -98,7 +99,7 @@ class Manager extends CActiveRecord
         return parent::model($className);
     }
 
-    public function setRolesList(array $rolesList)
+    public function setRolesList($rolesList)
     {
         $availableRoles = [
             AuthManager::ROLE_SHOP_MANAGER,
@@ -108,6 +109,7 @@ class Manager extends CActiveRecord
         if (!is_array($rolesList)) {
             $rolesList = array();
         }
+        $rolesList = array_intersect($rolesList, $availableRoles);
         $rolesList  = array_unique($rolesList);
         $this->role = '{' . implode(',', $rolesList) . '}';
     }
@@ -118,6 +120,13 @@ class Manager extends CActiveRecord
             return array();
         }
         return explode(',', trim($this->role, '{}'));
+    }
+
+    public function checkRolesList()
+    {
+        if (!count($this->rolesList)) {
+            $this->addError('rolesList', 'At least one role is required');
+        }
     }
 
     public function setUserFbId($userFbId)

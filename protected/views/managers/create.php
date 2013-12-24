@@ -54,7 +54,27 @@ if (count($adminsList)) {
     echo CHtml::closeTag('div');
     echo CHtml::closeTag('div');
 
-//==submit==
+
+    //==rolesList==
+    echo CHtml::openTag('div', ['class' => 'row']);
+    echo CHtml::openTag(
+        'div',
+        ['class' => 'form-group col-lg-12' . ($model->hasErrors('rolesList') ? ' has-error' : '')]
+    );
+    echo $form->checkBoxList(
+        $model,
+        'rolesList',
+        [
+            AuthManager::ROLE_SHOP_MANAGER => Yii::t('manager', AuthManager::ROLE_SHOP_MANAGER),
+            AuthManager::ROLE_PRODUCTS_MANAGER => Yii::t('manager', AuthManager::ROLE_PRODUCTS_MANAGER),
+            AuthManager::ROLE_CATEGORIES_MANAGER => Yii::t('manager', AuthManager::ROLE_CATEGORIES_MANAGER),
+        ]
+    );
+    echo $form->error($model, 'rolesList', ['class' => 'help-block']);
+    echo CHtml::closeTag('div');
+    echo CHtml::closeTag('div');
+
+    //==submit==
 
     echo CHtml::openTag('div', ['class' => 'row']);
     echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
@@ -70,7 +90,7 @@ if (count($adminsList)) {
     $this->endWidget();
 } else {
     echo CHtml::openTag('div', ['class' => 'main-form']);
-    echo CHtml::tag('div', ['class'=>'alert alert-danger'], Yii::t('manager', 'no_potential_managers_found'));
+    echo CHtml::tag('div', ['class' => 'alert alert-danger'], Yii::t('manager', 'no_potential_managers_found'));
     echo CHtml::closeTag('div');
     //<div class="alert alert-danger">...</div>
 }
