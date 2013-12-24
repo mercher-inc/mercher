@@ -12,6 +12,7 @@ return array(
     'shops'                  => 'Shops',
     'shop'                   => 'Shop',
     'my_shops'               => 'My shops',
+    'managers'               => 'Managers',
     'showcases'              => 'Showcases',
     'showcase'               => 'Showcase',
     'categories'             => 'Categories',

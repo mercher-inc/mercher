@@ -17,8 +17,6 @@ array_push(
     ]
 );
 
-CDataColumn::
-
 $this->widget(
     'application.widgets.grid.GridView',
     [

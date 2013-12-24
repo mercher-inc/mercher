@@ -7,9 +7,11 @@
  * @property string $shop_id
  * @property string $role
  * @property array $rolesList
+ * @property string $userFbId
  */
 class Manager extends CActiveRecord
 {
+    protected $userFbId;
     /**
      * @return string the associated database table name
      */
@@ -54,7 +56,7 @@ class Manager extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'user_id' => 'User',
+            'user_id' => 'Manager',
             'shop_id' => 'Shop',
             'role'    => 'Role',
         );
@@ -116,5 +118,15 @@ class Manager extends CActiveRecord
             return array();
         }
         return explode(',', trim($this->role, '{}'));
+    }
+
+    public function setUserFbId($userFbId)
+    {
+        $this->userFbId = $userFbId;
+    }
+
+    public function getUserFbId()
+    {
+        return $this->userFbId;
     }
 }
