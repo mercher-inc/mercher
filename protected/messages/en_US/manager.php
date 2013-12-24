@@ -6,6 +6,7 @@ return [
     AuthManager::ROLE_CATEGORIES_MANAGER => 'Categories manager',
     'create_btn'                         => 'Add manager',
     'create'                             => 'Add new manager',
+    'delete'                             => 'Remove manager',
     'help_user_id'                       => 'Select page\'s manager',
     'no_potential_managers_found'        => 'No potential managers found'
 ];

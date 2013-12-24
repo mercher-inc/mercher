@@ -202,6 +202,21 @@ class ManagersController extends Controller
         );
     }
 
+    public function actionDelete()
+    {
+        if (Yii::app()->request->isDeleteRequest) {
+            $this->manager->delete();
+            $this->redirect(['index', 'shop_id' => $this->shop->id]);
+        }
+        $this->render(
+            'delete',
+            array(
+                'shop'  => $this->shop,
+                'model' => $this->manager
+            )
+        );
+    }
+
     public function getShop()
     {
         if (!$this->_shop) {
