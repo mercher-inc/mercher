@@ -169,12 +169,11 @@ if (isset($errorCode) and isset($errorMessage)) {
     <div id="hero-desc-block" class="tab-content">
         <div class="tab-pane fade active in" id="hero-desc-index">
             <p>
-                Today Facebook&reg; is the largest social network. It means that a lot of your customers are present there.
-                So, why not set up a Facebook&reg; shop right now? If your answer is that development of an online store
-                isn't easy even on Facebook&reg;, you are in the right place: Mercher.net is just for you! Mercher is an
-                effective but easy-to-use Facebook&reg; shop builder for non-techie users. As a social e-commerce software
-                platform Mercher allows you to launch your shop fast, easy and for free for 10 items of goods - not so
-                bad to start your online business, isn't it?
+                Make it - Sell it. <br>
+                And let your friends on Facebook&reg; become your loyal customers. <br>
+                Mercher is the easiest way to build an online shop for non-techie users entirely within Facebook&reg;! <br>
+                All you need is a Facebook&reg; Fan Page and a PayPal&trade; email to start taking orders. <br>
+                First 10 items are free!
             </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-fast">
