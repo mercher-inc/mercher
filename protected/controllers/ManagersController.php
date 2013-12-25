@@ -109,99 +109,11 @@ class ManagersController extends Controller
             }
         }
 
-        try {
-            $accessToken = Yii::app()->facebook->sdk->api(
-                $this->shop->fb_id . '?' . http_build_query(['fields' => 'access_token'])
-            );
-        } catch (FacebookApiException $e) {
-            throw new CHttpException(500, $e->getMessage());
-        }
-
-        if (!isset($accessToken['access_token'])) {
-            throw new CHttpException(500, 'Internal error');
-        } else {
-            $pageAccessToken = $accessToken['access_token'];
-        }
-
-        $userAccessToken = Yii::app()->facebook->sdk->getAccessToken();
-        Yii::app()->facebook->sdk->setAccessToken($pageAccessToken);
-
-        try {
-            $admins = Yii::app()->facebook->sdk->api(
-                $this->shop->fb_id . '?' . http_build_query(
-                    [
-                        'fields' => 'admins.limit(50)',
-                    ]
-                )
-            );
-        } catch (FacebookApiException $e) {
-            throw new CHttpException(500, $e->getMessage());
-        }
-        Yii::app()->facebook->sdk->setAccessToken($userAccessToken);
-
-        $adminsList = [];
-
-        $owner = User::model()->findByPk(Yii::app()->user->id);
-
-        if (isset($admins['admins']) and isset($admins['data'])) {
-            foreach ($admins['admins']['data'] as $admin) {
-                if ($admin['id'] == $owner->fb_id) {
-                    continue;
-                }
-                if (
-                    Yii::app()->db->createCommand()
-                        ->select("COUNT(m.*) > 0 AS check")
-                        ->from(Manager::model()->tableName() . ' AS m')
-                        ->join(
-                            User::model()->tableName() . ' AS u',
-                            'm.user_id = u.id'
-                        )
-                        ->where(
-                            "u.fb_id = :userId AND m.shop_id = :shopId",
-                            [
-                                ":shopId" => $this->shop->id,
-                                ":userId" => $admin['id'],
-                            ]
-                        )
-                        ->queryScalar()
-                ) {
-                    continue;
-                }
-                $user = User::model()->findByAttributes(
-                    [
-                        'fb_id' => $admin['id']
-                    ]
-                );
-                if (!$user) {
-                    try {
-                        $newAdmin = Yii::app()->facebook->sdk->api(
-                            $admin['id']
-                        );
-                    } catch (FacebookApiException $e) {
-                        throw new CHttpException(500, $e->getMessage());
-                    }
-                    $user             = new User();
-                    $user->fb_id      = $newAdmin['id'];
-                    $user->first_name = $newAdmin['first_name'];
-                    $user->last_name  = $newAdmin['last_name'];
-                    if (isset($newAdmin['username'])) {
-                        $user->email = $newAdmin['username'] . '@facebook.com';
-                    } else {
-                        $user->email = $newAdmin['id'] . '@facebook.com';
-                    }
-                    $user->save();
-                }
-                $adminsList[$user->id] = $user->name;
-            }
-        }
-
-
         $this->render(
             'create',
             array(
                 'shop'       => $this->shop,
-                'model'      => $this->manager,
-                'adminsList' => $adminsList
+                'model'      => $this->manager
             )
         );
     }

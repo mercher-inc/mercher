@@ -70,6 +70,22 @@ class Controller extends CController
         );
 
         Yii::app()->clientScript->registerScript(
+            'fb_login',
+            'FB.Event.subscribe("auth.authResponseChange", function(response) {
+                if (response.status !== "connected") {
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            location.reload();
+                        } else {
+                            location.replace("/");
+                        }
+                    }, {scope: "'.Yii::app()->facebook->scope.'"});
+                }
+            });',
+            ClientScript::POS_FB
+        );
+
+        Yii::app()->clientScript->registerScript(
             'fb_load_the_SDK_asynchronously',
             '(function(d, s, id){' .
                 'var js, fjs = d.getElementsByTagName(s)[0];' .

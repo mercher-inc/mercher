@@ -11,7 +11,6 @@
  */
 class Manager extends CActiveRecord
 {
-    protected $userFbId;
     /**
      * @return string the associated database table name
      */
@@ -29,6 +28,7 @@ class Manager extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_id, shop_id', 'required'),
+            array('userFbId', 'required', 'on' => 'insert'),
             array('rolesList', 'safe'),
             array('rolesList', 'checkRolesList'),
             array('role', 'unsafe'),
@@ -46,8 +46,8 @@ class Manager extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user'           => array(self::BELONGS_TO, 'User', 'user_id'),
-            'shop'           => array(self::BELONGS_TO, 'Shop', 'shop_id')
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'shop' => array(self::BELONGS_TO, 'Shop', 'shop_id')
         );
     }
 
@@ -109,7 +109,7 @@ class Manager extends CActiveRecord
         if (!is_array($rolesList)) {
             $rolesList = array();
         }
-        $rolesList = array_intersect($rolesList, $availableRoles);
+        $rolesList  = array_intersect($rolesList, $availableRoles);
         $rolesList  = array_unique($rolesList);
         $this->role = '{' . implode(',', $rolesList) . '}';
     }
@@ -131,11 +131,46 @@ class Manager extends CActiveRecord
 
     public function setUserFbId($userFbId)
     {
-        $this->userFbId = $userFbId;
+        try {
+            $managerProfile = Yii::app()->facebook->sdk->api(
+                $userFbId . '?' . http_build_query(
+                    [
+                        'fields' => 'id,first_name,last_name,username',
+                    ]
+                )
+            );
+        } catch (FacebookApiException $e) {
+            throw new CHttpException(500, $e->getMessage());
+        }
+
+        if (!isset($managerProfile['id'])) {
+            $this->addError('userFbId', 'Unknown user');
+            return false;
+        }
+
+        $managerModel = User::model()->findByAttributes(
+            [
+                'fb_id' => $managerProfile['id']
+            ]
+        );
+
+        if (!$managerModel) {
+            $managerModel             = new User();
+            $managerModel->fb_id      = $managerProfile['id'];
+            $managerModel->first_name = $managerProfile['first_name'];
+            $managerModel->last_name  = $managerProfile['last_name'];
+            $managerModel->email      = (isset($managerProfile['username']) ? $managerProfile['username'] : $managerProfile['id']) . '@facebook.com';
+            $managerModel->save();
+        }
+        $this->user_id = $managerModel->id;
+        return true;
     }
 
     public function getUserFbId()
     {
-        return $this->userFbId;
+        if (!$this->user) {
+            return null;
+        }
+        return $this->user->fb_id;
     }
 }
