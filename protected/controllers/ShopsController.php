@@ -72,13 +72,22 @@ class ShopsController extends Controller
     public function actionIndex()
     {
         $user  = User::model()->findByPk(Yii::app()->user->id);
-        $shops = $user->shops(['limit' => 1, 'order' => 'created']);
 
-        if (count($shops)) {
-            $this->redirect(Yii::app()->urlManager->createUrl('shops/read', ['shop_id' => $shops[0]->id]));
-        } else {
-            $this->redirect(Yii::app()->urlManager->createUrl('wizard'));
+        $ownedShops = $user->shops(['limit' => 1, 'order' => 'created']);
+
+        if (count($ownedShops)) {
+            $this->redirect(Yii::app()->urlManager->createUrl('shops/read', ['shop_id' => $ownedShops[0]->id]));
+            return;
         }
+
+        $managedShops = $user->managedShops(['limit' => 1, 'order' => 'created']);
+
+        if (count($managedShops)) {
+            $this->redirect(Yii::app()->urlManager->createUrl('shops/read', ['shop_id' => $managedShops[0]->id]));
+            return;
+        }
+
+        $this->redirect(Yii::app()->urlManager->createUrl('wizard'));
     }
 
     public function actionRead()

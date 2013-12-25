@@ -128,7 +128,7 @@ class Controller extends CController
 
         Yii::app()->clientScript->registerCssFile('/css/style.css');
 
-        if (!Yii::app()->user->isGuest) {
+        if (!Yii::app()->user->isGuest && Yii::app()->user->id != "admin") {
             $user = User::model()->findByPk(Yii::app()->user->id);
             if (count($user->shops)) {
                 foreach ($user->shops as $shop) {
@@ -143,6 +143,11 @@ class Controller extends CController
                         'active'    => (isset($this->shop) and $this->shop->id == $shop->id)?true:false
                     ];
                 }
+            } else {
+                $this->shopsMenu[] = [
+                    'label'       => 'New shop...',
+                    'url'         => ['/wizard']
+                ];
             }
             if (count($user->managedShops)) {
                 foreach ($user->managedShops as $shop) {

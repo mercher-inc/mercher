@@ -70,7 +70,7 @@ class IndexController extends Controller
             $identity = new UserIdentity();
             if ($identity->authenticate()) {
                 Yii::app()->user->login($identity, 3600 * 24 * 7);
-                $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
             } else {
                 $this->render(
                     'index',
