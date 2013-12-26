@@ -169,11 +169,11 @@ if (isset($errorCode) and isset($errorMessage)) {
     <div id="hero-desc-block" class="tab-content">
         <div class="tab-pane fade active in" id="hero-desc-index">
             <p>
-                Make it - Sell it. <br>
-                And let your friends on Facebook&reg; become your loyal customers. <br>
-                Mercher is the easiest way to build an online shop for non-techie users entirely within Facebook&reg;! <br>
-                All you need is a Facebook&reg; Fan Page and a PayPal&trade; email to start taking orders. <br>
-                First 10 items are free!
+                Facebook it - Sell it.<br>
+                And let your friends on Facebook become your loyal customers.<br>
+                Mercher is the simplest way to add an online shop directly onto your Facebook!<br><br>
+                All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking orders.<br>
+                Stores with up to 10 items are <strong>free</strong>!
             </p>
         </div>
         <div class="tab-pane fade" id="hero-desc-fast">
