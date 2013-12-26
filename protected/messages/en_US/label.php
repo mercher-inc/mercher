@@ -2,7 +2,7 @@
 
 return array(
 
-    'get_started'            => 'Add shop to my fan-page',
+    'get_started'            => 'Add A Shop to My Fan Page',
     'start_business_with_us' => 'Start your business with us!',
     'it_is'                  => 'It is',
     'login'                  => 'Log in',
