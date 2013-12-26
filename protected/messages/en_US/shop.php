@@ -17,6 +17,6 @@ return array(
     'help_description'    => 'Tell something about the shop',
     'help_tax'            => 'Set tax percentage',
     'help_pp_merchant_id' => 'Provide your PayPal email',
-    'help_ga_id'          => 'Provide your Google Analytics ID to track what\'s happaning in your shop',
+    'help_ga_id'          => 'Provide your google analytics ID to track what is happening in your shop',
     'help_is_active'      => 'Is this shop active?',
 );
