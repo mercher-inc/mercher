@@ -219,6 +219,27 @@ class Product extends CActiveRecord
         return parent::model($className);
     }
 
+    protected function afterValidate()
+    {
+        parent::afterValidate();
+
+        try {
+            $response = Yii::app()->facebook->sdk->api(
+                $this->shop->fb_id . '?' . http_build_query(['fields'=>'is_published'])
+            );
+        } catch (FacebookApiException $e) {
+            $this->addError('shop_id', 'Facebook api error');
+            return;
+        }
+
+        if (!isset($response['is_published']) or !$response['is_published']) {
+            $this->addError('shop_id', 'Fan page is not published');
+            return;
+        }
+
+        return;
+    }
+
     public function getOgParams()
     {
         $object = array(

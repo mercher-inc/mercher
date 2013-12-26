@@ -188,6 +188,7 @@ echo CHtml::closeTag('div');
 
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);
+echo $form->error($model, 'shop_id', ['class' => 'text-danger']);
 echo CHtml::submitButton(
     Yii::t('product', 'save'),
     array(
