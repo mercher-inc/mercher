@@ -54,23 +54,6 @@ Yii::app()->clientScript->registerScript(
     "$('#product-form *[data-toggle=\"tooltip\"]').tooltip();"
 );
 
-//==title==
-echo CHtml::openTag('div', ['class' => 'row']);
-echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('title') ? ' has-error' : '')]);
-echo $form->label($model, 'title', ['class' => 'control-label']);
-echo $form->textField(
-    $model,
-    'title',
-    [
-        'class'       => 'form-control',
-        'data-toggle' => 'tooltip',
-        'title'       => Yii::t('product', 'help_title')
-    ]
-);
-echo $form->error($model, 'title', ['class' => 'help-block']);
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('div');
-
 echo CHtml::openTag('div', ['class' => 'row']);
 
 //==image_id==
@@ -87,6 +70,23 @@ echo $form->error($model, 'image_id', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 
 echo CHtml::openTag('div', ['class' => 'col-lg-8']);
+
+//==title==
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('title') ? ' has-error' : '')]);
+echo $form->label($model, 'title', ['class' => 'control-label']);
+echo $form->textField(
+    $model,
+    'title',
+    [
+        'class'       => 'form-control',
+        'data-toggle' => 'tooltip',
+        'title'       => Yii::t('product', 'help_title')
+    ]
+);
+echo $form->error($model, 'title', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
 
 //==description==
 echo CHtml::openTag('div', ['class' => 'row']);
@@ -109,6 +109,7 @@ echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
 //==category_id==
+/*
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
     'div',
@@ -128,6 +129,7 @@ echo $form->dropDownList(
 echo $form->error($model, 'category_id', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
+*/
 
 //==amount==
 echo CHtml::openTag('div', ['class' => 'row']);

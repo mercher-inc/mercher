@@ -41,21 +41,29 @@ $this->widget(
                 'cssClassExpression' => '$data->title?"":"not_set"',
                 'value'              => '$data->title?$data->title:""'
             ],
+            /*
             [
                 'name'               => 'category_id',
                 'cssClassExpression' => '$data->category_id?"":"not_set"',
                 'value'              => '$data->category_id?$data->category->title:""'
             ],
+            */
             [
                 'type'               => 'raw',
                 'name'               => 'amount',
                 'cssClassExpression' => '$data->amount?"":"not_set"',
-                'value'              => '$data->amount?("&#36;" . $data->amount):""'
+                'value'              => '$data->amount?("&#36;" . $data->amount):""',
+                'headerHtmlOptions' => [
+                    'style' => 'width: 200px;'
+                ]
             ],
             [
                 'name'               => 'is_active',
                 'cssClassExpression' => '$data->is_active?"yes":"no"',
-                'value'              => ''
+                'value'              => '',
+                'headerHtmlOptions' => [
+                    'style' => 'width: 200px;'
+                ]
             ],
             [
                 'type'  => 'raw',

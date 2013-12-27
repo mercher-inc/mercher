@@ -16,6 +16,7 @@ $this->menu = array_merge(
                 ]
             )
         ],
+        /*
         [
             'label' => Yii::t('label', 'categories'),
             'url'   => ['categories/index', 'shop_id' => $this->shop->id],
@@ -36,6 +37,7 @@ $this->menu = array_merge(
                 ]
             )
         ],
+        */
         [
             'label' => Yii::t('shop', 'edit'),
             'url'   => ['shops/update', 'shop_id' => $this->shop->id],
