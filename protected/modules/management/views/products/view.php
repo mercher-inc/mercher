@@ -30,3 +30,16 @@ $this->widget('zii.widgets.CDetailView', array(
 		'quantity_in_stock',
 	),
 ));
+
+echo CHtml::link(
+    'Open Graph Object Debugger',
+    'https://developers.facebook.com/tools/debug/og/object?' . http_build_query(
+        [
+            'q' => $this->createAbsoluteUrl("/og/products", ["product_id"=>$model->id])
+        ]
+    ),
+    [
+        'target'=>'_blank',
+        'class' => 'btn btn-default'
+    ]
+);
