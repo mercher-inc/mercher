@@ -203,19 +203,21 @@ if (isset($errorCode) and isset($errorMessage)) {
     <div class="hero-customers">
         <div class="row">
             <?php
-            foreach ($pages as $page) {
-                echo CHtml::tag(
-                    'div',
-                    ['class' => "col-xs-4 col-md-2"],
-                    CHtml::link(
-                        CHtml::image("https://graph.facebook.com/$page/picture?width=200&height=200"),
-                        "https://www.facebook.com/$page?sk=app_491297224259374",
-                        [
-                            "class"=> "thumbnail",
-                            "target" => '_blank'
-                        ]
-                    )
-                );
+            if (isset($pages) and count($pages)) {
+                foreach ($pages as $page) {
+                    echo CHtml::tag(
+                        'div',
+                        ['class' => "col-xs-4 col-md-2"],
+                        CHtml::link(
+                            CHtml::image("https://graph.facebook.com/$page/picture?width=200&height=200"),
+                            "https://www.facebook.com/$page?sk=app_491297224259374",
+                            [
+                                "class"=> "thumbnail",
+                                "target" => '_blank'
+                            ]
+                        )
+                    );
+                }
             }
             ?>
         </div>
