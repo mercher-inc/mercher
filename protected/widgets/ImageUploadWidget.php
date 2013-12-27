@@ -12,7 +12,8 @@ class ImageUploadWidget extends CWidget
     public $attribute;
     public $htmlOptions = [];
 
-    public function init() {
+    public function init()
+    {
 
     }
 
@@ -20,11 +21,11 @@ class ImageUploadWidget extends CWidget
     {
         switch (get_class($this->model)) {
             case 'Shop':
-                $shop_id = $this->model->id;
+                $shop_id   = $this->model->id;
                 $imageSize = 'sh';
                 break;
             default:
-                $shop_id = $this->model->shop_id;
+                $shop_id   = $this->model->shop_id;
                 $imageSize = 'l';
         }
 
@@ -43,9 +44,9 @@ class ImageUploadWidget extends CWidget
 
         if ($image) {
             if (!isset($this->htmlOptions['style'])) {
-                $this->htmlOptions['style'] = 'background-image: url('.$image->getSize($imageSize).');';
+                $this->htmlOptions['style'] = 'background-image: url(' . $image->getSize($imageSize) . ');';
             } else {
-                $this->htmlOptions['style'] .= ' background-image: url('.$image->getSize($imageSize).');';
+                $this->htmlOptions['style'] .= ' background-image: url(' . $image->getSize($imageSize) . ');';
             }
         }
 
@@ -89,6 +90,15 @@ class ImageUploadWidget extends CWidget
 
                                 holder.parent().removeClass('has-error');
                                 $('.help-block', holder.parent()).remove();
+
+                                var v = {};
+                                v[hidden.attr("name")] = hidden.attr("value");
+
+                                $.ajax({
+                                    url: hidden.parentsUntil("form").parent("form").attr("action"),
+                                    type: 'POST',
+                                    data: v
+                                });
                             },
                             error: function (response) {
                                 holder.removeClass('loading');
@@ -117,6 +127,10 @@ JS;
         echo CHtml::openTag('div', $this->htmlOptions);
         echo CHtml::activeHiddenField($this->model, $this->attribute);
         echo CHtml::closeTag('div');
-        echo CHtml::tag('div', ['class'=>'text-muted'], '* ' . CHtml::tag('em', [], 'Max. image size is 1MB, 2000*2000 pixels'));
+        echo CHtml::tag(
+            'div',
+            ['class' => 'text-muted'],
+            '* ' . CHtml::tag('em', [], 'Max. image size is 1MB, 2000*2000 pixels')
+        );
     }
 }
