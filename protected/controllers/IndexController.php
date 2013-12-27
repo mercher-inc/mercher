@@ -82,7 +82,34 @@ class IndexController extends Controller
                 return;
             }
         }
-        $this->render('index');
+
+        $pages = Yii::app()->db->createCommand()
+            ->select('shop.fb_id')
+            ->from(Shop::model()->tableName() . ' AS shop')
+            ->join(User::model()->tableName() . ' AS user', '"user"."id" = "shop"."owner_id"')
+            ->where("shop.is_active = TRUE")
+            ->where(
+                [
+                    "not in",
+                    "user.fb_id",
+                    [
+                        '100006973868538',  //Mihail Les
+                        '100005603078334',  //Open User
+                        '100001974932720',  //Dmitry Les
+                        '100003241004104',  //Olesya Lesyonovna
+                        '2500458',          //Sam Pogosov
+                        '10805126',         //Yury Adamov
+                    ]
+                ]
+            )
+            ->queryColumn();
+
+        $this->render(
+            'index',
+            [
+                'pages' => $pages
+            ]
+        );
     }
 
     /**

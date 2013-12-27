@@ -3,6 +3,7 @@
  * @var $this SiteController
  * @var $errorCode integer
  * @var $errorMessage string
+ * @var $pages array
  */
 
 $this->pageTitle = 'Facebook Shop Builder - Facebook Store Platform - ' . Yii::app()->name;
@@ -172,7 +173,8 @@ if (isset($errorCode) and isset($errorMessage)) {
                 Facebook it - Sell it.<br>
                 And let your friends on Facebook become your loyal customers.<br>
                 Mercher is the simplest way to add an online shop directly onto your Facebook!<br><br>
-                All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking orders.<br>
+                All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking
+                orders.<br>
                 Stores with up to 10 items are <strong>free</strong>!
             </p>
         </div>
@@ -196,6 +198,27 @@ if (isset($errorCode) and isset($errorMessage)) {
     <div class="hero-get-started">
         <a class="btn btn-primary btn-lg" id="ctaButton" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
            target="_top"><?php echo Yii::t('label', 'get_started'); ?></a>
+    </div>
+
+    <div class="hero-customers">
+        <div class="row">
+            <?php
+            foreach ($pages as $page) {
+                echo CHtml::tag(
+                    'div',
+                    ['class' => "col-xs-4 col-md-2"],
+                    CHtml::link(
+                        CHtml::image("https://graph.facebook.com/$page/picture?width=200&height=200"),
+                        "https://www.facebook.com/$page?sk=app_491297224259374",
+                        [
+                            "class"=> "thumbnail",
+                            "target" => '_blank'
+                        ]
+                    )
+                );
+            }
+            ?>
+        </div>
     </div>
 </div>
 
