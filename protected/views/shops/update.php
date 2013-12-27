@@ -105,85 +105,57 @@ Yii::app()->clientScript->registerScript(
     <legend>Shop settings</legend>
 
     <div class="row">
-        <div class="col-lg-6">
-            <div class="row">
-                <div class="form-group col-lg-12 <?= $model->hasErrors('description') ? ' has-error' : '' ?>">
-                    <?php
-                    echo $form->label($model, 'description', ['class' => 'control-label']);
-                    echo $form->textArea(
-                        $model,
-                        'description',
-                        [
-                            'class'       => 'form-control',
-                            'rows'        => 7,
-                            'data-toggle' => 'tooltip',
-                            'title'       => Yii::t('shop', 'help_description')
-                        ]
-                    );
-                    echo $form->error($model, 'description', ['class' => 'help-block']);
-                    ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="row">
-                <div class="form-group col-lg-12 <?= $model->hasErrors('tax') ? ' has-error' : '' ?>">
-                    <?php
-                    echo $form->label($model, 'tax', ['class' => 'control-label']);
-                    echo $form->textField(
-                        $model,
-                        'tax',
-                        [
-                            'class'       => 'form-control',
-                            'data-toggle' => 'tooltip',
-                            'title'       => Yii::t('shop', 'help_tax')
-                        ]
-                    );
-                    echo $form->error($model, 'tax', ['class' => 'help-block']);
-                    ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-12 <?= $model->hasErrors('pp_merchant_id') ? ' has-error' : '' ?>">
-                    <?php
-                    echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
-                    echo $form->textField(
-                        $model,
-                        'pp_merchant_id',
-                        [
-                            'class'       => 'form-control',
-                            'data-toggle' => 'tooltip',
-                            'title'       => Yii::t('shop', 'help_pp_merchant_id')
-                        ]
-                    );
-                    echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
-                    ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-12 <?= $model->hasErrors('ga_id') ? ' has-error' : '' ?>">
-                    <?php
-                    echo $form->label($model, 'ga_id', ['class' => 'control-label']);
-                    echo $form->textField(
-                        $model,
-                        'ga_id',
-                        [
-                            'class'       => 'form-control',
-                            'data-toggle' => 'tooltip',
-                            'title'       => Yii::t('shop', 'help_ga_id'),
-                            'placeholder' => 'UA-12345678-12'
-                        ]
-                    );
-                    echo $form->error($model, 'ga_id', ['class' => 'help-block']);
-                    ?>
-                </div>
-            </div>
+        <div class="form-group col-lg-12 <?= $model->hasErrors('tax') ? ' has-error' : '' ?>">
+            <?php
+            echo $form->label($model, 'tax', ['class' => 'control-label']);
+            echo $form->textField(
+                $model,
+                'tax',
+                [
+                    'class'       => 'form-control',
+                    'data-toggle' => 'tooltip',
+                    'title'       => Yii::t('shop', 'help_tax')
+                ]
+            );
+            echo $form->error($model, 'tax', ['class' => 'help-block']);
+            ?>
         </div>
     </div>
-
-
-
-
+    <div class="row">
+        <div class="form-group col-lg-12 <?= $model->hasErrors('pp_merchant_id') ? ' has-error' : '' ?>">
+            <?php
+            echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
+            echo $form->textField(
+                $model,
+                'pp_merchant_id',
+                [
+                    'class'       => 'form-control',
+                    'data-toggle' => 'tooltip',
+                    'title'       => Yii::t('shop', 'help_pp_merchant_id')
+                ]
+            );
+            echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
+            ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 <?= $model->hasErrors('ga_id') ? ' has-error' : '' ?>">
+            <?php
+            echo $form->label($model, 'ga_id', ['class' => 'control-label']);
+            echo $form->textField(
+                $model,
+                'ga_id',
+                [
+                    'class'       => 'form-control',
+                    'data-toggle' => 'tooltip',
+                    'title'       => Yii::t('shop', 'help_ga_id'),
+                    'placeholder' => 'UA-12345678-12'
+                ]
+            );
+            echo $form->error($model, 'ga_id', ['class' => 'help-block']);
+            ?>
+        </div>
+    </div>
 
     <div class="row">
         <div class="form-group actions col-lg-12">
