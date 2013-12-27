@@ -225,7 +225,7 @@ class Product extends CActiveRecord
 
         try {
             $response = Yii::app()->facebook->sdk->api(
-                $this->shop->fb_id . '?' . http_build_query(['fields'=>'is_published'])
+                $this->shop->fb_id . '?' . http_build_query(['fields' => 'is_published'])
             );
         } catch (FacebookApiException $e) {
             $this->addError('shop_id', 'Facebook api error');
@@ -244,6 +244,7 @@ class Product extends CActiveRecord
     {
         $object = array(
             'og:title'         => $this->title,
+            'og:type'          => 'product',
             'og:locale'        => 'en_US',
             'product:retailer' => $this->shop->fb_id,
             'fb:admins'        => $this->shop->owner->fb_id,
