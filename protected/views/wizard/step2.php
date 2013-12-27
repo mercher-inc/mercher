@@ -1,27 +1,49 @@
 <?php
-/* @var $this WizardController */
-/* @var $model Category */
-/* @var $form CActiveForm */
+/**
+ * @var $this WizardController
+ * @var $model Product
+ * @var $shop Shop
+ * @var $form ActiveForm
+ */
 
 $form = $this->beginWidget(
-    'CActiveForm',
+    'ActiveForm',
     [
-        'id'                   => 'category-form',
+        'id'                   => 'product-form',
         'enableAjaxValidation' => false,
         'htmlOptions'          => [
-            'class' => 'main-form'
+            'class'   => 'main-form',
+            'enctype' => 'multipart/form-data'
         ]
     ]
 );
 
 Yii::app()->clientScript->registerPackage('bootstrap');
 Yii::app()->clientScript->registerScript(
-    'category-form-tooltips',
-    "$('#category-form *[data-toggle=\"tooltip\"]').tooltip();"
+    'product-form-tooltips',
+    "$('#product-form *[data-toggle=\"tooltip\"]').tooltip();"
 );
 
-echo CHtml::tag('legend', [], 'Create your first products category');
+echo CHtml::tag('legend', [], 'Add your first product');
 
+echo CHtml::openTag('div', ['class' => 'row']);
+
+//==image_id==
+echo CHtml::openTag('div', ['class' => 'form-group col-lg-4' . ($model->hasErrors('image_id') ? ' has-error' : '')]);
+echo $form->label($model, 'image_id', ['class' => 'control-label']);
+$this->widget(
+    'application.widgets.ImageUploadWidget',
+    [
+        'model'     => $model,
+        'attribute' => 'image_id'
+    ]
+);
+echo $form->error($model, 'image_id', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
+
+echo CHtml::openTag('div', ['class' => 'col-lg-8']);
+
+//==title==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('title') ? ' has-error' : '')]);
 echo $form->label($model, 'title', ['class' => 'control-label']);
@@ -31,13 +53,14 @@ echo $form->textField(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the title of your first category'
+        'title'       => 'Provide the title of your first product'
     ]
 );
 echo $form->error($model, 'title', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
+//==description==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
     'div',
@@ -50,12 +73,38 @@ echo $form->textArea(
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Provide the description of your first category'
+        'title'       => 'Provide the description of your first product'
     ]
 );
 echo $form->error($model, 'description', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
+
+//==amount==
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag(
+    'div',
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('amount') ? ' has-error' : '')]
+);
+echo $form->label($model, 'amount', ['class' => 'control-label']);
+echo $form->textField(
+    $model,
+    'amount',
+    [
+        'class'       => 'form-control',
+        'data-toggle' => 'tooltip',
+        'title'       => 'Set product\'s amount'
+    ]
+);
+echo $form->error($model, 'amount', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+
+
+echo CHtml::closeTag('div');
+
+echo CHtml::closeTag('div');
+
 
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'form-group actions col-lg-12']);

@@ -67,11 +67,6 @@ class WizardController extends Controller
         }
         if (isset($result['data'])) {
             foreach ($result['data'] as $row) {
-                /*
-                if ($row['id'] == '430253050396911') {
-                    continue;
-                }
-                */
                 $accounts[$row['id']] = $row['name'];
             }
         }
@@ -95,24 +90,31 @@ class WizardController extends Controller
 
         $shop = Shop::model()->findByAttributes(['owner_id' => $this->user->id]);
 
-        if (count($shop->categories) == 1) {
+        if (count($shop->products) == 1) {
             $this->redirect(Yii::app()->urlManager->createUrl('wizard/step3'));
-        } elseif (count($shop->categories) > 1) {
+        } elseif (count($shop->products) > 1) {
             $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
         }
 
-        $model = new Category;
+        $model          = new Product;
+        $model->shop_id = $shop->id;
 
-        if (isset($_POST['Category'])) {
-            $model->attributes = $_POST['Category'];
+        if (isset($_POST['Product'])) {
+            $model->attributes = $_POST['Product'];
             $model->shop_id    = $shop->id;
 
             if ($model->save()) {
-                $this->redirect(Yii::app()->urlManager->createUrl('wizard/step3'));
+                $this->redirect(Yii::app()->urlManager->createUrl('wizard/step2'));
             }
         }
 
-        $this->render('step2', ['model' => $model]);
+        $this->render(
+            'step2',
+            [
+                'model'          => $model,
+                'shop'           => $shop
+            ]
+        );
     }
 
     public function actionStep3()
@@ -123,57 +125,23 @@ class WizardController extends Controller
             $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
         }
 
-        $shop = Shop::model()->findByAttributes(['owner_id' => $this->user->id]);
+        $model = Shop::model()->findByAttributes(['owner_id' => $this->user->id]);
 
-        $categories = $shop->categories;
-        $category   = null;
-
-        if (count($shop->products) == 1) {
-            $this->redirect(Yii::app()->urlManager->createUrl('wizard/step4'));
-        } elseif (count($shop->products) > 1) {
-            $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
-        }
-
-        $model          = new Product;
-        $model->shop_id = $shop->id;
-
-        $categoriesList = ['' => 'Not set'];
-        if (count($categories)) {
-            $category           = $categories[0];
-            $model->category_id = $category->id;
-
-            foreach ($categories as $c) {
-                $categoriesList[$c->id] = $c->title;
-            }
-        }
-
-        if (isset($_POST['Product'])) {
-            $model->attributes = $_POST['Product'];
-            $model->shop_id    = $shop->id;
+        if (isset($_POST['Shop'])) {
+            $model->attributes = $_POST['Shop'];
 
             if ($model->save()) {
-                $this->redirect(Yii::app()->urlManager->createUrl('wizard/step3'));
+                $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
             }
         }
 
         $this->render(
-            'step3',
+            'step4',
             [
-                'model'          => $model,
-                'shop'           => $shop,
-                'category'       => $category,
-                'categoriesList' => $categoriesList
+                'model'           => $model
             ]
         );
-    }
 
-    public function actionStep4()
-    {
-        if (count($this->user->shops) < 1) {
-            $this->redirect(Yii::app()->urlManager->createUrl('wizard/step1'));
-        }
-
-        $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
     }
 
     public function getUser()

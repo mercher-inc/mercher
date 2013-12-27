@@ -44,7 +44,7 @@ echo CHtml::openTag('body', $this->bodyHtmlOptions);
         <?php if (!Yii::app()->user->isGuest): ?>
         <div class="sidebarMenuBtn toggleSidebar"></div>
         <?php endif; ?>
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="<?php echo Yii::app()->controller->createUrl('index/index') ?>">
             Mercher,
             <br>
             the easiest way to build an

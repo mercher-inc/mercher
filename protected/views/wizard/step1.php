@@ -24,11 +24,10 @@ Yii::app()->clientScript->registerScript(
     "$('#shop-form *[data-toggle=\"tooltip\"]').tooltip();"
 );
 
-echo CHtml::tag('legend', [], 'Select one of your Facebook pages to create shop for it and provide your PayPal ID');
+echo CHtml::tag('legend', [], 'Select one of your Facebook pages to create shop for it');
 
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'form-group col-lg-12' . ($model->hasErrors('fb_id') ? ' has-error' : '')]);
-echo $form->label($model, 'fb_id', ['class' => 'control-label']);
 echo $form->dropDownList(
     $model,
     'fb_id',
@@ -40,25 +39,6 @@ echo $form->dropDownList(
     ]
 );
 echo $form->error($model, 'fb_id', ['class' => 'help-block']);
-echo CHtml::closeTag('div');
-echo CHtml::closeTag('div');
-
-echo CHtml::openTag('div', ['class' => 'row']);
-echo CHtml::openTag(
-    'div',
-    ['class' => 'form-group col-lg-12' . ($model->hasErrors('pp_merchant_id') ? ' has-error' : '')]
-);
-echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
-echo $form->textField(
-    $model,
-    'pp_merchant_id',
-    [
-        'class'       => 'form-control',
-        'data-toggle' => 'tooltip',
-        'title'       => 'Provide your PayPal merchant email'
-    ]
-);
-echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 

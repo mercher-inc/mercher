@@ -8,7 +8,11 @@
 <nav id="mainmenu" class="navbar navbar-default navbar-fixed-top no-border" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand" href="<?php echo Yii::app()->controller->createUrl('index/index') ?>">
-            <?php echo CHtml::encode(Yii::app()->name); ?>
+            Mercher,
+            <br>
+            the easiest way to build an
+            <br>
+            effective Facebook shop
         </a>
     </div>
     <?php $this->widget(
@@ -37,7 +41,7 @@
     <div class="wizard-steps <?php echo $this->action->id ?>">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 stepsHeader">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 stepsHeader">
                     <h1>Create your</h1>
                     <h2>new shop</h2>
                 </div>
@@ -50,18 +54,14 @@
                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs step2btn">
                     <h1>2nd</h1>
                     <h2>Step</h2>
-                    <h3>Category</h3>
+                    <h3>Product</h3>
                     <div class="arrow"></div>
                 </div>
                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs step3btn">
                     <h1>3rd</h1>
                     <h2>Step</h2>
-                    <h3>Product</h3>
-                    <div class="arrow"></div>
-                </div>
-                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs step4btn">
-                    <h2>Finish</h2>
                     <h3>Shop</h3>
+                    <div class="arrow"></div>
                 </div>
             </div>
         </div>
@@ -79,16 +79,16 @@
 <footer>
     <?php $this->widget(
         'zii.widgets.CMenu',
-        array(
-            'items'       => array(
-                array('label' => 'About', 'url' => array('index/page', 'view' => 'about')),
-                array('label' => 'Contact', 'url' => array('index/contact')),
-                array('label' => 'Support', 'url' => array('support/index')),
-            ),
-            'htmlOptions' => array(
+        [
+            'items'       => [
+                ['label' => Yii::t('label', 'policy'), 'url' => ['index/page', 'view' => 'policy']],
+                ['label' => Yii::t('label', 'terms'), 'url' => ['index/page', 'view' => 'terms']],
+                ['label' => Yii::t('label', 'contact'), 'url' => ['index/contact']],
+            ],
+            'htmlOptions' => [
                 'class' => 'nav nav-pills nav-justified'
-            )
-        )
+            ]
+        ]
     ); ?>
     &copy;<?php echo date('Y'); ?> Mercher. All Rights Reserved.
 </footer>

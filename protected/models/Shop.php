@@ -55,7 +55,7 @@ class Shop extends CActiveRecord
             array('description, fb_id, ga_id, subscription_id, image_id', 'default', 'value' => null),
             array('tax', 'default', 'value' => 0.00),
             array('is_active, is_banned', 'boolFilter'),
-            array('fb_id, owner_id, pp_merchant_id', 'required'),
+            array('fb_id, owner_id', 'required'),
             array('fb_id', 'in', 'not' => true, 'range' => array('430253050396911')),
             array('pp_merchant_id', 'email'),
             array('ga_id', 'match', 'pattern' => '/^UA-\d{1,12}-\d{1,4}/'),
