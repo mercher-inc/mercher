@@ -277,7 +277,7 @@ class Product extends CActiveRecord
             Yii::app()->urlManager->createUrl('og/products', ['product_id' => $this->id])
         );
 
-        $object['product:product_link'] = 'http://www.facebook.com/' . $this->shop->fb_id . '?' . http_build_query(
+        $object['product:product_link'] = 'https://www.facebook.com/' . $this->shop->fb_id . '?' . http_build_query(
             array(
                 'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
                 'app_data' => CJSON::encode(
