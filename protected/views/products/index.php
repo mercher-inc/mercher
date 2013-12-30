@@ -84,28 +84,41 @@ $this->widget(
                             ["shop_id" => $data->shop_id, "product_id" => $data->id]
                         ),
                         ["class" => "btn btn-default"]
+                    ) . CHtml::link(
+                        Yii::t("label", "promote"),
+                        Yii::app()->controller->createAbsoluteUrl(
+                            "og/products",
+                            ["product_id" => $data->id]
+                        ),
+                        ["class" => "btn btn-default promoteBtn"]
                     )
                 )',
                 'htmlOptions'        => [
-                    'style' => 'width: 200px;'
+                    'style' => 'width: 300px;'
                 ]
             ]
-            /*
-            [
-                'type'  => 'raw',
-                'value' => 'CHtml::tag(
-                        "button",
-                        [
-                            "type"=>"button",
-                            "class" => "btn btn-default btn-block"
-                        ],
-                        "Like as page"
-                    )',
-                'htmlOptions'        => [
-                    'style' => 'width: 150px;'
-                ]
-            ]
-            */
         ]
     ]
+);
+
+Yii::app()->clientScript->registerScript(
+    "promoteBtn",
+    "
+        $(\".promoteBtn\").click(function(){
+            var link = $(this).attr(\"href\");
+            var from = '{$this->shop->fb_id}';
+            FB.ui(
+                {
+                    method: 'feed',
+                    from: from,
+                    link: link,
+                },
+                function(response) {
+                    console.log(response);
+                }
+            );
+            return false;
+        });
+    ",
+    ClientScript::POS_FB
 );
