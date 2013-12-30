@@ -104,7 +104,7 @@ $this->widget(
 Yii::app()->clientScript->registerScript(
     "promoteBtn",
     "
-        $(\".promoteBtn\").click(function(){
+        $(\".promoteBtn\").bind('click', function(){
             var link = $(this).attr(\"href\");
             var from = '{$this->shop->fb_id}';
             FB.ui(
