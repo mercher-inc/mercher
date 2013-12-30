@@ -931,3 +931,4 @@ footer{margin-top:20px;border-top:4px solid #c5c5c5;text-align:center;padding:10
 .design-in-row-line .design-in-row-btn-r2c2{background-image:url('/img/r2c2.png')}
 .design-in-row-line .design-in-row-btn-r3c3{background-image:url('/img/r3c3.png')}
 .design-in-row-line .design-in-row-btn-r4c4{background-image:url('/img/r4c4.png')}
+.thumbnail{border-radius:50%}.thumbnail>img{border-radius:50%}

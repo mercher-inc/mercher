@@ -102,6 +102,7 @@ class IndexController extends Controller
                     ]
                 ]
             )
+            ->limit(6)
             ->queryColumn();
 
         $this->render(
