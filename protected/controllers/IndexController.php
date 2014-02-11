@@ -163,6 +163,84 @@ class IndexController extends Controller
         $this->render('contact_temp', array('model' => $model));
     }
 
+    /*
+    public function actionTest()
+    {
+        $payRequest                               = new \PayPalComponent\Request\PayRequest();
+        $payRequest->actionType                   = \PayPalComponent\Request\PayRequest::ACTION_TYPE_PAY_PRIMARY;
+        $payRequest->memo                         = 'memo';
+        $payRequest->returnUrl                    = $this->createAbsoluteUrl('/index/test');
+        $payRequest->cancelUrl                    = $this->createAbsoluteUrl('/index/test');
+        $payRequest->currencyCode                 = \PayPalComponent\CurrencyCode::CURRENCY_CODE_USD;
+        $payRequest->requestEnvelope->detailLevel = "ReturnAll";
+
+        $clientDetails             = Yii::createComponent(
+            [
+                'class'         => '\PayPalComponent\Field\ClientDetails',
+                'applicationId' => 'Mercher DEV'
+            ]
+        );
+        $payRequest->clientDetails = $clientDetails;
+
+        $receiver = Yii::createComponent(
+            [
+                'class'       => '\PayPalComponent\Field\Receiver',
+                'amount'      => 2.00,
+                'email'       => 'dmitriy.s.les-facilitator@gmail.com',
+                'paymentType' => 'SERVICE',
+                'primary'     => true,
+            ]
+        );
+        $payRequest->receiverList->addReceiver($receiver);
+
+        $receiver = Yii::createComponent(
+            [
+                'class'       => '\PayPalComponent\Field\Receiver',
+                'amount'      => .95,
+                'email'       => 'seller1.test@mercher.net',
+                'paymentType' => 'GOODS',
+                'primary'     => false,
+            ]
+        );
+        $payRequest->receiverList->addReceiver($receiver);
+
+        $receiver = Yii::createComponent(
+            [
+                'class'       => '\PayPalComponent\Field\Receiver',
+                'amount'      => .95,
+                'email'       => 'seller2.test@mercher.net',
+                'paymentType' => 'GOODS',
+                'primary'     => false,
+            ]
+        );
+        $payRequest->receiverList->addReceiver($receiver);
+
+        D($payRequest->__toArray());
+
+        if (!$response = $payRequest->submit()) {
+            D($payRequest, 1);
+        } else {
+            if ($response instanceof \PayPalComponent\Response\PayResponse) {
+                D($response);
+                echo CHtml::link(
+                    'Pay',
+                    'https://www.sandbox.paypal.com/cgi-bin/webscr?' . http_build_query(
+                        [
+                            'cmd'    => '_ap-payment',
+                            'paykey' => $response->payKey
+                        ]
+                    ),
+                    [
+                        'target' => '_blank'
+                    ]
+                );
+            } else {
+                D($response, 1);
+            }
+        }
+    }
+    */
+
     public function actionLogo()
     {
         header('Content-type: image/svg+xml');
@@ -210,11 +288,11 @@ class IndexController extends Controller
 
         $mWidth   = 64;
         $mPadding = 16;
-        $top    = new Line(0, -1, $size / 2 - $mSize / 2);
-        $bottom = new Line(0, -1, $size / 2 + $mSize / 2);
+        $top      = new Line(0, -1, $size / 2 - $mSize / 2);
+        $bottom   = new Line(0, -1, $size / 2 + $mSize / 2);
 
         //left
-        $left1   = new Line(-1, 0, $size / 2 - $mSize / 2);
+        $left1 = new Line(-1, 0, $size / 2 - $mSize / 2);
 
         $left2 = clone $left1;
         $left2->move(-$mWidth);
@@ -226,7 +304,7 @@ class IndexController extends Controller
         $left4->move(-$mWidth - $mPadding - $mWidth);
 
         //right
-        $right1  = new Line(-1, 0, $size / 2 + $mSize / 2);
+        $right1 = new Line(-1, 0, $size / 2 + $mSize / 2);
 
         $right2 = clone $right1;
         $right2->move($mWidth);
@@ -239,12 +317,12 @@ class IndexController extends Controller
 
         $alpha    = 40;
         $tanAlpha = tan(pi() * ($alpha / 180));
-        $A = 1;
-        $B = -($A/$tanAlpha);
-        $M0 = $left1->intersect($top);
+        $A        = 1;
+        $B        = -($A / $tanAlpha);
+        $M0       = $left1->intersect($top);
 
         //topLeft
-        $topLeft1 = new Line($A, $B, -($A*$M0['x']+$B*$M0['y']));
+        $topLeft1 = new Line($A, $B, -($A * $M0['x'] + $B * $M0['y']));
 
         $topLeft2 = clone $topLeft1;
         $topLeft2->move(-$mWidth);
@@ -255,11 +333,11 @@ class IndexController extends Controller
         $topLeft4 = clone $topLeft1;
         $topLeft4->move(-$mWidth - $mPadding - $mWidth);
 
-        $A = 1;
-        $B = ($A/$tanAlpha);
+        $A  = 1;
+        $B  = ($A / $tanAlpha);
         $M0 = $right1->intersect($top);
         //topRight
-        $topRight1 = new Line($A, $B, -($A*$M0['x']+$B*$M0['y']));
+        $topRight1 = new Line($A, $B, -($A * $M0['x'] + $B * $M0['y']));
 
         $topRight2 = clone $topRight1;
         $topRight2->move($mWidth);
@@ -296,7 +374,7 @@ class IndexController extends Controller
         echo $topRight4->draw('orange', $size);
         */
 
-        echo CHtml::openTag('g', ['fill'=>'#1e8a8e']) . "\n";
+        echo CHtml::openTag('g', ['fill' => '#1e8a8e']) . "\n";
 
         echo CHtml::tag(
             'polyline',
@@ -347,7 +425,7 @@ class IndexController extends Controller
 
         echo CHtml::closeTag('g') . "\n";
 
-        echo CHtml::openTag('g', ['fill'=>'#c5c5c5']) . "\n";
+        echo CHtml::openTag('g', ['fill' => '#c5c5c5']) . "\n";
 
         echo CHtml::tag(
             'polyline',

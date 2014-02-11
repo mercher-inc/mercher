@@ -50,16 +50,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'template_alias'); ?>
-		<?php echo $form->textField($model,'template_alias',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'template_config'); ?>
-		<?php echo $form->textArea($model,'template_config',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'is_active'); ?>
 		<?php echo $form->checkBox($model,'is_active'); ?>
 	</div>

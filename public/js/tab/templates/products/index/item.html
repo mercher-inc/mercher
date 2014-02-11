@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="row">
+        <a class="image" href="/products/<%- product.id %>"><% if (!_.isEmpty(product.get('image'))) { %>
+            <img src="<%- product.get('image').l %>">
+        <% } %></a>
+        <div class="info">
+            <h3>
+                <a href="/products/<%- product.id %>">
+                    <%- product.get('title') %>
+                </a>
+            </h3>
+            <% if (product.get('amount')) { %>
+                <div class="actions">
+                    <a role="button" class="buyBtn btn btn-primary btn-block">Buy for $<%- product.get('amount') %></a>
+                </div>
+            <% } %>
+            <div class="actions">
+                <div class="btn-group btn-group-justified">
+                    <a role="button" class="likeBtn btn btn-default">Like</a>
+                    <a role="button" class="addBtn btn btn-default">Add</a>
+                </div>
+            </div>
+            <p class="description"><%- product.get('description') %></p>
+        </div>
+    </div>
+</div>

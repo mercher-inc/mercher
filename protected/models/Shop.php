@@ -15,14 +15,11 @@
  * @property string $description
  * @property string $image_id
  * @property string $tax
- * @property string $template_alias
- * @property string $template_config
  * @property boolean $is_active
  * @property boolean $is_banned
  * The followings are the available model relations:
  * @property User $owner
  * @property Subscription $subscription
- * @property Template $template
  * @property Product[] $products
  * @property Image[] $images
  * @property Category[] $categories
@@ -32,8 +29,6 @@
  */
 class Shop extends CActiveRecord
 {
-    protected $_templateInstance;
-
     /**
      * @return string the associated database table name
      */
@@ -69,14 +64,14 @@ class Shop extends CActiveRecord
                 'on'            => 'insert'
             ),
             array('fb_id', 'checkFbId', 'on' => 'insert'),
-            array('title, template_alias', 'length', 'max' => 50),
+            array('title', 'length', 'max' => 50),
             array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
             array('title, description, is_active, ga_id, subscription_id, image_id', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, owner_id, title, description, template_alias, is_active, is_banned, pp_merchant_id, image_id',
+                'id, created, updated, fb_id, owner_id, title, description, is_active, is_banned, pp_merchant_id, image_id',
                 'safe',
                 'on' => 'search'
             ),
@@ -182,7 +177,6 @@ class Shop extends CActiveRecord
         return array(
             'owner'           => array(self::BELONGS_TO, 'User', 'owner_id'),
             'subscription'    => array(self::BELONGS_TO, 'Subscription', 'subscription_id'),
-            'template'        => array(self::BELONGS_TO, 'Template', 'template_alias'),
             'products'        => array(self::HAS_MANY, 'Product', 'shop_id'),
             'productsCount'   => array(self::STAT, 'Product', 'shop_id'),
             'images'          => array(self::HAS_MANY, 'Image', 'shop_id'),
@@ -211,8 +205,6 @@ class Shop extends CActiveRecord
             'description'     => 'Description',
             'image_id'        => 'Tab image',
             'tax'             => 'Tax percentage',
-            'template_alias'  => 'Template Alias',
-            'template_config' => 'Template Config',
             'is_active'       => 'Show tab',
             'is_banned'       => 'Banned',
             'pp_merchant_id'  => 'PayPal merchant email',
@@ -244,8 +236,6 @@ class Shop extends CActiveRecord
         $criteria->compare('description', $this->description, true);
         $criteria->compare('image_id', $this->image_id);
         $criteria->compare('tax', $this->tax, true);
-        $criteria->compare('template_alias', $this->template_alias, true);
-        $criteria->compare('template_config', $this->template_config, true);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
         $criteria->compare('pp_merchant_id', $this->pp_merchant_id, true);
@@ -283,38 +273,9 @@ class Shop extends CActiveRecord
         return 10;
     }
 
-    public function getTemplateInstance()
-    {
-        if (!$this->_templateInstance) {
-            try {
-                $config = CJSON::decode($this->template_config);
-                if (!is_array($config)) {
-                    $config = array();
-                }
-            } catch (Exception $e) {
-                $config = array();
-            }
-            $this->_templateInstance = \Yii::createComponent(
-                array(
-                    'class'  => 'templates\\' . ($this->template_alias ? $this->template_alias : 'none') . '\\Template',
-                    'shop'   => $this,
-                    'config' => $config
-                )
-            );
-        }
-        return $this->_templateInstance;
-    }
-
     protected function afterSave()
     {
         parent::afterSave();
-
-        if ($this->isNewRecord) {
-            $this->templateInstance->processForm();
-        } else {
-            $this->templateInstance->buildShop();
-        }
-
 
         try {
             $ch = curl_init('http://www.google-analytics.com/collect');

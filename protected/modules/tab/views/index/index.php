@@ -1,5 +1,1 @@
-<?php
-/* @var $this IndexController */
-
-$this->shop->templateInstance->registerScripts();
-?>
+<span class="text-muted">Loading...</span>

@@ -4,11 +4,12 @@
 // Yii::setPathOfAlias('local','path/to/local-folder');
 //var_dump(realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'forms')); die;
 Yii::setPathOfAlias('forms', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'forms');
-
-$templatesPath = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'templates');
-if ($templatesPath) {
-    Yii::setPathOfAlias('templates', $templatesPath);
-}
+Yii::setPathOfAlias(
+    'PayPalComponent',
+    dirname(
+        __FILE__
+    ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'PayPalComponent'
+);
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -61,7 +62,7 @@ return array(
             'showScriptName' => false,
             'rules'          => require(dirname(__FILE__) . '/urlManager/rules.php'),
         ),
-        'authManager'           => [
+        'authManager'  => [
             'class' => 'AuthManager',
         ],
         'clientScript' => array(
@@ -108,6 +109,13 @@ return array(
                 'manage_pages'
             )
         ),
+        'paypal'       => array(
+            'class'         => '\PayPalComponent\Client',
+            'applicationId' => 'APP-80W284485P519543T',
+            'userId'        => 'dmitriy.s.les-facilitator_api1.gmail.com',
+            'password'      => '1391764851',
+            'signature'     => 'AIkghGmb0DgD6MEPZCmNq.bKujMAA8NEIHryH-LQIfmx7UZ5q1LXAa7T'
+        )
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']

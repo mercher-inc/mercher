@@ -34,13 +34,6 @@
 	<br />
 
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('template_alias')); ?>:</b>
-	<?php echo CHtml::encode($data->template_alias); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('template_config')); ?>:</b>
-	<?php echo CHtml::encode($data->template_config); ?>
-	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('is_active')); ?>:</b>
 	<?php echo CHtml::encode($data->is_active); ?>

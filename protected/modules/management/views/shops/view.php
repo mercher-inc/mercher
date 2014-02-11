@@ -22,8 +22,6 @@ $this->widget('zii.widgets.CDetailView', array(
 		'owner_id',
 		'title',
 		'description',
-		'template_alias',
-		'template_config',
 		'is_active',
 		'is_banned',
 		'pp_merchant_id',

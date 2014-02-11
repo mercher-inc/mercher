@@ -19,7 +19,6 @@ return array(
     'products'               => 'Products',
     'orders'                 => 'Orders',
     'pages'                  => 'Pages',
-    'design'                 => 'Design',
     'settings'               => 'Settings',
     //====================================
     'fast'                   => 'Fast',

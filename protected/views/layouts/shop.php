@@ -47,16 +47,6 @@ $this->menu = array_merge(
                     'shop_id' => $this->shop->id
                 ]
             )
-        ],
-        [
-            'label' => Yii::t('label', 'design'),
-            'url'   => ['design/index', 'shop_id' => $this->shop->id],
-            'visible'   => Yii::app()->user->checkAccess(
-                AuthManager::PERMISSION_UPDATE_SHOP,
-                [
-                    'shop_id' => $this->shop->id
-                ]
-            )
         ]
     ]
 );
