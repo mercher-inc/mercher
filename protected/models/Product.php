@@ -20,6 +20,7 @@
  * @property Shop $shop
  * @property Category $category
  * @property Image $image
+ * @property CartItem[] $cartItems
  */
 class Product extends CActiveRecord
 {
@@ -139,9 +140,10 @@ class Product extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'shop'     => array(self::BELONGS_TO, 'Shop', 'shop_id'),
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'image'    => array(self::BELONGS_TO, 'Image', 'image_id'),
+            'shop'      => array(self::BELONGS_TO, 'Shop', 'shop_id'),
+            'category'  => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'image'     => array(self::BELONGS_TO, 'Image', 'image_id'),
+            'cartItems' => array(self::HAS_MANY, 'CartItem', 'product_id'),
         );
     }
 

@@ -39,7 +39,7 @@ define(function (require, exports, module) {
                     }
                 }
 
-                mainLayout.setView("section", productsView);
+                mainLayout.setView("section#content", productsView);
                 productsView.render();
             });
 

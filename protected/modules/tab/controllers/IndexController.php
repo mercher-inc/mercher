@@ -40,6 +40,9 @@ class IndexController extends CController
                         'collections/products' => [
                             'url' => $this->createUrl('/api/products/list', ['shop_id' => $this->shop->id])
                         ],
+                        'collections/cartItems' => [
+                            'url' => $this->createUrl('/api/cart_items/list', ['shop_id' => $this->shop->id])
+                        ],
                         'ga'                   => [
                             'mainTrackerId' => 'UA-23393444-14',
                             'shopTrackerId' => $this->shop->ga_id,

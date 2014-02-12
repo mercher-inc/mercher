@@ -4941,7 +4941,7 @@ body.modal-open,
   bottom: 0;
   left: 0;
   z-index: 1030;
-  background-color: #000000;
+  background-color: #ffffff;
 }
 .modal-backdrop.fade {
   opacity: 0;
@@ -6387,6 +6387,52 @@ fieldset[disabled] .btn-info-link.active {
   background-color: rgba(91, 192, 222, 0);
   border-color: rgba(91, 192, 222, 0);
 }
+.form-control {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.main-form {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 80px 0;
+}
+.main-form legend {
+  text-align: center;
+  border: none;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+.main-form label {
+  font-weight: 300;
+  color: #555555;
+}
+.main-form .actions {
+  margin-top: 40px;
+  text-align: center;
+}
+.main-form textarea {
+  max-width: 800px;
+}
+.imageField {
+  border-radius: 2px;
+  border: 1px solid #e5e3e4;
+  width: 240px;
+  height: 240px;
+  cursor: pointer;
+  margin: 0;
+  background-color: #e5e3e4;
+  background-image: url('/img/upload_white.png');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+.imageField.loading {
+  background-image: url('/img/icon_loading.png');
+}
 .view.products-index {
   padding-top: 30px;
 }
@@ -6431,14 +6477,28 @@ fieldset[disabled] .btn-info-link.active {
 .view.products-index-item .card .info .actions {
   margin: 0 0 15px 0;
 }
-.view.products-index-item .card .info .actions .buyBtn {
-  background-image: url('/img/bg_1024.png');
-  background-position: center;
-  background-repeat: repeat;
-}
 .view.products-index-item .card .info .description {
   text-align: justify;
 }
 .view.products-index-item .card .info .description:empty {
   display: none;
+}
+.view.dialogs-cart .total-line {
+  font-weight: 200;
+  font-size: 24px;
+}
+.view.dialogs-cart .total-line .total-sum {
+  font-weight: 300;
+}
+.view.dialogs-cart-item {
+  margin: 0 0 15px 0;
+}
+.view.dialogs-cart-item .media-object {
+  width: 50px;
+  height: 50px;
+}
+.btn-primary {
+  background-image: url('/img/bg_1024.png');
+  background-position: center;
+  background-repeat: repeat;
 }

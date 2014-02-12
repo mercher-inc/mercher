@@ -3,10 +3,10 @@ define(function (require, exports, module) {
     "use strict";
 
     var Backbone = require('backbone'),
-        ProductModel = require('models/product');
+        CartItemModel = require('models/cartItem');
 
     return Backbone.Collection.extend({
-        model: ProductModel,
+        model: CartItemModel,
         url: module.config().url,
         params: {},
 

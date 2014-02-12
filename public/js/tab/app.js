@@ -9,16 +9,31 @@ define(function (require, exports, module) {
     return Backbone.Router.extend({
         controllers: {},
         mainLayout: {},
+        cartDialog: {},
+        cartItemsCollection: {},
 
         initialize: function () {
             var app = this,
                 ProductsController = require('controllers/products'),
-                MainLayout = require('views/layouts/main');
+                MainLayout = require('views/layouts/main'),
+                CartDialog = require('views/dialogs/cart'),
+                CartItemsCollection = require('collections/cartItems');
 
             this.controllers.products = new ProductsController({router: this});
 
             this.mainLayout = new MainLayout({el: 'body', router: this});
             this.mainLayout.render();
+
+            this.cartItemsCollection = new CartItemsCollection();
+            this.cartDialog = new CartDialog({router: this, collection: this.cartItemsCollection});
+            this.cartItemsCollection.fetch({data: {limit: -1}});
+
+            this.mainLayout.insertView('#dialogs', this.cartDialog);
+            this.cartDialog.render();
+            this.cartDialog.$el.modal({
+                backdrop: true,
+                show: false
+            });
 
             /*
              this.on('route', function (route, params) {

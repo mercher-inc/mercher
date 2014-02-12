@@ -38,7 +38,7 @@ define(function (require) {
                         }
                     );
                 } else {
-                    console.log(method, 'model sync method');
+                    //console.log(method, 'model sync method');
                 }
             } else {
                 options.error();

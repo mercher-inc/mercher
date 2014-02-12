@@ -4,6 +4,12 @@ class ApiModule extends CWebModule
 {
     public $controllerNamespace = 'api\controllers';
 
+    public $controllerMap=[
+        'cart_items' => [
+            'class' => '\api\controllers\CartItemsController'
+        ]
+    ];
+
     public function init()
     {
         $this->setImport(

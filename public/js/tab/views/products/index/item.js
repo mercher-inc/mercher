@@ -66,7 +66,36 @@ define(function (require, exports, module) {
         },
 
         onBuyBtnClick: function (e) {
-            console.log('onBuyBtnClick');
+            var view = this;
+            var cartItemsCollection = view.controller.options.router.cartItemsCollection;
+
+            this.controller.options.router.authorize({
+                scope: ['email'],
+                success: function(){
+                    require(['fb'], function (FB) {
+                        FB.getLoginStatus(function (response) {
+                            if (response.status === 'connected') {
+                                var cartItems = cartItemsCollection.where({product_id: view.model.id});
+                                var cartItem = null;
+
+                                if (!cartItems.length) {
+                                    cartItem = new (require('models/cartItem'))({product_id: view.model.id, amount: 1});
+                                    cartItemsCollection.add(cartItem);
+                                } else {
+                                    cartItem = _.first(cartItems);
+                                    cartItem.set('amount', parseInt(cartItem.get('amount')) + 1);
+                                }
+
+                                cartItem.save();
+                            }
+                        });
+                    });
+
+                },
+                error: function(){
+
+                }
+            });
         },
 
         onLikeBtnClick: function (e) {

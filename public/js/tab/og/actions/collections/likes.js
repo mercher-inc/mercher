@@ -32,7 +32,7 @@ define(function (require) {
                         }
                     );
                 } else {
-                    console.log(method, 'collection sync method');
+                    //console.log(method, 'collection sync method');
                 }
             } else {
                 options.error();
