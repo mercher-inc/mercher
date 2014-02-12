@@ -26,6 +26,7 @@
  * @property integer maxProductsCount
  * @property User[] $managers
  * @property integer $managersCount
+ * @property Order[] $orders
  */
 class Shop extends CActiveRecord
 {
@@ -186,6 +187,7 @@ class Shop extends CActiveRecord
             'managers'         => array(self::MANY_MANY, 'User', 'manager(shop_id, user_id)'),
             'managersCount'         => array(self::STAT, 'User', 'manager(shop_id, user_id)'),
             'image'           => array(self::BELONGS_TO, 'Image', 'image_id'),
+            'orders'        => array(self::HAS_MANY, 'Order', 'shop_id'),
         );
     }
 

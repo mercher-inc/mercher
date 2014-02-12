@@ -9,7 +9,7 @@
 namespace api\controllers;
 
 
-class RpcController extends \Controller
+class RpcController extends \CController
 {
 
     public function filters()
@@ -25,7 +25,8 @@ class RpcController extends \Controller
             array(
                 'allow',
                 'actions' => array(
-                    'like'
+                    'like',
+                    'create_order'
                 ),
                 'users'   => array('@'),
             ),
@@ -34,6 +35,13 @@ class RpcController extends \Controller
                 'users' => array('*'),
             ),
         );
+    }
+
+    public function actions()
+    {
+        return [
+            'create_order'  => '\api\controllers\rpc\CreateOrderAction'
+        ];
     }
 
     public function actionLike($product_id)

@@ -18,6 +18,7 @@
  * @property Shop[] $managedShops
  * @property integer $managedShopsCount
  * @property CartItem[] $cartItems
+ * @property Order[] $orders
  */
 class User extends CActiveRecord
 {
@@ -63,6 +64,7 @@ class User extends CActiveRecord
             'managedShops' => array(self::MANY_MANY, 'Shop', 'manager(user_id, shop_id)'),
             'managedShopsCount' => array(self::STAT, 'Shop', 'manager(user_id, shop_id)'),
             'cartItems' => array(self::HAS_MANY, 'CartItem', 'user_id'),
+            'orders'    => array(self::HAS_MANY, 'Order', 'user_id'),
         );
     }
 

@@ -15,7 +15,7 @@ define(function (require, exports, module) {
         className: 'modal fade view dialogs-cart',
 
         events: {
-
+            "click .btnCheckout": 'onBtnCheckoutClick'
         },
 
         initialize: function (options) {
@@ -31,13 +31,20 @@ define(function (require, exports, module) {
                 var itemView = new ItemView({model: model});
                 this.insertView('.list', itemView);
                 itemView.render();
-                this.$el.modal({show:true});
+                this.$el.modal('show');
             });
 
 
             this.listenTo(this.collection, 'add destroy change:amount', function (model, collection, options){
                 this.renderSum();
             });
+
+            this.listenTo(this.collection, 'remove', function (model, collection, options){
+                if (!collection.length) {
+                    this.$el.modal('hide');
+                }
+            });
+
         },
 
         beforeRender: function () {
@@ -70,6 +77,49 @@ define(function (require, exports, module) {
             }
             sumStr += dec;
             this.$('.total-sum').html(sumStr);
+        },
+
+        onBtnCheckoutClick: function(e) {
+            var view = this;
+
+            var cartItemsSavingCompleteCallback = function() {
+                $.ajax(
+                    {
+                        url: '/api/createOrder',
+                        data: {
+                            'shop_id': 356
+                        },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data, textStatus, jqXHR){
+                            console.log(data);
+                            view.collection.fetch({data: {limit: -1}});
+                            view.collection.once('sync error', function(){
+                                view.$('.btnCheckout').button('reset');
+                                view.$('.amount, .btnDelete').prop('disabled', false);
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            //console.log(jqXHR, textStatus, errorThrown);
+                        }
+                    }
+                );
+            };
+
+            view.$('.btnCheckout').button('loading');
+            view.$('.amount, .btnDelete').prop('disabled', true);
+
+            var modelsToSaveCount = this.collection.length;
+
+            this.collection.each(function(cartItem){
+                cartItem.once('sync error', function(){
+                    modelsToSaveCount --;
+                    if (!modelsToSaveCount) {
+                        cartItemsSavingCompleteCallback();
+                    }
+                });
+                cartItem.save();
+            });
         }
 
     });

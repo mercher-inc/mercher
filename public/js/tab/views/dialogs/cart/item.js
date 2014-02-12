@@ -21,7 +21,7 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
             var view = this;
-            this.listenTo(this.model, 'destroy', function (model, collection, options){
+            this.listenTo(this.model, 'destroy remove', function (model, collection, options){
                 this.$el.fadeOut('fast', function(){
                     view.remove();
                 });

@@ -291,7 +291,7 @@ class CartItemsController extends \CController
         }
     }
 
-    public function actionOrder()
+    public function actionCreateOrder()
     {
         $payRequest                               = new \PayPalComponent\Request\PayRequest();
         $payRequest->actionType                   = \PayPalComponent\Request\PayRequest::ACTION_TYPE_PAY_PRIMARY;
