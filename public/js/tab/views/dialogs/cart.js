@@ -64,7 +64,11 @@ define(function (require, exports, module) {
             var sumStr = '&#36;';
             sumStr += Math.floor(sum);
             sumStr += '.';
-            sumStr += (Math.round((sum % 1) * 100))?Math.round((sum % 1) * 100):'00';
+            var dec = String(Math.round((sum % 1) * 100));
+            while (dec.length < 2) {
+                dec = '0' + dec;
+            }
+            sumStr += dec;
             this.$('.total-sum').html(sumStr);
         }
 

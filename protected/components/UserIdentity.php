@@ -4,6 +4,7 @@ class UserIdentity extends CBaseUserIdentity
 {
     const ERROR_MISSING_PERMISSIONS = 1000;
     const ERROR_API                 = 1001;
+    const ERROR_VALIDATION          = 1002;
 
     private $_fbUser;
     private $_user;
@@ -68,7 +69,7 @@ class UserIdentity extends CBaseUserIdentity
         $user->last_login = new CDbExpression('NOW()');
 
         if (!$user->save()) {
-            $this->errorCode    = self::ERROR_NONE;
+            $this->errorCode    = self::ERROR_VALIDATION;
             $this->errorMessage = 'Validation error: ' . array_shift(array_shift($user->getErrors()));
             return false;
         }
@@ -76,6 +77,9 @@ class UserIdentity extends CBaseUserIdentity
         $user->refresh();
 
         $this->_user = $user->getAttributes();
+        $this->errorCode    = self::ERROR_NONE;
+
+        $this->setState('fb_id', $user->fb_id);
 
         return true;
     }

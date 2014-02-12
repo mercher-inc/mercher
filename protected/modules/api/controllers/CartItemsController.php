@@ -9,15 +9,35 @@
 namespace api\controllers;
 
 use Yii,
-    CHttpCookie,
     CJSON,
     CHttpException,
     User,
-    CartItem,
-    CDbExpression;
+    CartItem;
 
 class CartItemsController extends \CController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => ['list', 'create', 'read', 'update', 'delete'],
+                'users'   => ['@']
+            ),
+            array(
+                'deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionList($shop_id, $offset = 0, $limit = 10)
     {
         $offset = (int)$offset;
@@ -41,21 +61,7 @@ class CartItemsController extends \CController
             throw new CHttpException(403);
         }
 
-        $user = User::model()->findByAttributes(['fb_id' => $fbUserId]);
-        if (!$user) {
-            try {
-                $fbUser = Yii::app()->facebook->sdk->api('/me?scope=email');
-            } catch (\FacebookApiException $e) {
-                throw new CHttpException(403);
-            }
-            $user             = new User();
-            $user->fb_id      = $fbUserId;
-            $user->email      = $fbUser['email'];
-            $user->first_name = isset($fbUser['first_name']) ? $fbUser['first_name'] : null;
-            $user->last_name  = isset($fbUser['last_name']) ? $fbUser['last_name'] : null;
-            $user->last_login = new CDbExpression('NOW()');
-            $user->save();
-        }
+        $user = User::model()->findByPk(Yii::app()->user->id);
 
         $criteria = new \CDbCriteria;
 
@@ -69,7 +75,8 @@ class CartItemsController extends \CController
                 'params'    => [
                     'shopId' => $shop->id,
                     'userId' => $user->id
-                ]
+                ],
+                'order'=>"t.created"
             ]
         );
 
@@ -100,11 +107,6 @@ class CartItemsController extends \CController
         echo \CJSON::encode($result);
     }
 
-    public function actionRead($shop_id, $product_id)
-    {
-
-    }
-
     public function actionCreate($shop_id)
     {
         $shop = \Shop::model()->findByPk($shop_id);
@@ -118,27 +120,7 @@ class CartItemsController extends \CController
             throw new CHttpException(406);
         }
 
-        $fbUserId = Yii::app()->facebook->sdk->getUser();
-
-        if (!$fbUserId) {
-            throw new CHttpException(403);
-        }
-
-        $user = User::model()->findByAttributes(['fb_id' => $fbUserId]);
-        if (!$user) {
-            try {
-                $fbUser = Yii::app()->facebook->sdk->api('/me?scope=email');
-            } catch (\FacebookApiException $e) {
-                throw new CHttpException(403);
-            }
-            $user             = new User();
-            $user->fb_id      = $fbUserId;
-            $user->email      = $fbUser['email'];
-            $user->first_name = isset($fbUser['first_name']) ? $fbUser['first_name'] : null;
-            $user->last_name  = isset($fbUser['last_name']) ? $fbUser['last_name'] : null;
-            $user->last_login = new CDbExpression('NOW()');
-            $user->save();
-        }
+        $user = User::model()->findByPk(Yii::app()->user->id);
 
         if (!isset($attributes['product_id'])) {
             throw new \CHttpException(404, \Yii::t('error', 'product_not_found'));
@@ -194,6 +176,37 @@ class CartItemsController extends \CController
         }
     }
 
+    public function actionRead($shop_id, $cart_item_id)
+    {
+        $shop = \Shop::model()->findByPk($shop_id);
+        if (!$shop) {
+            throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
+        }
+
+        $cartItem = \CartItem::model()->findByPk($cart_item_id);
+        if (!$cartItem) {
+            throw new \CHttpException(404, \Yii::t('error', 'cart_item_not_found'));
+        }
+
+        $user = User::model()->findByPk(Yii::app()->user->id);
+
+        if ($cartItem->user_id != $user->id) {
+            throw new CHttpException(403);
+        }
+
+        $model            = $cartItem->attributes;
+        $model['product'] = $cartItem->product ? $cartItem->product->attributes : null;
+        if ($cartItem->product->image_id) {
+            $image = $cartItem->product->image->attributes;
+            try {
+                $model['product']['image'] = \CJSON::decode($image['data']);
+            } catch (\Exception $e) {
+                $model['product']['image'] = [];
+            }
+        }
+        echo \CJSON::encode($model);
+    }
+
     public function actionUpdate($shop_id, $cart_item_id)
     {
         $shop = \Shop::model()->findByPk($shop_id);
@@ -212,27 +225,7 @@ class CartItemsController extends \CController
             throw new CHttpException(406);
         }
 
-        $fbUserId = Yii::app()->facebook->sdk->getUser();
-
-        if (!$fbUserId) {
-            throw new CHttpException(403);
-        }
-
-        $user = User::model()->findByAttributes(['fb_id' => $fbUserId]);
-        if (!$user) {
-            try {
-                $fbUser = Yii::app()->facebook->sdk->api('/me?scope=email');
-            } catch (\FacebookApiException $e) {
-                throw new CHttpException(403);
-            }
-            $user             = new User();
-            $user->fb_id      = $fbUserId;
-            $user->email      = $fbUser['email'];
-            $user->first_name = isset($fbUser['first_name']) ? $fbUser['first_name'] : null;
-            $user->last_name  = isset($fbUser['last_name']) ? $fbUser['last_name'] : null;
-            $user->last_login = new CDbExpression('NOW()');
-            $user->save();
-        }
+        $user = User::model()->findByPk(Yii::app()->user->id);
 
         if ($cartItem->user_id != $user->id) {
             throw new CHttpException(403);
@@ -266,9 +259,36 @@ class CartItemsController extends \CController
         }
     }
 
-    public function actionAdd()
+    public function actionDelete($shop_id, $cart_item_id)
     {
-        D($this->cartKey);
+        $shop = \Shop::model()->findByPk($shop_id);
+        if (!$shop) {
+            throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
+        }
+
+        $cartItem = \CartItem::model()->findByPk($cart_item_id);
+        if (!$cartItem) {
+            throw new \CHttpException(404, \Yii::t('error', 'cart_item_not_found'));
+        }
+
+        $user = User::model()->findByPk(Yii::app()->user->id);
+
+        if ($cartItem->user_id != $user->id) {
+            throw new CHttpException(403);
+        }
+
+        if ($cartItem->delete()) {
+            header('HTTP/1.1 204 No Content');
+            Yii::app()->end();
+        } else {
+            $errors = $cartItem->getErrors();
+            $a      = [];
+            parse_str(http_build_query($errors), $a);
+            echo \CJSON::encode(['errors' => $a]);
+
+            header('HTTP/1.1 422 Unprocessable Entity');
+            Yii::app()->end();
+        }
     }
 
     public function actionOrder()
@@ -331,21 +351,6 @@ class CartItemsController extends \CController
                 D($response, 1);
             }
         }
-    }
-
-    protected function getCartKey()
-    {
-        if (Yii::app()->request->cookies['cartKey'] === null) {
-            Yii::app()->request->cookies['cartKey'] = new CHttpCookie(
-                'cartKey',
-                sha1(time() . rand()),
-                [
-                    'expire'   => strtotime('+10 years'),
-                    'httpOnly' => true
-                ]
-            );
-        }
-        return (string)Yii::app()->request->cookies['cartKey'];
     }
 
 }

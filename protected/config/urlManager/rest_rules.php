@@ -50,6 +50,12 @@ return array(
         'urlSuffix' => false,
     ),
     array(
+        'api/cart_items/delete',
+        'pattern'   => 'api/shops/<shop_id:\d+>/cart_items/<cart_item_id:\d+>',
+        'verb'      => 'DELETE',
+        'urlSuffix' => false,
+    ),
+    array(
         'api/images/upload',
         'pattern'   => 'api/shops/<shop_id:\d+>/images',
         'verb'      => 'POST',

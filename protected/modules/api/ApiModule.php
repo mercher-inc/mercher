@@ -4,7 +4,7 @@ class ApiModule extends CWebModule
 {
     public $controllerNamespace = 'api\controllers';
 
-    public $controllerMap=[
+    public $controllerMap = [
         'cart_items' => [
             'class' => '\api\controllers\CartItemsController'
         ]
@@ -13,18 +13,24 @@ class ApiModule extends CWebModule
     public function init()
     {
         $this->setImport(
-            array(
+            [
                 'api.models.*',
                 'api.components.*',
-            )
+            ]
         );
 
         Yii::app()->setComponents(
-            array(
-                'errorHandler' => array(
+            [
+                'errorHandler' => [
                     'errorAction' => 'api/default/error',
-                ),
-            )
+                ],
+                'user'         => [
+                    'class'           => 'CWebUser',
+                    'allowAutoLogin'  => true,
+                    'stateKeyPrefix'  => 'api',
+                    'loginUrl'        => null,
+                ],
+            ]
         );
     }
 
@@ -32,6 +38,21 @@ class ApiModule extends CWebModule
     {
         if (parent::beforeControllerAction($controller, $action)) {
             header('Content-type: application/json');
+
+            if (!Yii::app()->user->isGuest) {
+                if (Yii::app()->user->getState('fb_id', null) != Yii::app()->facebook->sdk->getUser()) {
+                    Yii::app()->user->logout();
+                }
+            }
+            if (Yii::app()->user->isGuest) {
+                $identity = new UserIdentity();
+                $identity->authenticate();
+                if($identity->authenticate())
+                {
+                    Yii::app()->user->login($identity);
+                }
+            }
+
             return true;
         } else {
             return false;

@@ -6,6 +6,21 @@
 @import "forms";
 @import "tab/views";
 
+::-webkit-scrollbar{
+  width:4px;
+  background:transparent;
+  &-thumb{
+    background:lighten(@gray-light, 20%);
+    &:hover, &:active {
+      background:@gray-light;
+    }
+  }
+  &-track{
+    border:none;
+    background:none;
+  }
+}
+
 
 @body-bg: #fff;
 @modal-backdrop-bg: #fff;

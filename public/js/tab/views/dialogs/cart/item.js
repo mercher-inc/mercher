@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         initialize: function (options) {
             var view = this;
             this.listenTo(this.model, 'destroy', function (model, collection, options){
-                this.$el.fadeOut('slow', function(){
+                this.$el.fadeOut('fast', function(){
                     view.remove();
                 });
             });
@@ -45,7 +45,7 @@ define(function (require, exports, module) {
         },
 
         onBtnDeleteClick: function (e) {
-            this.model.destroy({wait: false});
+            this.model.destroy({wait: true});
         }
 
     });
