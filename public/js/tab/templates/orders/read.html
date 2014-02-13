@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <% if (order.get('status') == 'new') { %>
+    <% if (order.get('status') == 'new' || order.get('status') == 'waiting_for_payment') { %>
         <div class="payment-method">
             <button type="button" class="btn btn-primary btn-lg btn-block">Check out with PayPal</button>
         </div>

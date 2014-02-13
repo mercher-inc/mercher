@@ -3,25 +3,27 @@
 &-item {
   .card {
     margin: 0 0 @grid-gutter-width 0;
-    background: @gray-lighter;
-    border-radius: @border-radius-base;
     height: @orders-index-item-card-height;
     overflow: hidden;
     line-height: @orders-index-item-card-height;
-    //box-shadow: 0px 1px 4px @gray-light;
-    border: 1px solid @gray-lighter;
     cursor: pointer;
+    font-size: 20px;
+    font-weight: 300;
+    white-space: nowrap;
+
+    border-left: @navbar-tab-nav-border-size solid transparent;
+    margin-left: -@navbar-tab-nav-border-size;
+    padding-left: 15px;
 
     &:hover {
-      border-color: darken(@gray-lighter, 10%);
+      border-color: @navbar-tab-nav-item-border-hover-color;
     }
 
     .images {
     }
 
     .total-sum {
-      margin-left: 10px;
-      float: right;
+      text-align: right;
     }
 
     &.new {

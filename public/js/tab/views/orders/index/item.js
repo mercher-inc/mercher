@@ -19,7 +19,7 @@ define(function (require, exports, module) {
         initialize: function (options) {
             var view = this;
 
-            this.model.items.fetch({data: {limit: -1}});
+            this.model.items.fetch({data: {limit: 10}});
 
             this.listenTo(this.model.items, 'add', function(model, collection, options){
                 var itemView = new ItemView({model: model, controller: view.controller});
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
             var orderStatus = this.model.get('status');
             switch (this.model.get('status')) {
                 case 'new':
-                    orderStatus = 'New';
+                    orderStatus = 'New order';
                     break;
                 case 'waiting_for_payment':
                     orderStatus = 'Waiting for payment';

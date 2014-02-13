@@ -1,14 +1,16 @@
 <div class="card <%- order.get('status') %>">
     <div class="row">
-        <div class="col-xs-8">
-            <span class="total-sum">&#36;<%- order.get('total') %></span>
-            <div class="products"></div>
-        </div>
         <div class="col-xs-2">
             <%- orderDate %>
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-4">
             <%- orderStatus %>
+        </div>
+        <div class="col-xs-4">
+            <div class="products"></div>
+        </div>
+        <div class="col-xs-2" style="text-align: right;">
+            <span class="total-sum">&#36;<%- order.get('total') %></span>
         </div>
     </div>
 </div>
