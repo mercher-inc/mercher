@@ -60,13 +60,17 @@ define(function (require, exports, module) {
             var controller = this,
                 mainLayout = this.options.router.mainLayout;
 
-            require(['views/orders/read'], function (OrderView) {
-                var orderView = new OrderView({controller: controller});
-                orderView.model.id = order_id;
-                orderView.model.fetch();
+            require(['views/orders/read', 'models/order'], function (OrderView, OrderModel) {
+                var orderView = new OrderView({model: new OrderModel({id: order_id}), controller: controller});
+                orderView.model.fetch({
+                    success: function(model, response, options) {
+                        mainLayout.setView("section#content", orderView);
+                        orderView.render();
+                    },
+                    error: function(model, response, options){
 
-                mainLayout.setView("section#content", orderView);
-                orderView.render();
+                    }
+                });
             });
 
             //track page view

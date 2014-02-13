@@ -1,1 +1,3 @@
-<img src="<%- orderItem.product.get('image').xs %>" alt="<%- orderItem.product.get('title') %>" />
+<% if (!_.isEmpty(orderItem.product.get('image'))) { %>
+    <img src="<%- orderItem.product.get('image').xs %>" alt="<%- orderItem.product.get('title') %>" />
+<% } %>

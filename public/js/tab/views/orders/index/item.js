@@ -25,7 +25,6 @@ define(function (require, exports, module) {
                 var itemView = new ItemView({model: model, controller: view.controller});
                 view.insertView('.products', itemView);
                 itemView.render();
-                this.renderSum();
             });
         },
 
@@ -62,32 +61,6 @@ define(function (require, exports, module) {
             }
 
             return { order: this.model, orderDate: orderDate, orderStatus: orderStatus };
-        },
-
-        renderSum: function(){
-            var sum = 0;
-            this.model.items.each(function(orderItem){
-                var price = parseFloat(orderItem.get('price'));
-                var amount = parseInt(orderItem.get('amount'));
-                if (isNaN(price)) {
-                    price = 0;
-                }
-                if (isNaN(amount)) {
-                    amount = 0;
-                }
-                price = Math.max(price, 0);
-                amount = Math.max(amount, 0);
-                sum += price * amount;
-            });
-            var sumStr = '&#36;';
-            sumStr += Math.floor(sum);
-            sumStr += '.';
-            var dec = String(Math.round((sum % 1) * 100));
-            while (dec.length < 2) {
-                dec = '0' + dec;
-            }
-            sumStr += dec;
-            this.$('.total-sum').html(sumStr);
         },
 
         onClick: function(e){

@@ -21,7 +21,7 @@ define(function (require, exports, module) {
         },
 
         serialize: function () {
-
+            return { orderItem: this.model };
         }
 
     });

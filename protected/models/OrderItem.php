@@ -117,4 +117,16 @@ class OrderItem extends CActiveRecord
     {
         return parent::model($className);
     }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+        $this->order->updateTotal();
+    }
+
+    protected function afterDelete()
+    {
+        parent::afterDelete();
+        $this->order->updateTotal();
+    }
 }

@@ -1,6 +1,19 @@
-<h1 class="page-header">
-    Order #<%- order.id %>
-</h1>
-<div class="order-items">
-    <div class="list"></div>
+<div class="container">
+    <h1 class="page-header">
+        Order #<%- order.id %>
+    </h1>
+
+    <div class="order-items">
+        <div class="list"></div>
+        <button type="button" class="showMore btn btn-default btn-block">Show more</button>
+        <div class="total-line">
+            Total: <span class="total-sum">&#36;<%- order.get('total') %></span>
+        </div>
+    </div>
+
+    <% if (order.get('status') == 'new') { %>
+        <div class="payment-method">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Check out with PayPal</button>
+        </div>
+    <% } %>
 </div>

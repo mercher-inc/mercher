@@ -33,6 +33,11 @@ define(function (require, exports, module) {
                     case 'orders':
                         this.$('.navbar-nav>li>a[href^="/orders"]').parent().addClass('active');
                         break;
+                    case 'orders/:order_id':
+                        this.$('.navbar-nav>li>a[href^="/orders"]').parent().addClass('active');
+                        break;
+                    default:
+                        console.log(route);
                 }
             });
 

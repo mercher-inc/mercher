@@ -10,6 +10,7 @@
  * @property string $user_id
  * @property string $pay_key
  * @property string $status
+ * @property string $total
  * The followings are the available model relations:
  * @property OrderItem[] $orderItems
  * @property User $user
@@ -42,6 +43,7 @@ class Order extends CActiveRecord
         return array(
             array('created, shop_id, user_id', 'required'),
             array('pay_key', 'length', 'max' => 50),
+            array('total', 'length', 'max' => 9),
             array('updated, status', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -76,6 +78,7 @@ class Order extends CActiveRecord
             'user_id' => 'User',
             'pay_key' => 'Pay Key',
             'status'  => 'Status',
+            'total'   => 'Total',
         );
     }
 
@@ -102,6 +105,7 @@ class Order extends CActiveRecord
         $criteria->compare('user_id', $this->user_id, true);
         $criteria->compare('pay_key', $this->pay_key, true);
         $criteria->compare('status', $this->status, true);
+        $criteria->compare('total', $this->total, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -124,5 +128,14 @@ class Order extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function updateTotal()
+    {
+        $this->total = 0;
+        foreach ($this->orderItems as $item) {
+            $this->total += $item->price * $item->amount;
+        }
+        $this->save();
     }
 }

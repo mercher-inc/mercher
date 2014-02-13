@@ -1,0 +1,14 @@
+<span class="amount">
+    <%- orderItem.get('amount') %> &times;
+</span>
+<div class="media">
+    <a class="pull-left" href="#"><% if (!_.isEmpty(orderItem.product.get('image'))) { %>
+        <img class="media-object img-circle" src="<%- orderItem.product.get('image').xs %>">
+        <% } %></a>
+    <div class="media-body">
+        <h4 class="media-heading"><%- orderItem.product.get('title') %></h4>
+        <% if (orderItem.get('price')) { %>
+            <p>&#36;<%- orderItem.get('price') %></p>
+        <% } %>
+    </div>
+</div>
