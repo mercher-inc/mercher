@@ -37,20 +37,37 @@ class IndexController extends CController
             'requirejs.config(' . CJSON::encode(
                 [
                     'config' => [
-                        'collections/products' => [
+                        'collections/shops'  => [
+                            'url' => $this->createUrl('/api/shops/list')
+                        ],
+                        'collections/products'  => [
                             'url' => $this->createUrl('/api/products/list', ['shop_id' => $this->shop->id])
                         ],
                         'collections/cartItems' => [
                             'url' => $this->createUrl('/api/cart_items/list', ['shop_id' => $this->shop->id])
                         ],
-                        'ga'                   => [
+                        'collections/orders'    => [
+                            'url' => $this->createUrl('/api/orders/list', ['shop_id' => $this->shop->id])
+                        ],
+                        'models/shop'          => [
+                            'urlRoot' => $this->createUrl('/api/shops/list')
+                        ],
+                        'models/order'          => [
+                            'urlRoot' => $this->createUrl('/api/orders/list', ['shop_id' => $this->shop->id])
+                        ],
+                        'ga'                    => [
                             'mainTrackerId' => 'UA-23393444-14',
                             'shopTrackerId' => $this->shop->ga_id,
                         ],
-                        'fb'                   => [
+                        'fb'                    => [
                             'appId'     => Yii::app()->facebook->appId,
                             'namespace' => Yii::app()->facebook->namespace,
                         ],
+                        'app'                   => [
+                            'data' => [
+                                'shop' => $this->shop->attributes
+                            ]
+                        ]
                     ]
                 ]
             ) . ');',
@@ -58,7 +75,7 @@ class IndexController extends CController
         );
         $clientScript->registerScript(
             'runTabApplication',
-            "window.Mercher={};require(['app'],function(TabApplication){window.Mercher.tabApp=new TabApplication();});",
+            "window.Mercher={};require(['app'],function(tabApplication){window.Mercher.tabApp=tabApplication;});",
             CClientScript::POS_HEAD
         );
 

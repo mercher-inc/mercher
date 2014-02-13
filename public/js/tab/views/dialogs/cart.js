@@ -87,12 +87,14 @@ define(function (require, exports, module) {
                     {
                         url: '/api/createOrder',
                         data: {
-                            'shop_id': 356
+                            'shop_id': view.router.shopModel.id
                         },
                         type: 'GET',
                         dataType: 'json',
                         success: function(data, textStatus, jqXHR){
-                            console.log(data);
+                            var newOrder = new (require('models/order'))(data);
+                            //console.log(newOrder);
+                            view.router.navigate('orders/' + newOrder.id, {trigger: true});
                             view.collection.fetch({data: {limit: -1}});
                             view.collection.once('sync error', function(){
                                 view.$('.btnCheckout').button('reset');

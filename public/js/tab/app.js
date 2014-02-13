@@ -6,20 +6,26 @@ define(function (require, exports, module) {
     var $ = require('jquery'),
         Backbone = require('backbone');
 
-    return Backbone.Router.extend({
+    var TabApplication = Backbone.Router.extend({
         controllers: {},
         mainLayout: {},
+        shopModel: {},
         cartDialog: {},
         cartItemsCollection: {},
 
         initialize: function () {
             var app = this,
+                ShopModel = require('models/shop'),
                 ProductsController = require('controllers/products'),
+                OrdersController = require('controllers/orders'),
                 MainLayout = require('views/layouts/main'),
                 CartDialog = require('views/dialogs/cart'),
                 CartItemsCollection = require('collections/cartItems');
 
+            this.shopModel = new ShopModel(module.config().data.shop);
+
             this.controllers.products = new ProductsController({router: this});
+            this.controllers.orders = new OrdersController({router: this});
 
             this.mainLayout = new MainLayout({el: 'body', router: this});
             this.mainLayout.render();
@@ -35,11 +41,9 @@ define(function (require, exports, module) {
                 show: false
             });
 
-            /*
-             this.on('route', function (route, params) {
-             console.log({route: '/' + route, params: params});
-             });
-             */
+            this.on('route', function (route, params) {
+                console.log({route: '/' + route, params: params});
+            });
 
             Backbone.history.start({pushState: false});
             $(document).on('click', "a[href^='/']", function (e) {
@@ -57,7 +61,7 @@ define(function (require, exports, module) {
                     if (response.status === 'connected') {
                         FB.api(
                             '/me/permissions',
-                            function(permissions){
+                            function (permissions) {
                                 if (permissions.data && permissions.data.length) {
                                     var existingPermissions = _.keys(permissions.data[0]);
                                     var requiredPermissions = _.difference(options.scope, existingPermissions);
@@ -65,19 +69,19 @@ define(function (require, exports, module) {
                                         if (options.requestMissingPermissions) {
                                             app.login({
                                                 scope: options.scope,
-                                                success: function() {
+                                                success: function () {
                                                     app.checkPermissions({
                                                         scope: options.scope,
-                                                        success: function(){
+                                                        success: function () {
                                                             options.success();
                                                         },
-                                                        error: function(){
+                                                        error: function () {
                                                             options.error();
                                                         },
                                                         requestMissingPermissions: false
                                                     });
                                                 },
-                                                error: function(){
+                                                error: function () {
                                                     options.error();
                                                 }
                                             });
@@ -112,7 +116,7 @@ define(function (require, exports, module) {
             });
         },
 
-        authorize: function(options){
+        authorize: function (options) {
             var app = this;
 
             require(['fb'], function (FB) {
@@ -120,10 +124,10 @@ define(function (require, exports, module) {
                     if (response.status === 'connected') {
                         app.checkPermissions({
                             scope: options.scope,
-                            success: function(){
+                            success: function () {
                                 options.success();
                             },
-                            error: function(){
+                            error: function () {
                                 options.error();
                             },
                             requestMissingPermissions: true
@@ -131,19 +135,19 @@ define(function (require, exports, module) {
                     } else {
                         app.login({
                             scope: options.scope,
-                            success: function() {
+                            success: function () {
                                 app.checkPermissions({
                                     scope: options.scope,
-                                    success: function(){
+                                    success: function () {
                                         options.success();
                                     },
-                                    error: function(){
+                                    error: function () {
                                         options.error();
                                     },
                                     requestMissingPermissions: false
                                 });
                             },
-                            error: function(){
+                            error: function () {
                                 options.error();
                             }
                         });
@@ -152,5 +156,7 @@ define(function (require, exports, module) {
             });
         }
     });
+
+    return new TabApplication();
 
 });

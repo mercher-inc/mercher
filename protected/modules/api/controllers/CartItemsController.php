@@ -55,12 +55,6 @@ class CartItemsController extends \CController
             throw new \CHttpException(404, \Yii::t('error', 'shop_not_found'));
         }
 
-        $fbUserId = Yii::app()->facebook->sdk->getUser();
-
-        if (!$fbUserId) {
-            throw new CHttpException(403);
-        }
-
         $user = User::model()->findByPk(Yii::app()->user->id);
 
         $criteria = new \CDbCriteria;

@@ -5,14 +5,15 @@
 @import "buttons";
 @import "forms";
 @import "tab/views";
+@import "tab/navbar";
 
 ::-webkit-scrollbar{
   width:4px;
   background:transparent;
   &-thumb{
-    background:lighten(@gray-light, 20%);
+    background: @gray-lighter;
     &:hover, &:active {
-      background:@gray-light;
+      background: darken(@gray-lighter, 10%);
     }
   }
   &-track{
@@ -21,9 +22,12 @@
   }
 }
 
-
 @body-bg: #fff;
 @modal-backdrop-bg: #fff;
+
+body {
+  margin-top: @navbar-height;
+}
 
 .btn-primary {
   background-image: url('/img/bg_1024.png');

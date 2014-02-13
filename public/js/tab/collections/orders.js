@@ -1,0 +1,25 @@
+define(function (require, exports, module) {
+
+    "use strict";
+
+    var Backbone = require('backbone'),
+        OrderModel = require('models/order');
+
+    return Backbone.Collection.extend({
+        model: OrderModel,
+        url: module.config().url,
+        params: {},
+
+        initialize: function (options) {
+
+        },
+
+        parse: function(response) {
+            this.count = response.count;
+            this.limit = response.limit;
+            this.offset = response.offset;
+            return response.models;
+        }
+    });
+
+});

@@ -12,6 +12,34 @@ class TabModule extends CWebModule
 			'tab.models.*',
 			'tab.components.*',
 		));
+
+        Yii::app()->setComponents(
+            [
+                'errorHandler' => [
+                    'errorAction' => 'tad/index/error',
+                ],
+                'user'         => [
+                    'class'           => 'CWebUser',
+                    'allowAutoLogin'  => true,
+                    'stateKeyPrefix'  => 'tab',
+                    'loginUrl'        => null,
+                ],
+            ]
+        );
+
+        if (!Yii::app()->user->isGuest) {
+            if (Yii::app()->user->getState('fb_id', null) != Yii::app()->facebook->sdk->getUser()) {
+                Yii::app()->user->logout();
+            }
+        }
+        if (Yii::app()->user->isGuest) {
+            $identity = new UserIdentity();
+            $identity->authenticate();
+            if($identity->authenticate())
+            {
+                Yii::app()->user->login($identity);
+            }
+        }
 	}
 
 	public function beforeControllerAction($controller, $action)

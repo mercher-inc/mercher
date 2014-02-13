@@ -1,0 +1,62 @@
+// Basics of a navbar
+@navbar-height: 40px;
+@navbar-tab-bg: #fff;
+
+// Navbar links
+@navbar-tab-link-color: #777;
+@navbar-tab-link-hover-color: #333;
+@navbar-tab-link-hover-bg: transparent;
+@navbar-tab-link-active-color: #555;
+@navbar-tab-link-active-bg: @navbar-tab-bg;
+@navbar-tab-link-disabled-color: #ccc;
+@navbar-tab-link-disabled-bg: transparent;
+
+// Nav
+@navbar-tab-nav-border-size: 4px;
+@navbar-tab-nav-border-color: @gray-lighter;
+@navbar-tab-nav-item-border-color: @gray-lighter;
+@navbar-tab-nav-item-border-hover-color: darken(@navbar-tab-nav-item-border-color, 10%);
+@navbar-tab-nav-item-border-active-color: @brand-primary;
+
+
+.navbar-tab {
+  background-color: @navbar-tab-bg;
+  border: none;
+
+  .navbar-nav {
+    border-bottom: @navbar-tab-nav-border-size solid @navbar-tab-nav-border-color;
+    margin-bottom: -@navbar-tab-nav-border-size;
+
+    > li > a {
+      color: @navbar-tab-link-color;
+      border-bottom: @navbar-tab-nav-border-size solid @navbar-tab-nav-item-border-color;
+      margin-bottom: -@navbar-tab-nav-border-size;
+      text-transform: uppercase;
+
+      &:hover,
+      &:focus {
+        color: @navbar-tab-link-hover-color;
+        background-color: @navbar-tab-link-hover-bg;
+        border-bottom-color: @navbar-tab-nav-item-border-hover-color;
+      }
+    }
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: @navbar-tab-link-active-color;
+        background-color: @navbar-tab-link-active-bg;
+        border-bottom-color: @navbar-tab-nav-item-border-active-color;
+      }
+    }
+    > .disabled > a {
+      &,
+      &:hover,
+      &:focus {
+        color: @navbar-tab-link-disabled-color;
+        background-color: @navbar-tab-link-disabled-bg;
+      }
+    }
+  }
+
+}

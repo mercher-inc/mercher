@@ -61,4 +61,16 @@ return array(
         'verb'      => 'POST',
         'urlSuffix' => false,
     ),
+    array(
+        'api/orders/list',
+        'pattern'   => 'api/shops/<shop_id:\d+>/orders',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
+    ),
+    array(
+        'api/orders/read',
+        'pattern'   => 'api/shops/<shop_id:\d+>/orders/<order_id:\d+>',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
+    ),
 );

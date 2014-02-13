@@ -32,27 +32,26 @@ class ApiModule extends CWebModule
                 ],
             ]
         );
+
+        if (!Yii::app()->user->isGuest) {
+            if (Yii::app()->user->getState('fb_id', null) != Yii::app()->facebook->sdk->getUser()) {
+                Yii::app()->user->logout();
+            }
+        }
+        if (Yii::app()->user->isGuest) {
+            $identity = new UserIdentity();
+            $identity->authenticate();
+            if($identity->authenticate())
+            {
+                Yii::app()->user->login($identity);
+            }
+        }
     }
 
     public function beforeControllerAction($controller, $action)
     {
         if (parent::beforeControllerAction($controller, $action)) {
             header('Content-type: application/json');
-
-            if (!Yii::app()->user->isGuest) {
-                if (Yii::app()->user->getState('fb_id', null) != Yii::app()->facebook->sdk->getUser()) {
-                    Yii::app()->user->logout();
-                }
-            }
-            if (Yii::app()->user->isGuest) {
-                $identity = new UserIdentity();
-                $identity->authenticate();
-                if($identity->authenticate())
-                {
-                    Yii::app()->user->login($identity);
-                }
-            }
-
             return true;
         } else {
             return false;
