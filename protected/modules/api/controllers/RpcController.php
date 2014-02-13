@@ -26,7 +26,8 @@ class RpcController extends \CController
                 'allow',
                 'actions' => array(
                     'like',
-                    'create_order'
+                    'create_order',
+                    'create_pay_request'
                 ),
                 'users'   => array('@'),
             ),
@@ -40,7 +41,8 @@ class RpcController extends \CController
     public function actions()
     {
         return [
-            'create_order'  => '\api\controllers\rpc\CreateOrderAction'
+            'create_order'       => '\api\controllers\rpc\CreateOrderAction',
+            'create_pay_request' => '\api\controllers\rpc\CreatePayRequestAction',
         ];
     }
 
@@ -58,7 +60,7 @@ class RpcController extends \CController
 
         try {
             $result = \Yii::app()->facebook->sdk->api(
-                '/' . $product->shop->fb_id . '?' . http_build_query(['fields'=>'access_token'])
+                '/' . $product->shop->fb_id . '?' . http_build_query(['fields' => 'access_token'])
             );
         } catch (\FacebookApiException $e) {
             throw new \CHttpException($e->getCode(), $e->getMessage());
@@ -75,8 +77,8 @@ class RpcController extends \CController
                 'me/og.likes',
                 'POST',
                 array(
-                    'object'        => $product->fb_id,
-                    'access_token'  => $pageAccessToken
+                    'object'       => $product->fb_id,
+                    'access_token' => $pageAccessToken
                 )
             );
         } catch (\FacebookApiException $e) {

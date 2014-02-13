@@ -17,6 +17,7 @@ class Client extends CApplicationComponent
     public $password;
     public $signature;
     public $applicationId;
+    public $primaryEmail;
 
     public function submitRequest(Request $request)
     {

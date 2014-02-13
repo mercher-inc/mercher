@@ -2,7 +2,8 @@
 
 $rpcActions = array(
     'like',
-    'create_order'
+    'create_order',
+    'create_pay_request'
 );
 
 $rpcRoutes = array();

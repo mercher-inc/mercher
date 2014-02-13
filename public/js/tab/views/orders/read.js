@@ -7,13 +7,16 @@ define(function (require, exports, module) {
         Layout = require('backbone.layoutmanager'),
         ItemView = require('views/orders/read/item');
 
+    require('bootstrap');
+
     return Layout.extend({
         template: _.template(require('text!templates/orders/read.html')),
         tagName: 'div',
         className: 'view orders-read',
 
         events: {
-            "click .showMore" : 'showMore'
+            "click .showMore" : 'showMore',
+            "click .btnCheckOut.payPal" : 'onBtnCheckOutWithPayPalClick'
         },
 
         initialize: function (options) {
@@ -70,7 +73,27 @@ define(function (require, exports, module) {
                 remove: false
             });
 
+        },
+
+        onBtnCheckOutWithPayPalClick: function(e){
+            var view = this;
+            this.$('.btnCheckOut').button('loading');
+
+            if (this.model.get('status') == 'new') {
+                this.model.createPayRequest({
+                    success: function(order){
+                        view.$('.btnCheckOut').button('reset');
+                    },
+                    error: function() {
+                        view.$('.btnCheckOut').button('reset');
+                    }
+                });
+            } else {
+                view.$('.btnCheckOut').button('reset');
+            }
         }
+
+
 
     });
 
