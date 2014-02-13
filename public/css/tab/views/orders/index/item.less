@@ -1,0 +1,35 @@
+@orders-index-item-card-height: 50px;
+
+&-item {
+  .card {
+    margin: 0 0 @grid-gutter-width 0;
+    background: @gray-lighter;
+    border-radius: @border-radius-base;
+    height: @orders-index-item-card-height;
+    overflow: hidden;
+    line-height: @orders-index-item-card-height;
+    //box-shadow: 0px 1px 4px @gray-light;
+    border: 1px solid @gray-lighter;
+    cursor: pointer;
+
+    &:hover {
+      border-color: darken(@gray-lighter, 10%);
+    }
+
+    .images {
+    }
+
+    .total-sum {
+      margin-left: 10px;
+      float: right;
+    }
+
+    &.new {
+
+    }
+
+
+  }
+
+  @import "item/product";
+}

@@ -74,7 +74,7 @@ class OrdersController extends Controller
             [
                 'offset' => $offset,
                 'limit'  => $limit,
-                'order'  => "t.created"
+                'order'  => "t.created DESC"
             ]
         );
 

@@ -6433,9 +6433,6 @@ fieldset[disabled] .btn-info-link.active {
 .imageField.loading {
   background-image: url('/img/icon_loading.png');
 }
-.view.products-index {
-  padding-top: 30px;
-}
 .view.products-index-item .card {
   display: inline-block;
   margin: 0 0 30px 0;
@@ -6445,7 +6442,10 @@ fieldset[disabled] .btn-info-link.active {
   width: 100%;
   overflow: hidden;
   white-space: normal;
-  box-shadow: 0px 1px 4px #999999;
+  border: 1px solid #eeeeee;
+}
+.view.products-index-item .card:hover {
+  border-color: #d5d5d5;
 }
 .view.products-index-item .card .image {
   display: block;
@@ -6482,6 +6482,35 @@ fieldset[disabled] .btn-info-link.active {
 }
 .view.products-index-item .card .info .description:empty {
   display: none;
+}
+.view.orders-index-item .card {
+  margin: 0 0 30px 0;
+  background: #eeeeee;
+  border-radius: 2px;
+  height: 50px;
+  overflow: hidden;
+  line-height: 50px;
+  border: 1px solid #eeeeee;
+  cursor: pointer;
+}
+.view.orders-index-item .card:hover {
+  border-color: #d5d5d5;
+}
+.view.orders-index-item .card .total-sum {
+  margin-left: 10px;
+  float: right;
+}
+.view.orders-index-item-product img {
+  display: block;
+  float: left;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #eeeeee;
+  margin: -1px 0 -1px -1px;
+}
+.view.orders-index-item-product img:first-child {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
 }
 .view.dialogs-cart .total-line {
   font-weight: 200;
@@ -6553,7 +6582,7 @@ fieldset[disabled] .btn-info-link.active {
   background: none;
 }
 body {
-  margin-top: 40px;
+  margin-top: 70px;
 }
 .btn-primary {
   background-image: url('/img/bg_1024.png');

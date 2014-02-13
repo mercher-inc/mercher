@@ -6,7 +6,10 @@ class ApiModule extends CWebModule
 
     public $controllerMap = [
         'cart_items' => [
-            'class' => '\api\controllers\CartItemsController'
+            'class' => '\api\controllers\CartItemsController',
+        ],
+        'order_items' => [
+            'class' => '\api\controllers\OrderItemsController',
         ]
     ];
 

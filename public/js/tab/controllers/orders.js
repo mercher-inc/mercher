@@ -17,7 +17,43 @@ define(function (require, exports, module) {
         },
 
         index: function () {
+            var controller = this,
+                mainLayout = this.options.router.mainLayout;
 
+            require(['views/orders/index'], function (OrdersView) {
+
+                if (!(ordersView instanceof OrdersView)) {
+                    ordersView = new OrdersView({controller: controller});
+
+                    if (module.config().ordersCollection) {
+                        ordersView.collection.reset(
+                            module.config().ordersCollection.data.models
+                        );
+                        ordersView.collection.count = module.config().ordersCollection.data.count;
+                        ordersView.collection.params = module.config().ordersCollection.params;
+                    } else {
+                        ordersView.collection.fetch({
+                            data: ordersView.collection.params
+                        });
+                    }
+                }
+
+                mainLayout.setView("section#content", ordersView);
+                ordersView.render();
+            });
+
+            //track page view
+            require(['ga'], function (ga) {
+                _.each(ga.getAll(), function(tracker){
+                    tracker.send(
+                        'pageview',
+                        {
+                            page: 'orders',
+                            title: 'Orders'
+                        }
+                    );
+                });
+            });
         },
 
         read: function(order_id) {

@@ -10,6 +10,7 @@ define(function (require, exports, module) {
         controllers: {},
         mainLayout: {},
         shopModel: {},
+        mainNav: {},
         cartDialog: {},
         cartItemsCollection: {},
 
@@ -19,6 +20,7 @@ define(function (require, exports, module) {
                 ProductsController = require('controllers/products'),
                 OrdersController = require('controllers/orders'),
                 MainLayout = require('views/layouts/main'),
+                MainNav = require('views/nav/main'),
                 CartDialog = require('views/dialogs/cart'),
                 CartItemsCollection = require('collections/cartItems');
 
@@ -29,6 +31,10 @@ define(function (require, exports, module) {
 
             this.mainLayout = new MainLayout({el: 'body', router: this});
             this.mainLayout.render();
+
+            this.mainNav = new MainNav({router: this});
+            this.mainLayout.setView('header#header', this.mainNav);
+            this.mainNav.render();
 
             this.cartItemsCollection = new CartItemsCollection();
             this.cartDialog = new CartDialog({router: this, collection: this.cartItemsCollection});
@@ -41,9 +47,11 @@ define(function (require, exports, module) {
                 show: false
             });
 
+            /*
             this.on('route', function (route, params) {
                 console.log({route: '/' + route, params: params});
             });
+            */
 
             Backbone.history.start({pushState: false});
             $(document).on('click', "a[href^='/']", function (e) {

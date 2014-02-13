@@ -68,8 +68,14 @@ return array(
         'urlSuffix' => false,
     ),
     array(
-        'api/orders/read',
-        'pattern'   => 'api/shops/<shop_id:\d+>/orders/<order_id:\d+>',
+        'api/order_items/list',
+        'pattern'   => 'api/shops/<shop_id:\d+>/orders/<order_id:\d+>/items',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
+    ),
+    array(
+        'api/order_items/read',
+        'pattern'   => 'api/shops/<shop_id:\d+>/orders/<order_id:\d+>/items/<order_item_id:\d+>',
         'verb'      => 'GET',
         'urlSuffix' => false,
     ),
