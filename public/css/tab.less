@@ -27,6 +27,19 @@
 
 body {
   margin-top: @navbar-height + @grid-gutter-width;
+
+  #PPDGFrame {
+    .mask {
+      background-color: @modal-backdrop-bg;
+      .opacity(.5);
+    }
+    .panel {
+      background: transparent;
+      iframe {
+        background: transparent;
+      }
+    }
+  }
 }
 
 .btn-primary {

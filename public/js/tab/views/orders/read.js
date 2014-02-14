@@ -15,8 +15,8 @@ define(function (require, exports, module) {
         className: 'view orders-read',
 
         events: {
-            "click .showMore" : 'showMore',
-            "click .btnCheckOut.payPal" : 'onBtnCheckOutWithPayPalClick'
+            "click .showMore": 'showMore',
+            "click .btnCheckOut.payPal": 'onBtnCheckOutWithPayPalClick'
         },
 
         initialize: function (options) {
@@ -24,7 +24,7 @@ define(function (require, exports, module) {
 
             this.model.items.fetch();
 
-            this.listenTo(this.model.items, 'sync', function (collection, resp, options)  {
+            this.listenTo(this.model.items, 'sync', function (collection, resp, options) {
                 if (collection.count > collection.length) {
                     this.$('.showMore').show();
                 } else {
@@ -32,10 +32,14 @@ define(function (require, exports, module) {
                 }
             });
 
-            this.listenTo(this.model.items, 'add', function(model, collection, options){
+            this.listenTo(this.model.items, 'add', function (model, collection, options) {
                 var itemView = new ItemView({model: model, controller: view.controller});
                 view.insertView('.order-items .list', itemView);
                 itemView.render();
+            });
+
+            this.listenTo(this.model, 'change:status', function(){
+                this.render();
             });
         },
 
@@ -46,7 +50,7 @@ define(function (require, exports, module) {
             }, this);
         },
 
-        afterRender: function() {
+        afterRender: function () {
             if (this.model.items.count > this.model.items.length) {
                 this.$('.showMore').show();
             } else {
@@ -55,12 +59,37 @@ define(function (require, exports, module) {
         },
 
         serialize: function () {
-            return { order: this.model };
+            var created = new Date(this.model.get('created'));
+            var orderDate = created.getMonth() + '/' + created.getDate() + '/' + created.getFullYear();
+
+            var orderStatus = this.model.get('status');
+            switch (this.model.get('status')) {
+                case 'new':
+                    orderStatus = 'New order';
+                    break;
+                case 'waiting_for_payment':
+                    orderStatus = 'Waiting for payment';
+                    break;
+                case 'accepted':
+                    orderStatus = 'Accepted';
+                    break;
+                case 'rejected':
+                    orderStatus = 'Rejected';
+                    break;
+                case 'approved':
+                    orderStatus = 'Approved';
+                    break;
+                case 'completed':
+                    orderStatus = 'Completed';
+                    break;
+            }
+
+            return { order: this.model, orderDate: orderDate, orderStatus: orderStatus };
         },
 
-        showMore: function(){
+        showMore: function () {
             this.$('.showMore').button('loading');
-            this.listenToOnce(this.model.items, 'sync', function(collection, resp, options) {
+            this.listenToOnce(this.model.items, 'sync', function (collection, resp, options) {
                 this.$('.showMore').button('reset');
             });
 
@@ -75,21 +104,54 @@ define(function (require, exports, module) {
 
         },
 
-        onBtnCheckOutWithPayPalClick: function(e){
+        onBtnCheckOutWithPayPalClick: function (e) {
             var view = this;
             this.$('.btnCheckOut').button('loading');
 
+            var checkPaymentCompleteCallback = function () {
+                $.ajax(
+                    {
+                        url: '/api/checkPaymentDetails',
+                        data: {
+                            'order_id': view.model.id
+                        },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data, textStatus, jqXHR) {
+                            view.model.set(data);
+                            if (window.Mercher.embeddedPPFlow.isOpen()) {
+                                setTimeout(function(){checkPaymentCompleteCallback()}, 2500);
+                            } else {
+                                view.$('.btnCheckOut').button('reset');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR, textStatus, errorThrown);
+                            window.Mercher.embeddedPPFlow.closeFlow();
+                        }
+                    }
+                );
+            };
+
             if (this.model.get('status') == 'new') {
                 this.model.createPayRequest({
-                    success: function(order){
-                        view.$('.btnCheckOut').button('reset');
+                    success: function (order) {
+                        require(['DGFlow'], function (DGFlow) {
+                            window.Mercher.embeddedPPFlow = new DGFlow({expType: 'light'});
+                            window.Mercher.embeddedPPFlow.startFlow('https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=' + view.model.get('pay_key'));
+                            checkPaymentCompleteCallback();
+                        });
                     },
-                    error: function() {
+                    error: function () {
                         view.$('.btnCheckOut').button('reset');
                     }
                 });
             } else {
-                view.$('.btnCheckOut').button('reset');
+                require(['DGFlow'], function (DGFlow) {
+                    window.Mercher.embeddedPPFlow = new DGFlow({expType: 'light'});
+                    window.Mercher.embeddedPPFlow.startFlow('https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=' + view.model.get('pay_key'));
+                    checkPaymentCompleteCallback();
+                });
             }
         }
 

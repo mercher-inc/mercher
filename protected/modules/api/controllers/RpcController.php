@@ -27,7 +27,8 @@ class RpcController extends \CController
                 'actions' => array(
                     'like',
                     'create_order',
-                    'create_pay_request'
+                    'create_pay_request',
+                    'check_payment_details'
                 ),
                 'users'   => array('@'),
             ),
@@ -41,8 +42,9 @@ class RpcController extends \CController
     public function actions()
     {
         return [
-            'create_order'       => '\api\controllers\rpc\CreateOrderAction',
-            'create_pay_request' => '\api\controllers\rpc\CreatePayRequestAction',
+            'create_order'          => '\api\controllers\rpc\CreateOrderAction',
+            'create_pay_request'    => '\api\controllers\rpc\CreatePayRequestAction',
+            'check_payment_details' => '\api\controllers\rpc\CheckPaymentDetailsAction',
         ];
     }
 

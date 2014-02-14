@@ -15,6 +15,7 @@ use Yii,
     CHttpException,
     \PayPalComponent\Request\PayRequest as PayRequest,
     \PayPalComponent\Response\PayResponse as PayResponse,
+    \PayPalComponent\Response\PPFaultMessage as PPFaultMessage,
     \PayPalComponent\CurrencyCode as CurrencyCode;
 
 class CreatePayRequestAction extends CAction
@@ -38,8 +39,25 @@ class CreatePayRequestAction extends CAction
             $payRequest->actionType                   = PayRequest::ACTION_TYPE_PAY_PRIMARY;
             $payRequest->currencyCode                 = CurrencyCode::CURRENCY_CODE_USD;
             $payRequest->feesPayer                    = PayRequest::FEES_PAYER_PRIMARY_RECEIVER;
-            $payRequest->returnUrl                    = Yii::app()->createAbsoluteUrl('/index/test');
-            $payRequest->cancelUrl                    = Yii::app()->createAbsoluteUrl('/index/test');
+            /*
+            $payRequest->returnUrl                    = Yii::app()->createAbsoluteUrl(
+                '/api/rpc/check_payment_details',
+                ['order_id' => $order->id]
+            );
+            $payRequest->cancelUrl                    = Yii::app()->createAbsoluteUrl(
+                '/api/rpc/check_payment_details',
+                ['order_id' => $order->id]
+            );
+            */
+            $payRequest->returnUrl                    = Yii::app()->createAbsoluteUrl(
+                '/tab/index/blank'
+            );
+            $payRequest->cancelUrl                    = Yii::app()->createAbsoluteUrl(
+                '/tab/index/blank'
+            );
+
+            $payRequest->payKeyDuration = 'PT24H';
+            $payRequest->trackingId = $order->id;
             $payRequest->requestEnvelope->detailLevel = "ReturnAll";
 
             $clientDetails = Yii::createComponent(
@@ -65,7 +83,7 @@ class CreatePayRequestAction extends CAction
             $receiver = Yii::createComponent(
                 [
                     'class'       => '\PayPalComponent\Field\Receiver',
-                    'amount'      => (ceil(($order->total * .95)*100))/100,
+                    'amount'      => (ceil(($order->total * .95) * 100)) / 100,
                     'email'       => $order->shop->pp_merchant_id,
                     'paymentType' => 'GOODS',
                     'primary'     => false,
@@ -79,11 +97,13 @@ class CreatePayRequestAction extends CAction
             } else {
                 if ($response instanceof PayResponse) {
                     $order->pay_key = $response->payKey;
+                } elseif ($response instanceof PPFaultMessage) {
+                    throw new CHttpException(500, $response->error[0]['message'], $response->error[0]['errorId']);
                 } else {
-                    //print_r($response);
                     throw new CHttpException(500);
                 }
             }
+
 
             $order->status = Order::STATUS_WAITING_FOR_PAYMENT;
             if (!$order->save()) {

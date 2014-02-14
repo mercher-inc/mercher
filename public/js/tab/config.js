@@ -45,6 +45,8 @@ requirejs.config({
             "//cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl",
             "vendors/purl/purl-2.3.1"
         ],
+        DGFlow: '//www.paypalobjects.com/js/external/dg',
+        DGFlowMini: '//www.paypalobjects.com/js/external/apdg',
         facebook: "//connect.facebook.net/en_US/all",
         "google-analytics": "//www.google-analytics.com/analytics",
         fb: "tab/fb",
@@ -81,6 +83,12 @@ requirejs.config({
         },
         modernizr: {
             exports: 'Modernizr'
+        },
+        DGFlow: {
+            exports: 'PAYPAL.apps.DGFlow'
+        },
+        DGFlowMini: {
+            exports: 'PAYPAL.apps.DGFlowMini'
         },
         facebook: {
             exports: 'FB'

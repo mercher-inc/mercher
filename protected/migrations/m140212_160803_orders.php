@@ -18,7 +18,7 @@ class m140212_160803_orders extends CDbMigration
     public $orderStatuses = [
         'new',
         'waiting_for_payment',
-        'accented',
+        'accepted',
         'rejected',
         'approved',
         'completed',

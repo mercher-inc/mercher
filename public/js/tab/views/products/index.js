@@ -62,6 +62,11 @@ define(function (require, exports, module) {
 
         afterRender: function () {
             this.moveCards(true);
+            if (this.collection.count > this.collection.length) {
+                this.$('.showMore').show();
+            } else {
+                this.$('.showMore').hide();
+            }
         },
 
         moveCards: function (force) {

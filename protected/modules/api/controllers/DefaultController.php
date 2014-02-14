@@ -12,23 +12,17 @@ class DefaultController extends \Controller
     public function actionError()
     {
         if ($error = \Yii::app()->errorHandler->error) {
+            $errorData = [
+                'error'=> [
+                    'code' => $error['errorCode'],
+                    'message' => $error['message'],
+                ]
+            ];
             switch ($error['code']) {
-                case 500:
-                    echo \CJSON::encode(array('error' => array('message' => \Yii::t('error', 'internal'))));
-                    break;
                 case 406:
-                    echo \CJSON::encode(
-                        array(
-                            'error' => array(
-                                'message' => $error['message'],
-                                'validation_errors' => $error['validationErrors']
-                            )
-                        )
-                    );
-                    break;
-                default:
-                    echo \CJSON::encode(array('error' => array('message' => $error['message'])));
+                    $errorData['error']['validation_errors'] = $error['validationErrors'];
             }
+            echo \CJSON::encode($errorData);
         }
     }
 }

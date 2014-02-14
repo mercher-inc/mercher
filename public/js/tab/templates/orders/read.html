@@ -1,7 +1,14 @@
 <div class="container">
     <h1 class="page-header">
         Order #<%- order.id %>
+        <span class="status"><%- orderStatus %></span>
     </h1>
+
+    <% if (order.get('status') == 'new' || order.get('status') == 'waiting_for_payment') { %>
+        <div class="payment-method">
+            <button type="button" class="btn btn-primary btn-lg btn-block btnCheckOut payPal">Check out with PayPal</button>
+        </div>
+    <% } %>
 
     <div class="order-items">
         <div class="list"></div>
@@ -10,10 +17,4 @@
             Total: <span class="total-sum">&#36;<%- order.get('total') %></span>
         </div>
     </div>
-
-    <% if (order.get('status') == 'new' || order.get('status') == 'waiting_for_payment') { %>
-        <div class="payment-method">
-            <button type="button" class="btn btn-primary btn-lg btn-block btnCheckOut payPal">Check out with PayPal</button>
-        </div>
-    <% } %>
 </div>

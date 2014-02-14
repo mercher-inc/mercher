@@ -27,7 +27,9 @@
 namespace PayPalComponent\Request;
 
 use Yii,
-    PayPalComponent\Request;
+    PayPalComponent\Request,
+    Exception,
+    PayPalComponent\Field\ClientDetails;
 
 class PayRequest extends Request
 {
@@ -120,11 +122,16 @@ class PayRequest extends Request
                 $clientDetails['class'] = '\PayPalComponent\ClientDetailsType';
             }
             $this->clientDetails = Yii::createComponent($clientDetails);
-        } elseif ($clientDetails instanceof ClientDetailsType) {
+        } elseif ($clientDetails instanceof ClientDetails) {
             $this->clientDetails = $clientDetails;
         } else {
             throw new Exception();
         }
+    }
+
+    public function getClientDetails()
+    {
+        return $this->clientDetails;
     }
 
     protected function parseResponse($response) {
@@ -137,11 +144,6 @@ class PayRequest extends Request
                 break;
         }
         return Yii::createComponent($response);
-    }
-
-    public function getClientDetails()
-    {
-        return $this->clientDetails;
     }
 
     public function getReceiverList()

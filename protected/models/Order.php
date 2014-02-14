@@ -20,7 +20,7 @@ class Order extends CActiveRecord
 {
     const STATUS_NEW                 = 'new';
     const STATUS_WAITING_FOR_PAYMENT = 'waiting_for_payment';
-    const STATUS_ACCEPTED            = 'accented';
+    const STATUS_ACCEPTED            = 'accepted';
     const STATUS_REJECTED            = 'rejected';
     const STATUS_APPROVED            = 'approved';
     const STATUS_COMPLETED           = 'completed';

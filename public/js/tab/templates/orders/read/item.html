@@ -2,7 +2,7 @@
     <%- orderItem.get('amount') %> &times;
 </span>
 <div class="media">
-    <a class="pull-left" href="#"><% if (!_.isEmpty(orderItem.product.get('image'))) { %>
+    <a class="pull-left" href="/products/<%- orderItem.product.id %>"><% if (!_.isEmpty(orderItem.product.get('image'))) { %>
         <img class="media-object img-circle" src="<%- orderItem.product.get('image').xs %>">
         <% } %></a>
     <div class="media-body">

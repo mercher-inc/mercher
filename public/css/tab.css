@@ -6513,6 +6513,9 @@ fieldset[disabled] .btn-info-link.active {
 .view.orders-read .page-header {
   margin: 0 0 30px 0;
 }
+.view.orders-read .page-header .status {
+  float: right;
+}
 .view.orders-read .payment-method {
   margin: 0 0 30px 0;
 }
@@ -6612,6 +6615,17 @@ fieldset[disabled] .btn-info-link.active {
 }
 body {
   margin-top: 70px;
+}
+body #PPDGFrame .mask {
+  background-color: #ffffff;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+body #PPDGFrame .panel {
+  background: transparent;
+}
+body #PPDGFrame .panel iframe {
+  background: transparent;
 }
 .btn-primary {
   background-image: url('/img/bg_1024.png');

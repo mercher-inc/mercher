@@ -43,6 +43,14 @@ define(function (require, exports, module) {
             }, this);
         },
 
+        afterRender: function () {
+            if (this.collection.count > this.collection.length) {
+                this.$('.showMore').show();
+            } else {
+                this.$('.showMore').hide();
+            }
+        },
+
         showMore: function(){
             this.$('.showMore').button('loading');
             this.listenToOnce(this.collection, 'sync', function(collection, resp, options) {

@@ -82,6 +82,27 @@ class IndexController extends CController
         $this->render('index');
     }
 
+    public function actionBlank()
+    {
+        /**
+         * @var $clientScript CClientScript
+         */
+        $clientScript = Yii::app()->clientScript;
+        $clientScript->registerCssFile(
+            '/css/tab.css'
+        );
+        $clientScript->registerCss(
+            'transparentBody',
+            'body{background: transparent;}h1{text-align:center;}'
+        );
+        $clientScript->registerScript(
+            'closeWindow',
+            'if (window.parent == window){window.close();} else if(window.parent.Mercher && window.parent.Mercher.embeddedPPFlow) {window.parent.Mercher.embeddedPPFlow.closeFlow();}',
+            CClientScript::POS_HEAD
+        );
+        $this->render('blank');
+    }
+
     public function getShop()
     {
         if ($this->_shop === null) {

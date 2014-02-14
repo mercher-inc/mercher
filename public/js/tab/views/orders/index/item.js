@@ -46,8 +46,8 @@ define(function (require, exports, module) {
                 case 'waiting_for_payment':
                     orderStatus = 'Waiting for payment';
                     break;
-                case 'accented':
-                    orderStatus = 'Accented';
+                case 'accepted':
+                    orderStatus = 'Accepted';
                     break;
                 case 'rejected':
                     orderStatus = 'Rejected';
