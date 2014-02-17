@@ -29,7 +29,7 @@ class ProductsController extends Controller
                 'actions' => array('index'),
                 'roles'   => array(
                     AuthManager::PERMISSION_READ_PRODUCT => array(
-                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'shop_id' => Yii::app()->request->getParam('shop_id'),
                     )
                 )
             ),
@@ -101,10 +101,6 @@ class ProductsController extends Controller
 
     public function actionCreate()
     {
-        if ($this->shop->productsCount >= $this->shop->maxProductsCount) {
-            throw new CHttpException(402, Yii::t('product', 'too_many'));
-        }
-
         $this->product          = new Product;
         $this->product->shop_id = $this->shop->id;
 

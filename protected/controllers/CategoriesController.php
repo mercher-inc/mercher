@@ -29,7 +29,7 @@ class CategoriesController extends Controller
                 'actions' => array('index'),
                 'roles'   => array(
                     AuthManager::PERMISSION_READ_CATEGORY => array(
-                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'shop_id' => Yii::app()->request->getParam('shop_id'),
                     )
                 )
             ),
@@ -47,7 +47,7 @@ class CategoriesController extends Controller
                 'actions' => array('read'),
                 'roles'   => array(
                     AuthManager::PERMISSION_READ_CATEGORY => array(
-                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'shop_id'     => Yii::app()->request->getParam('shop_id'),
                         'category_id' => Yii::app()->request->getParam('category_id'),
                     )
                 )
@@ -57,7 +57,7 @@ class CategoriesController extends Controller
                 'actions' => array('update'),
                 'roles'   => array(
                     AuthManager::PERMISSION_UPDATE_CATEGORY => array(
-                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'shop_id'     => Yii::app()->request->getParam('shop_id'),
                         'category_id' => Yii::app()->request->getParam('category_id'),
                     )
                 )
@@ -67,7 +67,7 @@ class CategoriesController extends Controller
                 'actions' => array('delete'),
                 'roles'   => array(
                     AuthManager::PERMISSION_DELETE_CATEGORY => array(
-                        'shop_id'    => Yii::app()->request->getParam('shop_id'),
+                        'shop_id'     => Yii::app()->request->getParam('shop_id'),
                         'category_id' => Yii::app()->request->getParam('category_id'),
                     )
                 )
@@ -99,10 +99,6 @@ class CategoriesController extends Controller
 
     public function actionCreate()
     {
-        if ($this->shop->categoriesCount >= $this->shop->maxProductsCount) {
-            throw new CHttpException(402, Yii::t('category', 'too_many'));
-        }
-
         $this->category = new Category;
 
         if (isset($_POST['Category'])) {

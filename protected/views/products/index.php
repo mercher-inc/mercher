@@ -6,22 +6,16 @@
 
 Yii::app()->controller->headerTitle = Yii::t('label', 'products');
 
-if ($this->shop->productsCount < $this->shop->maxProductsCount) {
-    array_push(
-        Yii::app()->controller->headerButtons,
-        [
-            'title' => Yii::t(
-                'product',
-                'create_btn',
-                [
-                    '{productsCount}' => $this->shop->productsCount,
-                    '{productsMax}'   => $this->shop->maxProductsCount
-                ]
-            ),
-            'url'   => Yii::app()->urlManager->createUrl('products/create', array('shop_id' => $this->shop->id)),
-        ]
-    );
-}
+array_push(
+    Yii::app()->controller->headerButtons,
+    [
+        'title' => Yii::t(
+            'product',
+            'create_btn'
+        ),
+        'url'   => Yii::app()->urlManager->createUrl('products/create', array('shop_id' => $this->shop->id)),
+    ]
+);
 
 $this->widget(
     'application.widgets.grid.GridView',
@@ -53,7 +47,7 @@ $this->widget(
                 'name'               => 'amount',
                 'cssClassExpression' => '$data->amount?"":"not_set"',
                 'value'              => '$data->amount?("&#36;" . $data->amount):""',
-                'headerHtmlOptions' => [
+                'headerHtmlOptions'  => [
                     'style' => 'width: 200px;'
                 ]
             ],
@@ -61,13 +55,13 @@ $this->widget(
                 'name'               => 'is_active',
                 'cssClassExpression' => '$data->is_active?"yes":"no"',
                 'value'              => '',
-                'headerHtmlOptions' => [
+                'headerHtmlOptions'  => [
                     'style' => 'width: 200px;'
                 ]
             ],
             [
-                'type'  => 'raw',
-                'value' => 'CHtml::tag(
+                'type'        => 'raw',
+                'value'       => 'CHtml::tag(
                     "div",
                     ["class"=>"btn-group btn-group-justified"],
                     CHtml::link(
@@ -96,7 +90,7 @@ $this->widget(
                         ]
                     )*/
                 )',
-                'htmlOptions'        => [
+                'htmlOptions' => [
                     'style' => 'width: 200px;'
                 ]
             ]

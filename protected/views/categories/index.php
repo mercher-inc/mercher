@@ -6,22 +6,16 @@
 
 Yii::app()->controller->headerTitle = Yii::t('label', 'categories');
 
-if ($this->shop->categoriesCount < $this->shop->maxProductsCount) {
-    array_push(
-        Yii::app()->controller->headerButtons,
-        [
-            'title' => Yii::t(
-                'category',
-                'create_btn',
-                [
-                    '{categoriesCount}' => $this->shop->categoriesCount,
-                    '{categoriesMax}'   => $this->shop->maxProductsCount
-                ]
-            ),
-            'url'   => Yii::app()->urlManager->createUrl('categories/create', ['shop_id' => $this->shop->id])
-        ]
-    );
-}
+array_push(
+    Yii::app()->controller->headerButtons,
+    [
+        'title' => Yii::t(
+            'category',
+            'create_btn'
+        ),
+        'url'   => Yii::app()->urlManager->createUrl('categories/create', ['shop_id' => $this->shop->id])
+    ]
+);
 
 
 $this->widget(
@@ -41,8 +35,8 @@ $this->widget(
                 'value'              => ''
             ],
             [
-                'type'  => 'raw',
-                'value' => 'CHtml::tag(
+                'type'        => 'raw',
+                'value'       => 'CHtml::tag(
                     "div",
                     ["class"=>"btn-group btn-group-justified"],
                     CHtml::link(
@@ -61,7 +55,7 @@ $this->widget(
                         ["class" => "btn btn-default"]
                     )
                 )',
-                'htmlOptions'        => [
+                'htmlOptions' => [
                     'style' => 'width: 200px;'
                 ]
             ]

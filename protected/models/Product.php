@@ -48,7 +48,6 @@ class Product extends CActiveRecord
             array('quantity_in_stock', 'numerical', 'integerOnly' => true, 'min' => 0),
             array('title', 'length', 'max' => 50),
             array('amount', 'numerical', 'max' => 999999999999999, 'min' => 0),
-            array('is_active', 'checkActiveCount'),
             array('category_id, amount, quantity_in_stock, description, image_id, is_active', 'safe'),
             // The following rule is used by search().
             array(
@@ -103,34 +102,6 @@ class Product extends CActiveRecord
                 return false;
         }
         return false;
-    }
-
-    public function checkActiveCount()
-    {
-        if ($this->is_active) {
-            if ($this->isNewRecord) {
-                $count = (int)Product::model()->count(
-                    'shop_id = :shopId AND is_active = TRUE',
-                    array(
-                        'shopId' => $this->shop_id
-                    )
-                );
-            } else {
-                $count = (int)Product::model()->count(
-                    'shop_id = :shopId AND is_active = TRUE AND id != :productId',
-                    array(
-                        'shopId'    => $this->shop_id,
-                        'productId' => $this->id
-                    )
-                );
-            }
-            $count++;
-            if ($count > $this->shop->maxProductsCount) {
-                $this->addError('is_active', Yii::t('product', 'too_many_active'));
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

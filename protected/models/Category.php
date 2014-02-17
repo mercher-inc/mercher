@@ -37,7 +37,6 @@ class Category extends CActiveRecord
             array('is_active, is_banned', 'boolFilter'),
             array('shop_id, title', 'required'),
             array('title', 'length', 'max' => 50),
-            array('is_active', 'checkActiveCount'),
             array('title, description, is_active', 'safe'),
             // The following rule is used by search().
             array('id, created, updated, shop_id, title, description, is_active, is_banned', 'safe', 'on' => 'search'),
@@ -70,34 +69,6 @@ class Category extends CActiveRecord
                 return false;
         }
         return false;
-    }
-
-    public function checkActiveCount()
-    {
-        if ($this->is_active) {
-            if ($this->isNewRecord) {
-                $count = (int)Category::model()->count(
-                    'shop_id = :shopId AND is_active = TRUE',
-                    array(
-                        'shopId' => $this->shop_id
-                    )
-                );
-            } else {
-                $count = (int)Category::model()->count(
-                    'shop_id = :shopId AND is_active = TRUE AND id != :categoryId',
-                    array(
-                        'shopId'     => $this->shop_id,
-                        'categoryId' => $this->id
-                    )
-                );
-            }
-            $count++;
-            if ($count > $this->shop->maxProductsCount) {
-                $this->addError('is_active', Yii::t('category', 'too_many_active'));
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

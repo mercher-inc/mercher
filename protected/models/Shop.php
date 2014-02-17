@@ -8,22 +8,18 @@
  * @property string $updated
  * @property string $fb_id
  * @property string $owner_id
- * @property string $subscription_id
  * @property string $pp_merchant_id
  * @property string $ga_id
  * @property string $title
  * @property string $description
  * @property string $image_id
- * @property string $tax
  * @property boolean $is_active
  * @property boolean $is_banned
  * The followings are the available model relations:
  * @property User $owner
- * @property Subscription $subscription
  * @property Product[] $products
  * @property Image[] $images
  * @property Category[] $categories
- * @property integer maxProductsCount
  * @property User[] $managers
  * @property integer $managersCount
  * @property Order[] $orders
@@ -48,8 +44,7 @@ class Shop extends CActiveRecord
         return array(
             array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
             array('title', 'default', 'value' => 'Shop'),
-            array('description, fb_id, ga_id, subscription_id, image_id', 'default', 'value' => null),
-            array('tax', 'default', 'value' => 0.00),
+            array('description, fb_id, ga_id, image_id', 'default', 'value' => null),
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id', 'required'),
             array('fb_id', 'in', 'not' => true, 'range' => array('430253050396911')),
@@ -66,9 +61,8 @@ class Shop extends CActiveRecord
             ),
             array('fb_id', 'checkFbId', 'on' => 'insert'),
             array('title', 'length', 'max' => 50),
-            array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active', 'checkActiveCount'),
-            array('title, description, is_active, ga_id, subscription_id, image_id', 'safe'),
+            array('title, description, is_active, ga_id, image_id', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             // The following rule is used by search().
             array(
@@ -177,17 +171,16 @@ class Shop extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'owner'           => array(self::BELONGS_TO, 'User', 'owner_id'),
-            'subscription'    => array(self::BELONGS_TO, 'Subscription', 'subscription_id'),
             'products'        => array(self::HAS_MANY, 'Product', 'shop_id'),
             'productsCount'   => array(self::STAT, 'Product', 'shop_id'),
             'images'          => array(self::HAS_MANY, 'Image', 'shop_id'),
             'imagesCount'     => array(self::STAT, 'Image', 'shop_id'),
             'categories'      => array(self::HAS_MANY, 'Category', 'shop_id'),
             'categoriesCount' => array(self::STAT, 'Category', 'shop_id'),
-            'managers'         => array(self::MANY_MANY, 'User', 'manager(shop_id, user_id)'),
-            'managersCount'         => array(self::STAT, 'User', 'manager(shop_id, user_id)'),
+            'managers'        => array(self::MANY_MANY, 'User', 'manager(shop_id, user_id)'),
+            'managersCount'   => array(self::STAT, 'User', 'manager(shop_id, user_id)'),
             'image'           => array(self::BELONGS_TO, 'Image', 'image_id'),
-            'orders'        => array(self::HAS_MANY, 'Order', 'shop_id'),
+            'orders'          => array(self::HAS_MANY, 'Order', 'shop_id'),
         );
     }
 
@@ -197,20 +190,18 @@ class Shop extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'              => 'ID',
-            'created'         => 'Created',
-            'updated'         => 'Updated',
-            'fb_id'           => 'Facebook page',
-            'owner_id'        => 'Owner',
-            'subscription_id' => 'Subscription',
-            'title'           => 'Tab name',
-            'description'     => 'Description',
-            'image_id'        => 'Tab image',
-            'tax'             => 'Tax percentage',
-            'is_active'       => 'Show tab',
-            'is_banned'       => 'Banned',
-            'pp_merchant_id'  => 'PayPal merchant email',
-            'ga_id'           => 'Google Analytics ID',
+            'id'             => 'ID',
+            'created'        => 'Created',
+            'updated'        => 'Updated',
+            'fb_id'          => 'Facebook page',
+            'owner_id'       => 'Owner',
+            'title'          => 'Tab name',
+            'description'    => 'Description',
+            'image_id'       => 'Tab image',
+            'is_active'      => 'Show tab',
+            'is_banned'      => 'Banned',
+            'pp_merchant_id' => 'PayPal merchant email',
+            'ga_id'          => 'Google Analytics ID',
         );
     }
 
@@ -233,11 +224,9 @@ class Shop extends CActiveRecord
         $criteria->compare('updated', $this->updated, true);
         $criteria->compare('fb_id', $this->fb_id, true);
         $criteria->compare('owner_id', $this->owner_id, true);
-        $criteria->compare('subscription_id', $this->subscription_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('image_id', $this->image_id);
-        $criteria->compare('tax', $this->tax, true);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
         $criteria->compare('pp_merchant_id', $this->pp_merchant_id, true);
@@ -265,14 +254,6 @@ class Shop extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
-    }
-
-    public function getMaxProductsCount()
-    {
-        if ($this->subscription_id) {
-            return $this->subscription->products_count;
-        }
-        return 10;
     }
 
     protected function afterSave()

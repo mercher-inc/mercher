@@ -4,7 +4,7 @@ return array(
     'no_items_found'   => 'No products found',
     'too_many'         => 'Too many products',
     'too_many_active'  => 'Too many active products',
-    'create_btn'       => 'Create new product ({productsCount}/{productsMax})',
+    'create_btn'       => 'Create new product',
     'create'           => 'Create new product',
     'edit'             => 'Product settings',
     'save'             => 'Save product settings',
