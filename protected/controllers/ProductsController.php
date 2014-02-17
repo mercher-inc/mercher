@@ -170,13 +170,23 @@ class ProductsController extends Controller
             $this->product->delete();
             $this->redirect(['index', 'shop_id' => $this->shop->id]);
         }
-        $this->render(
-            'delete',
-            array(
-                'shop'  => $this->shop,
-                'model' => $this->product
-            )
-        );
+        if (!$this->product->orderItemsCount) {
+            $this->render(
+                'delete',
+                array(
+                    'shop'  => $this->shop,
+                    'model' => $this->product
+                )
+            );
+        } else {
+            $this->render(
+                'deleteError',
+                array(
+                    'shop'  => $this->shop,
+                    'model' => $this->product
+                )
+            );
+        }
     }
 
     public function getShop()

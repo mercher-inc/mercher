@@ -117,6 +117,7 @@ class Product extends CActiveRecord
             'image'      => array(self::BELONGS_TO, 'Image', 'image_id'),
             'cartItems'  => array(self::HAS_MANY, 'CartItem', 'product_id'),
             'orderItems' => array(self::HAS_MANY, 'OrderItem', 'product_id'),
+            'orderItemsCount' => array(self::STAT, 'OrderItem', 'product_id'),
         );
     }
 
