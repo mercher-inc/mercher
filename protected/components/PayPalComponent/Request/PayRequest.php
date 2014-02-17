@@ -44,13 +44,13 @@ class PayRequest extends Request
 
     public function init()
     {
-        $this->receiverList = new \PayPalComponent\Field\ReceiverList();
+        $this->receiverList    = new \PayPalComponent\Field\ReceiverList();
         $this->requestEnvelope = new \PayPalComponent\Field\RequestEnvelope();
     }
 
     public function endpoint()
     {
-        return 'https://svcs.sandbox.paypal.com/AdaptivePayments/Pay';
+        return Yii::app()->paypal->baseUrl . 'AdaptivePayments/Pay';
     }
 
     public function attributeNames()
@@ -134,7 +134,8 @@ class PayRequest extends Request
         return $this->clientDetails;
     }
 
-    protected function parseResponse($response) {
+    protected function parseResponse($response)
+    {
         switch ($response['responseEnvelope']['ack']) {
             case 'Failure':
                 $response['class'] = '\PayPalComponent\Response\PPFaultMessage';

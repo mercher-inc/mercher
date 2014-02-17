@@ -115,7 +115,8 @@ return array(
             'userId'        => 'dmitriy.s.les-facilitator_api1.gmail.com',
             'password'      => '1391764851',
             'signature'     => 'AIkghGmb0DgD6MEPZCmNq.bKujMAA8NEIHryH-LQIfmx7UZ5q1LXAa7T',
-            'primaryEmail'     => 'dmitriy.s.les-facilitator@gmail.com',
+            'primaryEmail'  => 'dmitriy.s.les-facilitator@gmail.com',
+            'baseUrl'       => 'https://svcs.sandbox.paypal.com/'
         )
     ),
     // application-level parameters that can be accessed

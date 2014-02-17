@@ -20,7 +20,7 @@ class PaymentDetailsRequest extends Request
 
     public function endpoint()
     {
-        return 'https://svcs.sandbox.paypal.com/AdaptivePayments/PaymentDetails';
+        return Yii::app()->paypal->baseUrl . 'AdaptivePayments/PaymentDetails';
     }
 
     public function attributeNames()
@@ -58,7 +58,8 @@ class PaymentDetailsRequest extends Request
         ];
     }
 
-    protected function parseResponse($response) {
+    protected function parseResponse($response)
+    {
         switch ($response['responseEnvelope']['ack']) {
             case 'Failure':
                 $response['class'] = '\PayPalComponent\Response\PPFaultMessage';
