@@ -8,26 +8,6 @@
 
 Yii::app()->controller->headerTitle = Yii::t('product', 'edit');
 
-array_push(
-    Yii::app()->controller->headerButtons,
-    [
-        'title'       => Yii::t('product', 'view_online'),
-        'url'         => 'https://www.facebook.com/' . $this->shop->fb_id . '?' . http_build_query(
-            [
-                'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
-                'app_data' => CJSON::encode(
-                    [
-                        'product_id' => $model->id
-                    ]
-                )
-            ]
-        ),
-        'htmlOptions' => [
-            'target' => '_blank'
-        ]
-    ]
-);
-
 $form = $this->beginWidget(
     'ActiveForm',
     [

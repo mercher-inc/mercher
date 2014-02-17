@@ -16,6 +16,10 @@ $this->menu = array_merge(
                 ]
             )
         ],
+        [
+            'label' => Yii::t('label', 'orders'),
+            'url'   => ['orders/index', 'shop_id' => $this->shop->id]
+        ],
         /*
         [
             'label' => Yii::t('label', 'categories'),

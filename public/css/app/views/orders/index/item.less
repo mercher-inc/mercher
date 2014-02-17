@@ -1,0 +1,47 @@
+&-item {
+  @orders-index-item-card-height: 50px;
+
+  .card {
+    margin: 0 0 @grid-gutter-width 0;
+    height: @orders-index-item-card-height;
+    overflow: hidden;
+    line-height: @orders-index-item-card-height;
+    font-size: 20px;
+    font-weight: 300;
+    white-space: nowrap;
+    padding-left: 15px;
+
+    &:hover {
+
+    }
+
+    .images {
+    }
+
+    .total-sum {
+      text-align: right;
+    }
+
+    &.new {
+
+    }
+
+    &.new, &.waiting_for_payment {
+      .text-muted();
+    }
+
+    &.approved {
+      .text-success();
+    }
+
+    &.rejected {
+      .text-danger();
+    }
+
+    &.completed {
+      .text-info();
+    }
+  }
+
+  @import "item/product";
+}

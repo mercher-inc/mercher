@@ -98,10 +98,10 @@ class Order extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
+        $criteria->compare('id', $this->id);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('updated', $this->updated, true);
-        $criteria->compare('shop_id', $this->shop_id, true);
+        $criteria->compare('shop_id', $this->shop_id);
         $criteria->compare('user_id', $this->user_id, true);
         $criteria->compare('pay_key', $this->pay_key, true);
         $criteria->compare('status', $this->status, true);

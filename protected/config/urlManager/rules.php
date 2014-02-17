@@ -40,6 +40,9 @@ return array_merge(
         //==Orders==
         'shops/<shop_id:\d+>/orders'                                                                    => 'orders/index',
         'shops/<shop_id:\d+>/orders/<order_id:\d+>'                                                     => 'orders/read',
+        'shops/<shop_id:\d+>/orders/<order_id:\d+>/approve'                                             => 'orders/approve',
+        'shops/<shop_id:\d+>/orders/<order_id:\d+>/reject'                                              => 'orders/reject',
+        //==Wizard==
         'wizard/create_tab'                                                                             => 'wizard/step1',
         'wizard/create_product'                                                                         => 'wizard/step2',
         'wizard/create_shop'                                                                            => 'wizard/step3',
