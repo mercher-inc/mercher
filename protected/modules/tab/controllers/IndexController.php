@@ -52,8 +52,20 @@ class IndexController extends CController
                         'models/shop'          => [
                             'urlRoot' => $this->createUrl('/api/shops/list')
                         ],
+                        'models/product'  => [
+                            'urlRoot' => $this->createUrl('/api/products/list', ['shop_id' => $this->shop->id])
+                        ],
+                        'models/cartItem' => [
+                            'urlRoot' => $this->createUrl('/api/cart_items/list', ['shop_id' => $this->shop->id])
+                        ],
                         'models/order'          => [
                             'urlRoot' => $this->createUrl('/api/orders/list', ['shop_id' => $this->shop->id])
+                        ],
+                        'og/actions/collections/adds' => [
+                            'url'   => 'me/' . Yii::app()->facebook->namespace . ':add'
+                        ],
+                        'og/actions/collections/likes' => [
+                            'url'   => 'me/og.likes'
                         ],
                         'ga'                    => [
                             'mainTrackerId' => 'UA-23393444-14',

@@ -36,6 +36,12 @@ define(function (require, exports, module) {
                 var itemView = new ItemView({model: model, controller: view.controller});
                 view.insertView('.list', itemView);
 
+                if (view.collection.count > view.collection.length) {
+                    view.$('.showMore').show();
+                } else {
+                    view.$('.showMore').hide();
+                }
+
                 itemView.$el.hide();
                 itemView.render();
 
@@ -55,8 +61,9 @@ define(function (require, exports, module) {
         },
 
         beforeRender: function () {
+            var view = this;
             this.collection.each(function (model) {
-                this.insertView('.list', new ItemView({model: model}));
+                this.insertView('.list', new ItemView({model: model, controller: view.controller}));
             }, this);
         },
 

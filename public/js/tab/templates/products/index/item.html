@@ -11,7 +11,7 @@
             </h3>
             <% if (product.get('amount')) { %>
                 <div class="actions">
-                    <a role="button" class="buyBtn btn btn-primary btn-block">Buy for $<%- product.get('amount') %></a>
+                    <a role="button" class="buyBtn btn btn-primary btn-block" data-incart-text="In cart">Buy for $<%- product.get('amount') %></a>
                 </div>
             <% } %>
             <div class="actions">

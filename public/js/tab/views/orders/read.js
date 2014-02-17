@@ -36,6 +36,12 @@ define(function (require, exports, module) {
                 var itemView = new ItemView({model: model, controller: view.controller});
                 view.insertView('.order-items .list', itemView);
                 itemView.render();
+
+                if (view.model.items.count > view.model.items.length) {
+                    view.$('.showMore').show();
+                } else {
+                    view.$('.showMore').hide();
+                }
             });
 
             this.listenTo(this.model, 'change:status', function(){

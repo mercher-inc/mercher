@@ -20,6 +20,7 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
             var view = this;
+            var cartItemsCollection = view.controller.options.router.cartItemsCollection;
 
             this.listenTo(this.model, 'remove', function (model, collection, options) {
                 this.remove();
@@ -32,7 +33,7 @@ define(function (require, exports, module) {
                 });
             });
 
-            this.listenTo(this.model.likes, 'add remove', function(model, collection, options){
+            this.listenTo(this.model.likes, 'add remove', function (model, collection, options) {
                 if (collection.length) {
                     this.$(".likeBtn").addClass('active');
                 } else {
@@ -40,11 +41,25 @@ define(function (require, exports, module) {
                 }
             });
 
-            this.listenTo(this.model.adds, 'add remove', function(model, collection, options){
+            this.listenTo(this.model.adds, 'add remove', function (model, collection, options) {
                 if (collection.length) {
                     this.$(".addBtn").addClass('active');
                 } else {
                     this.$(".addBtn").removeClass('active');
+                }
+            });
+
+            this.listenTo(cartItemsCollection, 'add', function (model, collection, options) {
+                if (model.product.id == view.model.id) {
+                    view.$('.buyBtn').button('incart');
+                    view.$('.buyBtn').addClass('active');
+                }
+            });
+
+            this.listenTo(cartItemsCollection, 'remove', function (model, collection, options) {
+                if (model.product.id == view.model.id) {
+                    view.$('.buyBtn').button('reset');
+                    view.$('.buyBtn').removeClass('active');
                 }
             });
         },
@@ -59,6 +74,12 @@ define(function (require, exports, module) {
                     }
                 });
             });
+            var cartItemsCollection = view.controller.options.router.cartItemsCollection;
+            var cartItems = cartItemsCollection.where({product_id: view.model.id});
+            if (cartItems.length) {
+                view.$('.buyBtn').button('incart');
+                view.$('.buyBtn').addClass('active');
+            }
         },
 
         serialize: function () {
@@ -68,10 +89,11 @@ define(function (require, exports, module) {
         onBuyBtnClick: function (e) {
             var view = this;
             var cartItemsCollection = view.controller.options.router.cartItemsCollection;
+            var cartDialog = view.controller.options.router.cartDialog;
 
             this.controller.options.router.authorize({
                 scope: ['email'],
-                success: function(){
+                success: function () {
                     require(['fb'], function (FB) {
                         FB.getLoginStatus(function (response) {
                             if (response.status === 'connected') {
@@ -79,20 +101,27 @@ define(function (require, exports, module) {
                                 var cartItem = null;
 
                                 if (!cartItems.length) {
-                                    cartItem = new (require('models/cartItem'))({product_id: view.model.id, amount: 1});
-                                    cartItemsCollection.add(cartItem);
+                                    cartItem = new (require('models/cartItem'))();
+                                    cartItem.save(
+                                        {
+                                            product_id: view.model.id,
+                                            amount: 1
+                                        },
+                                        {
+                                            success: function () {
+                                                cartItemsCollection.add(cartItem);
+                                            }
+                                        }
+                                    );
                                 } else {
-                                    cartItem = _.first(cartItems);
-                                    cartItem.set('amount', parseInt(cartItem.get('amount')) + 1);
+                                    cartDialog.$el.modal('show');
                                 }
-
-                                cartItem.save();
                             }
                         });
                     });
 
                 },
-                error: function(){
+                error: function () {
 
                 }
             });
@@ -102,7 +131,7 @@ define(function (require, exports, module) {
             var view = this;
             this.controller.options.router.authorize({
                 scope: ['publish_actions'],
-                success: function(){
+                success: function () {
                     if (view.model.likes.length) {
                         view.model.likes.last().destroy();
                     } else {
@@ -111,7 +140,7 @@ define(function (require, exports, module) {
                         likeAction.save();
                     }
                 },
-                error: function(){
+                error: function () {
 
                 }
             });
@@ -121,7 +150,7 @@ define(function (require, exports, module) {
             var view = this;
             this.controller.options.router.authorize({
                 scope: ['publish_actions'],
-                success: function(){
+                success: function () {
                     if (view.model.adds.length) {
                         view.model.adds.last().destroy();
                     } else {
@@ -130,7 +159,7 @@ define(function (require, exports, module) {
                         addAction.save();
                     }
                 },
-                error: function(){
+                error: function () {
 
                 }
             });

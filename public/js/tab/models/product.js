@@ -7,6 +7,7 @@ define(function (require, exports, module) {
         AddsCollection = require('og/actions/collections/adds');
 
     return Backbone.Model.extend({
+        urlRoot: module.config().urlRoot,
         initialize: function (options) {
             this.likes =  new LikesCollection([], {object: this.get('fb_id')});
             this.adds =  new AddsCollection([], {object: this.get('fb_id')});
