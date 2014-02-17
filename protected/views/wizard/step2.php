@@ -80,23 +80,23 @@ echo $form->error($model, 'description', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
-//==amount==
+//==price==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
     'div',
-    ['class' => 'form-group col-lg-12' . ($model->hasErrors('amount') ? ' has-error' : '')]
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('price') ? ' has-error' : '')]
 );
-echo $form->label($model, 'amount', ['class' => 'control-label']);
+echo $form->label($model, 'price', ['class' => 'control-label']);
 echo $form->textField(
     $model,
-    'amount',
+    'price',
     [
         'class'       => 'form-control',
         'data-toggle' => 'tooltip',
-        'title'       => 'Set product\'s amount'
+        'title'       => 'Set product\'s price'
     ]
 );
-echo $form->error($model, 'amount', ['class' => 'help-block']);
+echo $form->error($model, 'price', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 

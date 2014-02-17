@@ -50,10 +50,10 @@ class CreateOrderAction extends CAction
          */
         $transaction = Yii::app()->db->beginTransaction();
 
-        $order = new Order();
+        $order          = new Order();
         $order->shop_id = $shop->id;
         $order->user_id = $user->id;
-        $order->status = Order::STATUS_NEW;
+        $order->status  = Order::STATUS_NEW;
 
         if (!$order->save()) {
             $transaction->rollback();
@@ -68,11 +68,11 @@ class CreateOrderAction extends CAction
         }
 
         foreach ($cartItems as $cartItem) {
-            $orderItem = new OrderItem();
-            $orderItem->order_id = $order->id;
+            $orderItem             = new OrderItem();
+            $orderItem->order_id   = $order->id;
             $orderItem->product_id = $cartItem->product->id;
-            $orderItem->price = $cartItem->product->amount;
-            $orderItem->amount = $cartItem->amount;
+            $orderItem->price      = $cartItem->product->price;
+            $orderItem->amount     = $cartItem->amount;
 
             if (!$orderItem->save()) {
                 $transaction->rollback();

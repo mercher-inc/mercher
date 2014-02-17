@@ -22,12 +22,12 @@ define(function (require, exports, module) {
             this.render();
 
             /*
-            this.listenTo(this.collection, 'all', function(event){
-                console.log(event);
-            });
-            */
+             this.listenTo(this.collection, 'all', function(event){
+             console.log(event);
+             });
+             */
 
-            this.listenTo(this.collection, 'add', function (model, collection, options){
+            this.listenTo(this.collection, 'add', function (model, collection, options) {
                 var itemView = new ItemView({model: model});
                 this.insertView('.list', itemView);
                 itemView.render();
@@ -35,11 +35,11 @@ define(function (require, exports, module) {
             });
 
 
-            this.listenTo(this.collection, 'add destroy change:amount', function (model, collection, options){
+            this.listenTo(this.collection, 'add destroy change:amount', function (model, collection, options) {
                 this.renderSum();
             });
 
-            this.listenTo(this.collection, 'remove', function (model, collection, options){
+            this.listenTo(this.collection, 'remove', function (model, collection, options) {
                 if (!collection.length) {
                     this.$el.modal('hide');
                 }
@@ -53,10 +53,10 @@ define(function (require, exports, module) {
             }, this);
         },
 
-        renderSum: function(){
+        renderSum: function () {
             var sum = 0;
-            this.collection.each(function(cartItem){
-                var price = parseFloat(cartItem.product.get('amount'));
+            this.collection.each(function (cartItem) {
+                var price = parseFloat(cartItem.product.get('price'));
                 var amount = parseInt(cartItem.get('amount'));
                 if (isNaN(price)) {
                     price = 0;
@@ -79,10 +79,10 @@ define(function (require, exports, module) {
             this.$('.total-sum').html(sumStr);
         },
 
-        onBtnCheckoutClick: function(e) {
+        onBtnCheckoutClick: function (e) {
             var view = this;
 
-            var cartItemsSavingCompleteCallback = function() {
+            var cartItemsSavingCompleteCallback = function () {
                 $.ajax(
                     {
                         url: '/api/createOrder',
@@ -91,17 +91,17 @@ define(function (require, exports, module) {
                         },
                         type: 'GET',
                         dataType: 'json',
-                        success: function(data, textStatus, jqXHR){
+                        success: function (data, textStatus, jqXHR) {
                             var newOrder = new (require('models/order'))(data);
                             //console.log(newOrder);
                             view.router.navigate('orders/' + newOrder.id, {trigger: true});
                             view.collection.fetch({data: {limit: -1}});
-                            view.collection.once('sync error', function(){
+                            view.collection.once('sync error', function () {
                                 view.$('.btnCheckout').button('reset');
                                 view.$('.amount, .btnDelete').prop('disabled', false);
                             });
                         },
-                        error: function(jqXHR, textStatus, errorThrown){
+                        error: function (jqXHR, textStatus, errorThrown) {
                             //console.log(jqXHR, textStatus, errorThrown);
                         }
                     }
@@ -113,9 +113,9 @@ define(function (require, exports, module) {
 
             var modelsToSaveCount = this.collection.length;
 
-            this.collection.each(function(cartItem){
-                cartItem.once('sync error', function(){
-                    modelsToSaveCount --;
+            this.collection.each(function (cartItem) {
+                cartItem.once('sync error', function () {
+                    modelsToSaveCount--;
                     if (!modelsToSaveCount) {
                         cartItemsSavingCompleteCallback();
                     }

@@ -2,17 +2,19 @@
     <div class="row">
         <a class="image" href="/products/<%- product.id %>"><% if (!_.isEmpty(product.get('image'))) { %>
             <img src="<%- product.get('image').l %>">
-        <% } %></a>
+            <% } %></a>
+
         <div class="info">
             <h3>
                 <a href="/products/<%- product.id %>">
                     <%- product.get('title') %>
                 </a>
             </h3>
-            <% if (product.get('amount')) { %>
-                <div class="actions">
-                    <a role="button" class="buyBtn btn btn-primary btn-block" data-incart-text="In cart">Buy for $<%- product.get('amount') %></a>
-                </div>
+            <% if (product.get('price')) { %>
+            <div class="actions">
+                <a role="button" class="buyBtn btn btn-primary btn-block" data-incart-text="In cart">Buy for $<%-
+                    product.get('price') %></a>
+            </div>
             <% } %>
             <div class="actions">
                 <div class="btn-group btn-group-justified">

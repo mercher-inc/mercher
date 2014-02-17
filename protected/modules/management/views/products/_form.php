@@ -46,9 +46,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'amount'); ?>
-        <?php echo $form->textField($model, 'amount', array('size' => 9, 'maxlength' => 9)); ?>
-        <?php echo $form->error($model, 'amount'); ?>
+        <?php echo $form->labelEx($model, 'price'); ?>
+        <?php echo $form->textField($model, 'price', array('size' => 9, 'maxlength' => 9)); ?>
+        <?php echo $form->error($model, 'price'); ?>
     </div>
 
     <div class="row">

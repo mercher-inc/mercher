@@ -12,7 +12,7 @@
  * @property string $title
  * @property string $description
  * @property string $image_id
- * @property string $amount
+ * @property string $price
  * @property integer $quantity_in_stock
  * @property boolean $is_active
  * @property boolean $is_banned
@@ -41,17 +41,17 @@ class Product extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('description, amount, quantity_in_stock, category_id, image_id', 'default', 'value' => null),
+            array('description, price, quantity_in_stock, category_id, image_id', 'default', 'value' => null),
             array('category_id', 'checkCategoryId', 'on' => 'insert, update'),
             array('is_active, is_banned', 'boolFilter'),
             array('shop_id, title', 'required'),
             array('quantity_in_stock', 'numerical', 'integerOnly' => true, 'min' => 0),
             array('title', 'length', 'max' => 50),
-            array('amount', 'numerical', 'max' => 999999999999999, 'min' => 0),
-            array('category_id, amount, quantity_in_stock, description, image_id, is_active', 'safe'),
+            array('price', 'numerical', 'max' => 999999999999999, 'min' => 0),
+            array('category_id, price, quantity_in_stock, description, image_id, is_active', 'safe'),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, amount, is_active, is_banned, quantity_in_stock',
+                'id, created, updated, fb_id, shop_id, category_id, title, description, image_id, price, is_active, is_banned, quantity_in_stock',
                 'safe',
                 'on' => 'search'
             ),
@@ -135,7 +135,7 @@ class Product extends CActiveRecord
             'title'             => 'Title',
             'description'       => 'Description',
             'image_id'          => 'Image',
-            'amount'            => 'Price',
+            'price'             => 'Price',
             'is_active'         => 'Show in shop',
             'is_banned'         => 'Banned',
             'quantity_in_stock' => 'Quantity In Stock',
@@ -165,7 +165,7 @@ class Product extends CActiveRecord
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('image_id', $this->image_id);
-        $criteria->compare('amount', $this->amount, true);
+        $criteria->compare('price', $this->price, true);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
         $criteria->compare('quantity_in_stock', $this->quantity_in_stock);
@@ -225,8 +225,8 @@ class Product extends CActiveRecord
             'fb:admins'        => $this->shop->owner->fb_id,
             'fb:app_id'        => Yii::app()->facebook->sdk->getAppId(),
         );
-        if ($this->amount) {
-            $object['product:price:amount']   = $this->amount;
+        if ($this->price) {
+            $object['product:price:amount']   = $this->price;
             $object['product:price:currency'] = 'USD';
         }
         if ($this->description) {

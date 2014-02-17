@@ -44,9 +44,9 @@ $this->widget(
             */
             [
                 'type'               => 'raw',
-                'name'               => 'amount',
-                'cssClassExpression' => '$data->amount?"":"not_set"',
-                'value'              => '$data->amount?("&#36;" . $data->amount):""',
+                'name'               => 'price',
+                'cssClassExpression' => '$data->price?"":"not_set"',
+                'value'              => '$data->price?("&#36;" . $data->price):""',
                 'headerHtmlOptions'  => [
                     'style' => 'width: 200px;'
                 ]

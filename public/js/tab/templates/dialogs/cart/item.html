@@ -3,17 +3,18 @@
         <div class="media">
             <a class="pull-left" href="#"><% if (!_.isEmpty(cart_item.product.get('image'))) { %>
                 <img class="media-object img-circle" src="<%- cart_item.product.get('image').xs %>">
-            <% } %></a>
+                <% } %></a>
+
             <div class="media-body">
                 <h4 class="media-heading"><%- cart_item.product.get('title') %></h4>
-                <% if (cart_item.product.get('amount')) { %>
-                    <p>&#36;<%- cart_item.product.get('amount') %></p>
+                <% if (cart_item.product.get('price')) { %>
+                <p>&#36;<%- cart_item.product.get('price') %></p>
                 <% } %>
             </div>
         </div>
     </div>
     <div class="col-xs-3">
-        <input type="number" class="form-control amount" value="<%- cart_item.get('amount') %>" />
+        <input type="number" class="form-control amount" value="<%- cart_item.get('amount') %>"/>
     </div>
     <div class="col-xs-1">
         <button type="button" class="close btnDelete">&times;</button>

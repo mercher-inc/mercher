@@ -17,6 +17,6 @@ return array(
     'help_new_image'   => 'Upload an image',
     'help_description' => 'Tell something about the product',
     'help_category_id' => 'Select the category',
-    'help_amount'      => 'Set price of the product',
+    'help_price'       => 'Set price of the product',
     'help_is_active'   => 'Is this product active?',
 );
