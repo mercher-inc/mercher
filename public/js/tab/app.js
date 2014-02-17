@@ -32,13 +32,13 @@ define(function (require, exports, module) {
             this.mainLayout = new MainLayout({el: 'body', router: this});
             this.mainLayout.render();
 
-            this.mainNav = new MainNav({router: this});
-            this.mainLayout.setView('header#header', this.mainNav);
-            this.mainNav.render();
-
             this.cartItemsCollection = new CartItemsCollection();
             this.cartDialog = new CartDialog({router: this, collection: this.cartItemsCollection});
             this.cartItemsCollection.fetch({data: {limit: -1}});
+
+            this.mainNav = new MainNav({router: this});
+            this.mainLayout.setView('header#header', this.mainNav);
+            this.mainNav.render();
 
             this.mainLayout.insertView('#dialogs', this.cartDialog);
             this.cartDialog.render();

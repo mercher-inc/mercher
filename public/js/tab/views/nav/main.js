@@ -16,7 +16,7 @@ define(function (require, exports, module) {
         },
 
         events: {
-
+            "click .btnOpenCart": 'onBtnOpenCartClick'
         },
 
         initialize: function (options) {
@@ -41,6 +41,24 @@ define(function (require, exports, module) {
                 }
             });
 
+            this.listenTo(this.router.cartItemsCollection, 'add remove change:amount', function(model, collection, options){
+                var count = 0;
+                this.router.cartItemsCollection.each(function(model){
+                    count += model.get('amount');
+                });
+                this.$('.btnOpenCart .count').html(count);
+                if (!this.router.cartItemsCollection.length) {
+                    this.$('.btnOpenCart').hide();
+                } else {
+                    this.$('.btnOpenCart').show();
+                }
+            });
+
+        },
+
+        onBtnOpenCartClick: function(e) {
+            e.preventDefault();
+            this.router.cartDialog.$el.modal('show');
         }
 
     });
