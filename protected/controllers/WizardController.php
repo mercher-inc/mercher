@@ -30,7 +30,6 @@ class WizardController extends Controller
                     'step1',
                     'step2',
                     'step3',
-                    'step4'
                 ),
                 'users'   => array('@'),
             ),
@@ -117,7 +116,7 @@ class WizardController extends Controller
         );
     }
 
-    public function actionStep3()
+    public function actionStep3($request_token = null, $verification_code = null)
     {
         if (count($this->user->shops) < 1) {
             $this->redirect(Yii::app()->urlManager->createUrl('wizard/step1'));
@@ -125,23 +124,114 @@ class WizardController extends Controller
             $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
         }
 
-        $model = Shop::model()->findByAttributes(['owner_id' => $this->user->id]);
+        $shop = Shop::model()->findByAttributes(['owner_id' => $this->user->id]);
 
-        if (isset($_POST['Shop'])) {
-            $model->attributes = $_POST['Shop'];
+        if (!$request_token or !$verification_code) {
+            $refundRequest                               = new \PayPalComponent\Request\RequestPermissionsRequest();
+            $refundRequest->scope                        = [
+                Shop::PAYPAL_PERMISSION_REFUND,
+                Shop::PAYPAL_PERMISSION_ACCESS_BASIC_PERSONAL_DATA,
+                Shop::PAYPAL_PERMISSION_ACCESS_ADVANCED_PERSONAL_DATA
+            ];
+            $refundRequest->callback                     = Yii::app()->createAbsoluteUrl(
+                'wizard/step3'
+            );
+            $refundRequest->requestEnvelope->detailLevel = "ReturnAll";
 
-            if ($model->save()) {
+            if (!$response = $refundRequest->submit()) {
+                throw new CHttpException(500);
+            } else {
+                if ($response instanceof \PayPalComponent\Response\RequestPermissionsResponse) {
+                    $this->render(
+                        'step3',
+                        [
+                            'model'           => $shop,
+                            'grantPermissionUrl' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?' . http_build_query(
+                                [
+                                    'cmd'           => '_grant-permission',
+                                    'request_token' => $response->token
+                                ]
+                            )
+                        ]
+                    );
+                } elseif ($response instanceof \PayPalComponent\Response\PPFaultMessage) {
+                    throw new CHttpException(500);
+                } else {
+                    throw new CHttpException(500);
+                }
+            }
+        } else {
+            $refundRequest                               = new \PayPalComponent\Request\GetAccessTokenRequest();
+            $refundRequest->token                        = $request_token;
+            $refundRequest->verifier                     = $verification_code;
+            $refundRequest->requestEnvelope->detailLevel = "ReturnAll";
+
+            if (!$response = $refundRequest->submit()) {
+                throw new CHttpException(500);
+            } else {
+                if ($response instanceof \PayPalComponent\Response\GetAccessTokenResponse) {
+                    $shop->paypalPermissions   = $response->scope;
+                    $shop->paypal_token        = $response->token;
+                    $shop->paypal_token_secret = $response->tokenSecret;
+                } elseif ($response instanceof \PayPalComponent\Response\PPFaultMessage) {
+                    throw new CHttpException(500);
+                } else {
+                    throw new CHttpException(500);
+                }
+            }
+
+            $refundRequest                               = new \PayPalComponent\Request\GetAdvancedPersonalDataRequest();
+            $refundRequest->attributeList                = [
+                'attribute' => [
+                    'http://axschema.org/company/name',
+                    'http://axschema.org/contact/email'
+                ]
+            ];
+            $refundRequest->requestEnvelope->detailLevel = "ReturnAll";
+
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.AuthSignature', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthServer', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthDataStore', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.MockOAuthDataStore', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthConsumer', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthToken', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthSignatureMethod', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthSignatureMethodHmacSha1', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthRequest', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthUtil', true);
+
+            $authSignature = new PayPal\Auth\Oauth\AuthSignature();
+            $refundRequest->authHeader = $authSignature->generateFullAuthString(
+                $refundRequest->client->userId,
+                $refundRequest->client->password,
+                $shop->paypal_token,
+                $shop->paypal_token_secret,
+                'POST',
+                $refundRequest->endpoint()
+            );
+
+            if (!$response = $refundRequest->submit()) {
+                throw new CHttpException(500);
+            } else {
+                if ($response instanceof \PayPalComponent\Response\GetAdvancedPersonalDataResponse) {
+                    foreach ($response->response['personalData'] as $personalDataRow) {
+                        if ($personalDataRow['personalDataKey'] == 'http://axschema.org/contact/email') {
+                            $shop->pp_merchant_id = $personalDataRow['personalDataValue'];
+                        }
+                    }
+                } elseif ($response instanceof \PayPalComponent\Response\PPFaultMessage) {
+                    throw new CHttpException(500);
+                } else {
+                    throw new CHttpException(500);
+                }
+            }
+
+            if (!$shop->save()) {
+                throw new CHttpException(500);
+            } else {
                 $this->redirect(Yii::app()->urlManager->createUrl('shops/index'));
             }
         }
-
-        $this->render(
-            'step4',
-            [
-                'model'           => $model
-            ]
-        );
-
     }
 
     public function getUser()

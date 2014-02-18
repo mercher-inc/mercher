@@ -116,7 +116,7 @@ Yii::app()->clientScript->registerScript(
                     'class'       => 'form-control',
                     'data-toggle' => 'tooltip',
                     'title'       => Yii::t('shop', 'help_pp_merchant_id'),
-                    'disabled'    => true
+                    'disabled'    => true,
                 ]
             );
             echo CHtml::openTag('div', ['class'=>'input-group-btn']);
