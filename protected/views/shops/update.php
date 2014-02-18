@@ -105,18 +105,28 @@ Yii::app()->clientScript->registerScript(
     <legend>Shop settings</legend>
 
     <div class="row">
-        <div class="form-group col-lg-12 <?= $model->hasErrors('pp_merchant_id') ? ' has-error' : '' ?>">
+        <div class="form-group col-lg-12">
             <?php
             echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
+            echo CHtml::openTag('div', ['class'=>'input-group']);
             echo $form->textField(
                 $model,
                 'pp_merchant_id',
                 [
                     'class'       => 'form-control',
                     'data-toggle' => 'tooltip',
-                    'title'       => Yii::t('shop', 'help_pp_merchant_id')
+                    'title'       => Yii::t('shop', 'help_pp_merchant_id'),
+                    'disabled'    => true
                 ]
             );
+            echo CHtml::openTag('div', ['class'=>'input-group-btn']);
+            echo CHtml::link(
+                'Change',
+                $this->createUrl('updatePayPalAccount', ['shop_id'=>$model->id]),
+                ['class'=>'btn btn-default']
+            );
+            echo CHtml::closeTag('div');
+            echo CHtml::closeTag('div');
             echo $form->error($model, 'pp_merchant_id', ['class' => 'help-block']);
             ?>
         </div>

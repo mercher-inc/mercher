@@ -19,6 +19,7 @@ return array_merge(
         'shops/<shop_id:\d+>'                                                                           => 'shops/read',
         'shops/<shop_id:\d+>/settings'                                                                  => 'shops/update',
         'shops/<shop_id:\d+>/delete'                                                                    => 'shops/delete',
+        'shops/<shop_id:\d+>/update_paypal_account'                                                     => 'shops/updatePayPalAccount',
         //==Managers==
         'shops/<shop_id:\d+>/managers'                                                                  => 'managers/index',
         'shops/<shop_id:\d+>/managers/add'                                                              => 'managers/create',

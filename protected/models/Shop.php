@@ -9,6 +9,9 @@
  * @property string $fb_id
  * @property string $owner_id
  * @property string $pp_merchant_id
+ * @property string $paypal_scope
+ * @property string $paypal_token
+ * @property string $paypal_token_secret
  * @property string $ga_id
  * @property string $title
  * @property string $description
@@ -23,9 +26,69 @@
  * @property User[] $managers
  * @property integer $managersCount
  * @property Order[] $orders
+ * @property array $paypalPermissions
  */
 class Shop extends CActiveRecord
 {
+    const PAYPAL_PERMISSION_EXPRESS_CHECKOUT                  = 'EXPRESS_CHECKOUT';
+    const PAYPAL_PERMISSION_DIRECT_PAYMENT                    = 'DIRECT_PAYMENT';
+    const PAYPAL_PERMISSION_SETTLEMENT_CONSOLIDATION          = 'SETTLEMENT_CONSOLIDATION';
+    const PAYPAL_PERMISSION_SETTLEMENT_REPORTING              = 'SETTLEMENT_REPORTING';
+    const PAYPAL_PERMISSION_AUTH_CAPTURE                      = 'AUTH_CAPTURE';
+    const PAYPAL_PERMISSION_MOBILE_CHECKOUT                   = 'MOBILE_CHECKOUT';
+    const PAYPAL_PERMISSION_BILLING_AGREEMENT                 = 'BILLING_AGREEMENT';
+    const PAYPAL_PERMISSION_REFERENCE_TRANSACTION             = 'REFERENCE_TRANSACTION';
+    const PAYPAL_PERMISSION_AIR_TRAVEL                        = 'AIR_TRAVEL';
+    const PAYPAL_PERMISSION_MASS_PAY                          = 'MASS_PAY';
+    const PAYPAL_PERMISSION_TRANSACTION_DETAILS               = 'TRANSACTION_DETAILS';
+    const PAYPAL_PERMISSION_TRANSACTION_SEARCH                = 'TRANSACTION_SEARCH';
+    const PAYPAL_PERMISSION_RECURRING_PAYMENTS                = 'RECURRING_PAYMENTS';
+    const PAYPAL_PERMISSION_ACCOUNT_BALANCE                   = 'ACCOUNT_BALANCE';
+    const PAYPAL_PERMISSION_ENCRYPTED_WEBSITE_PAYMENTS        = 'ENCRYPTED_WEBSITE_PAYMENTS';
+    const PAYPAL_PERMISSION_REFUND                            = 'REFUND';
+    const PAYPAL_PERMISSION_NON_REFERENCED_CREDIT             = 'NON_REFERENCED_CREDIT';
+    const PAYPAL_PERMISSION_BUTTON_MANAGER                    = 'BUTTON_MANAGER';
+    const PAYPAL_PERMISSION_MANAGE_PENDING_TRANSACTION_STATUS = 'MANAGE_PENDING_TRANSACTION_STATUS';
+    const PAYPAL_PERMISSION_RECURRING_PAYMENT_REPORT          = 'RECURRING_PAYMENT_REPORT';
+    const PAYPAL_PERMISSION_EXTENDED_PRO_PROCESSING_REPORT    = 'EXTENDED_PRO_PROCESSING_REPORT';
+    const PAYPAL_PERMISSION_EXCEPTION_PROCESSING_REPORT       = 'EXCEPTION_PROCESSING_REPORT';
+    const PAYPAL_PERMISSION_ACCOUNT_MANAGEMENT_PERMISSION     = 'ACCOUNT_MANAGEMENT_PERMISSION';
+    const PAYPAL_PERMISSION_ACCESS_BASIC_PERSONAL_DATA        = 'ACCESS_BASIC_PERSONAL_DATA';
+    const PAYPAL_PERMISSION_ACCESS_ADVANCED_PERSONAL_DATA     = 'ACCESS_ADVANCED_PERSONAL_DATA';
+    const PAYPAL_PERMISSION_INVOICING                         = 'INVOICING';
+
+    public static function getPaypalPermissionList()
+    {
+        return [
+            self::PAYPAL_PERMISSION_EXPRESS_CHECKOUT,
+            self::PAYPAL_PERMISSION_DIRECT_PAYMENT,
+            self::PAYPAL_PERMISSION_SETTLEMENT_CONSOLIDATION,
+            self::PAYPAL_PERMISSION_SETTLEMENT_REPORTING,
+            self::PAYPAL_PERMISSION_AUTH_CAPTURE,
+            self::PAYPAL_PERMISSION_MOBILE_CHECKOUT,
+            self::PAYPAL_PERMISSION_BILLING_AGREEMENT,
+            self::PAYPAL_PERMISSION_REFERENCE_TRANSACTION,
+            self::PAYPAL_PERMISSION_AIR_TRAVEL,
+            self::PAYPAL_PERMISSION_MASS_PAY,
+            self::PAYPAL_PERMISSION_TRANSACTION_DETAILS,
+            self::PAYPAL_PERMISSION_TRANSACTION_SEARCH,
+            self::PAYPAL_PERMISSION_RECURRING_PAYMENTS,
+            self::PAYPAL_PERMISSION_ACCOUNT_BALANCE,
+            self::PAYPAL_PERMISSION_ENCRYPTED_WEBSITE_PAYMENTS,
+            self::PAYPAL_PERMISSION_REFUND,
+            self::PAYPAL_PERMISSION_NON_REFERENCED_CREDIT,
+            self::PAYPAL_PERMISSION_BUTTON_MANAGER,
+            self::PAYPAL_PERMISSION_MANAGE_PENDING_TRANSACTION_STATUS,
+            self::PAYPAL_PERMISSION_RECURRING_PAYMENT_REPORT,
+            self::PAYPAL_PERMISSION_EXTENDED_PRO_PROCESSING_REPORT,
+            self::PAYPAL_PERMISSION_EXCEPTION_PROCESSING_REPORT,
+            self::PAYPAL_PERMISSION_ACCOUNT_MANAGEMENT_PERMISSION,
+            self::PAYPAL_PERMISSION_ACCESS_BASIC_PERSONAL_DATA,
+            self::PAYPAL_PERMISSION_ACCESS_ADVANCED_PERSONAL_DATA,
+            self::PAYPAL_PERMISSION_INVOICING
+        ];
+    }
+
     /**
      * @return string the associated database table name
      */
@@ -49,6 +112,7 @@ class Shop extends CActiveRecord
             array('fb_id, owner_id', 'required'),
             array('fb_id', 'in', 'not' => true, 'range' => array('430253050396911')),
             array('pp_merchant_id', 'email'),
+            array('paypal_scope', 'checkPaypalScope'),
             array('ga_id', 'match', 'pattern' => '/^UA-\d{1,12}-\d{1,4}/'),
             array('owner_id', 'checkOwnerId', 'on' => 'update, delete'),
             array(
@@ -64,13 +128,43 @@ class Shop extends CActiveRecord
             array('is_active', 'checkActiveCount'),
             array('title, description, is_active, ga_id, image_id', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
+            array(
+                'pp_merchant_id, paypal_scope, paypal_token, paypal_token_secret',
+                'unsafe'
+            ),
             // The following rule is used by search().
             array(
                 'id, created, updated, fb_id, owner_id, title, description, is_active, is_banned, pp_merchant_id, image_id',
                 'safe',
                 'on' => 'search'
-            ),
+            )
         );
+    }
+
+    public function checkPaypalScope()
+    {
+        foreach ($this->paypalPermissions as $permission) {
+            if (!in_array($permission, self::getPaypalPermissionList())) {
+                $this->addError('paypalPermissions', Yii::t('model', 'permission_unknown'));
+            }
+        }
+    }
+
+    public function getPaypalPermissions()
+    {
+        if (!trim($this->paypal_scope, '{}')) {
+            return array();
+        }
+        return explode(',', trim($this->paypal_scope, '{}'));
+    }
+
+    public function setPaypalPermissions($paypalPermissions)
+    {
+        if (!is_array($paypalPermissions)) {
+            $paypalPermissions = array();
+        }
+        $paypalPermissions     = array_unique($paypalPermissions);
+        $this->paypal_scope = '{' . implode(',', $paypalPermissions) . '}';
     }
 
     public function setDefaultOwnerId()
