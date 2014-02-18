@@ -24,7 +24,7 @@ class ShopsController extends Controller
             array(
                 'allow',
                 'actions' => array('index'),
-                'roles'   => array(//AuthManager::PERMISSION_READ_SHOP
+                'roles'   => array( //AuthManager::PERMISSION_READ_SHOP
                 )
             ),
             array(
@@ -205,7 +205,7 @@ class ShopsController extends Controller
             }
 
             $refundRequest                               = new \PayPalComponent\Request\GetAdvancedPersonalDataRequest();
-            $refundRequest->attributeList                     = [
+            $refundRequest->attributeList                = [
                 'attribute' => [
                     'http://axschema.org/company/name',
                     'http://axschema.org/contact/email'
@@ -213,12 +213,33 @@ class ShopsController extends Controller
             ];
             $refundRequest->requestEnvelope->detailLevel = "ReturnAll";
 
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.AuthSignature', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthServer', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthDataStore', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.MockOAuthDataStore', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthConsumer', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthToken', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthSignatureMethod', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthSignatureMethodHmacSha1', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthRequest', true);
+            Yii::import('ext.paypal.sdk-core-php.lib.PayPal.Auth.Oauth.OAuthUtil', true);
+
+            $authSignature = new PayPal\Auth\Oauth\AuthSignature();
+            $refundRequest->authHeader = $authSignature->generateFullAuthString(
+                $refundRequest->client->userId,
+                $refundRequest->client->password,
+                $shop->paypal_token,
+                $shop->paypal_token_secret,
+                'POST',
+                $refundRequest->endpoint()
+            );
+
             if (!$response = $refundRequest->submit()) {
                 throw new CHttpException(500);
             } else {
                 if ($response instanceof \PayPalComponent\Response\GetAdvancedPersonalDataResponse) {
-                    foreach($response->response['personalData'] as $personalDataRow) {
-                        if($personalDataRow['personalDataKey'] == 'http://axschema.org/contact/email') {
+                    foreach ($response->response['personalData'] as $personalDataRow) {
+                        if ($personalDataRow['personalDataKey'] == 'http://axschema.org/contact/email') {
                             $shop->pp_merchant_id = $personalDataRow['personalDataValue'];
                         }
                     }

@@ -15,6 +15,8 @@ abstract class Request extends CModel
 {
     public static $client;
 
+    public $authHeader;
+
     private $_attributes = [];
 
     public function __construct($scenario = '')

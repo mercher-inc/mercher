@@ -24,6 +24,20 @@ class Client extends CApplicationComponent
     {
         $requestData = $request->__toArray();
 
+        $headers = [
+            "X-PAYPAL-REQUEST-DATA-FORMAT: JSON",
+            "X-PAYPAL-RESPONSE-DATA-FORMAT: JSON"
+        ];
+        $headers[] = "X-PAYPAL-APPLICATION-ID: $this->applicationId";
+
+        if ($request->authHeader) {
+            $headers[] = "X-PAYPAL-AUTHORIZATION: $request->authHeader";
+        } else {
+            $headers[] = "X-PAYPAL-SECURITY-USERID: $this->userId";
+            $headers[] = "X-PAYPAL-SECURITY-PASSWORD: $this->password";
+            $headers[] = "X-PAYPAL-SECURITY-SIGNATURE: $this->signature";
+        }
+
         //D($requestData, 1);
 
         $ch = curl_init();
@@ -33,14 +47,7 @@ class Client extends CApplicationComponent
         curl_setopt(
             $ch,
             CURLOPT_HTTPHEADER,
-            [
-                "X-PAYPAL-SECURITY-USERID: $this->userId",
-                "X-PAYPAL-SECURITY-PASSWORD: $this->password",
-                "X-PAYPAL-SECURITY-SIGNATURE: $this->signature",
-                "X-PAYPAL-APPLICATION-ID: $this->applicationId",
-                "X-PAYPAL-REQUEST-DATA-FORMAT: JSON",
-                "X-PAYPAL-RESPONSE-DATA-FORMAT: JSON"
-            ]
+            $headers
         );
         curl_setopt($ch, CURLOPT_POSTFIELDS, \CJSON::encode($requestData));
         $output = curl_exec($ch);

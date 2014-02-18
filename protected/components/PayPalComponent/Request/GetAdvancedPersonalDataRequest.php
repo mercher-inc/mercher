@@ -63,6 +63,8 @@ class GetAdvancedPersonalDataRequest extends Request
             case 'Success':
                 $response['class'] = '\PayPalComponent\Response\GetAdvancedPersonalDataResponse';
                 break;
+            default:
+                D($response, 1);
         }
         return Yii::createComponent($response);
     }
