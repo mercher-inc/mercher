@@ -25,6 +25,5 @@ $this->widget('zii.widgets.CDetailView', array(
 		'is_active',
 		'is_banned',
 		'pp_merchant_id',
-		'tax',
 	),
 ));

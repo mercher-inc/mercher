@@ -47,10 +47,6 @@
 	<?php echo CHtml::encode($data->pp_merchant_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tax')); ?>:</b>
-	<?php echo CHtml::encode($data->tax); ?>
-	<br />
-
 	*/ ?>
 
 </div>

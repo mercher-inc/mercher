@@ -41,12 +41,6 @@ $this->widget(
                 'type' => 'raw'
             ],
             [
-                'name' => 'subscription_id',
-                'value'=> '$data->subscription_id?CHtml::link($data->subscription->title, Yii::app()->urlManager->createUrl("management/subscriptions/view", ["id"=>$data->subscription_id])):"Free"',
-                'type' => 'raw'
-            ],
-            'tax',
-            [
                 'name' => 'pp_merchant_id',
                 'type' => 'email'
             ],

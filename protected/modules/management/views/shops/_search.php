@@ -64,11 +64,6 @@
 		<?php echo $form->textField($model,'pp_merchant_id',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'tax'); ?>
-		<?php echo $form->textField($model,'tax',array('size'=>6,'maxlength'=>6)); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

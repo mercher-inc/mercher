@@ -34,12 +34,6 @@
     </div>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'tax', ['class' => 'control-label']); ?>
-        <?php echo $form->textField($model, 'tax', ['class' => 'form-control']); ?>
-        <?php echo $form->error($model, 'tax'); ?>
-    </div>
-
-    <div class="form-group">
         <?php echo $form->labelEx($model, 'pp_merchant_id', ['class' => 'control-label']); ?>
         <?php echo $form->textField($model, 'pp_merchant_id', ['class' => 'form-control']); ?>
         <?php echo $form->error($model, 'pp_merchant_id'); ?>
@@ -67,12 +61,6 @@
             $subscriptions[$subscription->id]   = $subscription->title;
         }
     ?>
-
-    <div class="form-group">
-        <?php echo $form->labelEx($model, 'subscription_id', ['class' => 'control-label']); ?>
-        <?php echo $form->dropDownList($model, 'subscription_id', $subscriptions, ['class' => 'form-control']); ?>
-        <?php echo $form->error($model, 'subscription_id'); ?>
-    </div>
 
     <div class="checkbox">
         <?php echo $form->labelEx($model, 'is_banned', ['class' => 'control-label']); ?>
