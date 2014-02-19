@@ -4,7 +4,7 @@
         <span class="status"><%- orderStatus %></span>
     </h1>
 
-    <% if (order.get('status') == 'new' || order.get('status') == 'waiting_for_payment') { %>
+    <% if (showCheckOutBtn) { %>
         <div class="payment-method">
             <button type="button" class="btn btn-primary btn-lg btn-block btnCheckOut payPal">Check out with PayPal</button>
         </div>

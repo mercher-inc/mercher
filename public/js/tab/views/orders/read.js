@@ -67,14 +67,29 @@ define(function (require, exports, module) {
         serialize: function () {
             var created = new Date(this.model.get('created'));
             var orderDate = created.getMonth() + '/' + created.getDate() + '/' + created.getFullYear();
+            var showCheckOutBtn = false;
 
             var orderStatus = this.model.get('status');
+            var now = new Date();
+            var expires = this.model.get('expires') === null ? null : new Date(this.model.get('expires') + ' UTC');
             switch (this.model.get('status')) {
                 case 'new':
-                    orderStatus = 'New order';
+                    if (expires !== null && now > expires) {
+                        orderStatus = 'Expired';
+                        showCheckOutBtn = false;
+                    } else {
+                        orderStatus = 'New order';
+                        showCheckOutBtn = true;
+                    }
                     break;
                 case 'waiting_for_payment':
-                    orderStatus = 'Waiting for payment';
+                    if (expires !== null && now > expires) {
+                        orderStatus = 'Expired';
+                        showCheckOutBtn = false;
+                    } else {
+                        orderStatus = 'Waiting for payment';
+                        showCheckOutBtn = true;
+                    }
                     break;
                 case 'accepted':
                     orderStatus = 'Accepted';
@@ -90,7 +105,7 @@ define(function (require, exports, module) {
                     break;
             }
 
-            return { order: this.model, orderDate: orderDate, orderStatus: orderStatus };
+            return { order: this.model, orderDate: orderDate, orderStatus: orderStatus, showCheckOutBtn: showCheckOutBtn };
         },
 
         showMore: function () {

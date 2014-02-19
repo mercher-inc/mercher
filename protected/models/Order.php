@@ -11,6 +11,7 @@
  * @property string $pay_key
  * @property string $status
  * @property string $total
+ * @property string $expires
  * The followings are the available model relations:
  * @property OrderItem[] $orderItems
  * @property User $user

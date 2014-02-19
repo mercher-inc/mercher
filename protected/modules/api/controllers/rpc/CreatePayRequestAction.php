@@ -56,7 +56,7 @@ class CreatePayRequestAction extends CAction
                 '/tab/index/blank'
             );
 
-            $payRequest->payKeyDuration = 'PT24H';
+            $payRequest->payKeyDuration = 'PT1H';
             $payRequest->trackingId = $order->id;
             $payRequest->requestEnvelope->detailLevel = "ReturnAll";
 
@@ -104,8 +104,8 @@ class CreatePayRequestAction extends CAction
                 }
             }
 
-
             $order->status = Order::STATUS_WAITING_FOR_PAYMENT;
+            $order->expires = new \CDbExpression('NOW() + \'1 hour\'');
             if (!$order->save()) {
                 throw new CHttpException(500);
             }

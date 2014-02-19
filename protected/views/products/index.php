@@ -52,6 +52,15 @@ $this->widget(
                 ]
             ],
             [
+                'type'               => 'raw',
+                'name'               => 'quantity_in_stock',
+                'cssClassExpression' => '($data->quantity_in_stock===null)?"not_set":""',
+                'value'              => '($data->quantity_in_stock===null)?"":$data->quantity_in_stock',
+                'headerHtmlOptions'  => [
+                    'style' => 'width: 200px;'
+                ]
+            ],
+            [
                 'name'               => 'is_active',
                 'cssClassExpression' => '$data->is_active?"yes":"no"',
                 'value'              => '',

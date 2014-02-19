@@ -10,7 +10,7 @@
                     <%- product.get('title') %>
                 </a>
             </h3>
-            <% if (product.get('price')) { %>
+            <% if (product.get('price') && (product.get('available_quantity') === null || product.get('available_quantity') > 0)) { %>
             <div class="actions">
                 <a role="button" class="buyBtn btn btn-primary btn-block" data-incart-text="In cart">Buy for $<%-
                     product.get('price') %></a>

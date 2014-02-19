@@ -85,6 +85,7 @@ class CartItemsController extends \CController
             foreach ($cartItems as $cartItem) {
                 $model            = $cartItem->attributes;
                 $model['product'] = $cartItem->product ? $cartItem->product->attributes : null;
+                $model['product']['available_quantity'] = $cartItem->product->available_quantity;
 
                 if ($cartItem->product->image_id) {
                     $image = $cartItem->product->image->attributes;
@@ -150,6 +151,8 @@ class CartItemsController extends \CController
             $cartItem->refresh();
             $model            = $cartItem->attributes;
             $model['product'] = $cartItem->product ? $cartItem->product->attributes : null;
+            $model['product']['available_quantity'] = $cartItem->product->available_quantity;
+
             if ($cartItem->product->image_id) {
                 $image = $cartItem->product->image->attributes;
                 try {
@@ -190,6 +193,8 @@ class CartItemsController extends \CController
 
         $model            = $cartItem->attributes;
         $model['product'] = $cartItem->product ? $cartItem->product->attributes : null;
+        $model['product']['available_quantity'] = $cartItem->product->available_quantity;
+
         if ($cartItem->product->image_id) {
             $image = $cartItem->product->image->attributes;
             try {
@@ -233,6 +238,8 @@ class CartItemsController extends \CController
             $cartItem->refresh();
             $model            = $cartItem->attributes;
             $model['product'] = $cartItem->product ? $cartItem->product->attributes : null;
+            $model['product']['available_quantity'] = $cartItem->product->available_quantity;
+
             if ($cartItem->product->image_id) {
                 $image = $cartItem->product->image->attributes;
                 try {

@@ -21,6 +21,11 @@ class CheckPaymentDetailsAction extends CAction
 {
     public function run($order_id)
     {
+        /**
+         * @var $transaction \CDbTransaction
+         */
+        $transaction = Yii::app()->db->beginTransaction();
+
         $order = Order::model()->findByPk($order_id);
         if (!$order) {
             throw new CHttpException(404, Yii::t('error', 'order_not_found'));
@@ -48,6 +53,12 @@ class CheckPaymentDetailsAction extends CAction
                 //print_r($response);
                 if ($response->status == PaymentDetailsResponse::STATUS_INCOMPLETE) {
                     $order->status = Order::STATUS_ACCEPTED;
+                    foreach ($order->orderItems(['with'=>'product']) as $orderItem) {
+                        if ($orderItem->product->quantity_in_stock !== null) {
+                            $orderItem->product->quantity_in_stock -= $orderItem->amount;
+                            $orderItem->product->save();
+                        }
+                    }
                     if (!$order->save()) {
                         throw new CHttpException(500);
                     }
@@ -59,6 +70,8 @@ class CheckPaymentDetailsAction extends CAction
                 throw new CHttpException(500);
             }
         }
+
+        $transaction->commit();
 
         $model = $order->attributes;
         echo \CJSON::encode($model);

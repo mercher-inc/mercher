@@ -34,6 +34,13 @@ define(function (require, exports, module) {
                 this.$el.modal('show');
             });
 
+            this.listenTo(this.collection, 'request', function (collection, xhr, options) {
+                this.$('.btnCheckout').prop('disabled', true);
+            });
+
+            this.listenTo(this.collection, 'sync', function (collection, resp, options)  {
+                this.$('.btnCheckout').prop('disabled', false);
+            });
 
             this.listenTo(this.collection, 'add destroy change:amount', function (model, collection, options) {
                 this.renderSum();

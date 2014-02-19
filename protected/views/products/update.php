@@ -131,6 +131,27 @@ echo $form->error($model, 'price', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
+//==quantity_in_stock==
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag(
+    'div',
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('quantity_in_stock') ? ' has-error' : '')]
+);
+echo $form->label($model, 'quantity_in_stock', ['class' => 'control-label']);
+echo $form->numberField(
+    $model,
+    'quantity_in_stock',
+    [
+        'class'       => 'form-control',
+        'data-toggle' => 'tooltip',
+        'title'       => Yii::t('product', 'help_quantity_in_stock'),
+        'placeholder'   => Yii::t('product', 'placeholder_quantity_in_stock'),
+    ]
+);
+echo $form->error($model, 'quantity_in_stock', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+
 //==is_active==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag('div', ['class' => 'col-lg-12']);

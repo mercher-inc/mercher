@@ -61,6 +61,7 @@ class ProductsController extends \Controller
             foreach ($products as $product) {
                 $model             = $product->attributes;
                 $model['category'] = $product->category ? $product->category->attributes : null;
+                $model['available_quantity'] = $product->available_quantity;
 
                 unset($model['image_id']);
                 $model['image'] = array();
@@ -97,6 +98,7 @@ class ProductsController extends \Controller
 
         $model             = $product->attributes;
         $model['category'] = $product->category ? $product->category->attributes : null;
+        $model['available_quantity'] = $product->available_quantity;
 
         unset($model['image_id']);
         $model['image'] = array();

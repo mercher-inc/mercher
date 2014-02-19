@@ -32,12 +32,38 @@ class CartItem extends CActiveRecord
         // will receive user inputs.
         return array(
             array('created, user_id, product_id, amount', 'required'),
-            array('amount', 'numerical', 'integerOnly' => true),
+            array('amount', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 100),
+            array('amount', 'checkQuantityInStock'),
             array('updated', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, created, updated, user_id, product_id, amount', 'safe', 'on' => 'search'),
         );
+    }
+
+    public function checkQuantityInStock($attribute)
+    {
+        $availableQuantity = $this->product->available_quantity;
+        if ($availableQuantity !== null and ($availableQuantity < $this->$attribute)) {
+            if (!$availableQuantity) {
+                $this->addError(
+                    $attribute,
+                    Yii::t(
+                        'CartItem',
+                        'There are no products in stock'
+                    )
+                );
+            } else {
+                $this->addError(
+                    $attribute,
+                    Yii::t(
+                        'CartItem',
+                        'There is only {n} product in stock|There are only {n} products in stock',
+                        $availableQuantity
+                    )
+                );
+            }
+        }
     }
 
     /**

@@ -21,7 +21,7 @@ define(function (require, exports, module) {
 
             this.model.items.fetch({data: {limit: 10}});
 
-            this.listenTo(this.model.items, 'add', function(model, collection, options){
+            this.listenTo(this.model.items, 'add', function (model, collection, options) {
                 var itemView = new ItemView({model: model, controller: view.controller});
                 view.insertView('.products', itemView);
                 itemView.render();
@@ -39,12 +39,22 @@ define(function (require, exports, module) {
             var orderDate = created.getMonth() + '/' + created.getDate() + '/' + created.getFullYear();
 
             var orderStatus = this.model.get('status');
+            var now = new Date();
+            var expires = this.model.get('expires') === null ? null : new Date(this.model.get('expires') + ' UTC');
             switch (this.model.get('status')) {
                 case 'new':
-                    orderStatus = 'New order';
+                    if (expires !== null && now > expires) {
+                        orderStatus = 'Expired';
+                    } else {
+                        orderStatus = 'New order';
+                    }
                     break;
                 case 'waiting_for_payment':
-                    orderStatus = 'Waiting for payment';
+                    if (expires !== null && now > expires) {
+                        orderStatus = 'Expired';
+                    } else {
+                        orderStatus = 'Waiting for payment';
+                    }
                     break;
                 case 'accepted':
                     orderStatus = 'Accepted';
@@ -63,9 +73,9 @@ define(function (require, exports, module) {
             return { order: this.model, orderDate: orderDate, orderStatus: orderStatus };
         },
 
-        onClick: function(e){
+        onClick: function (e) {
             e.preventDefault();
-            this.controller.navigate('/orders/'+this.model.id, {trigger: true});
+            this.controller.navigate('/orders/' + this.model.id, {trigger: true});
         }
 
     });

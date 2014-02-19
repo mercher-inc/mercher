@@ -95,6 +95,7 @@ class OrderItemsController extends CController
             foreach ($orderItems as $orderItem) {
                 $model            = $orderItem->attributes;
                 $model['product'] = $orderItem->product ? $orderItem->product->attributes : null;
+                $model['product']['available_quantity'] = $orderItem->product->available_quantity;
 
                 if ($orderItem->product->image_id) {
                     $image = $orderItem->product->image->attributes;

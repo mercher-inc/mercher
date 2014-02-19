@@ -22,6 +22,7 @@
  * @property Image $image
  * @property CartItem[] $cartItems
  * @property OrderItem[] $orderItems
+ * @property integer $available_quantity
  */
 class Product extends CActiveRecord
 {
@@ -265,6 +266,25 @@ class Product extends CActiveRecord
         );
 
         return $object;
+    }
+
+    public function getAvailable_quantity()
+    {
+        if ($this->quantity_in_stock === null) {
+            return null;
+        }
+
+        $availableQuantity = $this->quantity_in_stock;
+        $orderItems = $this->orderItems(['with'=>'order']);
+        foreach ($orderItems as $orderItem) {
+            if (in_array($orderItem->order->status, [Order::STATUS_NEW, Order::STATUS_WAITING_FOR_PAYMENT])) {
+                if ($orderItem->order->expires !== null and strtotime($orderItem->order->expires) > strtotime('now')) {
+                    $availableQuantity -= $orderItem->amount;
+                }
+            }
+        }
+        $availableQuantity = max($availableQuantity, 0);
+        return $availableQuantity;
     }
 
     protected function afterSave()
