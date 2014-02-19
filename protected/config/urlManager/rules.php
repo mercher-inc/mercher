@@ -2,8 +2,8 @@
 
 return array_merge(
     array(
-        'http://tab.<hostname:(mercher.dev|mercher.net)>/'                                              => 'tab/index/index',
-        'https://tab.<hostname:(mercher.dev|mercher.net)>/'                                             => 'tab/index/index',
+        'http://tab.<hostname:(dev.mercher.net|mercher.dev|mercher.net)>/'                              => 'tab/index/index',
+        'https://tab.<hostname:(dev.mercher.net|mercher.dev|mercher.net)>/'                             => 'tab/index/index',
         'management'                                                                                    => 'management/index/index',
         'management/<_a:(login|logout)>'                                                                => 'management/index/<_a>',
         'management/<_c:(users|shops|products|categories|subscriptions)>/<id:\d+>/<_a:(update|delete)>' => 'management/<_c>/<_a>',
