@@ -100,7 +100,6 @@ define(function (require, exports, module) {
                         dataType: 'json',
                         success: function (data, textStatus, jqXHR) {
                             var newOrder = new (require('models/order'))(data);
-                            //console.log(newOrder);
                             view.router.navigate('orders/' + newOrder.id, {trigger: true});
                             view.collection.fetch({data: {limit: -1}});
                             view.collection.once('sync error', function () {

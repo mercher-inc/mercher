@@ -41,6 +41,7 @@ requirejs.config({
             "vendors/backbone.layoutmanager/backbone.layoutmanager-0.9.4"
         ],
         "backbone.controller": "vendors/backbone.controller/backbone.controller-0.3.0",
+        "backbone.uniquemodel": "vendors/backbone.uniquemodel/backbone.uniquemodel",
         purl: [
             "//cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl",
             "vendors/purl/purl-2.3.1"
@@ -72,6 +73,10 @@ requirejs.config({
         "backbone.layoutmanager": {
             deps: ['backbone'],
             exports: 'Backbone.Layout'
+        },
+        "backbone.uniquemodel": {
+            deps: ['backbone'],
+            exports: 'Backbone.UniqueModel'
         },
         bootstrap: {
             exports: '$',
