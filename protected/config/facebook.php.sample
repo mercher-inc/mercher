@@ -1,0 +1,13 @@
+<?php
+
+return array(
+    'class'     => 'FB',
+    'appId'     => '631238416902634',
+    'secret'    => '4dfa1e0fef9fc2bf785d2a8d36e415a3',
+    'namespace' => 'mercherdev',
+    'scope'     => array(
+        'email',
+        'publish_stream',
+        'manage_pages'
+    )
+);

@@ -69,13 +69,7 @@ return array(
             'class'    => 'ClientScript',
             'packages' => require(dirname(__FILE__) . '/clientScript/packages.php'),
         ),
-        'db'           => array(
-            'connectionString' => 'pgsql:host=localhost;port=5432;dbname=mercher',
-            'emulatePrepare'   => true,
-            'username'         => 'postgres',
-            'password'         => 'postgres',
-            'charset'          => 'utf8',
-        ),
+        'db'           => require(dirname(__FILE__) . '/db.php'),
         'errorHandler' => array(
             'class'       => 'ErrorHandler',
             'errorAction' => 'index/error',
@@ -98,17 +92,7 @@ return array(
         'cache'        => array(
             'class' => 'system.caching.CFileCache'
         ),
-        'facebook'     => array(
-            'class'     => 'FB',
-            'appId'     => '491297224259374',
-            'secret'    => 'fd3b192b19272bc27b3d7725a58b48aa',
-            'namespace' => 'mercher',
-            'scope'     => array(
-                'email',
-                'publish_stream',
-                'manage_pages'
-            )
-        ),
+        'facebook'     => require(dirname(__FILE__) . '/facebook.php'),
         'paypal'       => array(
             'class'         => '\PayPalComponent\Client',
             'applicationId' => 'APP-80W284485P519543T',

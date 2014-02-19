@@ -12,14 +12,8 @@ defined('APPLICATION_ENV')
     getenv('APPLICATION_ENV') :
     'production'));
 
-/**
- * delete this
- */
-defined('YII_DEBUG') or define('YII_DEBUG', true);
-
 if (APPLICATION_ENV == 'development') {
     defined('YII_DEBUG') or define('YII_DEBUG', true);
-    $config = dirname(__FILE__) . '/../protected/config/development.php';
 }
 
 // specify how many levels of call stack should be shown in each log message
