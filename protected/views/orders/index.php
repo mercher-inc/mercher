@@ -70,46 +70,7 @@
                                 <span class="total-sum">&#36;<?= $order->total ?></span>
                             </div>
                             <div class="col-xs-2">
-                                <?php if ($order->status == Order::STATUS_ACCEPTED) { ?>
-                                    <div class="btn-group btn-group-justified">
-                                        <a class="btn btn-success" href="<?=
-                                        $this->createUrl(
-                                            'approve',
-                                            [
-                                                'shop_id'  => $order->shop_id,
-                                                'order_id' => $order->id
-                                            ]
-                                        ) ?>">Approve</a>
-                                        <a class="btn btn-danger" href="<?=
-                                        $this->createUrl(
-                                            'reject',
-                                            [
-                                                'shop_id'  => $order->shop_id,
-                                                'order_id' => $order->id
-                                            ]
-                                        ) ?>">Reject</a>
-                                    </div>
-                                <?php } elseif ($order->status == Order::STATUS_APPROVED) { ?>
-                                    <div class="btn-group btn-group-justified">
-                                        <a class="btn btn-primary" href="<?=
-                                        $this->createUrl(
-                                            'complete',
-                                            [
-                                                'shop_id'  => $order->shop_id,
-                                                'order_id' => $order->id
-                                            ]
-                                        ) ?>">Complete</a>
-                                        <a class="btn btn-danger" href="<?=
-                                        $this->createUrl(
-                                            'reject',
-                                            [
-                                                'shop_id'  => $order->shop_id,
-                                                'order_id' => $order->id
-                                            ]
-                                        ) ?>">Reject</a>
-                                    </div>
                                 <?php
-                                } else {
                                     switch ($order->status) {
                                         case Order::STATUS_NEW:
                                             echo 'New';
@@ -117,8 +78,14 @@
                                         case Order::STATUS_WAITING_FOR_PAYMENT:
                                             echo 'Waiting for payment';
                                             break;
+                                        case Order::STATUS_ACCEPTED:
+                                            echo 'Accepted';
+                                            break;
                                         case Order::STATUS_REJECTED:
                                             echo 'Rejected';
+                                            break;
+                                        case Order::STATUS_APPROVED:
+                                            echo 'Approved';
                                             break;
                                         case Order::STATUS_COMPLETED:
                                             echo 'Completed';
@@ -126,7 +93,7 @@
                                         default:
                                             echo $order->status;
                                     }
-                                } ?>
+                                ?>
                             </div>
                         </div>
                     </div>
