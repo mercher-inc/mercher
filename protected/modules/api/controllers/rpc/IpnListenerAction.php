@@ -35,6 +35,7 @@ class IpnListenerAction extends CAction
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
 
         if( !($res = curl_exec($ch)) ) {
+            Yii::log(print_r($data, true), 'error', 'IpnNotification');
             curl_close($ch);
             exit;
         }

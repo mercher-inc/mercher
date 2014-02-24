@@ -58,11 +58,11 @@ class CreatePayRequestAction extends CAction
                 '/tab/index/blank'
             );
 
-
+            /*
             $payRequest->ipnNotificationUrl = Yii::app()->createAbsoluteUrl(
                 '/api/rpc/ipn_listener'
             );
-
+            */
 
             $payRequest->payKeyDuration               = 'PT1H';
             $payRequest->trackingId                   = $order->id;
