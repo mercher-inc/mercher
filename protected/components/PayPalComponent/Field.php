@@ -39,7 +39,10 @@ abstract class Field extends CModel {
         $data = [];
         foreach ($this->attributes as $attribute=>$value) {
             if ($value instanceof Field) {
-                $data[$attribute] = $value->__toArray();
+                $fieldValue = $value->__toArray();
+                if (count($fieldValue)) {
+                    $data[$attribute] = $fieldValue;
+                }
             } else {
                 if ($value !== null) {
                     $data[$attribute] = $value;

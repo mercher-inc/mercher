@@ -88,7 +88,8 @@ return [
             'password'      => '1391764851',
             'signature'     => 'AIkghGmb0DgD6MEPZCmNq.bKujMAA8NEIHryH-LQIfmx7UZ5q1LXAa7T',
             'primaryEmail'  => 'dmitriy.s.les-facilitator@gmail.com',
-            'baseUrl'       => 'https://svcs.sandbox.paypal.com/'
+            'baseUrl'       => 'https://svcs.sandbox.paypal.com/',
+            'fee'           => 0.049 // 4.9%
         ]
     ],
     'params'         => [

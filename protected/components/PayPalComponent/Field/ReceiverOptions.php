@@ -12,6 +12,11 @@ use PayPalComponent\Field;
 
 class ReceiverOptions extends Field
 {
+    public function init()
+    {
+        $this->receiver = new \PayPalComponent\Field\ReceiverIdentifier();
+    }
+
     public function attributeNames()
     {
         return [

@@ -85,7 +85,7 @@ class CreatePayRequestAction extends CAction
             $receiver = Yii::createComponent(
                 [
                     'class'       => '\PayPalComponent\Field\Receiver',
-                    'amount'      => (ceil(($order->total * .95) * 100)) / 100,
+                    'amount'      => (ceil(($order->total * (1 - Yii::app()->paypal->fee)) * 100)) / 100,
                     'email'       => $order->shop->pp_merchant_id,
                     'paymentType' => 'GOODS',
                     'primary'     => false,
@@ -105,11 +105,14 @@ class CreatePayRequestAction extends CAction
                 }
             }
 
-            $setPaymentOptionsRequest = new SetPaymentOptionsRequest();
-            $setPaymentOptionsRequest->payKey = $order->pay_key;
-            $setPaymentOptionsRequest->displayOptions->businessName = 'Mercher';
+            $setPaymentOptionsRequest                                                 = new SetPaymentOptionsRequest();
+            $setPaymentOptionsRequest->payKey                                         = $order->pay_key;
+            $setPaymentOptionsRequest->displayOptions->businessName                   = 'Mercher';
             $setPaymentOptionsRequest->senderOptions->requireShippingAddressSelection = true;
-            $setPaymentOptionsRequest->requestEnvelope->detailLevel = "ReturnAll";
+            $setPaymentOptionsRequest->requestEnvelope->detailLevel                   = "ReturnAll";
+            //$setPaymentOptionsRequest->receiverOptions->invoiceData
+            $setPaymentOptionsRequest->receiverOptions->receiver->email = $order->shop->pp_merchant_id;
+
 
             if (!$setPaymentOptionsResponse = $setPaymentOptionsRequest->submit()) {
                 throw new CHttpException(500);
