@@ -42,7 +42,13 @@
                                     <?php foreach ($order->orderItems(
                                                        ['limit' => 10, 'order' => 'created']
                                                    ) as $orderItem) : ?>
-                                        <a class="view orders-index-item-product" href="<?= $this->createUrl('/products/update', ['shop_id'=>$orderItem->product->shop_id, 'product_id'=>$orderItem->product->id]) ?>">
+                                        <a class="view orders-index-item-product" href="<?= $this->createUrl(
+                                            '/products/update',
+                                            [
+                                                'shop_id'    => $orderItem->product->shop_id,
+                                                'product_id' => $orderItem->product->id
+                                            ]
+                                        ) ?>">
                                             <?php
                                             if ($orderItem->product->image) {
                                                 echo CHtml::image(
@@ -69,12 +75,37 @@
                                         <a class="btn btn-success" href="<?=
                                         $this->createUrl(
                                             'approve',
-                                            ['shop_id' => $order->shop_id, 'order_id' => $order->id]
+                                            [
+                                                'shop_id'  => $order->shop_id,
+                                                'order_id' => $order->id
+                                            ]
                                         ) ?>">Approve</a>
                                         <a class="btn btn-danger" href="<?=
                                         $this->createUrl(
                                             'reject',
-                                            ['shop_id' => $order->shop_id, 'order_id' => $order->id]
+                                            [
+                                                'shop_id'  => $order->shop_id,
+                                                'order_id' => $order->id
+                                            ]
+                                        ) ?>">Reject</a>
+                                    </div>
+                                <?php } elseif ($order->status == Order::STATUS_APPROVED) { ?>
+                                    <div class="btn-group btn-group-justified">
+                                        <a class="btn btn-primary" href="<?=
+                                        $this->createUrl(
+                                            'complete',
+                                            [
+                                                'shop_id'  => $order->shop_id,
+                                                'order_id' => $order->id
+                                            ]
+                                        ) ?>">Complete</a>
+                                        <a class="btn btn-danger" href="<?=
+                                        $this->createUrl(
+                                            'reject',
+                                            [
+                                                'shop_id'  => $order->shop_id,
+                                                'order_id' => $order->id
+                                            ]
                                         ) ?>">Reject</a>
                                     </div>
                                 <?php
@@ -85,9 +116,6 @@
                                             break;
                                         case Order::STATUS_WAITING_FOR_PAYMENT:
                                             echo 'Waiting for payment';
-                                            break;
-                                        case Order::STATUS_APPROVED:
-                                            echo 'Approved';
                                             break;
                                         case Order::STATUS_REJECTED:
                                             echo 'Rejected';
@@ -110,7 +138,7 @@
             $this->widget(
                 'application.widgets.pagers.LinkPager',
                 [
-                    'pages' =>$dataProvider->pagination
+                    'pages' => $dataProvider->pagination
                 ]
             )
             ?>

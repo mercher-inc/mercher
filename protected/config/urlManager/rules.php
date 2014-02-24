@@ -43,6 +43,8 @@ return array_merge(
         'shops/<shop_id:\d+>/orders/<order_id:\d+>'                                                     => 'orders/read',
         'shops/<shop_id:\d+>/orders/<order_id:\d+>/approve'                                             => 'orders/approve',
         'shops/<shop_id:\d+>/orders/<order_id:\d+>/reject'                                              => 'orders/reject',
+        'shops/<shop_id:\d+>/orders/<order_id:\d+>/complete'                                            => 'orders/complete',
+        'shops/<shop_id:\d+>/orders/<order_id:\d+>/refund'                                              => 'orders/refund',
         //==Wizard==
         'wizard/create_tab'                                                                             => 'wizard/step1',
         'wizard/create_product'                                                                         => 'wizard/step2',

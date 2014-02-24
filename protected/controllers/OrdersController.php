@@ -16,7 +16,7 @@ use \PayPalComponent\Request\ExecutePaymentRequest as ExecutePaymentRequest,
 
 class OrdersController extends Controller
 {
-    public $layout='//layouts/shop';
+    public $layout = '//layouts/shop';
 
     protected $_shop;
 
@@ -48,8 +48,8 @@ class OrdersController extends Controller
         $dataProvider = new CActiveDataProvider(
             'Order',
             [
-                'id'         => false,
-                'criteria'   => [
+                'id'            => false,
+                'criteria'      => [
                     'condition' => 't.shop_id = :shopId',
                     'params'    => [
                         'shopId' => $shop->id
@@ -61,10 +61,10 @@ class OrdersController extends Controller
                         'shopId' => $shop->id
                     ]
                 ],
-                'sort'       => [
+                'sort'          => [
                     'defaultOrder' => 'created DESC'
                 ],
-                'pagination' => [
+                'pagination'    => [
                     'pageSize' => (int)$pageSize
                 ]
             ]
@@ -122,7 +122,7 @@ class OrdersController extends Controller
 
         if (Yii::app()->request->isPostRequest) {
             $payRequest                               = new ExecutePaymentRequest();
-            $payRequest->payKey = $order->pay_key;
+            $payRequest->payKey                       = $order->pay_key;
             $payRequest->requestEnvelope->detailLevel = "ReturnAll";
 
             if (!$response = $payRequest->submit()) {
@@ -149,7 +149,7 @@ class OrdersController extends Controller
         $this->render(
             'approve',
             [
-                'model'=>$order
+                'model' => $order
             ]
         );
     }
@@ -192,8 +192,8 @@ class OrdersController extends Controller
 
         if (Yii::app()->request->isPostRequest) {
             $refundRequest                               = new RefundRequest();
-            $refundRequest->currencyCode = CurrencyCode::CURRENCY_CODE_USD;
-            $refundRequest->payKey = $order->pay_key;
+            $refundRequest->currencyCode                 = CurrencyCode::CURRENCY_CODE_USD;
+            $refundRequest->payKey                       = $order->pay_key;
             $refundRequest->requestEnvelope->detailLevel = "ReturnAll";
 
             if (!$response = $refundRequest->submit()) {
@@ -217,13 +217,65 @@ class OrdersController extends Controller
         $this->render(
             'reject',
             [
-                'model'=>$order
+                'model' => $order
             ]
         );
     }
 
+    public function actionComplete($shop_id, $order_id)
+    {
+        $shop = Shop::model()->findByPk($shop_id);
+        if (!$shop) {
+            throw new CHttpException(
+                404,
+                Yii::t(
+                    'shop',
+                    'Shop was not found'
+                )
+            );
+        }
 
-    public function getShop() {
+        $user = User::model()->findByPk(Yii::app()->user->id);
+
+        if ($shop->owner_id != $user->id) {
+            throw new CHttpException(
+                403,
+                Yii::t(
+                    'shop',
+                    'This is not your shop'
+                )
+            );
+        }
+
+        $order = Order::model()->findByPk($order_id);
+        if (!$order or $order->shop_id != $shop->id) {
+            throw new CHttpException(
+                404,
+                Yii::t(
+                    'order',
+                    'Order was not found'
+                )
+            );
+        }
+
+        if (Yii::app()->request->isPostRequest) {
+            $order->status = Order::STATUS_COMPLETED;
+            if (!$order->save()) {
+                throw new CHttpException(500);
+            }
+            $this->redirect(['index', 'shop_id' => $order->shop_id]);
+        }
+
+        $this->render(
+            'complete',
+            [
+                'model' => $order
+            ]
+        );
+    }
+
+    public function getShop()
+    {
         if ($this->_shop === null) {
             $this->_shop = Shop::model()->findByPk(Yii::app()->request->getParam('shop_id'));
         }
