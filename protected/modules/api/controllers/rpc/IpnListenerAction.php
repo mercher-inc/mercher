@@ -20,7 +20,30 @@ class IpnListenerAction extends CAction
          * @var $request \CHttpRequest
          */
         $request =  Yii::app()->request;
-        //$request->getRestParams();
-        Yii::log(print_r($request->getRestParams(), true), 'info', 'IpnNotification');
+        $data = $request->getRestParams();
+
+        $req = http_build_query(array_merge(['cmd'=>'_notify-validate'], $data));
+
+        $ch = curl_init('https://sandbox.paypal.com/cgi-bin/webscr');
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
+
+        if( !($res = curl_exec($ch)) ) {
+            curl_close($ch);
+            exit;
+        }
+        curl_close($ch);
+
+        if (strcmp ($res, "VERIFIED") == 0) {
+            Yii::log(print_r($data, true), 'info', 'IpnNotification');
+        } else if (strcmp ($res, "INVALID") == 0) {
+            Yii::log(print_r($data, true), 'error', 'IpnNotification');
+        }
     }
 }
