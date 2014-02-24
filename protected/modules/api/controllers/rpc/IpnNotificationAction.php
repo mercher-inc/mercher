@@ -16,6 +16,11 @@ class IpnNotificationAction extends CAction
 {
     public function run()
     {
-        Yii::log(print_r($_POST, true), 'info', 'IpnNotification');
+        /**
+         * @var $request \CHttpRequest
+         */
+        $request =  Yii::app()->request;
+        //$request->getRestParams();
+        Yii::log(print_r($request->getRestParams(), true), 'info', 'IpnNotification');
     }
 }
