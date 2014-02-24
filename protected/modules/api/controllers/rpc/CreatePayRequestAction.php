@@ -15,6 +15,8 @@ use Yii,
     CHttpException,
     \PayPalComponent\Request\PayRequest as PayRequest,
     \PayPalComponent\Response\PayResponse as PayResponse,
+    \PayPalComponent\Request\SetPaymentOptionsRequest as SetPaymentOptionsRequest,
+    \PayPalComponent\Response\SetPaymentOptionsResponse as SetPaymentOptionsResponse,
     \PayPalComponent\Response\PPFaultMessage as PPFaultMessage,
     \PayPalComponent\CurrencyCode as CurrencyCode;
 
@@ -35,10 +37,10 @@ class CreatePayRequestAction extends CAction
 
         if ($order->status == Order::STATUS_NEW) {
 
-            $payRequest                               = new PayRequest();
-            $payRequest->actionType                   = PayRequest::ACTION_TYPE_PAY_PRIMARY;
-            $payRequest->currencyCode                 = CurrencyCode::CURRENCY_CODE_USD;
-            $payRequest->feesPayer                    = PayRequest::FEES_PAYER_PRIMARY_RECEIVER;
+            $payRequest               = new PayRequest();
+            $payRequest->actionType   = PayRequest::ACTION_TYPE_PAY_PRIMARY;
+            $payRequest->currencyCode = CurrencyCode::CURRENCY_CODE_USD;
+            $payRequest->feesPayer    = PayRequest::FEES_PAYER_PRIMARY_RECEIVER;
             /*
             $payRequest->returnUrl                    = Yii::app()->createAbsoluteUrl(
                 '/api/rpc/check_payment_details',
@@ -49,15 +51,15 @@ class CreatePayRequestAction extends CAction
                 ['order_id' => $order->id]
             );
             */
-            $payRequest->returnUrl                    = Yii::app()->createAbsoluteUrl(
+            $payRequest->returnUrl = Yii::app()->createAbsoluteUrl(
                 '/tab/index/blank'
             );
-            $payRequest->cancelUrl                    = Yii::app()->createAbsoluteUrl(
+            $payRequest->cancelUrl = Yii::app()->createAbsoluteUrl(
                 '/tab/index/blank'
             );
 
-            $payRequest->payKeyDuration = 'PT1H';
-            $payRequest->trackingId = $order->id;
+            $payRequest->payKeyDuration               = 'PT1H';
+            $payRequest->trackingId                   = $order->id;
             $payRequest->requestEnvelope->detailLevel = "ReturnAll";
 
             $clientDetails = Yii::createComponent(
@@ -91,20 +93,39 @@ class CreatePayRequestAction extends CAction
             );
             $payRequest->receiverList->addReceiver($receiver);
 
-            if (!$response = $payRequest->submit()) {
-                //print_r($payRequest);
+            if (!$payResponse = $payRequest->submit()) {
                 throw new CHttpException(500);
             } else {
-                if ($response instanceof PayResponse) {
-                    $order->pay_key = $response->payKey;
-                } elseif ($response instanceof PPFaultMessage) {
-                    throw new CHttpException(500, $response->error[0]['message'], $response->error[0]['errorId']);
+                if ($payResponse instanceof PayResponse) {
+                    $order->pay_key = $payResponse->payKey;
+                } elseif ($payResponse instanceof PPFaultMessage) {
+                    throw new CHttpException(500, $payResponse->error[0]['message'], $payResponse->error[0]['errorId']);
                 } else {
                     throw new CHttpException(500);
                 }
             }
 
-            $order->status = Order::STATUS_WAITING_FOR_PAYMENT;
+            $setPaymentOptionsRequest = new SetPaymentOptionsRequest();
+            $setPaymentOptionsRequest->payKey = $order->pay_key;
+            $setPaymentOptionsRequest->displayOptions->businessName = 'Mercher';
+            $setPaymentOptionsRequest->senderOptions->requireShippingAddressSelection = true;
+            $setPaymentOptionsRequest->requestEnvelope->detailLevel = "ReturnAll";
+
+            if (!$setPaymentOptionsResponse = $setPaymentOptionsRequest->submit()) {
+                throw new CHttpException(500);
+            } else {
+                if ($setPaymentOptionsResponse instanceof SetPaymentOptionsResponse) {
+//                    print_r($setPaymentOptionsResponse);
+//                    die;
+                } elseif ($setPaymentOptionsResponse instanceof PPFaultMessage) {
+                    throw new CHttpException(500, $setPaymentOptionsResponse->error[0]['message'], $setPaymentOptionsResponse->error[0]['errorId']);
+                } else {
+                    throw new CHttpException(500);
+                }
+            }
+
+
+            $order->status  = Order::STATUS_WAITING_FOR_PAYMENT;
             $order->expires = new \CDbExpression('NOW() + \'1 hour\'');
             if (!$order->save()) {
                 throw new CHttpException(500);

@@ -7027,6 +7027,13 @@ footer .nav a {
 .view.orders-read .actions {
   margin: 0 0 30px 0;
 }
+.view.orders-read .shipping-address {
+  margin: 0 0 30px 0;
+}
+.view.orders-read .shipping-address address {
+  font-size: 20px;
+  font-weight: 300;
+}
 .view.orders-read .order-items {
   margin: 0 0 30px 0;
 }

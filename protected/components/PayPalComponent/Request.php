@@ -8,6 +8,7 @@
 
 namespace PayPalComponent;
 
+use PayPalComponent\Response\PPFaultMessage;
 use Yii,
     CModel;
 
@@ -43,7 +44,10 @@ abstract class Request extends CModel
         $data = [];
         foreach ($this->attributes as $attribute => $value) {
             if ($value instanceof Field) {
-                $data[$attribute] = $value->__toArray();
+                $fieldValue = $value->__toArray();
+                if (count($fieldValue)) {
+                    $data[$attribute] = $fieldValue;
+                }
             } else {
                 if ($value !== null) {
                     $data[$attribute] = $value;
@@ -168,7 +172,9 @@ abstract class Request extends CModel
     {
         if (!$runValidation || $this->validate($attributes)) {
             if ($this->beforeSubmit()) {
-                return $this->parseResponse($this->getClient()->submitRequest($this));
+                $response = $this->parseResponse($this->getClient()->submitRequest($this));
+                $this->afterSubmit($response);
+                return $response;
             }
             return false;
         } else {
@@ -197,10 +203,16 @@ abstract class Request extends CModel
         }
     }
 
-    protected function afterSubmit()
+    protected function afterSubmit(Response $response)
     {
         if ($this->hasEventHandler('onAfterSubmit')) {
-            $this->onAfterSubmit(new \CEvent($this));
+            $this->onAfterSubmit(new \CEvent($this, ['response'=>$response]));
+        }
+
+        if ($response instanceof PPFaultMessage) {
+            Yii::log(print_r($response, true), 'error', str_replace('\\', '.', trim(get_class($response), '\\')));
+        } else {
+            Yii::log(print_r($response, true), 'info', str_replace('\\', '.', trim(get_class($response), '\\')));
         }
     }
 

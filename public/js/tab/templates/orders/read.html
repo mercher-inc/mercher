@@ -6,11 +6,66 @@
 
     <% if (showCheckOutBtn) { %>
         <div class="payment-method">
+            <h2 class="page-header">Payment method</h2>
             <button type="button" class="btn btn-primary btn-lg btn-block btnCheckOut payPal">Check out with PayPal</button>
         </div>
     <% } %>
 
+    <% if (order.get('sender_email') || order.get('shipping_address_addressee_name') || order.get('shipping_address_street1') || order.get('shipping_address_street2') || order.get('shipping_address_city') || order.get('shipping_address_state') || order.get('shipping_address_zip') || order.get('shipping_address_country')) { %>
+        <div class="shipping-address">
+            <h2 class="page-header">Shipping address</h2>
+            <address>
+                <% if (order.get('shipping_address_addressee_name')) { %>
+                    <strong><%- order.get('shipping_address_addressee_name') %></strong><br>
+                <% } %>
+                <% if (order.get('shipping_address_street1')) {
+                    print(order.get('shipping_address_street1'));
+                    if (order.get('shipping_address_street2')) {
+                        print(",");
+                    }
+                } %>
+                <% if (order.get('shipping_address_street2')) { %>
+                    <%- order.get('shipping_address_street2') %>
+                <% } %>
+                <% if (order.get('shipping_address_street1') || order.get('shipping_address_street2')) { %>
+                    <br>
+                <% } %>
+
+
+                <% if (order.get('shipping_address_city')) {
+                    print(order.get('shipping_address_city'));
+                    if (order.get('shipping_address_state') || order.get('shipping_address_zip')) {
+                        print(",");
+                    }
+                } %>
+
+                <% if (order.get('shipping_address_state')) { %>
+                    <%- order.get('shipping_address_state') %>
+                <% } %>
+
+                <% if (order.get('shipping_address_zip')) { %>
+                    <%- order.get('shipping_address_zip') %>
+                <% } %>
+
+                <% if (order.get('shipping_address_city') || order.get('shipping_address_state') || order.get('shipping_address_zip')) { %>
+                    <br>
+                <% } %>
+
+                <% if (order.get('shipping_address_country')) { %>
+                    <%- order.get('shipping_address_country') %>
+                    <br>
+                <% } %>
+
+                <% if (order.get('sender_email')) { %>
+                    <abbr title="Email">E</abbr>: <a href="mailto:<%- order.get('sender_email') %>"><%- order.get('sender_email') %></a>
+                    <br>
+                <% } %>
+            </address>
+        </div>
+    <% } %>
+
     <div class="order-items">
+        <h2 class="page-header">Order items</h2>
         <div class="list"></div>
         <button type="button" class="showMore btn btn-default btn-block">Show more</button>
         <div class="total-line">

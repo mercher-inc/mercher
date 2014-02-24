@@ -13,4 +13,9 @@ use PayPalComponent\Response;
 class PPFaultMessage extends Response
 {
     public $error;
+
+    public function init()
+    {
+
+    }
 }

@@ -8,28 +8,28 @@ Yii::setPathOfAlias(
     ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'PayPalComponent'
 );
 
-return array(
+return [
     'basePath'       => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name'           => 'Mercher',
-    'preload'        => array('log'),
+    'preload'        => ['log'],
     'sourceLanguage' => 'pseudo',
     'language'       => 'en_US',
-    'import'         => array(
+    'import'         => [
         'application.models.*',
         'application.components.*',
         'ext.yii-mail.YiiMailMessage',
-    ),
-    'modules'        => array(
-        /*'gii' => array(
+    ],
+    'modules'        => [
+        /*'gii' => [
             'class'     => 'system.gii.GiiModule',
             'password'  => '123',
-            'ipFilters' => array('127.0.0.1', '::1'),
-        ),*/
+            'ipFilters' => ['127.0.0.1', '::1'],
+        ],*/
         'api',
         'tab',
         'management'
-    ),
-    'components'     => array(
+    ],
+    'components'     => [
         'mail'         => [
             'class'            => 'ext.yii-mail.YiiMail',
             'transportType'    => 'smtp',
@@ -38,11 +38,11 @@ return array(
             'dryRun'           => false,
             'transportOptions' => require(dirname(__FILE__) . '/mail/transportOptions.php'),
         ],
-        'user'         => array(
+        'user'         => [
             'allowAutoLogin' => true,
-            'loginUrl'       => array('index/index'),
-        ),
-        'urlManager'   => array(
+            'loginUrl'       => ['index/index'],
+        ],
+        'urlManager'   => [
             'class'          => 'UrlManager',
             'urlFormat'      => 'path',
             'urlSuffix'      => '.html',
@@ -50,33 +50,38 @@ return array(
             'caseSensitive'  => false,
             'showScriptName' => false,
             'rules'          => require(dirname(__FILE__) . '/urlManager/rules.php'),
-        ),
+        ],
         'authManager'  => [
             'class' => 'AuthManager',
         ],
-        'clientScript' => array(
+        'clientScript' => [
             'class'    => 'ClientScript',
             'packages' => require(dirname(__FILE__) . '/clientScript/packages.php'),
-        ),
+        ],
         'db'           => require(dirname(__FILE__) . '/db.php'),
-        'errorHandler' => array(
+        'errorHandler' => [
             'class'       => 'ErrorHandler',
             'errorAction' => 'index/error',
-        ),
-        'log'          => array(
+        ],
+        'log'          => [
             'class'  => 'CLogRouter',
-            'routes' => array(
-                array(
+            'routes' => [
+                [
                     'class'  => 'CFileLogRoute',
                     'levels' => 'error, warning',
-                ),
-            ),
-        ),
-        'cache'        => array(
+                ],
+                [
+                    'class'      => 'CFileLogRoute',
+                    'logFile'    => 'PayPalComponent.log',
+                    'categories' => 'PayPalComponent.*',
+                ],
+            ],
+        ],
+        'cache'        => [
             'class' => 'system.caching.CFileCache'
-        ),
+        ],
         'facebook'     => require(dirname(__FILE__) . '/facebook.php'),
-        'paypal'       => array(
+        'paypal'       => [
             'class'         => '\PayPalComponent\Client',
             'applicationId' => 'APP-80W284485P519543T',
             'userId'        => 'dmitriy.s.les-facilitator_api1.gmail.com',
@@ -84,10 +89,10 @@ return array(
             'signature'     => 'AIkghGmb0DgD6MEPZCmNq.bKujMAA8NEIHryH-LQIfmx7UZ5q1LXAa7T',
             'primaryEmail'  => 'dmitriy.s.les-facilitator@gmail.com',
             'baseUrl'       => 'https://svcs.sandbox.paypal.com/'
-        )
-    ),
-    'params'         => array(
+        ]
+    ],
+    'params'         => [
         'adminEmail' => 'support@mercher.net',
         'isApp'      => preg_match('/^app./', $_SERVER['HTTP_HOST'])
-    ),
-);
+    ],
+];

@@ -41,22 +41,46 @@ class CheckPaymentDetailsAction extends CAction
             throw new CHttpException(500);
         }
 
-        $payRequest                               = new PaymentDetailsRequest();
-        $payRequest->payKey = $order->pay_key;
-        $payRequest->requestEnvelope->detailLevel = "ReturnAll";
+        $paymentDetailsRequest                               = new PaymentDetailsRequest();
+        $paymentDetailsRequest->payKey = $order->pay_key;
+        $paymentDetailsRequest->requestEnvelope->detailLevel = "ReturnAll";
 
-        if (!$response = $payRequest->submit()) {
-            //print_r($payRequest);
+        if (!$response = $paymentDetailsRequest->submit()) {
             throw new CHttpException(500);
         } else {
             if ($response instanceof PaymentDetailsResponse) {
-                //print_r($response);
                 if ($response->status == PaymentDetailsResponse::STATUS_INCOMPLETE) {
                     $order->status = Order::STATUS_ACCEPTED;
                     foreach ($order->orderItems(['with'=>'product']) as $orderItem) {
                         if ($orderItem->product->quantity_in_stock !== null) {
                             $orderItem->product->quantity_in_stock -= $orderItem->amount;
                             $orderItem->product->save();
+                        }
+                    }
+                    if ($response->senderEmail) {
+                        $order->sender_email = $response->senderEmail;
+                    }
+                    if ($response->shippingAddress) {
+                        if (isset($response->shippingAddress['addresseeName'])) {
+                            $order->shipping_address_addressee_name = $response->shippingAddress['addresseeName'];
+                        }
+                        if (isset($response->shippingAddress['street1'])) {
+                            $order->shipping_address_street1 = $response->shippingAddress['street1'];
+                        }
+                        if (isset($response->shippingAddress['street2'])) {
+                            $order->shipping_address_street2 = $response->shippingAddress['street2'];
+                        }
+                        if (isset($response->shippingAddress['city'])) {
+                            $order->shipping_address_city = $response->shippingAddress['city'];
+                        }
+                        if (isset($response->shippingAddress['state'])) {
+                            $order->shipping_address_state = $response->shippingAddress['state'];
+                        }
+                        if (isset($response->shippingAddress['zip'])) {
+                            $order->shipping_address_zip = $response->shippingAddress['zip'];
+                        }
+                        if (isset($response->shippingAddress['country'])) {
+                            $order->shipping_address_country = $response->shippingAddress['country'];
                         }
                     }
                     if (!$order->save()) {
