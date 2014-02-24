@@ -75,6 +75,11 @@ return [
                     'logFile'    => 'PayPalComponent.log',
                     'categories' => 'PayPalComponent.*',
                 ],
+                [
+                    'class'      => 'CFileLogRoute',
+                    'logFile'    => 'IpnNotifications.log',
+                    'categories' => 'IpnNotification',
+                ],
             ],
         ],
         'cache'        => [

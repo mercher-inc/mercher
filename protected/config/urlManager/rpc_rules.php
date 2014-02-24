@@ -4,7 +4,8 @@ $rpcActions = array(
     'like',
     'create_order',
     'create_pay_request',
-    'check_payment_details'
+    'check_payment_details',
+    'ipn_notification'
 );
 
 $rpcRoutes = array();

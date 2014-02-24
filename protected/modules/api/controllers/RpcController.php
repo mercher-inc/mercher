@@ -33,6 +33,13 @@ class RpcController extends \CController
                 'users'   => array('@'),
             ),
             array(
+                'allow',
+                'actions' => array(
+                    'ipn_notification',
+                ),
+                'users'   => array('*'),
+            ),
+            array(
                 'deny',
                 'users' => array('*'),
             ),
@@ -45,6 +52,7 @@ class RpcController extends \CController
             'create_order'          => '\api\controllers\rpc\CreateOrderAction',
             'create_pay_request'    => '\api\controllers\rpc\CreatePayRequestAction',
             'check_payment_details' => '\api\controllers\rpc\CheckPaymentDetailsAction',
+            'ipn_notification'      => '\api\controllers\rpc\IpnNotificationAction',
         ];
     }
 
