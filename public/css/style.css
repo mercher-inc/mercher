@@ -6978,6 +6978,9 @@ footer .nav a {
 .thumbnail > img {
   border-radius: 50%;
 }
+.view.orders-index {
+  margin-top: 160px;
+}
 .view.orders-index .pages {
   text-align: center;
 }
@@ -7014,4 +7017,35 @@ footer .nav a {
   width: 50px;
   border-radius: 25px;
   margin-right: -25px;
+}
+.view.orders-read {
+  margin-top: 160px;
+}
+.view.orders-read .page-header .status {
+  float: right;
+}
+.view.orders-read .actions {
+  margin: 0 0 30px 0;
+}
+.view.orders-read .order-items {
+  margin: 0 0 30px 0;
+}
+.view.orders-read .order-items .total-line {
+  margin: 15px 0 0 0;
+  padding: 15px 0 0 0;
+  font-weight: 200;
+  font-size: 40px;
+  line-height: 50px;
+  border-top: 1px solid #eeeeee;
+}
+.view.orders-read .order-items .total-line .total-sum {
+  font-weight: 300;
+}
+.view.orders-read-item .amount {
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: 200;
+  white-space: nowrap;
+  float: left;
+  margin-right: 15px;
 }
