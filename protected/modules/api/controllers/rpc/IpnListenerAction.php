@@ -12,7 +12,7 @@ use Yii,
     CAction;
 
 
-class IpnNotificationAction extends CAction
+class IpnListenerAction extends CAction
 {
     public function run()
     {

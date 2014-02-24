@@ -52,7 +52,7 @@ class RpcController extends \CController
             'create_order'          => '\api\controllers\rpc\CreateOrderAction',
             'create_pay_request'    => '\api\controllers\rpc\CreatePayRequestAction',
             'check_payment_details' => '\api\controllers\rpc\CheckPaymentDetailsAction',
-            'ipn_notification'      => '\api\controllers\rpc\IpnNotificationAction',
+            'ipn_listener'          => '\api\controllers\rpc\IpnListenerAction',
         ];
     }
 

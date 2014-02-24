@@ -57,9 +57,12 @@ class CreatePayRequestAction extends CAction
             $payRequest->cancelUrl = Yii::app()->createAbsoluteUrl(
                 '/tab/index/blank'
             );
+
+            /*
             $payRequest->ipnNotificationUrl = Yii::app()->createAbsoluteUrl(
-                '/api/rpc/ipn_notification'
+                '/api/rpc/ipn_listener'
             );
+            */
 
             $payRequest->payKeyDuration               = 'PT1H';
             $payRequest->trackingId                   = $order->id;
