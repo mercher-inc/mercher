@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events" width="1024px" height="1024px">
+    <g fill="#3da3a7" transform="translate(-512 -512) scale(2)">
+        <polyline
+                points="
+                256,768
+                256,360.43258314658
+                320,414.13495954193
+                320,768"/>
+        <polyline
+                points="
+                768,768
+                768,360.43258314658
+                704,414.13495954193
+                704,768"/>
+        <polyline
+                points="
+                336,406.67403701145
+                336,323.12797049418
+                512,470.80950558138
+                688,323.12797049418
+                688,406.67403701145
+                512,554.35557209865"/>
+    </g>
+    <g fill="#c5c5c5" transform="translate(-512 -512) scale(2)">
+        <polyline
+                points="
+                256,256
+                320,309.70237639535
+                320,393.24844291261
+                256,339.54606651727"/>
+        <polyline
+                points="
+                768,256
+                704,309.70237639535
+                704,393.24844291261
+                768,339.54606651727"/>
+        <polyline
+                points="
+                400,564.80899655338
+                400,768
+                336,768
+                336,427.56055364076
+                512,575.24208872797
+                688,427.56055364076
+                688,768
+                624,768
+                624,564.80899655338
+                512,658.78815524523"/>
+    </g>
+</svg>
