@@ -11,8 +11,8 @@ define(function (require, exports, module) {
         Backbone.Model.extend({
             urlRoot: module.config().urlRoot,
             initialize: function (options) {
-                this.likes = new LikesCollection([], {object: this.get('fb_id')});
-                this.adds = new AddsCollection([], {object: this.get('fb_id')});
+                this.likes = new LikesCollection([], {object: 'http://dev.mercher.net/products/' + this.id + '.html'});
+                this.adds = new AddsCollection([], {object: 'http://dev.mercher.net/products/' + this.id + '.html'});
             }
         })
     );
