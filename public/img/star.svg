@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     width="32px" height="32px">
+
+    <g stroke="#1e8a8e" stroke-width="2" fill="none">
+        <polyline stroke-linecap="round" stroke-linejoin="round" points="
+            16,4
+            19.5267115137548,11.1458980337503
+            27.4126781955418,12.2917960675006
+            21.7063390977709,17.8541019662497
+            23.0534230275097,25.7082039324994
+            16,22
+            8.94657697249032,25.7082039324994
+            10.2936609022291,17.8541019662497
+            4.58732180445816,12.2917960675006
+            12.4732884862452,11.1458980337503
+            16,4"/>
+    </g>
+</svg>
