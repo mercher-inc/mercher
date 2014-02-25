@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <?php

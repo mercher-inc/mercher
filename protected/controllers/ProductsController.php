@@ -45,12 +45,15 @@ class ProductsController extends Controller
             array(
                 'allow',
                 'actions' => array('read'),
+                'users' => array('*'),
+                /*
                 'roles'   => array(
                     AuthManager::PERMISSION_READ_PRODUCT => array(
                         'shop_id'    => Yii::app()->request->getParam('shop_id'),
                         'product_id' => Yii::app()->request->getParam('product_id'),
                     )
                 )
+                */
             ),
             array(
                 'allow',
@@ -131,7 +134,7 @@ class ProductsController extends Controller
         );
     }
 
-    public function actionRead()
+    public function actionRead($product_id)
     {
         $this->render('read');
     }
@@ -193,6 +196,9 @@ class ProductsController extends Controller
     {
         if (!$this->_shop) {
             $this->_shop = Shop::model()->findByPk(Yii::app()->request->getParam('shop_id'));
+            if (!$this->_shop) {
+                $this->_shop = $this->product->shop;
+            }
             if (!$this->_shop) {
                 throw new CHttpException(404);
             }

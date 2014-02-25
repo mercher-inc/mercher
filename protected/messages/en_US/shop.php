@@ -12,7 +12,7 @@ return array(
     'not_set'             => 'Not set',
     'create_success'      => 'Shop was created successfully. {view}',
     'save_success'        => 'Shop settings were saved successfully. {view}',
-    'view_online'         => 'View shop online',
+    'view_online'         => 'View shop on Facebook',
     'help_title'          => 'Provide title for the shop',
     'help_description'    => 'Tell something about the shop',
     'help_tax'            => 'Set tax percentage',

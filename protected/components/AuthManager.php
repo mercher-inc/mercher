@@ -38,6 +38,12 @@ class AuthManager extends CPhpAuthManager
     const PERMISSION_UPDATE_CATEGORY = 'permissionUpdateCategory';
     const PERMISSION_DELETE_CATEGORY = 'permissionDeleteCategory';
 
+    //ORDER
+    const PERMISSION_CREATE_ORDER = 'permissionCreateOrder';
+    const PERMISSION_READ_ORDER   = 'permissionReadOrder';
+    const PERMISSION_UPDATE_ORDER = 'permissionUpdateOrder';
+    const PERMISSION_DELETE_ORDER = 'permissionDeleteOrder';
+
     public $defaultRoles = [
         self::ROLE_OWNER,
         self::ROLE_SHOP_MANAGER,
@@ -158,6 +164,28 @@ class AuthManager extends CPhpAuthManager
             [__CLASS__, 'checkPermissionDeleteCategory']
         );
 
+        //ORDER
+        $this->createOperation(
+            self::PERMISSION_CREATE_ORDER,
+            null,
+            [__CLASS__, 'checkPermissionCreateOrder']
+        );
+        $this->createOperation(
+            self::PERMISSION_READ_ORDER,
+            null,
+            [__CLASS__, 'checkPermissionReadOrder']
+        );
+        $this->createOperation(
+            self::PERMISSION_UPDATE_ORDER,
+            null,
+            [__CLASS__, 'checkPermissionUpdateOrder']
+        );
+        $this->createOperation(
+            self::PERMISSION_DELETE_ORDER,
+            null,
+            [__CLASS__, 'checkPermissionDeleteOrder']
+        );
+
         $roleOwner = $this->createRole(
             self::ROLE_OWNER,
             null,
@@ -179,6 +207,10 @@ class AuthManager extends CPhpAuthManager
         $roleOwner->addChild(self::PERMISSION_READ_CATEGORY);
         $roleOwner->addChild(self::PERMISSION_UPDATE_CATEGORY);
         $roleOwner->addChild(self::PERMISSION_DELETE_CATEGORY);
+        $roleOwner->addChild(self::PERMISSION_CREATE_ORDER);
+        $roleOwner->addChild(self::PERMISSION_READ_ORDER);
+        $roleOwner->addChild(self::PERMISSION_UPDATE_ORDER);
+        $roleOwner->addChild(self::PERMISSION_DELETE_ORDER);
 
         $roleShopManager = $this->createRole(
             self::ROLE_SHOP_MANAGER,
@@ -407,6 +439,26 @@ class AuthManager extends CPhpAuthManager
     }
 
     protected function checkPermissionDeleteCategory($params, $data)
+    {
+        return true;
+    }
+
+    protected function checkPermissionCreateOrder($params, $data)
+    {
+        return true;
+    }
+
+    protected function checkPermissionReadOrder($params, $data)
+    {
+        return true;
+    }
+
+    protected function checkPermissionUpdateOrder($params, $data)
+    {
+        return true;
+    }
+
+    protected function checkPermissionDeleteOrder($params, $data)
     {
         return true;
     }

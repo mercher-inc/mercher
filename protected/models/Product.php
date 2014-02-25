@@ -113,11 +113,11 @@ class Product extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'shop'       => array(self::BELONGS_TO, 'Shop', 'shop_id'),
-            'category'   => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'image'      => array(self::BELONGS_TO, 'Image', 'image_id'),
-            'cartItems'  => array(self::HAS_MANY, 'CartItem', 'product_id'),
-            'orderItems' => array(self::HAS_MANY, 'OrderItem', 'product_id'),
+            'shop'            => array(self::BELONGS_TO, 'Shop', 'shop_id'),
+            'category'        => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'image'           => array(self::BELONGS_TO, 'Image', 'image_id'),
+            'cartItems'       => array(self::HAS_MANY, 'CartItem', 'product_id'),
+            'orderItems'      => array(self::HAS_MANY, 'OrderItem', 'product_id'),
             'orderItemsCount' => array(self::STAT, 'OrderItem', 'product_id'),
         );
     }
@@ -181,7 +181,6 @@ class Product extends CActiveRecord
     {
         return array(
             'application.models.behaviors.CreateUpdateTimeActiveRecordBehavior',
-            'application.models.behaviors.OgProductBehavior',
         );
     }
 
@@ -196,65 +195,46 @@ class Product extends CActiveRecord
         return parent::model($className);
     }
 
-    protected function afterValidate()
-    {
-        parent::afterValidate();
-
-        try {
-            $response = Yii::app()->facebook->sdk->api(
-                $this->shop->fb_id . '?' . http_build_query(['fields' => 'is_published'])
-            );
-        } catch (FacebookApiException $e) {
-            $this->addError('shop_id', 'Facebook api error');
-            return;
-        }
-
-        if (!isset($response['is_published']) or !$response['is_published']) {
-            $this->addError('shop_id', 'Fan page is not published');
-            return;
-        }
-
-        return;
-    }
-
     public function getOgParams()
     {
-        $object = array(
-            'og:title'         => $this->title,
-            'og:type'          => 'product',
-            'og:locale'        => 'en_US',
-            'product:retailer' => $this->shop->fb_id,
-            'fb:admins'        => $this->shop->owner->fb_id,
-            'fb:app_id'        => Yii::app()->facebook->sdk->getAppId(),
-        );
+        $object = [
+            'og'      => [],
+            'product' => [],
+            'fb'      => [],
+        ];
+        $object['og']['title'] = $this->title;
+        $object['og']['type'] = 'product';
+        $object['og']['locale'] = 'en_US';
+
+        $object['fb']['app_id'] = Yii::app()->facebook->sdk->getAppId();
+        $object['fb']['admins'] = $this->shop->owner->fb_id;
+
+        $object['product']['retailer'] = $this->shop->fb_id;
+
         if ($this->price) {
-            $object['product:price:amount']   = $this->price;
-            $object['product:price:currency'] = 'USD';
+            $object['product']['price']['amount']   = $this->price;
+            $object['product']['price']['currency'] = 'USD';
         }
         if ($this->description) {
-            $object['og:description'] = $this->description;
-        }
-
-        if ($this->category) {
-            $object['product:category'] = $this->category->title;
+            $object['og']['description'] = $this->description;
         }
 
         if ($this->image) {
             $data               = CJSON::decode($this->image->data);
-            $object['og:image'] = str_replace(
+            $object['og']['image'] = str_replace(
                 'app.mercher',
                 'mercher',
                 Yii::app()->urlManager->createUrl('/') . $data['xl']
             );
         }
 
-        $object['og:url'] = str_replace(
+        $object['og']['url'] = str_replace(
             'app.mercher',
             'mercher',
-            Yii::app()->urlManager->createUrl('og/products', ['product_id' => $this->id])
+            Yii::app()->urlManager->createUrl('products/read', ['product_id' => $this->id])
         );
 
-        $object['product:product_link'] = 'https://www.facebook.com/' . $this->shop->fb_id . '?' . http_build_query(
+        $object['product']['product_link'] = 'https://www.facebook.com/' . $this->shop->fb_id . '?' . http_build_query(
             array(
                 'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId(),
                 'app_data' => CJSON::encode(
@@ -264,7 +244,6 @@ class Product extends CActiveRecord
                 )
             )
         );
-
         return $object;
     }
 
@@ -275,7 +254,7 @@ class Product extends CActiveRecord
         }
 
         $availableQuantity = $this->quantity_in_stock;
-        $orderItems = $this->orderItems(['with'=>'order']);
+        $orderItems        = $this->orderItems(['with' => 'order']);
         foreach ($orderItems as $orderItem) {
             if (in_array($orderItem->order->status, [Order::STATUS_NEW, Order::STATUS_WAITING_FOR_PAYMENT])) {
                 if ($orderItem->order->expires !== null and strtotime($orderItem->order->expires) > strtotime('now')) {

@@ -79,7 +79,7 @@ class Controller extends CController
                         } else {
                             location.replace("/");
                         }
-                    }, {scope: "'.Yii::app()->facebook->scope.'"});
+                    }, {scope: "' . Yii::app()->facebook->scope . '"});
                 }
             });',
             ClientScript::POS_FB
@@ -140,13 +140,13 @@ class Controller extends CController
                             'data-page-id' => $shop->fb_id,
                             'style'        => 'background-image: url("https://graph.facebook.com/' . $shop->fb_id . '/picture?type=square");'
                         ],
-                        'active'    => (isset($this->shop) and $this->shop->id == $shop->id)?true:false
+                        'active'      => (isset($this->shop) and $this->shop->id == $shop->id) ? true : false
                     ];
                 }
             } else {
                 $this->shopsMenu[] = [
-                    'label'       => 'New shop...',
-                    'url'         => ['/wizard']
+                    'label' => 'New shop...',
+                    'url'   => ['/wizard']
                 ];
             }
             if (count($user->managedShops)) {
@@ -159,7 +159,7 @@ class Controller extends CController
                             'data-page-id' => $shop->fb_id,
                             'style'        => 'background-image: url("https://graph.facebook.com/' . $shop->fb_id . '/picture?type=square");'
                         ],
-                        'active'    => (isset($this->shop) and $this->shop->id == $shop->id)?true:false
+                        'active'      => (isset($this->shop) and $this->shop->id == $shop->id) ? true : false
                     ];
                 }
             }
@@ -188,5 +188,23 @@ class Controller extends CController
     protected function afterRender($view, &$output)
     {
         //var_dump($_SERVER);
+    }
+
+    public function printOg($value, $param = [])
+    {
+        if (is_array($value)) {
+            ksort($value);
+            foreach ($value as $p => $v) {
+                $pp   = $param;
+                $pp[] = $p;
+                $this->printOg($v, $pp);
+            }
+        } else {
+            /**
+             * @var $clientScript CClientScript
+             */
+            $clientScript = Yii::app()->clientScript;
+            $clientScript->registerMetaTag($value, null, null, ['property' => implode(':', $param)]);
+        }
     }
 }

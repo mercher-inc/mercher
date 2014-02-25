@@ -1,14 +1,21 @@
 <?php
-/* @var $this ProductsController */
-?>
+/**
+ * @var $this ProductsController
+ * @var $clientScript CClientScript
+ */
+$clientScript = Yii::app()->clientScript;
+$this->printOg($this->product->ogParams);
 
-<dl>
-    <dt><?php echo Yii::t('product', $this->product->getAttributeLabel('title')) ?></dt>
-    <dd><?php echo $this->product->title ?></dd>
-    <dt><?php echo Yii::t('product', $this->product->getAttributeLabel('description')) ?></dt>
-    <dd><?php echo $this->product->description ?></dd>
-    <dt><?php echo Yii::t('product', $this->product->getAttributeLabel('category_id')) ?></dt>
-    <dd><?php echo $this->product->category ? $this->product->category->title : '' ?></dd>
-    <dt><?php echo Yii::t('product', $this->product->getAttributeLabel('price')) ?></dt>
-    <dd><?php echo $this->product->price ? ('&#36;' . $this->product->price) : 'Not set' ?></dd>
-</dl>
+$clientScript->registerScript(
+    'redirect',
+    'location.replace("'
+        . 'https://www.facebook.com/'
+        . $this->product->shop->fb_id
+        . '?'
+        . http_build_query([
+            'sk'       => 'app_' . Yii::app()->facebook->sdk->getAppId()
+        ])
+        . '");',
+    CClientScript::POS_HEAD
+);
+?>

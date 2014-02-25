@@ -33,6 +33,7 @@ return array_merge(
         'shops/<shop_id:\d+>/categories/<category_id:\d+>/settings'                                     => 'categories/update',
         'shops/<shop_id:\d+>/categories/<category_id:\d+>/delete'                                       => 'categories/delete',
         //==Products==
+        'products/<product_id:\d+>'                                                                     => 'products/read',
         'shops/<shop_id:\d+>/products'                                                                  => 'products/index',
         'shops/<shop_id:\d+>/products/new'                                                              => 'products/create',
         'shops/<shop_id:\d+>/products/<product_id:\d+>'                                                 => 'products/read',

@@ -176,6 +176,50 @@ return array (
     ),
     'data' => NULL,
   ),
+  'permissionCreateOrder' => 
+  array (
+    'type' => 0,
+    'description' => NULL,
+    'bizRule' => 
+    array (
+      0 => 'AuthManager',
+      1 => 'checkPermissionCreateOrder',
+    ),
+    'data' => NULL,
+  ),
+  'permissionReadOrder' => 
+  array (
+    'type' => 0,
+    'description' => NULL,
+    'bizRule' => 
+    array (
+      0 => 'AuthManager',
+      1 => 'checkPermissionReadOrder',
+    ),
+    'data' => NULL,
+  ),
+  'permissionUpdateOrder' => 
+  array (
+    'type' => 0,
+    'description' => NULL,
+    'bizRule' => 
+    array (
+      0 => 'AuthManager',
+      1 => 'checkPermissionUpdateOrder',
+    ),
+    'data' => NULL,
+  ),
+  'permissionDeleteOrder' => 
+  array (
+    'type' => 0,
+    'description' => NULL,
+    'bizRule' => 
+    array (
+      0 => 'AuthManager',
+      1 => 'checkPermissionDeleteOrder',
+    ),
+    'data' => NULL,
+  ),
   'roleOwner' => 
   array (
     'type' => 2,
@@ -204,6 +248,10 @@ return array (
       13 => 'permissionReadCategory',
       14 => 'permissionUpdateCategory',
       15 => 'permissionDeleteCategory',
+      16 => 'permissionCreateOrder',
+      17 => 'permissionReadOrder',
+      18 => 'permissionUpdateOrder',
+      19 => 'permissionDeleteOrder',
     ),
   ),
   'roleShopManager' => 

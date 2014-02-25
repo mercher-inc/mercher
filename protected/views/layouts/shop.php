@@ -18,7 +18,13 @@ $this->menu = array_merge(
         ],
         [
             'label' => Yii::t('label', 'orders'),
-            'url'   => ['orders/index', 'shop_id' => $this->shop->id]
+            'url'   => ['orders/index', 'shop_id' => $this->shop->id],
+            'visible'   => Yii::app()->user->checkAccess(
+                AuthManager::PERMISSION_READ_ORDER,
+                [
+                    'shop_id' => $this->shop->id
+                ]
+            )
         ],
         /*
         [
