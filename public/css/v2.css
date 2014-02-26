@@ -5691,7 +5691,7 @@ fieldset[disabled] .btn-primary.active {
 }
 .header {
   background: #3da3a7;
-  padding: 48px 0;
+  padding: 30px 0;
   color: #fff;
 }
 .header h1 small,
@@ -5702,6 +5702,19 @@ fieldset[disabled] .btn-primary.active {
 .header h6 small {
   color: inherit;
   font-weight: inherit;
+}
+.header .video {
+  float: right;
+  width: 570px;
+  height: 320.625px;
+  margin-left: 30px;
+}
+@media (max-width: 629px) {
+  .header .video {
+    width: 270px;
+    height: 151.875px;
+    margin-bottom: 15px;
+  }
 }
 .view.products-index {
   padding-top: 30px;

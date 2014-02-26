@@ -1,12 +1,25 @@
 .header {
   background: @brand-primary;
-  padding: 48px 0;
+  padding: @grid-gutter-width 0;
   color: #fff;
 
-  h1,h2,h3,h4,h5,h6 {
+  h1, h2, h3, h4, h5, h6 {
     small {
       color: inherit;
       font-weight: inherit;
+    }
+  }
+
+  .video {
+    float: right;
+    width: (@col-width * 2) - @grid-gutter-width;
+    height: ((@col-width * 2 - @grid-gutter-width)/16)*9;
+    margin-left: 30px;
+
+    @media (max-width: (@col-width*2 + @grid-gutter-width - 1)) {
+      width: (@col-width - @grid-gutter-width);
+      height: ((@col-width - @grid-gutter-width)/16)*9;
+      margin-bottom: @grid-gutter-width / 2;
     }
   }
 }
