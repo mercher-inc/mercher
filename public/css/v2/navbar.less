@@ -1,0 +1,46 @@
+.navbar {
+  .navbar-brand {
+    .img-retina('/img/icons/png/logo.png', '/img/icons/png/x2/logo.png', @navbar-height, @navbar-height);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: @navbar-height;
+    padding: 0 @grid-gutter-width / 2;
+    height: @navbar-height;
+    width: @navbar-height + @grid-gutter-width;
+
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .navbar-devider {
+    .navbar-text();
+    height: @line-height-computed;
+    background: @navbar-default-color;
+    width: 1px;
+  }
+}
+
+
+// Default navbar
+.navbar-default {
+  .navbar-nav {
+
+    > li > a {
+      border-bottom: 4px solid transparent;
+      margin-bottom: -4px;
+    }
+
+
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: @navbar-default-link-active-color;
+        background-color: transparent;
+
+        border-bottom-color: @brand-primary;
+      }
+    }
+  }
+}

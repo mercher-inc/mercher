@@ -1,0 +1,48 @@
+@col-width: 300px;
+
+.container {
+  .container-fixed();
+  width: @col-width;
+
+  @media (min-width: (@col-width * 2 + @grid-gutter-width)) {
+    width: @col-width * 2;
+  }
+
+  @media (min-width: (@col-width * 3 + @grid-gutter-width)) {
+    width: @col-width * 3;
+  }
+
+  @media (min-width: (@col-width * 4 + @grid-gutter-width)) {
+    width: @col-width * 4;
+  }
+
+  @media (min-width: (@col-width * 5 + @grid-gutter-width)) {
+    width: @col-width * 5;
+  }
+
+  @media (min-width: (@col-width * 6 + @grid-gutter-width)) {
+    width: @col-width * 6;
+  }
+
+  @media (min-width: (@col-width * 7 + @grid-gutter-width)) {
+    width: @col-width * 7;
+  }
+
+  @media (min-width: (@col-width * 8 + @grid-gutter-width)) {
+    width: @col-width * 8;
+  }
+}
+
+// mobile first defaults
+.row {
+  .make-row();
+}
+
+.col {
+  width: @col-width;
+  position: relative;
+  min-height: 1px;
+  padding-left:  (@grid-gutter-width / 2);
+  padding-right: (@grid-gutter-width / 2);
+  float: left;
+}
