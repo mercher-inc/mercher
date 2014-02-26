@@ -26,4 +26,12 @@
       height: ((@col-width - @grid-gutter-width)/16)*9;
     }
   }
+
+  .btnCta {
+
+    @media (max-width: (@col-width*3 + @grid-gutter-width*2 - 1)) {
+      .btn-block();
+    }
+
+  }
 }

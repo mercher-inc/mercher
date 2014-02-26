@@ -5721,6 +5721,14 @@ fieldset[disabled] .btn-primary.active {
     height: 151.875px;
   }
 }
+@media (max-width: 959px) {
+  .header .btnCta {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 .view.products-index {
   padding-top: 30px;
 }
