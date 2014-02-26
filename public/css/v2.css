@@ -5689,6 +5689,20 @@ fieldset[disabled] .btn-primary.active {
   background-color: #2f7f82;
   border-color: #296c6f;
 }
+.header {
+  background: #3da3a7;
+  padding: 48px 0;
+  color: #fff;
+}
+.header h1 small,
+.header h2 small,
+.header h3 small,
+.header h4 small,
+.header h5 small,
+.header h6 small {
+  color: inherit;
+  font-weight: inherit;
+}
 .view.products-index {
   padding-top: 30px;
 }
