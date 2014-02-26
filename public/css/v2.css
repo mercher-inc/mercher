@@ -5709,11 +5709,16 @@ fieldset[disabled] .btn-primary.active {
   height: 320.625px;
   margin-left: 30px;
 }
+@media (max-width: 959px) {
+  .header .video {
+    margin-left: 0;
+    margin-bottom: 30px;
+  }
+}
 @media (max-width: 629px) {
   .header .video {
     width: 270px;
     height: 151.875px;
-    margin-bottom: 15px;
   }
 }
 .view.products-index {
