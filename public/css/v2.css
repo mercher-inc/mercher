@@ -5579,16 +5579,30 @@ td.visible-print {
     margin-right: 15px;
   }
 }
+.navbar-toggle {
+  padding: 6px 10px;
+}
+.btnCategories {
+  margin-right: 15px;
+  max-width: 125px;
+}
 .navbar-default .navbar-nav > li > a {
   border-bottom: 4px solid transparent;
   margin-bottom: -4px;
+}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav > li > a {
+    border-bottom: none;
+    margin-bottom: 0;
+    border-left: 4px solid transparent;
+  }
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #555555;
   background-color: transparent;
-  border-bottom-color: #3da3a7;
+  border-color: #3da3a7;
 }
 .icon-add,
 .icon-add_to_wishlist,
@@ -5632,6 +5646,7 @@ td.visible-print {
   display: inline-block;
   vertical-align: middle;
   margin: -13px 0;
+  border-radius: 100%;
 }
 .btn {
   font-weight: normal;
