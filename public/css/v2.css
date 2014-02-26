@@ -5694,6 +5694,30 @@ fieldset[disabled] .btn-primary.active {
   padding: 30px 0;
   color: #fff;
 }
+.header:before,
+.header:after {
+  content: " ";
+  /* 1 */
+
+  display: table;
+  /* 2 */
+
+}
+.header:after {
+  clear: both;
+}
+.header:before,
+.header:after {
+  content: " ";
+  /* 1 */
+
+  display: table;
+  /* 2 */
+
+}
+.header:after {
+  clear: both;
+}
 .header h1 small,
 .header h2 small,
 .header h3 small,
@@ -5703,7 +5727,39 @@ fieldset[disabled] .btn-primary.active {
   color: inherit;
   font-weight: inherit;
 }
-.header p {
+.header .title {
+  margin: 30px 0;
+}
+.header .description {
+  float: left;
+  width: 270px;
+}
+@media (min-width: 630px) {
+  .header .description {
+    width: 570px;
+  }
+}
+@media (min-width: 930px) {
+  .header .description {
+    width: 270px;
+  }
+}
+@media (min-width: 1230px) {
+  .header .description {
+    width: 570px;
+  }
+}
+@media (min-width: 1530px) {
+  .header .description {
+    width: 870px;
+  }
+}
+@media (min-width: 1830px) {
+  .header .description {
+    width: 1170px;
+  }
+}
+.header .description p {
   text-align: justify;
 }
 .header .video {

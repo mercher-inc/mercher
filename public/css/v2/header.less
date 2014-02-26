@@ -2,6 +2,7 @@
   background: @brand-primary;
   padding: @grid-gutter-width 0;
   color: #fff;
+  .clearfix();
 
   h1, h2, h3, h4, h5, h6 {
     small {
@@ -10,8 +11,37 @@
     }
   }
 
-  p {
-    text-align: justify;
+  .title {
+    margin: @grid-gutter-width 0;
+  }
+
+  .description {
+    float: left;
+    width: (@col-width * 1) - @grid-gutter-width;
+
+    @media (min-width: (@col-width*2 + @grid-gutter-width)) {
+      width: (@col-width * 2) - @grid-gutter-width;
+    }
+
+    @media (min-width: (@col-width*3 + @grid-gutter-width)) {
+      width: (@col-width * 1) - @grid-gutter-width;
+    }
+
+    @media (min-width: (@col-width*4 + @grid-gutter-width)) {
+      width: (@col-width * 2) - @grid-gutter-width;
+    }
+
+    @media (min-width: (@col-width*5 + @grid-gutter-width)) {
+      width: (@col-width * 3) - @grid-gutter-width;
+    }
+
+    @media (min-width: (@col-width*6 + @grid-gutter-width)) {
+      width: (@col-width * 4) - @grid-gutter-width;
+    }
+
+    p {
+      text-align: justify;
+    }
   }
 
   .video {
