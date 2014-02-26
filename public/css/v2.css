@@ -5703,16 +5703,19 @@ fieldset[disabled] .btn-primary.active {
   color: inherit;
   font-weight: inherit;
 }
+.header p {
+  text-align: justify;
+}
 .header .video {
   float: right;
   width: 570px;
   height: 320.625px;
   margin-left: 30px;
+  margin-bottom: 30px;
 }
 @media (max-width: 959px) {
   .header .video {
     margin-left: 0;
-    margin-bottom: 30px;
   }
 }
 @media (max-width: 629px) {
