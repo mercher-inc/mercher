@@ -23,30 +23,47 @@
       }
 
       img{
-        width: 100%;
+        width: 268px;
+        height: 268px;
         display: block;
+      }
+
+      .image-overlay {
+        display: block;
+        width: 268px;
+        height: 268px;
+        background: black;
+        opacity: 0;
+        margin-top: -268px;
+
+        transition: opacity 0.25s;
+      }
+
+      &:hover {
+        .image-overlay {
+          opacity: 0.15;
+        }
       }
     }
 
     .actions {
       .clearfix();
 
-      .btnBuy {
-        width: 75%;
+      .btnBuy, .btnAddToWishList {
         border-radius: 0;
         border: none;
         padding: @grid-gutter-width / 2;
         display: block;
         float: left;
+        transition: background-color 0.25s;
+      }
+
+      .btnBuy {
+        width: 75%;
       }
 
       .btnAddToWishList {
         width: 25%;
-        border-radius: 0;
-        border: none;
-        padding: @grid-gutter-width / 2;
-        display: block;
-        float: left;
       }
     }
 
@@ -60,6 +77,12 @@
         padding: @grid-gutter-width / 2;
         color: @text-color;
         text-decoration: none;
+
+        transition: background-color 0.25s;
+
+        &:hover {
+          background-color: darken(@gray-lighter, 10%);
+        }
       }
     }
 
@@ -95,10 +118,19 @@
       text-align: justify;
     }
 
-    .shop {
+    .shop, .user {
       background: lighten(@gray-lighter, 3%);
       padding: @grid-gutter-width / 2;
       border-top: 1px solid @gray-lighter;
+      display: block;
+      color: initial;
+      text-decoration: none;
+
+      transition: background-color 0.25s;
+
+      &:hover {
+        background-color: darken(@gray-lighter, 5%);
+      }
 
       .image {
         img {
@@ -110,15 +142,11 @@
 
       .title {
         margin: 0;
-
-        a {
-          display: block;
-          color: @text-color;
-          text-decoration: none;
-          padding: 0;
-          margin: 0;
-        }
       }
+
+    }
+
+    .shop {
 
       .rating {
         background: transparent;
@@ -144,32 +172,6 @@
           &.active {
             .img-retina('/img/icons/png/star_small_active.png', '/img/icons/png/x2/star_small_active.png', 16px, 16px);
           }
-        }
-      }
-    }
-
-    .user {
-      background: lighten(@gray-lighter, 3%);
-      padding: @grid-gutter-width / 2;
-      border-top: 1px solid @gray-lighter;
-
-      .image {
-        img {
-          height: 40px;
-          width: 40px;
-          border-radius: 100%;
-        }
-      }
-
-      .title {
-        margin: 0;
-
-        a {
-          display: block;
-          color: @text-color;
-          text-decoration: none;
-          padding: 0;
-          margin: 0;
         }
       }
     }

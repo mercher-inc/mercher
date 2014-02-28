@@ -5729,6 +5729,7 @@ fieldset[disabled] .btn-primary.active {
 }
 .header .title {
   margin: 30px 0;
+  font-size: 60px;
 }
 .header .description {
   float: left;
@@ -5813,9 +5814,22 @@ fieldset[disabled] .btn-primary.active {
   display: none;
 }
 .view.products-index-item .card .image img {
-  width: 100%;
+  width: 268px;
+  height: 268px;
   display: block;
 }
+.view.products-index-item .card .image .image-overlay {
+  display: block;
+  width: 268px;
+  height: 268px;
+  background: black;
+  opacity: 0;
+  margin-top: -268px;
+  transition: opacity 0.25s;
+}
+.view.products-index-item .card .image:hover .image-overlay {
+  opacity: 0.15;
+}
 .view.products-index-item .card .actions:before,
 .view.products-index-item .card .actions:after {
   content: " ";
@@ -5839,22 +5853,21 @@ fieldset[disabled] .btn-primary.active {
 }
 .view.products-index-item .card .actions:after {
   clear: both;
+}
+.view.products-index-item .card .actions .btnBuy,
+.view.products-index-item .card .actions .btnAddToWishList {
+  border-radius: 0;
+  border: none;
+  padding: 15px;
+  display: block;
+  float: left;
+  transition: background-color 0.25s;
 }
 .view.products-index-item .card .actions .btnBuy {
   width: 75%;
-  border-radius: 0;
-  border: none;
-  padding: 15px;
-  display: block;
-  float: left;
 }
 .view.products-index-item .card .actions .btnAddToWishList {
   width: 25%;
-  border-radius: 0;
-  border: none;
-  padding: 15px;
-  display: block;
-  float: left;
 }
 .view.products-index-item .card .title {
   margin: 0;
@@ -5866,6 +5879,10 @@ fieldset[disabled] .btn-primary.active {
   padding: 15px;
   color: #333333;
   text-decoration: none;
+  transition: background-color 0.25s;
+}
+.view.products-index-item .card .title a:hover {
+  background-color: #d5d5d5;
 }
 .view.products-index-item .card .rating {
   background: #f6f6f6;
@@ -5930,24 +5947,28 @@ fieldset[disabled] .btn-primary.active {
   margin-bottom: 15px;
   text-align: justify;
 }
-.view.products-index-item .card .shop {
+.view.products-index-item .card .shop,
+.view.products-index-item .card .user {
   background: #f6f6f6;
   padding: 15px;
   border-top: 1px solid #eeeeee;
+  display: block;
+  color: initial;
+  text-decoration: none;
+  transition: background-color 0.25s;
 }
-.view.products-index-item .card .shop .image img {
+.view.products-index-item .card .shop:hover,
+.view.products-index-item .card .user:hover {
+  background-color: #e2e2e2;
+}
+.view.products-index-item .card .shop .image img,
+.view.products-index-item .card .user .image img {
   height: 40px;
   width: 40px;
   border-radius: 100%;
 }
-.view.products-index-item .card .shop .title {
-  margin: 0;
-}
-.view.products-index-item .card .shop .title a {
-  display: block;
-  color: #333333;
-  text-decoration: none;
-  padding: 0;
+.view.products-index-item .card .shop .title,
+.view.products-index-item .card .user .title {
   margin: 0;
 }
 .view.products-index-item .card .shop .rating {
@@ -6008,26 +6029,6 @@ fieldset[disabled] .btn-primary.active {
     background-image: url("/img/icons/png/x2/star_small_active.png");
     background-size: 16px 16px;
   }
-}
-.view.products-index-item .card .user {
-  background: #f6f6f6;
-  padding: 15px;
-  border-top: 1px solid #eeeeee;
-}
-.view.products-index-item .card .user .image img {
-  height: 40px;
-  width: 40px;
-  border-radius: 100%;
-}
-.view.products-index-item .card .user .title {
-  margin: 0;
-}
-.view.products-index-item .card .user .title a {
-  display: block;
-  color: #333333;
-  text-decoration: none;
-  padding: 0;
-  margin: 0;
 }
 body {
   margin-top: 48px;
