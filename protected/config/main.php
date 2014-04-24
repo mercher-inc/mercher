@@ -86,16 +86,7 @@ return [
             'class' => 'system.caching.CFileCache'
         ],
         'facebook'     => require(dirname(__FILE__) . '/facebook.php'),
-        'paypal'       => [
-            'class'         => '\PayPalComponent\Client',
-            'applicationId' => 'APP-80W284485P519543T',
-            'userId'        => 'dmitriy.s.les-facilitator_api1.gmail.com',
-            'password'      => '1391764851',
-            'signature'     => 'AIkghGmb0DgD6MEPZCmNq.bKujMAA8NEIHryH-LQIfmx7UZ5q1LXAa7T',
-            'primaryEmail'  => 'dmitriy.s.les-facilitator@gmail.com',
-            'baseUrl'       => 'https://svcs.sandbox.paypal.com/',
-            'fee'           => 0.049 // 4.9%
-        ]
+        'paypal'       => require(dirname(__FILE__) . '/paypal.php')
     ],
     'params'         => [
         'adminEmail' => 'support@mercher.net',

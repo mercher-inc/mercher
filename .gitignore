@@ -1,6 +1,7 @@
 .idea
 /protected/config/db.php
 /protected/config/facebook.php
+/protected/config/paypal.php
 /protected/runtime/*
 /public/assets/*
 /public/images/*
