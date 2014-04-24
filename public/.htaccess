@@ -1,8 +1,6 @@
 RewriteEngine on
 
 RewriteCond %{SERVER_PORT} 80
-RewriteCond %{HTTP_HOST} ^www\.mercher\.net$ [NC]
-RewriteCond %{HTTP_HOST} ^mercher\.net$ [NC]
 RewriteRule ^(.*)$ https://mercher.net/$1 [R,L]
 
 # if a directory or a file exists, use it directly
