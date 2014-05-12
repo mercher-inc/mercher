@@ -98,7 +98,7 @@ class CreatePayRequestAction extends CAction
                 ]
             );
             $payRequest->receiverList->addReceiver($receiver);
-			var_dump ($payRequest);
+			var_dump ($payRequest->getClient());
 
             if (!$payResponse = $payRequest->submit()) {
                 throw new CHttpException(500);
