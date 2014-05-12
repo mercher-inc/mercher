@@ -146,7 +146,7 @@ class WizardController extends Controller
                         'step3',
                         [
                             'model'           => $shop,
-                            'grantPermissionUrl' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?' . http_build_query(
+                            'grantPermissionUrl' => 'https://www.paypal.com/cgi-bin/webscr?' . http_build_query(
                                 [
                                     'cmd'           => '_grant-permission',
                                     'request_token' => $response->token

@@ -171,7 +171,7 @@ class ShopsController extends Controller
             } else {
                 if ($response instanceof \PayPalComponent\Response\RequestPermissionsResponse) {
                     $this->redirect(
-                        'https://www.sandbox.paypal.com/cgi-bin/webscr?' . http_build_query(
+                        'https://www.paypal.com/cgi-bin/webscr?' . http_build_query(
                             [
                                 'cmd'           => '_grant-permission',
                                 'request_token' => $response->token
