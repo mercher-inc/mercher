@@ -99,15 +99,13 @@ class CreatePayRequestAction extends CAction
             );
             $payRequest->receiverList->addReceiver($receiver);
 
-			D($payRequest, 1);
-
             if (!$payResponse = $payRequest->submit()) {
                 throw new CHttpException(500);
             } else {
                 if ($payResponse instanceof PayResponse) {
                     $order->pay_key = $payResponse->payKey;
                 } elseif ($payResponse instanceof PPFaultMessage) {
-					D($payResponse->error, 1);
+					var_dump ($payResponse->error); die;
                     throw new CHttpException(500, $payResponse->error[0]['message'], $payResponse->error[0]['errorId']);
                 } else {
                     throw new CHttpException(500);
@@ -130,7 +128,7 @@ class CreatePayRequestAction extends CAction
 //                    print_r($setPaymentOptionsResponse);
 //                    die;
                 } elseif ($setPaymentOptionsResponse instanceof PPFaultMessage) {
-					D($payResponse->error, 1);
+					var_dump ($payResponse->error); die;
                     throw new CHttpException(500, $setPaymentOptionsResponse->error[0]['message'], $setPaymentOptionsResponse->error[0]['errorId']);
                 } else {
                     throw new CHttpException(500);
