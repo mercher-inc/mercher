@@ -105,7 +105,7 @@ class CreatePayRequestAction extends CAction
                 if ($payResponse instanceof PayResponse) {
                     $order->pay_key = $payResponse->payKey;
                 } elseif ($payResponse instanceof PPFaultMessage) {
-					D($payResponse->error[0]);
+					D($payResponse->error[0], 1);
                     throw new CHttpException(500, $payResponse->error[0]['message'], $payResponse->error[0]['errorId']);
                 } else {
                     throw new CHttpException(500);
@@ -128,6 +128,7 @@ class CreatePayRequestAction extends CAction
 //                    print_r($setPaymentOptionsResponse);
 //                    die;
                 } elseif ($setPaymentOptionsResponse instanceof PPFaultMessage) {
+					D($payResponse->error[0], 1);
                     throw new CHttpException(500, $setPaymentOptionsResponse->error[0]['message'], $setPaymentOptionsResponse->error[0]['errorId']);
                 } else {
                     throw new CHttpException(500);
