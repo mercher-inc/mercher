@@ -266,7 +266,7 @@ if ($this->headerTitle or count($this->headerButtons) or count($this->headerTabl
             ]
         ]
     ); ?>
-    &copy;<?php echo date('Y'); ?> Mercher. All Rights Reserved.
+    &copy;<?php echo date('Y'); ?> Mercher Inc. All Rights Reserved.
 </footer>
 <!-- footer -->
 

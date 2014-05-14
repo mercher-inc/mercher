@@ -90,7 +90,7 @@
             ]
         ]
     ); ?>
-    &copy;<?php echo date('Y'); ?> Mercher. All Rights Reserved.
+    &copy;<?php echo date('Y'); ?> Mercher Inc. All Rights Reserved.
 </footer>
 <!-- footer -->
 
