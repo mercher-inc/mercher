@@ -162,6 +162,7 @@ if (isset($errorCode) and isset($errorMessage)) {
 
 <div class="hero-customers">
 	<div class="container">
+		<h2>Our customers</h2>
 		<div class="row">
 			<?php
 			if (isset($pages) and count($pages)) {
