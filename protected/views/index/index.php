@@ -31,33 +31,6 @@ Yii::app()->clientScript->registerScript(
 );
 
 Yii::app()->clientScript->registerPackage('bootstrap');
-Yii::app()->clientScript->registerScript(
-    'heroTabs',
-    "
-        $('.hero-circle-holder a').click(function (e) {
-            e.preventDefault();
-            if (!$(e.target).hasClass('active')) {
-                $('.hero-circle-holder a').removeClass('active');
-                $(e.target).addClass('active');
-                $(this).tab('show');
-
-                $('.hero-circle-arrow').css('left', $(this).position().left + 45);
-                $('.hero-circle-arrow').css('top', $(this).position().top + 140);
-                $('.hero-circle-arrow').css('opacity', 1);
-                $('.hero-circle-arrow').show();
-
-                $('.hero-circle-arrow2').css('left', $(this).position().left + 45);
-                $('.hero-circle-arrow2').css('top', $(this).position().top + 174);
-                $('.hero-circle-arrow2').show();
-            } else {
-                $('.hero-circle-holder a').removeClass('active');
-                $('<a href=\"#hero-desc-index\"></a>').tab('show');
-                $('.hero-circle-arrow').css('opacity', 0);
-                $('.hero-circle-arrow2').css('top', $(this).position().top + 163);
-            }
-        })
-    "
-);
 
 if (isset($errorCode) and isset($errorMessage)) {
 
@@ -121,32 +94,40 @@ if (isset($errorCode) and isset($errorMessage)) {
     <div class="container">
         <div class="row">
             <div class="col-lg-6 text-center">
+
                 <h1 class="hero-heading-first">
                     Set Up Your Facebook Store
                 </h1>
 
-                <span class="hero-heading-second"><?php echo Yii::t('label', 'it_is'); ?></span>
+                <span class="hero-heading-second">
+					It is
+				</span>
 
-                <div class="hero-circle-block nav">
+                <div class="hero-circle-block">
                     <div class="hero-circle-holder">
-                        <a class="hero-circle-fast" href="#hero-desc-fast">
+                        <div class="hero-circle-item">
                             <?php echo Yii::t('label', 'fast'); ?>
-                        </a>
+                        </div>
                     </div>
                     <div class="hero-circle-holder">
-                        <a class="hero-circle-easy" href="#hero-desc-easy">
+                        <div class="hero-circle-item">
                             <?php echo Yii::t('label', 'easy'); ?>
-                        </a>
+                        </div>
                     </div>
                     <div class="hero-circle-holder">
-                        <a class="hero-circle-cheap" href="#hero-desc-cheap">
+                        <div class="hero-circle-item">
                             <?php echo Yii::t('label', 'cheap'); ?>
-                        </a>
+                        </div>
                     </div>
                 </div>
-                <div class="hero-circle-arrow2"></div>
-                <div class="hero-circle-arrow"></div>
+
+				<div class="hero-get-started">
+					<a class="btn btn-lg" id="ctaButton" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
+					   target="_top"><?php echo Yii::t('label', 'get_started'); ?></a>
+				</div>
+
             </div>
+
             <div class="col-lg-6 col-md-6 hidden-sm hidden-xs hidden-md">
                 <div id="carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -167,61 +148,39 @@ if (isset($errorCode) and isset($errorMessage)) {
 </div>
 
 <div class="container">
-    <div id="hero-desc-block" class="tab-content">
-        <div class="tab-pane fade active in" id="hero-desc-index">
-            <p>
-                Facebook it - Sell it.<br>
-                And let your friends on Facebook become your loyal customers.<br>
-                Mercher is the simplest way to add an online shop directly onto your Facebook!<br><br>
-                All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking
-                orders.<br>
-                Stores with up to 10 items are <strong>free</strong>!
-            </p>
-        </div>
-        <div class="tab-pane fade" id="hero-desc-fast">
-            <p>
-                With Mercher you need only 3 clicks to launch your Facebook&reg; store.
-            </p>
-        </div>
-        <div class="tab-pane fade" id="hero-desc-easy">
-            <p>
-                The very simple and easy-to-understand procedure of the Facebook&reg; shop setting up.
-            </p>
-        </div>
-        <div class="tab-pane fade" id="hero-desc-cheap">
-            <p>
-                A Facebook&reg; store with 10 items of goods is free and with a small fee for larger stores.
-            </p>
-        </div>
-    </div>
-
-    <div class="hero-get-started">
-        <a class="btn btn-primary btn-lg" id="ctaButton" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
-           target="_top"><?php echo Yii::t('label', 'get_started'); ?></a>
-    </div>
-
-    <div class="hero-customers">
-        <div class="row">
-            <?php
-            if (isset($pages) and count($pages)) {
-                foreach ($pages as $page) {
-                    echo CHtml::tag(
-                        'div',
-                        ['class' => "col-xs-4 col-md-2"],
-                        CHtml::link(
-                            CHtml::image("https://graph.facebook.com/$page/picture?width=200&height=200"),
-                            "https://www.facebook.com/$page?sk=app_491297224259374",
-                            [
-                                "class"=> "thumbnail",
-                                "target" => '_blank'
-                            ]
-                        )
-                    );
-                }
-            }
-            ?>
-        </div>
+    <div id="hero-desc-block">
+		<p>
+			Facebook it - Sell it.<br>
+			And let your friends on Facebook become your loyal customers.<br>
+			Mercher is the simplest way to add an online shop directly onto your Facebook!<br><br>
+			All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking
+			orders.<br>
+			Stores with up to 10 items are <strong>free</strong>!
+		</p>
     </div>
 </div>
 
-<!--<button class="btn btn-primary btn-lg" onclick="FB.ui({method:'pagetab'});" >Add shop to your page</button>-->
+<div class="hero-customers">
+	<div class="container">
+		<div class="row">
+			<?php
+			if (isset($pages) and count($pages)) {
+				foreach ($pages as $page) {
+					echo CHtml::tag(
+						'div',
+						['class' => "col-xs-4 col-md-2"],
+						CHtml::link(
+							CHtml::image("https://graph.facebook.com/$page/picture?width=200&height=200"),
+							"https://www.facebook.com/$page?sk=app_491297224259374",
+							[
+								"class"=> "thumbnail",
+								"target" => '_blank'
+							]
+						)
+					);
+				}
+			}
+			?>
+		</div>
+	</div>
+</div>

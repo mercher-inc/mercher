@@ -1,7 +1,5 @@
-@hero-circle-size-default: 120px;
-@hero-circle-size-active: 150px;
-@hero-circle-border-size-default: ceil(@hero-circle-size-default / 15);
-@hero-circle-border-size-active: ceil(@hero-circle-size-active / 15);
+@hero-circle-size-default: 100px;
+@hero-circle-border-size-default: 2px;
 
 .hero {
   background-color: @brand-primary;
@@ -11,86 +9,31 @@
   height: 370px;
 
   .hero-circle {
-    &-fast,
-    &-easy,
-    &-cheap {
+    &-item {
       display: inline-block;
       color: white;
       text-transform: uppercase;
-
-      .square(@hero-circle-size-default);
+      font-size: 30px;
+      font-weight: 300;
+      height: @hero-circle-size-default;
+      width: @hero-circle-size-default;
       border-radius: @hero-circle-size-default;
       margin: 0;
       line-height: ceil(@hero-circle-size-default - (@hero-circle-border-size-default * 2));
-      font-size: ceil(@hero-circle-size-default / 4);
-      border: @hero-circle-border-size-default solid transparent;
-
-      transition-duration: 0.25s;
-      transition-timing-function: ease;
-
-      &:hover, &:active {
-        text-decoration: none;
-      }
-
-      &.active {
-        .square(@hero-circle-size-active);
-        border-radius: @hero-circle-size-active;
-        margin: ceil((@hero-circle-size-default - @hero-circle-size-active) / 2);
-        line-height: ceil(@hero-circle-size-active - (@hero-circle-border-size-active * 2));
-        font-size: ceil(@hero-circle-size-active / 4);
-        border-width: @hero-circle-border-size-active;
-      }
-    }
-
-    &-fast {
-      background: @brand-danger;
-      border-color: lighten(@brand-danger, 10%);
-    }
-
-    &-easy {
-      background: @brand-success;
-      border-color: lighten(@brand-success, 10%);
-    }
-
-    &-cheap {
-      background: @brand-warning;
-      border-color: lighten(@brand-warning, 10%);
+      border: @hero-circle-border-size-default solid white;
+      background: transparent;
     }
 
     &-holder {
       width: 100% / 3;
       float: left;
-      height: @hero-circle-size-active;
-      padding: (@hero-circle-size-active - @hero-circle-size-default) / 2;
+      height: @hero-circle-size-default;
+      padding: (@hero-circle-size-default - @hero-circle-size-default) / 2;
     }
 
     &-block {
-      margin: 25px 0 0 0;
-    }
-
-    &-arrow {
-      background: url('/img/arrow.png');
-      .square(30px);
-      position: absolute;
-      background-repeat: no-repeat;
-      background-position: center;
-      display: none;
-
-      transition-duration: 0.25s;
-      transition-timing-function: ease;
-    }
-
-    &-arrow2 {
-      background: url('/img/arrow2.png');
-      height: 15px;
-      width: 30px;
-      position: absolute;
-      background-repeat: no-repeat;
-      background-position: top center;
-      display: none;
-
-      transition-duration: 0.25s;
-      transition-timing-function: ease;
+      margin: 20px 0 0 0;
+      .clearfix();
     }
   }
 
@@ -100,24 +43,35 @@
 
   &-heading {
     &-first {
-      margin: 40px 0 0 0;
+      margin: 30px 0 0 0;
+      font-weight: 200;
+      font-size: 40px;
+      display: block;
+      line-height: 40px;
     }
     &-second {
-      margin: 25px 0 0 0;
+      margin: 10px 0 0 0;
       font-weight: 200;
-      font-size: 48px;
+      font-size: 36px;
       display: block;
-      line-height: 1.1;
+      line-height: 40px;
     }
   }
 
   &-get-started {
     text-align: center;
-    margin: 20px 0;
+    margin: 30px 0;
+
+    .btn {
+      background: white;
+      color: darken(@brand-primary, 10%);
+    }
   }
 
   &-customers {
-    margin: 80px 0;
+    margin: 20px 0 -20px 0;
+    background: darken(@body-bg, 5%);
+    padding: 40px 0;
 
     img {
       filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
@@ -134,21 +88,20 @@
 }
 
 #hero-desc {
-  &-index,
-  &-fast,
-  &-easy,
-  &-cheap {
+
+  &-block {
+    margin: 40px 0;
     .text-muted();
     font-size: 20px;
+    min-height: 170px;
+    font-weight: 300;
+
+    strong {
+      font-weight: normal;
+    }
 
     p {
       text-align: center;
     }
-  }
-
-  &-block {
-    margin: 40px 0;
-    font-size: 16px;
-    min-height: 170px;
   }
 }
