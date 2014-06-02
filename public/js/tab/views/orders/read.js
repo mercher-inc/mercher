@@ -159,7 +159,7 @@ define(function (require, exports, module) {
                     success: function (order) {
                         require(['DGFlow'], function (DGFlow) {
                             window.Mercher.embeddedPPFlow = new DGFlow({expType: 'light'});
-                            window.Mercher.embeddedPPFlow.startFlow('https://www.paypal.com/webapps/adaptivepayment/flow/pay?paykey=' + view.model.get('pay_key'));
+                            window.Mercher.embeddedPPFlow.startFlow('https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=' + view.model.get('pay_key'));
                             checkPaymentCompleteCallback();
                         });
                     },
@@ -170,7 +170,7 @@ define(function (require, exports, module) {
             } else {
                 require(['DGFlow'], function (DGFlow) {
                     window.Mercher.embeddedPPFlow = new DGFlow({expType: 'light'});
-                    window.Mercher.embeddedPPFlow.startFlow('https://www.paypal.com/webapps/adaptivepayment/flow/pay?paykey=' + view.model.get('pay_key'));
+                    window.Mercher.embeddedPPFlow.startFlow('https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=' + view.model.get('pay_key'));
                     checkPaymentCompleteCallback();
                 });
             }

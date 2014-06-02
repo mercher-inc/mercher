@@ -224,7 +224,7 @@ class IndexController extends Controller
                 D($response);
                 echo CHtml::link(
                     'Pay',
-                    'https://www.paypal.com/cgi-bin/webscr?' . http_build_query(
+                    'https://www.sandbox.paypal.com/cgi-bin/webscr?' . http_build_query(
                         [
                             'cmd'    => '_ap-payment',
                             'paykey' => $response->payKey

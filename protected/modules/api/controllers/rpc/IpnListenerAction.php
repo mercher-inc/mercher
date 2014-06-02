@@ -24,7 +24,7 @@ class IpnListenerAction extends CAction
 
         $req = http_build_query(array_merge(['cmd'=>'_notify-validate'], $data));
 
-        $ch = curl_init('https://paypal.com/cgi-bin/webscr');
+        $ch = curl_init('https://sandbox.paypal.com/cgi-bin/webscr');
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
