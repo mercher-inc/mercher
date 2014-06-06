@@ -24,9 +24,6 @@
                     case Order::STATUS_REJECTED:
                         echo 'Rejected';
                         break;
-                    case Order::STATUS_APPROVED:
-                        echo 'Approved';
-                        break;
                     case Order::STATUS_COMPLETED:
                         echo 'Completed';
                         break;
@@ -38,28 +35,6 @@
         </h1>
 
         <?php if ($order->status == Order::STATUS_ACCEPTED) { ?>
-            <div class="actions">
-                <h2 class="page-header">Change order status</h2>
-                <div class="btn-group btn-group-justified">
-                    <a class="btn btn-success btn-lg" href="<?=
-                    $this->createUrl(
-                        'approve',
-                        [
-                            'shop_id'  => $order->shop_id,
-                            'order_id' => $order->id
-                        ]
-                    ) ?>">Approve</a>
-                    <a class="btn btn-danger btn-lg" href="<?=
-                    $this->createUrl(
-                        'reject',
-                        [
-                            'shop_id'  => $order->shop_id,
-                            'order_id' => $order->id
-                        ]
-                    ) ?>">Reject</a>
-                </div>
-            </div>
-        <?php } elseif ($order->status == Order::STATUS_APPROVED) { ?>
             <div class="actions">
                 <h2 class="page-header">Change order status</h2>
                 <div class="btn-group btn-group-justified">

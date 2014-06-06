@@ -49,7 +49,7 @@ class CheckPaymentDetailsAction extends CAction
             throw new CHttpException(500);
         } else {
             if ($response instanceof PaymentDetailsResponse) {
-                if ($response->status == PaymentDetailsResponse::STATUS_INCOMPLETE) {
+                if ($response->status == PaymentDetailsResponse::STATUS_COMPLETED) {
                     $order->status = Order::STATUS_ACCEPTED;
                     foreach ($order->orderItems(['with'=>'product']) as $orderItem) {
                         if ($orderItem->product->quantity_in_stock !== null) {

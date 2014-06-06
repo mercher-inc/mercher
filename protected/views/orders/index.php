@@ -84,9 +84,6 @@
                                         case Order::STATUS_REJECTED:
                                             echo 'Rejected';
                                             break;
-                                        case Order::STATUS_APPROVED:
-                                            echo 'Approved';
-                                            break;
                                         case Order::STATUS_COMPLETED:
                                             echo 'Completed';
                                             break;

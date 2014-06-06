@@ -38,9 +38,9 @@ class CreatePayRequestAction extends CAction
         if ($order->status == Order::STATUS_NEW) {
 
             $payRequest               = new PayRequest();
-            $payRequest->actionType   = PayRequest::ACTION_TYPE_PAY_PRIMARY;
+            $payRequest->actionType   = PayRequest::ACTION_TYPE_PAY;
             $payRequest->currencyCode = CurrencyCode::CURRENCY_CODE_USD;
-            $payRequest->feesPayer    = PayRequest::FEES_PAYER_PRIMARY_RECEIVER;
+            $payRequest->feesPayer    = PayRequest::FEES_PAYER_SECONDARY_ONLY;
             /*
             $payRequest->returnUrl                    = Yii::app()->createAbsoluteUrl(
                 '/api/rpc/check_payment_details',
@@ -71,7 +71,7 @@ class CreatePayRequestAction extends CAction
             $clientDetails = Yii::createComponent(
                 [
                     'class'         => '\PayPalComponent\Field\ClientDetails',
-                    'applicationId' => 'Mercher DEV'
+                    'applicationId' => 'Mercher'
                 ]
             );
 
@@ -81,8 +81,8 @@ class CreatePayRequestAction extends CAction
                 [
                     'class'       => '\PayPalComponent\Field\Receiver',
                     'amount'      => $order->total,
-                    'email'       => Yii::app()->paypal->primaryEmail,
-                    'paymentType' => 'SERVICE',
+                    'email'       => $order->shop->pp_merchant_id,
+                    'paymentType' => 'GOODS',
                     'primary'     => true,
                 ]
             );
@@ -91,9 +91,9 @@ class CreatePayRequestAction extends CAction
             $receiver = Yii::createComponent(
                 [
                     'class'       => '\PayPalComponent\Field\Receiver',
-                    'amount'      => (ceil(($order->total * (1 - Yii::app()->paypal->fee)) * 100)) / 100,
-                    'email'       => $order->shop->pp_merchant_id,
-                    'paymentType' => 'GOODS',
+                    'amount'      => (ceil(($order->total * Yii::app()->paypal->fee) * 100)) / 100,
+                    'email'       => Yii::app()->paypal->primaryEmail,
+                    'paymentType' => 'SERVICE',
                     'primary'     => false,
                 ]
             );

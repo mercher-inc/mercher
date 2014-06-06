@@ -12,7 +12,13 @@ use PayPalComponent\Response;
 
 class PaymentDetailsResponse extends Response
 {
+    const STATUS_CREATED = 'CREATED';
+    const STATUS_COMPLETED = 'COMPLETED';
     const STATUS_INCOMPLETE = 'INCOMPLETE';
+    const STATUS_ERROR = 'ERROR';
+    const STATUS_REVERSAL_ERROR = 'REVERSALERROR';
+    const STATUS_PROCESSING = 'PROCESSING';
+    const STATUS_PENDING = 'PENDING';
     public $actionType;
     public $cancelUrl;
     public $currencyCode;
