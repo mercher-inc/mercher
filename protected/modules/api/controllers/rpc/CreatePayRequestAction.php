@@ -37,6 +37,23 @@ class CreatePayRequestAction extends CAction
 
         if ($order->status == Order::STATUS_NEW) {
 
+            //================Prices calculation start================
+            $amount = 0;
+            $shipping = 0;
+            $orderItems = $order->orderItems;
+            $shop = $order->shop;
+            foreach ($orderItems as $orderItem) {
+                $product = $orderItem->product;
+                $amount += $product->price * $orderItem->amount;
+                $shipping += $product->shipping * $orderItem->amount;
+            }
+            $amount = (ceil($amount * 100)) / 100;
+            $shipping = (ceil($shipping * 100)) / 100;
+            $taxes = (ceil($amount * ($shop->tax / 100) * 100)) / 100;
+            $total = (ceil(($amount + $shipping + $taxes) * 100)) / 100;
+            $fee = (ceil($total * Yii::app()->paypal->fee * 100)) / 100;
+            //=================Prices calculation end=================
+
             $payRequest               = new PayRequest();
             $payRequest->actionType   = PayRequest::ACTION_TYPE_PAY;
             $payRequest->currencyCode = CurrencyCode::CURRENCY_CODE_USD;
@@ -80,7 +97,7 @@ class CreatePayRequestAction extends CAction
             $receiver = Yii::createComponent(
                 [
                     'class'       => '\PayPalComponent\Field\Receiver',
-                    'amount'      => $order->total,
+                    'amount'      => $total,
                     'email'       => $order->shop->pp_merchant_id,
                     'paymentType' => 'GOODS',
                     'primary'     => true,
@@ -91,7 +108,7 @@ class CreatePayRequestAction extends CAction
             $receiver = Yii::createComponent(
                 [
                     'class'       => '\PayPalComponent\Field\Receiver',
-                    'amount'      => (ceil(($order->total * Yii::app()->paypal->fee) * 100)) / 100,
+                    'amount'      => $fee,
                     'email'       => Yii::app()->paypal->primaryEmail,
                     'paymentType' => 'SERVICE',
                     'primary'     => false,
