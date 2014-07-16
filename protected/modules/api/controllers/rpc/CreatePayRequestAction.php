@@ -150,7 +150,7 @@ class CreatePayRequestAction extends CAction
                 $invoiceItem = Yii::createComponent(
                     [
                         'class'      => '\PayPalComponent\Field\InvoiceItem',
-                        'name'       => $product->name,
+                        'name'       => $product->title,
                         'identifier' => $product->id,
                         'price'      => $product->price * $orderItem->amount,
                         'itemPrice'  => $product->price,
