@@ -38,20 +38,20 @@ class CreatePayRequestAction extends CAction
         if ($order->status == Order::STATUS_NEW) {
 
             //================Prices calculation start================
-            $amount = 0;
-            $shipping = 0;
+            $amount     = 0;
+            $shipping   = 0;
             $orderItems = $order->orderItems;
-            $shop = $order->shop;
+            $shop       = $order->shop;
             foreach ($orderItems as $orderItem) {
                 $product = $orderItem->product;
                 $amount += $product->price * $orderItem->amount;
                 $shipping += $product->shipping * $orderItem->amount;
             }
-            $amount = (ceil($amount * 100)) / 100;
+            $amount   = (ceil($amount * 100)) / 100;
             $shipping = (ceil($shipping * 100)) / 100;
-            $taxes = (ceil($amount * ($shop->tax / 100) * 100)) / 100;
-            $total = (ceil(($amount + $shipping + $taxes) * 100)) / 100;
-            $fee = (ceil($total * Yii::app()->paypal->fee * 100)) / 100;
+            $taxes    = (ceil($amount * ($shop->tax / 100) * 100)) / 100;
+            $total    = (ceil(($amount + $shipping + $taxes) * 100)) / 100;
+            $fee      = (ceil($total * Yii::app()->paypal->fee * 100)) / 100;
             //=================Prices calculation end=================
 
             $payRequest               = new PayRequest();
@@ -133,10 +133,31 @@ class CreatePayRequestAction extends CAction
             $setPaymentOptionsRequest->displayOptions->businessName                   = 'Mercher';
             $setPaymentOptionsRequest->senderOptions->requireShippingAddressSelection = true;
             $setPaymentOptionsRequest->requestEnvelope->detailLevel                   = "ReturnAll";
-            $setPaymentOptionsRequest->receiverOptions->receiver->email = $order->shop->pp_merchant_id;
+            $setPaymentOptionsRequest->receiverOptions->receiver->email               = $order->shop->pp_merchant_id;
 
-            $setPaymentOptionsRequest->receiverOptions->invoiceData->totalTax = $taxes;
-            $setPaymentOptionsRequest->receiverOptions->invoiceData->totalShipping = $shipping;
+            $invoiceData = Yii::createComponent(
+                [
+                    'class'      => '\PayPalComponent\Field\InvoiceData',
+                    'totalTax'       => $taxes,
+                    'totalShipping' => $shipping
+                ]
+            );
+
+            $setPaymentOptionsRequest->receiverOptions->invoiceData = $invoiceData;
+
+            foreach ($orderItems as $orderItem) {
+                $product     = $orderItem->product;
+                $invoiceItem = Yii::createComponent(
+                    [
+                        'class'      => '\PayPalComponent\Field\InvoiceItem',
+                        'name'       => $product->name,
+                        'identifier' => $product->id,
+                        'price'      => $product->price * $orderItem->amount,
+                        'itemPrice'  => $product->price,
+                        'itemCount'  => $orderItem->amount
+                    ]
+                );
+            }
 
 
             if (!$setPaymentOptionsResponse = $setPaymentOptionsRequest->submit()) {
