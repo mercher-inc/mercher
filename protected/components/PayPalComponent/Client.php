@@ -25,10 +25,6 @@ class Client extends CApplicationComponent
     {
         $requestData = $request->__toArray();
 
-        if ($request instanceof Request\SetPaymentOptionsRequest) {
-            var_dump(\CJSON::encode($requestData));
-        }
-
         $headers = [
             "X-PAYPAL-REQUEST-DATA-FORMAT: JSON",
             "X-PAYPAL-RESPONSE-DATA-FORMAT: JSON"
