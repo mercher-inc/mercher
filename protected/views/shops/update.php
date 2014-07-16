@@ -108,7 +108,7 @@ Yii::app()->clientScript->registerScript(
         <div class="form-group col-lg-12">
             <?php
             echo $form->label($model, 'pp_merchant_id', ['class' => 'control-label']);
-            echo CHtml::openTag('div', ['class'=>'input-group']);
+            echo CHtml::openTag('div', ['class' => 'input-group']);
             echo $form->textField(
                 $model,
                 'pp_merchant_id',
@@ -119,11 +119,11 @@ Yii::app()->clientScript->registerScript(
                     'disabled'    => true,
                 ]
             );
-            echo CHtml::openTag('div', ['class'=>'input-group-btn']);
+            echo CHtml::openTag('div', ['class' => 'input-group-btn']);
             echo CHtml::link(
                 'Change',
-                $this->createUrl('updatePayPalAccount', ['shop_id'=>$model->id]),
-                ['class'=>'btn btn-default']
+                $this->createUrl('updatePayPalAccount', ['shop_id' => $model->id]),
+                ['class' => 'btn btn-default']
             );
             echo CHtml::closeTag('div');
             echo CHtml::closeTag('div');
@@ -131,6 +131,26 @@ Yii::app()->clientScript->registerScript(
             ?>
         </div>
     </div>
+
+    <div class="row">
+        <div class="form-group col-lg-12 <?= $model->hasErrors('tax') ? ' has-error' : '' ?>">
+            <?php
+            echo $form->label($model, 'tax', ['class' => 'control-label']);
+            echo $form->textField(
+                $model,
+                'tax',
+                [
+                    'class'       => 'form-control',
+                    'data-toggle' => 'tooltip',
+                    'title'       => Yii::t('shop', 'help_tax'),
+                    'placeholder' => '10'
+                ]
+            );
+            echo $form->error($model, 'tax', ['class' => 'help-block']);
+            ?>
+        </div>
+    </div>
+
     <div class="row">
         <div class="form-group col-lg-12 <?= $model->hasErrors('ga_id') ? ' has-error' : '' ?>">
             <?php

@@ -15,6 +15,7 @@
  * @property string $ga_id
  * @property string $title
  * @property string $description
+ * @property string $tax
  * @property string $image_id
  * @property boolean $is_active
  * @property boolean $is_banned
@@ -108,6 +109,8 @@ class Shop extends CActiveRecord
             array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
             array('title', 'default', 'value' => 'Shop'),
             array('description, fb_id, ga_id, image_id', 'default', 'value' => null),
+            array('tax', 'default', 'value' => 0),
+            array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active, is_banned', 'boolFilter'),
             array('fb_id, owner_id', 'required'),
             array('fb_id', 'in', 'not' => true, 'range' => array('430253050396911')),
@@ -126,7 +129,7 @@ class Shop extends CActiveRecord
             array('fb_id', 'checkFbId', 'on' => 'insert'),
             array('title', 'length', 'max' => 50),
             array('is_active', 'checkActiveCount'),
-            array('title, description, is_active, ga_id, image_id', 'safe'),
+            array('title, description, tax, is_active, ga_id, image_id', 'safe'),
             array('fb_id', 'safe', 'on' => 'insert'),
             array(
                 'pp_merchant_id, paypal_scope, paypal_token, paypal_token_secret',
@@ -134,7 +137,7 @@ class Shop extends CActiveRecord
             ),
             // The following rule is used by search().
             array(
-                'id, created, updated, fb_id, owner_id, title, description, is_active, is_banned, pp_merchant_id, image_id',
+                'id, created, updated, fb_id, owner_id, title, description, tax, is_active, is_banned, pp_merchant_id, image_id',
                 'safe',
                 'on' => 'search'
             )
@@ -163,7 +166,7 @@ class Shop extends CActiveRecord
         if (!is_array($paypalPermissions)) {
             $paypalPermissions = array();
         }
-        $paypalPermissions     = array_unique($paypalPermissions);
+        $paypalPermissions  = array_unique($paypalPermissions);
         $this->paypal_scope = '{' . implode(',', $paypalPermissions) . '}';
     }
 
@@ -291,6 +294,7 @@ class Shop extends CActiveRecord
             'owner_id'       => 'Owner',
             'title'          => 'Tab name',
             'description'    => 'Description',
+            'tax'            => 'Tax percentage',
             'image_id'       => 'Tab image',
             'is_active'      => 'Show tab',
             'is_banned'      => 'Banned',
@@ -320,6 +324,7 @@ class Shop extends CActiveRecord
         $criteria->compare('owner_id', $this->owner_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('tax', $this->tax, true);
         $criteria->compare('image_id', $this->image_id);
         $criteria->compare('is_active', $this->is_active);
         $criteria->compare('is_banned', $this->is_banned);
