@@ -155,9 +155,9 @@ class CreatePayRequestAction extends CAction
                         'class'      => '\PayPalComponent\Field\InvoiceItem',
                         'name'       => $product->title,
                         'identifier' => $product->id,
-                        'price'      => $product->price * $orderItem->amount,
-                        'itemPrice'  => $product->price,
-                        'itemCount'  => $orderItem->amount
+                        'price'      => (float) $product->price * $orderItem->amount,
+                        'itemPrice'  => (float) $product->price,
+                        'itemCount'  => (int) $orderItem->amount
                     ]
                 );
                 $setPaymentOptionsRequest->receiverOptions->invoiceData->addItem($invoiceItem);

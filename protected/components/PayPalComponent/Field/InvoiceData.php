@@ -39,7 +39,9 @@ class InvoiceData extends Field
     public function __toArray()
     {
         $data = [
-            'item' => []
+            'item'          => [],
+            'totalTax'      => (float) $this->getAttribute('totalTax'),
+            'totalShipping' => (float) $this->getAttribute('totalShipping'),
         ];
         foreach ($this->getAttribute('item') as $item) {
             $data['item'][] = $item->__toArray();
@@ -49,7 +51,7 @@ class InvoiceData extends Field
 
     public function addItem(InvoiceItem $item)
     {
-        $itemList = $this->getAttribute('item');
+        $itemList   = $this->getAttribute('item');
         $itemList[] = $item;
         $this->setAttribute('item', $itemList);
     }
