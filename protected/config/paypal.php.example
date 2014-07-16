@@ -8,5 +8,5 @@ return [
 	'signature'     => 'AIkghGmb0DgD6MEPZCmNq.bKujMAA8NEIHryH-LQIfmx7UZ5q1LXAa7T',
 	'primaryEmail'  => 'dmitriy.s.les-facilitator@gmail.com',
 	'baseUrl'       => 'https://svcs.sandbox.paypal.com/',
-	'fee'           => 0.049 // 4.9%
+	'fee'           => 0.02 // 2%
 ];

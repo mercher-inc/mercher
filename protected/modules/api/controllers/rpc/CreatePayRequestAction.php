@@ -40,7 +40,7 @@ class CreatePayRequestAction extends CAction
             $payRequest               = new PayRequest();
             $payRequest->actionType   = PayRequest::ACTION_TYPE_PAY;
             $payRequest->currencyCode = CurrencyCode::CURRENCY_CODE_USD;
-            $payRequest->feesPayer    = PayRequest::FEES_PAYER_SECONDARY_ONLY;
+            $payRequest->feesPayer    = PayRequest::FEES_PAYER_PRIMARY_RECEIVER;
             /*
             $payRequest->returnUrl                    = Yii::app()->createAbsoluteUrl(
                 '/api/rpc/check_payment_details',
