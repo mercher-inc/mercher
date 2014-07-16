@@ -126,6 +126,26 @@ echo $form->error($model, 'price', ['class' => 'help-block']);
 echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 
+//==shipping==
+echo CHtml::openTag('div', ['class' => 'row']);
+echo CHtml::openTag(
+    'div',
+    ['class' => 'form-group col-lg-12' . ($model->hasErrors('shipping') ? ' has-error' : '')]
+);
+echo $form->label($model, 'shipping', ['class' => 'control-label']);
+echo $form->textField(
+    $model,
+    'shipping',
+    [
+        'class'       => 'form-control',
+        'data-toggle' => 'tooltip',
+        'title'       => Yii::t('product', 'help_shipping')
+    ]
+);
+echo $form->error($model, 'shipping', ['class' => 'help-block']);
+echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+
 //==quantity_in_stock==
 echo CHtml::openTag('div', ['class' => 'row']);
 echo CHtml::openTag(
