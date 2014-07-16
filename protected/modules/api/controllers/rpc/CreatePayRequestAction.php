@@ -44,10 +44,9 @@ class CreatePayRequestAction extends CAction
             $shop       = $order->shop;
             foreach ($orderItems as $orderItem) {
                 $product = $orderItem->product;
-                $amount += $product->price * $orderItem->amount;
+                $amount += (ceil($product->price * $orderItem->amount * 100)) / 100;
                 $shipping += $product->shipping * $orderItem->amount;
             }
-            $amount   = (ceil($amount * 100)) / 100;
             $shipping = (ceil($shipping * 100)) / 100;
             $taxes    = (ceil($amount * ($shop->tax / 100) * 100)) / 100;
             $total    = (ceil(($amount + $shipping + $taxes) * 100)) / 100;
@@ -137,8 +136,8 @@ class CreatePayRequestAction extends CAction
 
             $invoiceData = Yii::createComponent(
                 [
-                    'class'      => '\PayPalComponent\Field\InvoiceData',
-                    'totalTax'       => $taxes,
+                    'class'         => '\PayPalComponent\Field\InvoiceData',
+                    'totalTax'      => $taxes,
                     'totalShipping' => $shipping
                 ]
             );
@@ -152,11 +151,12 @@ class CreatePayRequestAction extends CAction
                         'class'      => '\PayPalComponent\Field\InvoiceItem',
                         'name'       => $product->title,
                         'identifier' => $product->id,
-                        'price'      => $product->price * $orderItem->amount,
+                        'price'      => (ceil($product->price * $orderItem->amount * 100)) / 100,
                         'itemPrice'  => $product->price,
                         'itemCount'  => $orderItem->amount
                     ]
                 );
+                $setPaymentOptionsRequest->receiverOptions->invoiceData->addItem($invoiceItem);
             }
 
 

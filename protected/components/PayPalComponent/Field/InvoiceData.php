@@ -35,4 +35,22 @@ class InvoiceData extends Field
         return [
         ];
     }
+
+    public function __toArray()
+    {
+        $data = [
+            'item' => []
+        ];
+        foreach ($this->getAttribute('item') as $item) {
+            $data['item'][] = $item->__toArray();
+        }
+        return $data;
+    }
+
+    public function addItem(InvoiceItem $item)
+    {
+        $itemList = $this->getAttribute('item');
+        $itemList[] = $item;
+        $this->setAttribute('item', $itemList);
+    }
 }
