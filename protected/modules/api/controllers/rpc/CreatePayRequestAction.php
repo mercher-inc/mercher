@@ -133,8 +133,10 @@ class CreatePayRequestAction extends CAction
             $setPaymentOptionsRequest->displayOptions->businessName                   = 'Mercher';
             $setPaymentOptionsRequest->senderOptions->requireShippingAddressSelection = true;
             $setPaymentOptionsRequest->requestEnvelope->detailLevel                   = "ReturnAll";
-            //$setPaymentOptionsRequest->receiverOptions->invoiceData
             $setPaymentOptionsRequest->receiverOptions->receiver->email = $order->shop->pp_merchant_id;
+
+            $setPaymentOptionsRequest->receiverOptions->invoiceData->totalTax = $taxes;
+            $setPaymentOptionsRequest->receiverOptions->invoiceData->totalShipping = $shipping;
 
 
             if (!$setPaymentOptionsResponse = $setPaymentOptionsRequest->submit()) {
