@@ -9,7 +9,7 @@
         <h4 class="media-heading"><%- orderItem.product.get('title') %></h4>
         <% if (orderItem.get('price')) { %>
             <p>
-                &#36;<%- orderItem.get('price') %>
+                &#36;<%- orderItem.product.get('price') %>
                 <% if (orderItem.product.get('shipping')) { %>
                     <small>+ &#36;<%- orderItem.product.get('shipping') %> shipping</small>
                 <% } %>
