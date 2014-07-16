@@ -44,12 +44,11 @@ class CreatePayRequestAction extends CAction
             $shop       = $order->shop;
             foreach ($orderItems as $orderItem) {
                 $product = $orderItem->product;
-                $amount += (ceil($product->price * $orderItem->amount * 100)) / 100;
+                $amount += $product->price * $orderItem->amount;
                 $shipping += $product->shipping * $orderItem->amount;
             }
-            $shipping = (ceil($shipping * 100)) / 100;
             $taxes    = (ceil($amount * ($shop->tax / 100) * 100)) / 100;
-            $total    = (ceil(($amount + $shipping + $taxes) * 100)) / 100;
+            $total    = $amount + $shipping + $taxes;
             $fee      = (ceil($total * Yii::app()->paypal->fee * 100)) / 100;
             //=================Prices calculation end=================
 
@@ -151,14 +150,13 @@ class CreatePayRequestAction extends CAction
                         'class'      => '\PayPalComponent\Field\InvoiceItem',
                         'name'       => $product->title,
                         'identifier' => $product->id,
-                        'price'      => (ceil($product->price * $orderItem->amount * 100)) / 100,
+                        'price'      => $product->price * $orderItem->amount,
                         'itemPrice'  => $product->price,
                         'itemCount'  => $orderItem->amount
                     ]
                 );
                 $setPaymentOptionsRequest->receiverOptions->invoiceData->addItem($invoiceItem);
             }
-
 
             if (!$setPaymentOptionsResponse = $setPaymentOptionsRequest->submit()) {
                 throw new CHttpException(500);
