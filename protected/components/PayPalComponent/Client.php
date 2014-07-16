@@ -26,7 +26,7 @@ class Client extends CApplicationComponent
         $requestData = $request->__toArray();
 
         if ($request instanceof Request\SetPaymentOptionsRequest) {
-            var_dump($requestData); die;
+            var_dump(\CJSON::encode($requestData));
         }
 
         $headers = [
