@@ -49,7 +49,7 @@ class CreatePayRequestAction extends CAction
             }
             $taxes    = (ceil($amount * ($shop->tax / 100) * 100)) / 100;
             $total    = $amount + $shipping + $taxes;
-            $fee      = (ceil($amount * Yii::app()->paypal->fee * 100)) / 100;
+            $fee      = (ceil(($amount + $shipping) * Yii::app()->paypal->fee * 100)) / 100;
             //=================Prices calculation end=================
 
             $payRequest               = new PayRequest();
