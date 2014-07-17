@@ -12,8 +12,9 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </div>
 <p>
     Mercher is designed to help users effortlessly turn their passions and talents into a business. Mercher (also
-    referred to as “we” in this document”) hopes this can spur innovation, create jobs, bring communities together
-    and ultimately make the world a little better. As with any platform, Mercher, has a set of ground rules for use.
+    referred to as “we” in this document”) hopes to spur innovation, create jobs, bring communities together and
+    ultimately make the world a little better business at a time. As with any platform, Mercher, has a set of ground
+    rules for use.
 </p>
 
 <h2>
@@ -21,15 +22,14 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h2>
 
 <p>
-    By signing up and using Mercher you acknowledge that you have read, accepted and agreed to be bound by the terms
-    and conditions set forth in this agreement. If you are entering into this Agreement on behalf of a company or
-    other legal entity, you represent that you have the authority to bind such entity to this agreement, in which
-    case the terms “you” or “your” shall refer to such entity. If you do not have such authority or if you do not
-    agree to this Agreement, you may not use this service. If you are under the age of eighteen (18), you may use
-    Mercher only with the prior informed consent of your parent or guardian. Make sure you review these Terms with
-    your parent or guardian so that you both understand all of your rights and responsibilities. You are responsible
-    for maintaining the confidentiality of your account and are fully and solely responsible for all activities that
-    occur under your account.
+    By signing up and using Mercher you acknowledge that you have read, accepted and agreed to be bound by the terms and
+    conditions set forth in this agreement. If you are entering into this Agreement on behalf of a company or other
+    legal entity, you represent that you have the authority to bind such entity to this agreement, in which case the
+    terms “you” or “your” shall refer to such entity. If you do not have such authority or if you do not agree to this
+    Agreement, you may not use this Service. If you are under the age of eighteen (18), you may use Mercher only with
+    the prior informed consent of your parent or guardian and the parent or guardian will be bound by this Agreement.
+    You are responsible for maintaining the confidentiality of your password and account and are fully and solely
+    responsible for all activities that occur under your password and account.
     <strong>
         As Mercher is a platform integrated into Facebook&reg;, all user content must follow
         Facebook&reg; Advertising Guidelines
@@ -43,13 +43,14 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h2>
 
 <p>
-    Mercher, may, from time to time, change its Terms of Service Agreement because of changes in business practices,
-    and relevant and applicable legal or regulatory requirements, - reasons to better serve your needs, or for any
-    other reason at Mercher’s sole discretion. Mercher expressly reserves the right to make any changes to this
-    agreement, or to the website and its contents, or the service at any time without prior notice to you. We do not
-    have the resources to inform each user of changes individually, so we encourage you to review this agreement
-    whenever you use our products. If any change to this agreement is not acceptable to you, your only remedy is to
-    stop accessing and using the website and service.
+    Mercher, may, at any time, change its Terms of Service Agreement due to changes in business practices, and/or
+    relevant and applicable legal or regulatory requirements, to further your Mercher experience, or for any other
+    reason at Mercher’s sole discretion. Mercher expressly reserves the right to make any changes to this agreement, to
+    the website and its contents, or to the service at any time without prior notice. We do not have the resources to
+    inform each user of changes individually, therefore we advise you to frequently review this agreement whenever you
+    use our products. If any changes to this agreement are not acceptable, you must stop accessing and using the website
+    and service. Any additional use of the website or service will be deemed as an acknowledgement and consent of
+    changes in the terms of service by you.
 </p>
 
 <h2>
@@ -57,18 +58,17 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h2>
 
 <p>
-    Mercher is a platform that allows users to offer, sell and buy products and services. As a platform, Mercher does
-    not own or sell the items or services listed on this website, so the actual contract for sale is directly between
-    the sellers and buyers.
+    Mercher is a platform that allows users to offer, sell and buy products. As a platform, Mercher does not own or sell
+    the items listed on this website; the actual contract for sale and all legal responsibilities for a vendor/vendee
+    contract resides directly between the sellers and buyers.
 </p>
 
 <p>
-    While we may provide pricing, shipping, and other guidance in our services, such guidance is solely
-    informational and you may choose not to follow it. Also, while we may help facilitate the resolution of disputes
-    through various means, Mercher has no control over and does not guarantee the existence, quality, safety or
-    legality of items or services advertised; the truth or accuracy of users' content or listings; the ability of
-    sellers to sell items or services; the ability of buyers to pay for items or services; or that a buyer or seller
-    will actually complete a transaction or return an item.
+    While we may provide pricing, shipping, and other guidance in our Services, such guidance is solely informational
+    and is optional. Also, while we may help facilitate the resolution of disputes through various programs, Mercher has
+    no control over and does not guarantee the existence, quality, safety or legality of items advertised; the truth or
+    accuracy of users' content or listings; the ability of sellers to sell items; the ability of buyers to pay for
+    items; or that a buyer or seller will actually complete a transaction or return an item.
 </p>
 
 <h2>
@@ -76,40 +76,40 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h2>
 
 <p>
-    Without limiting other remedies, we may, limit, suspend, or terminate our services and user accounts, restrict
-    or prohibit access to, and your activities on, our services, delay or remove hosted content, remove any special
-    status associated with the account, reduce or eliminate any discounts, and take technical and legal steps to
-    keep you from using our services if:
+    Without limiting other remedies, we may, limit, suspend, or terminate our services and any user accounts, restrict
+    or prohibit access to your activities on our Services, delay or remove hosted content, remove any special status
+    associated with the account, reduce or eliminate any discounts, and take any technical and legal steps to keep you
+    from using our Services if:
 </p>
 <ul>
     <li>
-        we think that you are creating problems or possible legal liabilities;
+        we believe that you are creating problems or possible legal liabilities;
     </li>
     <li>
-        we think that such restrictions will improve the security of the Mercher community or reduce our or another
-        Mercher user's exposure to financial liabilities
+        we believe that such restrictions will improve the security and protection of the Mercher community or reduce
+        our or another Mercher user's exposure to financial liabilities
     </li>
     <li>
-        we think that you are infringing the rights of third parties; broadly, we prohibit anything that is
+        we believe that you are infringing on the rights of third parties; broadly, we prohibit anything that is
         derogatory to somebody else; anything that you didn't create; or anything that is illegal.
     </li>
     <li>
-        we think that you are acting inconsistently with the letter or spirit of this Agreement or our policies;
+        we believe that you are acting inconsistently with the letter or spirit of this Agreement or our policies;
     </li>
     <li>
-        we believe you attempt to modify, reverse engineer, decompile, disassemble, or otherwise reduce or attempt
-        to reduce to a human perceivable form any of the software provided by Mercher or used by Mercher in
-        providing the service.
+        we believe you attempted to modify, reverse engineer, decompile, disassemble, or otherwise reduce or attempt to
+        reduce to a human perceivable form any of the software provided by Mercher or used by Mercher in providing the
+        Service.
     </li>
     <li>
-        despite our reasonable endeavors, we are unable to verify or authenticate information you provide to us.
+        despite our reasonable endeavors, we are unable to verify or authenticate any information you provide to us
     </li>
 </ul>
 <p>
-    When a buyer or seller issue arises we may consider the user's performance history and the specific
-    circumstances in applying our policies. We may choose to be more lenient with policy enforcement and to do the
-    right thing for both buyers and sellers. Bottom line: try to do good business both as a seller and a buyer and
-    we’ll do our best to support you.
+    When a buyer or seller issue arises we may consider the user's performance history and the specific circumstances in
+    applying our policies to further settle the dispute. We may choose to be more lenient with policy enforcement and to
+    do the right thing for both buyers and sellers.
+    <ins>Bottom line: try to do good business both as a seller and a buyer and we’ll do our best to support you.</ins>
 </p>
 
 <h2>
@@ -121,27 +121,26 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </p>
 <ul>
     <li>
-        You are responsible for reading the full item listing before making a commitment to buy;
+        You are responsible for reading the full item listing before making a commitment to buy.
     </li>
     <li>
-        You enter into a legally binding contract specifically with the seller to purchase an item when you commit to
-        buy an item;
+        You enter into a legally binding contract with the seller to purchase an item when you commit to buy an item.
     </li>
     <li>
-        You will pay attention to the details of the transaction, because your total price may include taxes, fees, and
-        shipping costs, all of which you are responsible for funding;
+        You have paid attention to and understood the details of the transaction, as your total price may exclude taxes,
+        fees, and shipping costs, all of which you are responsible for funding.
     </li>
     <li>
-        For motor vehicles and real estate, an offer initiates a non-binding transaction representing a buyer's serious
-        expression of interest in buying the seller's item and does not create a formal contract between the buyer and
-        the seller;
+        For motor vehicles and real estate or (any transaction over $500 not including taxes and fees), an offer
+        initiates a non-binding transaction representing a buyer's serious expression of interest in buying the seller's
+        item and does not create a formal contract between the buyer and the seller.
     </li>
     <li>
-        We do not transfer legal ownership of items or services from the seller to the buyer;
+        Mercher is not responsible for the transfer of legal ownership of items between parties.
     </li>
     <li>
-        All actual payments are made with PayPal&trade; services, therefore all PayPal&trade; Terms and Conditions are
-        applicable;
+        All actual payments are made with PayPal&trade; services, therefore PayPal&trade; Terms and Conditions are
+        applicable.
     </li>
 </ul>
 
@@ -150,36 +149,50 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h2>
 
 <p>
-    When listing an item, you agree that you are responsible for the accuracy and content, and quantity of the listing
-    and item offered.
-</p>
-
-<p>
-    To run a great business, sellers work hard to ensure smooth and professional transactions with their buyers. This
-    includes setting buyer expectations and meeting those expectations. Some of the most basic things you can do as a
-    seller are to provide accurate and consistent details about your item and to be clear and specific about the terms
-    and conditions of the sale, including any applicable taxes. You should also make every effort to provide excellent
-    customer service from start to finish, including:
+    When listing an item, you agree that:
 </p>
 <ul>
     <li>
-        Charging reasonable shipping and handling costs and whether you are willing to ship internationally;
+        You are responsible for the accuracy and content, and quantity of the listing and item offered.
     </li>
     <li>
-        Specifying your handling time and return policy in your listing;
+        Mercher is entitled to a
+        <mark><?php echo Yii::app()->paypal->fee * 100 . "%" ?> transactional fee</mark>
+        on all final transactions which originated and/or used Mercher website and services excluding taxes and PayPal&trade;
+        fees. Should a final transaction be reversed through mutual agreement of the parties, Mercher will refund the
+        transactional fee to the seller.
     </li>
     <li>
-        Responding to buyers' questions promptly;
+        You will work hard to ensure smooth and professional transactions with their buyers to run a great business.
+        This includes setting reasonable buyer expectations and meeting those expectations. Basic expectations include
+        providing accurate details about items listed, clear and specific terms and conditions of sales clearly stated
+        including any applicable taxes, and prompt polite communication with buyers, if warranted, regarding your
+        products.
     </li>
     <li>
-        Being professional throughout the transaction;
-    </li>
-    <li>
-        Making sure the item is delivered to the buyer as described in your listing;
-    </li>
-    <li>
-        Frequently reviewing and updating listings to make sure all information – such as inventory status and item
-        condition – is accurate and up to date;
+        You should also make every effort to provide excellent customer service from start to finish, including:
+        <ul>
+            <li>
+                Charging reasonable shipping and handling costs and stating whether shipping internationally is
+                available;
+            </li>
+            <li>
+                Specifying your handling time and return policy in your listing;
+            </li>
+            <li>
+                Responding to buyers' questions promptly;
+            </li>
+            <li>
+                Professionalism throughout the transaction;
+            </li>
+            <li>
+                Delivery of item to the buyer is described in listing;
+            </li>
+            <li>
+                Frequently reviewing and updating listings to make sure all information—such as inventory status and
+                item condition—is accurate and up to date
+            </li>
+        </ul>
     </li>
 </ul>
 
@@ -188,33 +201,35 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h2>
 <ul>
     <li>
-        You understand that your content is public. It can and will be seen by any user on public social networks and
-        any external links to your item;
+        You understand that your Content is public. It can and will be seen by any user on public social networks and
+        any external links to your item.
     </li>
     <li>
         Mercher does not take responsibility for any of the information provided by the seller, does not handle any
-        payment processing, and takes no responsibility on transaction details;
+        payment processing, and takes no responsibility on transaction details.
     </li>
     <li>
-        You retain all rights to any content you submit for upload and use in Mercher. You agree that you own or have
-        use rights to use all content you reference or post in Mercher. In addition, you agree to the following: When
-        you post content, you are committing that the content really, truly belongs only to you and that the posting and
-        use of your content does not violate the privacy rights, publicity rights, copyrights, contract rights,
-        intellectual property rights, or human rights of any other person or entity. We are not responsible if the
-        content is not really yours or if you infringe on others' rights; you will be responsible if there are any costs
-        associated with ownership and rights issues;
+        You retain all rights to any Content you submit for upload and use in Mercher. You warrant and certify that you
+        own or have use rights to all Content you reference or post in Mercher. You warrant and certify that any and all
+        posts of Content used on your site does not violate the privacy rights, publicity rights, copyrights, contract
+        rights, intellectual property rights, or human rights of any other person or entity. All responsibility of
+        violation or alleged violation of any rights listed above or any other third-party rights lie solely with the
+        seller. Mercher is not responsible for any Content that may potentially or infringes on others’ rights. All
+        costs and consequences associated with infringement lies the seller. In addition, any costs and consequences
+        incurred by Mercher due to seller’s infringement is the sole responsibility of the seller to remedy.
     </li>
     <li>
-        If you terminate your application subscription, your content from the website will not be used outside of the
-        website anymore, but we might still have it stored in backup files or on servers for any legal reason;
+        Upon termination of your relationship with Mercher such as cancellation of your subscription, your Content from
+        the website will not be used outside of the website within (30 days of termination) given your written
+        submission for such removal. However, back up files may be stored on our servers due to legal reasons.
     </li>
     <li>
-        If you stop using the Mercher application your Content will remain in our website, unless you actively remove
-        your content;
+        Secession of the Mercher Shopping Tab application does not remove your Content and will remain in our website,
+        unless you actively remove your Content.
     </li>
     <li>
-        You agree that you will follow all use and ownership terms in Facebook’s&reg; Statement of Rights and
-        Responsibilities. These change periodically and you should review them regularly.
+        You agree that you acknowledge, understand, and will follow, all use and ownership terms in Facebook’s&reg;
+        Statement of Rights and Responsibilities. These change periodically and you should review them regularly.
     </li>
 </ul>
 
@@ -227,37 +242,33 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h3>
 
 <p>
-    You're required to specify your return policy in your listings, even if you don't accept returns.
+    Sellers are required to specify your return policy in your listings, and clearly state if you do not accept returns.
+    (If you are going to require that they put a return policy in the listing, you are going to have to have a box in
+    the listing ideally when they do the listing, they specify their return policy….)Mercher encourages you to accept
+    returns as it generates buyer satisfaction and repeat purchases.
 </p>
 
 <p>
-    If you accept returns, buyers can return an item for any reason, including when they change their mind about a
-    purchase &ndash; as long as the return meets the return requirements &ndash; for example, returning an item within
-    your stated time frame, and meeting item condition requirements.
-</p>
-
-<p>
-    We encourage you to accept returns &ndash; it helps increase buyer satisfaction.
-</p>
-
-<p>
-    If you accept returns, you must specify:
+    If you accept returns, a buyer can return an item for any reason, including a change of mind about purchases given
+    the return meets seller’s stated time frame, condition, and any other requirements. Such return requirements should
+    include:
 </p>
 <ul>
     <li>
-        The time period in which a buyer must notify you about a return;
+        The time period in which a buyfaer must notify you about a return using a base date of date of purchase or date
+        of receipt;
     </li>
     <li>
-        The restocking fee, if any;
+        Restocking fee, if any;
     </li>
     <li>
-        Who pays for return shipping;
+        Financial responsibility for sending items back;
     </li>
     <li>
-        If there are item conditions required for return, and clearly state those conditions;
+        Any item conditions required for the return;
     </li>
     <li>
-        How the refund is issued.
+        Details on how and when refunds are issued
     </li>
 </ul>
 
@@ -266,13 +277,13 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h3>
 
 <p>
-    Given Mercher is not involved in the contractual sale between buyer and seller, Mercher is not an arbitrator in any
-    potential conflict resolution. Any disputes should be resolved using the PayPal&trade; Resolution Process, as PayPal&trade;
-    is the primary mechanism for sale consummation on Mercher. Mercher team may make inquiries and may conduct an
-    investigation into disputes, if alerted, but does not have capacity to be the final arbitrator of disputes. Repeat
-    offenses from users will be noted and Mercher could take actions to suspend their accounts. Otherwise, we recommend
-    taking typical internet commerce precautionary measures, including dealing locally and reviewing seller/buyer
-    history.
+    Given Mercher is not involved in the contractual sale between buyer and seller, Mercher will not act as an
+    arbitrator in any potential conflict resolution, unless requested by both parties. Any disputes should be resolved
+    using the PayPal&trade; Resolution Process, as PayPal&trade; is the primary mechanism for sale consummation on
+    Mercher. Mercher will make inquiries, provide relevant information, and may conduct an investigation into disputes,
+    if alerted, but does not have capacity to be the final arbitrator of disputes. Repeat offenses from users will be
+    noted and Mercher may take action to suspend their accounts. Otherwise, we recommend taking typical Internet
+    commerce precautionary measures, including dealing locally and reviewing seller history.
 </p>
 
 <h3>
@@ -282,12 +293,12 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 <p>
     Feedback is important to maintain the flow of good commerce. Mercher provides no forum or assurance as to the
     integrity or credibility of buyers and sellers. Both parties are advised to give and receive feedback via tools
-    provided by Facebook&reg; and PayPal&trade; services, adhering to their respective terms of service.
+    provided by Facebook&reg; and PayPal&trade; services, following their respective terms of service.
 </p>
 
 <p>
-    When you use the Mercher service to pay for items or services, you agree that we may communicate with you
-    electronically regarding any important information about your purchases or your account.
+    When you use the Mercher service to pay for items, you agree that we may communicate with you electronically
+    regarding any important information about your purchases or your account.
 </p>
 
 <h2>
@@ -300,8 +311,8 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </p>
 
 <p>
-    We may change or update this Agreement from time to time. Changes take effect when we post them on the Mercher
-    website.
+    We may change, alter or update this Agreement at any time. Changes take effect on midnight of posting date to the
+    Mercher website.
 </p>
 
 <p>
@@ -309,14 +320,21 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
     created by this Agreement.
 </p>
 
-<p>
-    No Warranties. You acknowledge that the products or services you may purchase are sold by private parties, not by
-    Mercher. WE MAKE NO WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, WITH RESPECT TO ANY PRODUCTS OR SERVICES SOLD ON OR
-    THROUGH MERCHER.
-</p>
+<h3>
+    No Warranties
+</h3>
 
 <p>
-    Release. You, on behalf of yourself, your company, subsidiaries, affiliates, officers, directors, members, managers,
+    You acknowledge that the products or services you may purchase are sold by private parties, not by Mercher. WE MAKE
+    NO WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, WITH RESPECT TO ANY PRODUCTS OR SERVICES SOLD ON OR THROUGH MERCHER.
+</p>
+
+<h3>
+    Release
+</h3>
+
+<p>
+    You, on behalf of yourself, your company, subsidiaries, affiliates, officers, directors, members, managers,
     employees, agents, customers and contractors, (collectively “User Parties”) hereby unconditionally and forever
     release, discharge and agree to indemnify, defend and hold all of the Mercher associates harmless from any and all
     claims, demands, suits or other proceedings, and all resulting loss, damage, liability, cost and expense (including
@@ -327,13 +345,33 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
     subject to indemnification by you.
 </p>
 
+<h3>
+    Compliance with Laws
+</h3>
+
 <p>
-    Compliance with Laws. In connection with your access to and use of the website and services and that of any person
-    authorized by you to use the service, you are responsible for compliance with all applicable laws, regulations and
-    policies of all relevant jurisdictions. These assurances and commitments by you shall survive termination of this
-    agreement. The website can be accessed from countries around the world. You agree to comply with all applicable
-    export and import laws and regulations. In particular, you represent that you are not a party identified in any
-    government export exclusion list.
+    In connection with your access to and use of the website and services and that of any person authorized by you to
+    use the service, you are responsible for compliance with all applicable laws, regulations and policies of all
+    relevant jurisdictions. These assurances and commitments by you shall survive termination of this agreement. The
+    Website can be accessed from countries around the world. You agree to comply with all applicable export and import
+    laws and regulations. In particular, you represent that you are not a party identified in any government export
+    exclusion list.
+</p>
+
+<h2>
+    Jurisdiction
+</h2>
+
+<p>
+    This website is presently maintained, located and controlled by Mercher in the State of XXX. This Agreement shall be
+    governed by and construed under the law of the State of XXX, without regard to conflicts of law principles or rules
+    thereof. You hereby expressly agree to submit to the exclusive personal jurisdiction of the federal and state courts
+    located in XXX County in the State of XXX for the purpose of resolving any dispute relating to this agreement, your
+    access to or use of this website or the service. You agree to submit to the personal jurisdiction of the courts
+    located in XXX County in the State of XXX and agree to waive any and all objections to the exercise of jurisdiction
+    over the parties by such courts and to venue in such courts. Any legal action arising out of or related to this
+    agreement and your access to and use of this website or the service must be commenced within one year after the
+    cause of action arose or it will be forever barred.
 </p>
 
 <h2>

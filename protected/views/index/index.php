@@ -121,10 +121,10 @@ if (isset($errorCode) and isset($errorMessage)) {
                     </div>
                 </div>
 
-				<div class="hero-get-started">
-					<a class="btn btn-lg" id="ctaButton" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
-					   target="_top"><?php echo Yii::t('label', 'get_started'); ?></a>
-				</div>
+                <div class="hero-get-started">
+                    <a class="btn btn-lg" id="ctaButton" href="<?php echo Yii::app()->facebook->getLoginUrl() ?>"
+                       target="_top"><?php echo Yii::t('label', 'get_started'); ?></a>
+                </div>
 
             </div>
 
@@ -149,39 +149,40 @@ if (isset($errorCode) and isset($errorMessage)) {
 
 <div class="container">
     <div id="hero-desc-block">
-		<p>
-			Facebook it - Sell it.<br>
-			And let your friends on Facebook become your loyal customers.<br>
-			Mercher is the simplest way to add an online shop directly onto your Facebook!<br><br>
-			All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking
-			orders.<br>
-			Stores with up to 10 items are <strong>free</strong>!
-		</p>
+        <p>
+            Facebook it - Sell it.<br>
+            And let your friends on Facebook become your loyal customers.<br>
+            Mercher is the simplest way to add an online shop directly onto your Facebook!<br><br>
+            All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking
+            orders.<br>
+        </p>
     </div>
 </div>
 
 <div class="hero-customers">
-	<div class="container">
-		<h2>Our customers</h2>
-		<div class="row">
-			<?php
-			if (isset($pages) and count($pages)) {
-				foreach ($pages as $page) {
-					echo CHtml::tag(
-						'div',
-						['class' => "col-xs-4 col-md-2"],
-						CHtml::link(
-							CHtml::image("https://graph.facebook.com/$page/picture?width=200&height=200"),
-							"https://www.facebook.com/$page?sk=app_491297224259374",
-							[
-								"class"=> "thumbnail",
-								"target" => '_blank'
-							]
-						)
-					);
-				}
-			}
-			?>
-		</div>
-	</div>
+    <div class="container">
+        <h2>Our customers</h2>
+
+        <div class="row">
+            <?php
+            if (isset($pages) and count($pages)) {
+                foreach ($pages as $page) {
+                    echo CHtml::tag(
+                        'div',
+                        ['class' => "col-xs-4 col-md-2"],
+                        CHtml::link(
+                            CHtml::image("https://graph.facebook.com/$page/picture?width=200&height=200"),
+                            "https://www.facebook.com/$page?sk=app_491297224259374",
+                            [
+                                "class"  => "thumbnail",
+                                "target" => '_blank',
+                                "style"  => "width: 100%;"
+                            ]
+                        )
+                    );
+                }
+            }
+            ?>
+        </div>
+    </div>
 </div>
