@@ -159,13 +159,14 @@ if (isset($errorCode) and isset($errorMessage)) {
     </div>
 </div>
 
+<!--
 <div class="hero-customers">
     <div class="container">
         <h2>Our customers</h2>
 
         <div class="row">
             <?php
-            if (isset($pages) and count($pages)) {
+/*            if (isset($pages) and count($pages)) {
                 foreach ($pages as $page) {
                     echo CHtml::tag(
                         'div',
@@ -181,7 +182,8 @@ if (isset($errorCode) and isset($errorMessage)) {
                     );
                 }
             }
-            ?>
+            */?>
         </div>
     </div>
 </div>
+-->
