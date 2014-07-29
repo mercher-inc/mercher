@@ -363,15 +363,15 @@ $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('label', 'terms');
 </h2>
 
 <p>
-    This website is presently maintained, located and controlled by Mercher in the State of XXX. This Agreement shall be
-    governed by and construed under the law of the State of XXX, without regard to conflicts of law principles or rules
-    thereof. You hereby expressly agree to submit to the exclusive personal jurisdiction of the federal and state courts
-    located in XXX County in the State of XXX for the purpose of resolving any dispute relating to this agreement, your
-    access to or use of this website or the service. You agree to submit to the personal jurisdiction of the courts
-    located in XXX County in the State of XXX and agree to waive any and all objections to the exercise of jurisdiction
-    over the parties by such courts and to venue in such courts. Any legal action arising out of or related to this
-    agreement and your access to and use of this website or the service must be commenced within one year after the
-    cause of action arose or it will be forever barred.
+    This website is presently maintained, located and controlled by Mercher in the State of Delaware. This Agreement
+    shall be governed by and construed under the law of the State of Delaware, without regard to conflicts of law
+    principles or rules thereof. You hereby expressly agree to submit to the exclusive personal jurisdiction of the
+    federal and state courts located in Delaware County in the State of Delaware for the purpose of resolving any
+    dispute relating to this agreement, your access to or use of this website or the service. You agree to submit to the
+    personal jurisdiction of the courts located in Delaware County in the State of Delaware and agree to waive any and
+    all objections to the exercise of jurisdiction over the parties by such courts and to venue in such courts. Any
+    legal action arising out of or related to this agreement and your access to and use of this website or the service
+    must be commenced within one year after the cause of action arose or it will be forever barred.
 </p>
 
 <h2>
