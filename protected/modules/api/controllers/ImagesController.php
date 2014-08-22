@@ -61,7 +61,7 @@ class ImagesController extends CController
                 throw new CHttpException(400, 'This file is not acceptable');
         }
 
-        if ($_FILES['image']['size'] > 1024 * 1024 * 1) {
+        if ($_FILES['image']['size'] > 1024 * 1024 * 5) {
             throw new CHttpException(400, 'File is too big');
         }
 
