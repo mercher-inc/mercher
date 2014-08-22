@@ -130,7 +130,7 @@ JS;
         echo CHtml::tag(
             'div',
             ['class' => 'text-muted'],
-            '* ' . CHtml::tag('em', [], 'Max. image size is 1MB, 2000*2000 pixels')
+            '* ' . CHtml::tag('em', [], 'Max. image size is 1MB, 10000*10000 pixels')
         );
     }
 }

@@ -82,7 +82,7 @@ class ImagesController extends CController
 
         $size = getimagesize($_FILES['image']['tmp_name']);
 
-        if ($size[0] > 2000 or $size[1] > 2000) {
+        if ($size[0] > 10000 or $size[1] > 10000) {
             throw new CHttpException(400, 'Image is too large');
         }
 
