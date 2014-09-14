@@ -109,6 +109,7 @@ class Shop extends CActiveRecord
             array('owner_id', 'setDefaultOwnerId', 'on' => 'insert'),
             array('title', 'default', 'value' => 'Shop'),
             array('description, fb_id, ga_id, image_id', 'default', 'value' => null),
+            array('description', 'filter', 'filter' => 'strip_tags'),
             array('tax', 'default', 'value' => 0),
             array('tax', 'numerical', 'max' => 99.9999, 'min' => 0),
             array('is_active, is_banned', 'boolFilter'),
