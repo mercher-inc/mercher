@@ -34,7 +34,14 @@ define(function (require, exports, module) {
 
             this.cartItemsCollection = new CartItemsCollection();
             this.cartDialog = new CartDialog({router: this, collection: this.cartItemsCollection});
-            this.cartItemsCollection.fetch({data: {limit: -1}});
+
+            require(['fb'], function (FB) {
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        app.cartItemsCollection.fetch({data: {limit: -1}});
+                    }
+                });
+            });
 
             this.mainNav = new MainNav({router: this});
             this.mainLayout.setView('header#header', this.mainNav);
