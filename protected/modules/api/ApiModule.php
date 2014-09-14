@@ -42,7 +42,7 @@ class ApiModule extends CWebModule
             }
         }
         if (Yii::app()->user->isGuest) {
-            $identity = new UserIdentity();
+            $identity = new TabUserIdentity();
             $identity->authenticate();
             if($identity->authenticate())
             {
