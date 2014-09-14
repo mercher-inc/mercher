@@ -73,6 +73,8 @@ define(function (require, exports, module) {
                         view.model.adds.fetch();
                     }
                 });
+                FB.XFBML.parse(view.el);
+                console.log(view.el);
             });
             var cartItemsCollection = view.controller.options.router.cartItemsCollection;
             var cartItems = cartItemsCollection.where({product_id: view.model.id});
