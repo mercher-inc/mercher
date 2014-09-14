@@ -104,6 +104,6 @@ requirejs.config({
         fb: ["facebook"],
         ga: ["google-analytics"]
     },
-    urlArgs: { 'bust': Date.now() },
+    urlArgs: "bust=" +  (new Date()).getTime(),
     waitSeconds: 15
 });
