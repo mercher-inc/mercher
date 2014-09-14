@@ -150,7 +150,7 @@ class ProductsController extends Controller
             'ogRead',
             array(
                 'shop'           => $this->shop,
-                'model'          => $this->product,
+                'product'          => $this->product,
                 'appId'        => Yii::app()->facebook->appId
             )
         );
