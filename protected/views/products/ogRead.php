@@ -12,7 +12,7 @@
     <meta property="og:url"                          content="<?php echo Yii::app()->urlManager->createUrl('products/ogRead', ['product_id' => $product->id]) ?>" />
     <meta property="og:title"                        content="<?php echo $product->title ?>" />
     <?php if ($product->image) { ?>
-        <meta property="og:image"                        content="<?php echo $product->image->getSize('l') ?>" />
+        <meta property="og:image"                        content="<?php echo Yii::app()->urlManager->getBaseUrl() . $product->image->getSize('l') ?>" />
     <?php } ?>
     <?php if ($product->price) { ?>
         <meta property="product:price:amount"            content="<?php echo $product->price ?>" />
