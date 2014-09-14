@@ -10,6 +10,7 @@
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
     <meta property="fb:app_id" content="<?php echo $appId ?>" />
     <meta property="fb:profile_id" content="<?php echo $shop->fb_id ?>" />
+    <meta property="fb:admins" content="<?php echo $shop->owner->fb_id ?>" />
     <meta property="og:type" content="product" />
     <meta property="og:url" content="<?php echo Yii::app()->urlManager->createUrl('products/ogRead', ['product_id' => $product->id]) ?>" />
     <meta property="og:title" content="<?php echo $product->title ?>" />
@@ -31,6 +32,6 @@
         //window.location.replace("https://www.facebook.com/<?php echo $shop->fb_id ?>?sk=app_<?php echo $appId ?>");
     </script>
 <?php //var_dump($product); ?>
-<?php var_dump($shop->owner); ?>
+<?php //var_dump($shop); ?>
 </body>
 </html>
