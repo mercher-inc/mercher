@@ -7,10 +7,10 @@
 ?>
 <html>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
-    <meta property="fb:app_id"                       content=<?php echo $appId ?> />
+    <meta property="fb:app_id"                       content="<?php echo $appId ?>" />
     <meta property="og:type"                         content="product" />
-    <meta property="og:url"                          content=<?php echo Yii::app()->urlManager->createUrl('products/ogRead', ['product_id' => $model->id]) ?> />
-    <meta property="og:title"                        content=<?php echo $model->title ?> />
+    <meta property="og:url"                          content="<?php echo Yii::app()->urlManager->createUrl('products/ogRead', ['product_id' => $model->id]) ?>" />
+    <meta property="og:title"                        content="<?php echo $model->title ?>" />
     <meta property="og:image"                        content="https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" />
     <meta property="product:original_price:amount"   content="Sample Original Price: " />
     <meta property="product:original_price:currency" content="Sample Original Price: " />
@@ -30,6 +30,6 @@
     <meta property="product:sale_price_dates:end"    content="Sample Sale Price Dates: End" />
 </head>
 <body>
-
+<?php var_dump($model); ?>
 </body>
 </html>
