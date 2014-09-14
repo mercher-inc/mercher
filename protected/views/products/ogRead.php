@@ -19,8 +19,12 @@
         <meta property="product:price:amount" content="<?php echo $product->price ?>" />
         <meta property="product:price:currency" content="USD" />
     <?php } ?>
+    <?php if ($product->shipping) { ?>
+        <meta property="product:shipping_cost:amount" content="<?php echo $product->shipping ?>" />
+        <meta property="product:shipping_cost:currency" content="USD" />
+    <?php } ?>
 </head>
 <body>
-<?php var_dump($product); ?>
+<?php //var_dump($product); ?>
 </body>
 </html>
