@@ -36,7 +36,7 @@ define(function (require, exports, module) {
             this.cartDialog = new CartDialog({router: this, collection: this.cartItemsCollection});
 
             require(['fb'], function (FB) {
-                FB.getLoginStatus(function (response) {
+                FB.Event.subscribe('auth.statusChange', function (response) {
                     if (response.status === 'connected') {
                         app.cartItemsCollection.fetch({data: {limit: -1}});
                     }
