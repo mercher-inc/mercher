@@ -76,6 +76,11 @@ class ProductsController extends Controller
                 )
             ),
             array(
+                'allow',
+                'actions' => array('ogRead'),
+                'users' => array('*')
+            ),
+            array(
                 'deny',
                 'users' => array('*'),
             ),
