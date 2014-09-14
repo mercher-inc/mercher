@@ -6427,6 +6427,11 @@ fieldset[disabled] .btn-info-link.active {
 .view.products-index-item .card .info .socialPlugins {
   margin: 15px 0;
 }
+.view.products-index-item .card .info .socialPlugins .fb_iframe_widget span {
+  overflow: visible!important;
+  z-index: 2;
+  position: absolute;
+}
 .view.orders-index-item .card {
   margin: 0 0 30px 0;
   height: 50px;
