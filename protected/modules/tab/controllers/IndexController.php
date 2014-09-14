@@ -22,14 +22,14 @@ class IndexController extends CController
          */
         $clientScript = Yii::app()->clientScript;
         $clientScript->registerCssFile(
-            '/css/tab.css'
+            '/css/tab.css?bust='.time()
         );
         $clientScript->registerScriptFile(
-            '/js/vendors/require/require-min-2.1.10.js',
+            '/js/vendors/require/require-min-2.1.10.js?bust='.time(),
             CClientScript::POS_HEAD
         );
         $clientScript->registerScriptFile(
-            '/js/tab/config.js',
+            '/js/tab/config.js?bust='.time(),
             CClientScript::POS_HEAD
         );
         $clientScript->registerScript(
