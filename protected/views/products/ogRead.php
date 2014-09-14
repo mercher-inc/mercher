@@ -2,6 +2,7 @@
 /**
  * @var $this ProductsController
  * @var $product Product
+ * @var $shop Shop
  * @var $appId string
  */
 ?>
@@ -26,9 +27,9 @@
 </head>
 <body>
     <script>
-<!--        window.location.replace("https://www.facebook.com/231714816997930?sk=app_--><?php //echo $appId ?><!--");-->
+        //window.location.replace("https://www.facebook.com/<?php echo $shop->fb_id ?>?sk=app_<?php echo $appId ?>");
     </script>
 <?php //var_dump($product); ?>
-<?php var_dump($shop); ?>
+<?php //var_dump($shop); ?>
 </body>
 </html>
