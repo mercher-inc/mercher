@@ -19,6 +19,10 @@ define(function (require, exports, module) {
         },
 
         initialize: function (options) {
+            console.log(options.router);
+        },
+
+        serialize: function () {
 
         }
 
