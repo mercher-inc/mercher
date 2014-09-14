@@ -146,7 +146,7 @@ class ProductsController extends Controller
 
     public function actionOgRead($product_id)
     {
-        $this->render(
+        $this->renderPartial(
             'ogRead',
             array(
                 'shop'           => $this->shop,
