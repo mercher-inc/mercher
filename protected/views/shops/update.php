@@ -171,6 +171,24 @@ Yii::app()->clientScript->registerScript(
     </div>
 
     <div class="row">
+        <div class="form-group col-lg-12 <?= $model->hasErrors('description') ? ' has-error' : '' ?>">
+            <?php
+            echo $form->label($model, 'description', ['class' => 'control-label']);
+            echo $form->textArea(
+                $model,
+                'description',
+                [
+                    'class'       => 'form-control',
+                    'data-toggle' => 'tooltip',
+                    'title'       => Yii::t('shop', 'help_description')
+                ]
+            );
+            echo $form->error($model, 'description', ['class' => 'help-block']);
+            ?>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="form-group actions col-lg-12">
             <?php
             echo CHtml::submitButton(
