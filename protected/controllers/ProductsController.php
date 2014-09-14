@@ -146,7 +146,13 @@ class ProductsController extends Controller
 
     public function actionOgRead($product_id)
     {
-        var_dump($this->product);
+        $this->render(
+            'ogRead',
+            array(
+                'shop'           => $this->shop,
+                'model'          => $this->product
+            )
+        );
     }
 
     public function actionUpdate()
