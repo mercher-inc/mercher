@@ -1,8 +1,10 @@
 <div id="fb-root"></div>
 <header id="header"></header>
+<% if (!_.isEmpty(shop.get('description'))) { %>
 <div class="container">
-    <p id="description"></p>
+    <p id="description"><%= shop.get('description') %></p>
 </div>
+<% } %>
 <section id="content"></section>
 <footer id="footer"></footer>
 <div id="dialogs"></div>

@@ -19,11 +19,11 @@ define(function (require, exports, module) {
         },
 
         initialize: function (options) {
-            console.log(options.router);
+            this.shopModel = options.router.shopModel;
         },
 
         serialize: function () {
-
+            return {shop: this.shopModel};
         }
 
     });
