@@ -39,6 +39,7 @@ return array_merge(
         'shops/<shop_id:\d+>/products/<product_id:\d+>'                                                 => 'products/read',
         'shops/<shop_id:\d+>/products/<product_id:\d+>/settings'                                        => 'products/update',
         'shops/<shop_id:\d+>/products/<product_id:\d+>/delete'                                          => 'products/delete',
+        'products/<product_id:\d+>'                                                                     => 'products/ogRead',
         //==Orders==
         'shops/<shop_id:\d+>/orders'                                                                    => 'orders/index',
         'shops/<shop_id:\d+>/orders/<order_id:\d+>'                                                     => 'orders/read',

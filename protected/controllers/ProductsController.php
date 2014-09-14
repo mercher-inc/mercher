@@ -139,6 +139,11 @@ class ProductsController extends Controller
         $this->render('read');
     }
 
+    public function actionOgRead($product_id)
+    {
+        var_dump($this->product);
+    }
+
     public function actionUpdate()
     {
         if (isset($_POST['Product'])) {
