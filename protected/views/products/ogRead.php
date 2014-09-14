@@ -25,6 +25,10 @@
     <?php } ?>
 </head>
 <body>
+    <script>
+<!--        window.location.replace("https://www.facebook.com/231714816997930?sk=app_--><?php //echo $appId ?><!--");-->
+    </script>
 <?php //var_dump($product); ?>
+<?php var_dump($shop); ?>
 </body>
 </html>
