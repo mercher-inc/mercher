@@ -6426,10 +6426,11 @@ fieldset[disabled] .btn-info-link.active {
 }
 .view.products-index-item .card .info .socialPlugins {
   margin: 15px 0;
+  height: 20px;
 }
-.view.products-index-item .card .info .socialPlugins .fb_iframe_widget span {
+.view.products-index-item .card .info .socialPlugins .fb_iframe_widget {
   overflow: visible!important;
-  z-index: 2;
+  z-index: 10;
   position: absolute;
 }
 .view.orders-index-item .card {
