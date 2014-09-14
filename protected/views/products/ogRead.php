@@ -29,9 +29,7 @@
 </head>
 <body>
     <script>
-        //window.location.replace("https://www.facebook.com/<?php echo $shop->fb_id ?>?sk=app_<?php echo $appId ?>");
+        window.location.replace("https://www.facebook.com/<?php echo $shop->fb_id ?>?sk=app_<?php echo $appId ?>");
     </script>
-<?php //var_dump($product); ?>
-<?php //var_dump($shop); ?>
 </body>
 </html>
