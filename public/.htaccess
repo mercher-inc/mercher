@@ -4,9 +4,9 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# otherwise forward it to index.php
+RewriteRule . index.php
+
 # redirect from www
 RewriteCond %{HTTP_HOST} ^www\.mercher\.net$ [NC]
 RewriteRule ^.*$ https://mercher.net%{REQUEST_URI} [R=301,L]
-
-# otherwise forward it to index.php
-RewriteRule . index.php
