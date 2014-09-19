@@ -54,7 +54,7 @@ class CreateOrderAction extends CAction
         $order->shop_id = $shop->id;
         $order->user_id = $user->id;
         $order->status  = Order::STATUS_NEW;
-        $order->expires = new \CDbExpression('NOW() + \'1 hour\'');
+        $order->expires = new \CDbExpression('NOW() + \'15 minutes\'');
 
         if (!$order->save()) {
             $transaction->rollback();

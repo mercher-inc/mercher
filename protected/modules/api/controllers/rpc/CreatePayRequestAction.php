@@ -79,7 +79,7 @@ class CreatePayRequestAction extends CAction
             );
             */
 
-            $payRequest->payKeyDuration               = 'PT1H';
+            $payRequest->payKeyDuration               = 'PT15M';
             $payRequest->trackingId                   = $order->id;
             $payRequest->requestEnvelope->detailLevel = "ReturnAll";
 
