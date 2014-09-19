@@ -15,6 +15,7 @@
     <meta property="og:url" content="<?php echo Yii::app()->urlManager->createUrl('products/ogRead', ['product_id' => $product->id]) ?>" />
     <meta property="og:title" content="<?php echo $product->title ?>" />
     <meta property="og:description" content="<?php echo $product->description ?>" />
+    <meta property="og:rich_attachment" content="true" />
     <?php if ($product->image) { ?>
         <meta property="og:image" content="<?php echo 'https://mercher.net' . $product->image->getSize('l') ?>" />
     <?php } ?>
