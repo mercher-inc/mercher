@@ -12,11 +12,9 @@ namespace export\controllers;
 
 class OrdersController extends \Controller
 {
-    public $password = '4f3969cdb80a752c372e2dbcd30f163431b6f587';
-
     public function actionList($password)
     {
-        if ($password != $this->$password) {
+        if ($password != '4f3969cdb80a752c372e2dbcd30f163431b6f587') {
             throw new \CHttpException(403, 'Wrong password');
         }
 
