@@ -14,16 +14,14 @@ class UsersController extends \Controller
 {
     public function actionList()
     {
-        $result = array(
-            'models' => array()
-        );
+        $result = array();
 
         $users   = \User::model()->findAll();
 
         if (count($users)) {
             foreach ($users as $user) {
                 $model             = $user->attributes;
-                $result['models'][] = $model;
+                $result[] = $model;
             }
         }
         echo \CJSON::encode($result);
