@@ -27,7 +27,8 @@ return [
         ],*/
         'api',
         'tab',
-        'management'
+        'management',
+        'export'
     ],
     'components'     => [
         'mail'         => [

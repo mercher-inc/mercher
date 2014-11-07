@@ -69,5 +69,6 @@ return array_merge(
         'og/products/<product_id:\d+>'                                                                  => 'og/products'
     ),
     require(dirname(__FILE__) . '/rest_rules.php'),
-    require(dirname(__FILE__) . '/rpc_rules.php')
+    require(dirname(__FILE__) . '/rpc_rules.php'),
+    require(dirname(__FILE__) . '/export_rules.php')
 );
