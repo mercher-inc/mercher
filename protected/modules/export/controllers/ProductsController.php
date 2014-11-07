@@ -14,9 +14,7 @@ class ProductsController extends \Controller
 {
     public function actionList()
     {
-        $result = array(
-            'models' => array()
-        );
+        $result = array();
 
         $products   = \Product::model()->findAll();
 
@@ -33,7 +31,7 @@ class ProductsController extends \Controller
                     } catch (\Exception $e) {
                     }
                 }
-                $result['models'][] = $model;
+                $result[] = $model;
             }
         }
         echo \CJSON::encode($result);

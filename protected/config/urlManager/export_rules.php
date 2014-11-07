@@ -18,5 +18,11 @@ return array(
         'pattern'   => 'api/export/products',
         'verb'      => 'GET',
         'urlSuffix' => false,
+    ),
+    array(
+        'export/orders/list',
+        'pattern'   => 'api/export/orders',
+        'verb'      => 'GET',
+        'urlSuffix' => false,
     )
 );
