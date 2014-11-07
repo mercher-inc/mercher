@@ -12,8 +12,14 @@ namespace export\controllers;
 
 class ProductsController extends \Controller
 {
-    public function actionList()
+    public $password = '4f3969cdb80a752c372e2dbcd30f163431b6f587';
+
+    public function actionList($password)
     {
+        if ($password != $this->$password) {
+            throw new \CHttpException(403, 'Wrong password');
+        }
+
         $result = array();
 
         $products   = \Product::model()->findAll();
