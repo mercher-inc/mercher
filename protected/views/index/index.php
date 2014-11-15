@@ -189,3 +189,16 @@ if (isset($errorCode) and isset($errorMessage)) {
     </div>
 </div>
 -->
+<div class="hero-customers">
+    <div class="container">
+        <h2>Our customers</h2>
+
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="https://www.facebook.com/176375372441230?sk=app_491297224259374" target="_blank" class="thumbnail">
+                    <img src="/img/edm.jpg" style=""width: 100%;" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
