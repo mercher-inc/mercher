@@ -91,7 +91,7 @@ class IndexController extends Controller
             ->where(
                 [
                     "in",
-                    "user.fb_id",
+                    "shop.fb_id",
                     [
                         '176375372441230', //EDM Madness
                         '628065013907401'  //Daria's HAIR Accessories. FB shop.
