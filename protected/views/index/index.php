@@ -191,7 +191,7 @@ if (isset($errorCode) and isset($errorMessage)) {
 -->
 <div class="hero-customers">
     <div class="container">
-        <h2>Our customers</h2>
+        <h2>Featured customers</h2>
 
         <div class="row">
             <div class="col-md-2 col-md-offset-4">
