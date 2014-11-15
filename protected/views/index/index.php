@@ -150,11 +150,13 @@ if (isset($errorCode) and isset($errorMessage)) {
 <div class="container">
     <div id="hero-desc-block">
         <p>
-            Facebook it - Sell it.<br>
+            <strong>Facebook it - Sell it.</strong><br>
             And let your friends on Facebook become your loyal customers.<br>
-            Mercher is the simplest way to add an online shop directly onto your Facebook!<br><br>
-            All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal email</strong> to start taking
-            orders.<br>
+            Mercher is the simplest way to add an online shop directly onto your Facebook!<br>
+            <br>
+            All you need is a <strong>Facebook Fan Page</strong> and a <strong>PayPal account</strong> to start taking orders.<br>
+            No monthly cost. 2% Mercher fee <strong>only</strong> when you sell.<br>
+            Try Mercher now and see for yourself!<br>
         </p>
     </div>
 </div>
