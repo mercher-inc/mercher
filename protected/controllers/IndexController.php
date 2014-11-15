@@ -90,8 +90,13 @@ class IndexController extends Controller
             ->where("shop.is_active = TRUE")
             ->where(
                 [
-                    "not in",
+                    "in",
                     "user.fb_id",
+                    [
+                        '176375372441230', //EDM Madness
+                        '628065013907401'  //Daria's HAIR Accessories. FB shop.
+                    ]
+                    /*
                     [
                         '100006973868538', //Mihail Les
                         '100005603078334', //Open User
@@ -100,6 +105,7 @@ class IndexController extends Controller
                         '2500458', //Sam Pogosov
                         '10805126', //Yury Adamov
                     ]
+                    */
                 ]
             )
             ->limit(6)
