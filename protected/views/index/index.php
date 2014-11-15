@@ -199,6 +199,11 @@ if (isset($errorCode) and isset($errorMessage)) {
                     <img src="/img/edm.jpg" style=""width: 100%;" />
                 </a>
             </div>
+            <div class="col-xs-4 col-md-2">
+                <a href="https://www.facebook.com/628065013907401?sk=app_491297224259374" target="_blank" class="thumbnail">
+                    <img src="/img/dha.jpg" style=""width: 100%;" />
+                </a>
+            </div>
         </div>
     </div>
 </div>
