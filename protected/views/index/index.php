@@ -161,6 +161,7 @@ if (isset($errorCode) and isset($errorMessage)) {
     </div>
 </div>
 
+<!--
 <div class="hero-customers">
     <div class="container">
         <h2>Our customers</h2>
@@ -187,3 +188,4 @@ if (isset($errorCode) and isset($errorMessage)) {
         </div>
     </div>
 </div>
+-->
