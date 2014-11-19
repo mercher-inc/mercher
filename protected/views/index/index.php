@@ -194,7 +194,7 @@ if (isset($errorCode) and isset($errorMessage)) {
         <h2>Featured customers</h2>
 
         <div class="row">
-            <div class="col-md-2 col-md-offset-3">
+            <div class="col-md-2 col-md-offset-2">
                 <a href="https://www.facebook.com/176375372441230?sk=app_491297224259374" target="_blank" class="thumbnail">
                     <img src="/img/edm.jpg" style=""width: 100%;" />
                 </a>
@@ -207,6 +207,11 @@ if (isset($errorCode) and isset($errorMessage)) {
             <div class="col-md-2">
                 <a href="https://www.facebook.com/628065013907401?sk=app_491297224259374" target="_blank" class="thumbnail">
                     <img src="/img/dha.jpg" style=""width: 100%;" />
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="https://www.facebook.com/314397168740080?sk=app_491297224259374" target="_blank" class="thumbnail">
+                    <img src="/img/adora_bags.png" style=""width: 100%;" />
                 </a>
             </div>
         </div>
