@@ -128,20 +128,8 @@ if (isset($errorCode) and isset($errorMessage)) {
 
             </div>
 
-            <div class="col-lg-6 col-md-6 hidden-sm hidden-xs hidden-md">
-                <div id="carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img class="hero-img" src="/img/hero-img-1.jpg">
-                        </div>
-                        <div class="item">
-                            <img class="hero-img" src="/img/hero-img-2.jpg">
-                        </div>
-                        <div class="item">
-                            <img class="hero-img" src="/img/hero-img-3.jpg">
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-6">
+                <iframe width="100%" height="370" src="//www.youtube.com/embed/BrnjO3CH9WU" frameborder="0" allowfullscreen="" style="display: block;"></iframe>
             </div>
         </div>
     </div>
